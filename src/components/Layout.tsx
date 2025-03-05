@@ -35,15 +35,11 @@ export function Layout() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const isMobile = useBreakpointValue({ base: true, md: false });
 
-  const bgColor = colorMode === "dark" ? "gray.900" : "white";
-  const textColor = colorMode === "dark" ? "yellow.400" : "gray.900";
+  const bgColor = colorMode === "dark" ? "gray.900" : "gray.50";
+  const textColor = colorMode === "dark" ? "yellow.400" : "yellow.600";
   const navBgColor =
-    colorMode === "dark" ? "rgba(0, 0, 0, 0.9)" : "rgba(255, 255, 255, 0.9)";
-
-  const glowKeyframes = keyframes`
-    0% { text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 30px #FFD700; }
-    100% { text-shadow: 0 0 20px #FFD700, 0 0 30px #FFD700, 0 0 40px #FFD700; }
-  `;
+    colorMode === "dark" ? "rgba(0, 0, 0, 0.95)" : "rgba(255, 255, 255, 0.95)";
+  const hoverColor = colorMode === "dark" ? "yellow.300" : "yellow.600";
 
   const starKeyframes = keyframes`
     0% { opacity: 0.3; }
@@ -53,11 +49,11 @@ export function Layout() {
 
   const StyledLink = styled(ChakraLink)`
     position: relative;
-    color: ${colorMode === "dark" ? "#FFD700" : "#000000"};
+    color: ${colorMode === "dark" ? "#FFD700" : "#B8860B"};
     transition: all 0.3s ease;
 
     &:hover {
-      color: ${colorMode === "dark" ? "#FFFFFF" : "#FFD700"};
+      color: ${colorMode === "dark" ? "#FFFFFF" : "#DAA520"};
       text-shadow: 0 0 8px ${colorMode === "dark" ? "#FFD700" : "#000000"};
     }
 
@@ -68,7 +64,7 @@ export function Layout() {
       height: 2px;
       bottom: -2px;
       left: 0;
-      background: ${colorMode === "dark" ? "#FFD700" : "#000000"};
+      background: ${colorMode === "dark" ? "#FFD700" : "#DAA520"};
       visibility: hidden;
       transform: scaleX(0);
       transition: all 0.3s ease-in-out;
@@ -82,34 +78,43 @@ export function Layout() {
 
   const NavLinks = () => (
     <>
-      <ChakraLink as={RouterLink} to="/" _hover={{ color: "brand.yellow.400" }}>
+      <ChakraLink
+        as={RouterLink}
+        to="/"
+        _hover={{ color: hoverColor }}
+        transition="all 0.3s ease"
+      >
         Home
       </ChakraLink>
       <ChakraLink
         as={RouterLink}
         to="/about"
-        _hover={{ color: "brand.yellow.400" }}
+        _hover={{ color: hoverColor }}
+        transition="all 0.3s ease"
       >
         Sobre Mim
       </ChakraLink>
       <ChakraLink
         as={RouterLink}
         to="/portfolio/development"
-        _hover={{ color: "brand.yellow.400" }}
+        _hover={{ color: hoverColor }}
+        transition="all 0.3s ease"
       >
         Desenvolvimento
       </ChakraLink>
       <ChakraLink
         as={RouterLink}
         to="/portfolio/design"
-        _hover={{ color: "brand.yellow.400" }}
+        _hover={{ color: hoverColor }}
+        transition="all 0.3s ease"
       >
         Design
       </ChakraLink>
       <ChakraLink
         as={RouterLink}
         to="/portfolio/social-media"
-        _hover={{ color: "brand.yellow.400" }}
+        _hover={{ color: hoverColor }}
+        transition="all 0.3s ease"
       >
         Social Media
       </ChakraLink>

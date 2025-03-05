@@ -1,5 +1,6 @@
-import { Box, Container, Heading, Text, Stack, Image, Button, Flex } from '@chakra-ui/react';
+import { Box, Container, Heading, Text, Stack, Image, Button, Flex, IconButton, HStack } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
+import { FaGithub, FaLinkedin, FaInstagram, FaBehance } from 'react-icons/fa';
 
 export function Home() {
   return (
@@ -23,10 +24,20 @@ export function Home() {
               bgGradient="linear(to-r, brand.yellow.400, brand.yellow.500)"
               bgClip="text"
               letterSpacing="tight"
+              mb={4}
             >
               Desenvolvedor Full Stack &
               <br />
               Designer Digital
+            </Heading>
+            <Heading
+              as="h2"
+              size="md"
+              color="gray.500"
+              fontWeight="normal"
+              mb={6}
+            >
+              Transformando ideias em realidade digital
             </Heading>
           </Box>
 
@@ -66,6 +77,59 @@ export function Home() {
               Contato
             </Button>
           </Stack>
+
+          <HStack
+            as={motion.div}
+            spacing={4}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: "0.5s", delay: "0.6s" }}
+          >
+            <IconButton
+              as="a"
+              href="https://github.com/yourusername"
+              target="_blank"
+              aria-label="GitHub"
+              icon={<FaGithub />}
+              variant="ghost"
+              fontSize="24px"
+              color="gray.400"
+              _hover={{ color: 'brand.yellow.400' }}
+            />
+            <IconButton
+              as="a"
+              href="https://linkedin.com/in/yourusername"
+              target="_blank"
+              aria-label="LinkedIn"
+              icon={<FaLinkedin />}
+              variant="ghost"
+              fontSize="24px"
+              color="gray.400"
+              _hover={{ color: 'brand.yellow.400' }}
+            />
+            <IconButton
+              as="a"
+              href="https://instagram.com/yourusername"
+              target="_blank"
+              aria-label="Instagram"
+              icon={<FaInstagram />}
+              variant="ghost"
+              fontSize="24px"
+              color="gray.400"
+              _hover={{ color: 'brand.yellow.400' }}
+            />
+            <IconButton
+              as="a"
+              href="https://behance.net/yourusername"
+              target="_blank"
+              aria-label="Behance"
+              icon={<FaBehance />}
+              variant="ghost"
+              fontSize="24px"
+              color="gray.400"
+              _hover={{ color: 'brand.yellow.400' }}
+            />
+          </HStack>
         </Stack>
 
         <Box
@@ -98,14 +162,9 @@ export function Home() {
             w={{ base: "300px", md: "400px" }}
             h={{ base: "300px", md: "400px" }}
             borderRadius="full"
-            border="4px solid"
-            borderColor="brand.yellow.400"
             objectFit="cover"
-            borderRadius="full"
-            border="4px solid"
-            borderColor="brand.yellow.400"
-            position="relative"
             zIndex={1}
+            position="relative"
           />
         </Box>
       </Flex>
