@@ -1,6 +1,7 @@
 import { Box, Container, Heading, Text, Stack, Image, Button, Flex, IconButton, HStack } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaInstagram, FaBehance } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 export function Home() {
   return (
@@ -61,7 +62,19 @@ export function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: "0.5s", delay: "0.4s" }}
           >
-            <Button size="lg" variant="solid">
+            <Button
+              size="lg"
+              variant="solid"
+              as={Link}
+              to="/portfolio/development"
+              bg="brand.yellow.400"
+              color="brand.space.500"
+              _hover={{
+                bg: 'brand.yellow.500',
+                transform: 'translateY(-2px)',
+                boxShadow: 'lg'
+              }}
+            >
               Ver Projetos
             </Button>
             <Button
@@ -87,7 +100,7 @@ export function Home() {
           >
             <IconButton
               as="a"
-              href="https://github.com/yourusername"
+              href="https://github.com/rogeriojosentr"
               target="_blank"
               aria-label="GitHub"
               icon={<FaGithub />}
@@ -98,7 +111,7 @@ export function Home() {
             />
             <IconButton
               as="a"
-              href="https://linkedin.com/in/yourusername"
+              href="https://www.linkedin.com/in/rogeriojosentr/"
               target="_blank"
               aria-label="LinkedIn"
               icon={<FaLinkedin />}
@@ -109,7 +122,7 @@ export function Home() {
             />
             <IconButton
               as="a"
-              href="https://instagram.com/yourusername"
+              href="https://www.instagram.com/rogeriojosentr/"
               target="_blank"
               aria-label="Instagram"
               icon={<FaInstagram />}
@@ -120,7 +133,7 @@ export function Home() {
             />
             <IconButton
               as="a"
-              href="https://behance.net/yourusername"
+              href="https://www.behance.net/rogeriojosentr"
               target="_blank"
               aria-label="Behance"
               icon={<FaBehance />}
