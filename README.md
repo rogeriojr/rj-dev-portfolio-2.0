@@ -24,19 +24,23 @@ Este é um portfólio profissional desenvolvido com tecnologias modernas para ap
 ### Passos para Instalação
 
 1. Clone o repositório:
+
 ```bash
 git clone [URL_DO_REPOSITÓRIO]
 ```
 
-2. Instale as dependências:
+1. Instale as dependências:
+
 ```bash
 npm install
 ```
 
-3. Configure as variáveis de ambiente:
+1. Configure as variáveis de ambiente:
+
 - Copie o arquivo `.env.example` para `.env`
 - Preencha as variáveis com suas credenciais do Firebase:
-```env
+
+```properties
 VITE_FIREBASE_API_KEY=sua_api_key
 VITE_FIREBASE_AUTH_DOMAIN=seu_auth_domain
 VITE_FIREBASE_PROJECT_ID=seu_project_id
@@ -45,14 +49,15 @@ VITE_FIREBASE_MESSAGING_SENDER_ID=seu_sender_id
 VITE_FIREBASE_APP_ID=seu_app_id
 ```
 
-4. Inicie o servidor de desenvolvimento:
+1. Inicie o servidor de desenvolvimento:
+
 ```bash
 npm run dev
 ```
 
 ## 📁 Estrutura de Pastas
 
-```
+```plaintext
 ├── public/               # Arquivos públicos estáticos
 ├── src/                  # Código fonte
 │   ├── assets/           # Recursos estáticos (imagens, etc)
@@ -69,6 +74,7 @@ npm run dev
 ## 🖥️ Funcionalidades
 
 ### Área Pública
+
 - **Home**: Apresentação pessoal e links profissionais
 - **Sobre**: Informações detalhadas sobre experiência e habilidades
 - **Portfólio**: Projetos organizados por categorias
@@ -77,6 +83,7 @@ npm run dev
   - Social Media
 
 ### Área Administrativa
+
 - Login seguro com Firebase Authentication
 - Gerenciamento de projetos
 - Upload de imagens
@@ -84,18 +91,22 @@ npm run dev
 
 ## 📸 Screenshots
 
-### Home
+### Visualização da Home
+
 [Adicionar screenshot da página inicial]
 
-### Portfólio
+### Visualização do Portfólio
+
 [Adicionar screenshot da página de portfólio]
 
-### Área Administrativa
+### Visualização da Área Administrativa
+
 [Adicionar screenshot do painel administrativo]
 
 ## 🔐 Segurança
 
 O projeto implementa as seguintes medidas de segurança:
+
 - Autenticação via Firebase
 - Rotas protegidas para área administrativa
 - Validação de dados no cliente e servidor
@@ -104,22 +115,25 @@ O projeto implementa as seguintes medidas de segurança:
 ## 🚀 Deploy
 
 1. Build do projeto:
+
 ```bash
 npm run build
 ```
 
-2. Preview do build:
+1. Preview do build:
+
 ```bash
 npm run preview
 ```
 
-## 📝 Licença
+## 📄 Licença
 
 Este projeto está sob a licença [Adicionar tipo de licença]. Veja o arquivo LICENSE para mais detalhes.
 
 ## 👨‍💻 Autor
 
 Rogério Júnior
+
 - LinkedIn: [Rogério Júnior](https://www.linkedin.com/in/rogério-júnior-174719120/)
 - GitHub: [rogeriojr](https://github.com/rogeriojr)
 - Workana: [Perfil Workana](https://www.workana.com/freelancer/5aea67e6fd911e0c207642b63c50fb9d)

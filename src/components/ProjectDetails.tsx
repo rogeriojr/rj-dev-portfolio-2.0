@@ -7,7 +7,7 @@ import { db } from '../config/firebase';
 import { Project } from '../types';
 
 export function ProjectDetails() {
-  const { category, id } = useParams<{ category: string; id: string }>();
+  const { id } = useParams<{ id: string }>();
   const [project, setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
 
