@@ -1,71 +1,114 @@
-import {
-  Box,
-  Container,
-  Heading,
-  Text,
-  Button,
-  VStack,
-  HStack,
-  Icon,
-  Link,
-} from "@chakra-ui/react";
-import { FaLinkedin, FaGithub } from "react-icons/fa";
-import { SiWorkplace } from "react-icons/si";
+import { Box, Container, Heading, Text, Stack, Image, Button, Flex } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
 
 export function Home() {
   return (
-    <Box as="section" py={20}>
-      <Container maxW="container.xl">
-        <VStack spacing={8} align="center" textAlign="center">
-          <Heading as="h1" size="2xl" mb={4}>
-            Rogério Júnior
-          </Heading>
-          <Text fontSize="xl" maxW="2xl" mb={8}>
-            Desenvolvedor Full Stack apaixonado por criar soluções inovadoras e
-            impactantes. Especializado em desenvolvimento web, mobile e design
-            de interfaces.
-          </Text>
-          <Button
-            as="a"
-            href="/resume.pdf"
-            target="_blank"
-            colorScheme="blue"
-            size="lg"
-            mb={8}
+    <Container maxW="container.xl" py={20}>
+      <Flex
+        direction={{ base: 'column', lg: 'row' }}
+        align="center"
+        justify="space-between"
+        gap={10}
+      >
+        <Stack spacing={8} maxW="600px">
+          <Box
+            as={motion.div}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: "0.5s" }}
           >
-            Visualizar Currículo
-          </Button>
-          <HStack spacing={6}>
-            <Link
-              href="https://www.linkedin.com/in/rogério-júnior-174719120/"
-              isExternal
+            <Heading
+              as="h1"
+              size="2xl"
+              bgGradient="linear(to-r, brand.yellow.400, brand.yellow.500)"
+              bgClip="text"
+              letterSpacing="tight"
             >
-              <Icon
-                as={FaLinkedin}
-                w={8}
-                h={8}
-                color="blue.500"
-                _hover={{ color: "blue.600" }}
-              />
-            </Link>
-            <Link href="https://github.com/rogeriojr" isExternal>
-              <Icon as={FaGithub} w={8} h={8} _hover={{ color: "gray.600" }} />
-            </Link>
-            <Link
-              href="https://www.workana.com/freelancer/5aea67e6fd911e0c207642b63c50fb9d"
-              isExternal
+              Desenvolvedor Full Stack &
+              <br />
+              Designer Digital
+            </Heading>
+          </Box>
+
+          <Box
+            as={motion.div}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: "0.5s", delay: "0.2s" }}
+          >
+            <Text fontSize="xl" color="gray.300">
+              Transformando ideias em experiências digitais extraordinárias através de
+              código e design inovador.
+            </Text>
+          </Box>
+
+          <Stack
+            as={motion.div}
+            direction={{ base: 'column', sm: 'row' }}
+            spacing={4}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: "0.5s", delay: "0.4s" }}
+          >
+            <Button size="lg" variant="solid">
+              Ver Projetos
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              borderColor="brand.yellow.400"
+              color="brand.yellow.400"
+              _hover={{
+                bg: 'brand.yellow.400',
+                color: 'brand.space.500'
+              }}
             >
-              <Icon
-                as={SiWorkplace}
-                w={8}
-                h={8}
-                color="green.500"
-                _hover={{ color: "green.600" }}
-              />
-            </Link>
-          </HStack>
-        </VStack>
-      </Container>
-    </Box>
+              Contato
+            </Button>
+          </Stack>
+        </Stack>
+
+        <Box
+          as={motion.div}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: "0.5s", delay: "0.6s" }}
+          position="relative"
+        >
+          <Box
+            as={motion.div}
+            position="absolute"
+            inset={0}
+            borderRadius="full"
+            bg="brand.yellow.400"
+            filter="blur(40px)"
+            opacity={0.2}
+            animate={{
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: "3s",
+              repeat: "infinite",
+              ease: "linear"
+            }}
+          />
+          <Image
+            src="/src/assets/imgs/pp-social.png"
+            alt="Rogério Júnior"
+            w={{ base: "300px", md: "400px" }}
+            h={{ base: "300px", md: "400px" }}
+            borderRadius="full"
+            border="4px solid"
+            borderColor="brand.yellow.400"
+            objectFit="cover"
+            borderRadius="full"
+            border="4px solid"
+            borderColor="brand.yellow.400"
+            position="relative"
+            zIndex={1}
+          />
+        </Box>
+      </Flex>
+    </Container>
   );
 }
