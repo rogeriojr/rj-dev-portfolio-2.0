@@ -1,7 +1,7 @@
-import { Box, IconButton, useColorMode } from "@chakra-ui/react";
+import { Box, IconButton, useColorMode, Tooltip } from "@chakra-ui/react";
 import { css, keyframes } from "@emotion/react";
 import { motion } from "framer-motion";
-import { FaSun, FaMoon, FaStar } from "react-icons/fa";
+import { FaSun, FaMoon, FaStar, FaRocket } from "react-icons/fa";
 import { useState } from "react";
 import { InteractiveProfileImage } from "./interactiveprofileimage";
 
@@ -70,6 +70,31 @@ export function StyledProfileImage() {
       alignItems="center"
       animation={`${pulseAnimation} 3s ease-in-out infinite`}
     >
+      <Tooltip label="Mova e movimente todo um universo!" placement="top">
+        <IconButton
+          as={motion.button}
+          whileHover={{ scale: 1.2 }}
+          position="absolute"
+          top="-30px"
+          right="-30px"
+          zIndex="1"
+          aria-label="Move"
+          icon={<FaRocket />}
+          variant="ghost"
+          color={colorMode === "dark" ? "purple.300" : "purple.500"}
+          fontSize="24px"
+          css={css`
+            &:hover::after {
+              content: "";
+              position: absolute;
+              inset: 0;
+              border-radius: 50%;
+              animation: ${waveEffect("rgba(147, 112, 219, 0.3)")} 1.5s ease-out
+                infinite;
+            }
+          `}
+        />
+      </Tooltip>
       <Box
         position="absolute"
         width="400px"
