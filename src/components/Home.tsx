@@ -107,6 +107,8 @@ export function Home() {
             <Button
               size="lg"
               variant="outline"
+              as={Link}
+              to="/contact"
               borderColor="brand.yellow.400"
               color="brand.yellow.400"
               _hover={{

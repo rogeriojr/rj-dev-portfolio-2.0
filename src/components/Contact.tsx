@@ -7,7 +7,6 @@ import {
   Button,
   HStack,
   Icon,
-  useColorMode,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import {
@@ -20,8 +19,6 @@ import {
 } from "react-icons/fa";
 
 export function Contact() {
-  const { colorMode } = useColorMode();
-
   const handleEmailClick = () => {
     window.location.href = "mailto:rogeriojr1100@gmail.com";
   };
@@ -40,7 +37,7 @@ export function Contact() {
           as={motion.div}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: "0.5s" }}
         >
           <Heading
             as="h1"
@@ -61,7 +58,7 @@ export function Contact() {
           spacing={6}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          transition={{ duration: "0.5s", delay: "0.2s" }}
         >
           <Button
             leftIcon={<Icon as={FaEnvelope} />}
@@ -100,7 +97,7 @@ export function Contact() {
           justify="center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          transition={{ duration: "0.5s", delay: "0.4s" }}
         >
           <Button
             as="a"

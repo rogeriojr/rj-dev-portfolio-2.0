@@ -12,14 +12,13 @@ import {
   PortfolioCategory,
   Layout,
   Admin,
+  Contact,
 } from "./components";
 import { AuthProvider } from "./contexts/AuthContext";
 
 function App() {
   useEffect(() => {
-    document.title = `Rogério Jr - ${
-      window.location.pathname.split("/")[1] || "Home"
-    }`;
+    document.title = `Rogério Jr - ${window.location.pathname.split("/")[1] || "Home"}`;
   }, []);
   return (
     <ChakraProvider theme={theme}>
@@ -29,6 +28,7 @@ function App() {
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="about" element={<About />} />
+              <Route path="contact" element={<Contact />} />
               <Route path="portfolio">
                 <Route
                   path="development"
@@ -47,11 +47,7 @@ function App() {
               <Route path="login" element={<Login />} />
               <Route
                 path="admin"
-                element={
-                  <AdminRoute>
-                    <Admin />
-                  </AdminRoute>
-                }
+                element={<AdminRoute><Admin /></AdminRoute>}
               />
             </Route>
           </Routes>

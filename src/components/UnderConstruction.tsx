@@ -29,7 +29,11 @@ export function UnderConstruction() {
         position="absolute"
         inset={0}
         css={css`
-          background: radial-gradient(circle at center, rgba(62, 62, 62, 0.1) 0%, transparent 70%);
+          background: radial-gradient(
+            circle at center,
+            rgba(62, 62, 62, 0.1) 0%,
+            transparent 70%
+          );
         `}
       />
       {[...Array(20)].map((_, i) => (
@@ -53,7 +57,7 @@ export function UnderConstruction() {
         as={motion.div}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: "0.8s" }}
       >
         <Box
           css={css`
@@ -79,7 +83,8 @@ export function UnderConstruction() {
           lineHeight="tall"
         >
           Nossos engenheiros espaciais estão trabalhando arduamente para trazer
-          conteúdo incrível para esta dimensão. Aguarde as próximas atualizações!
+          conteúdo incrível para esta dimensão. Aguarde as próximas
+          atualizações!
         </Text>
         <Box
           css={css`
