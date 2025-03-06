@@ -3,7 +3,7 @@ import { css, keyframes } from "@emotion/react";
 import { motion } from "framer-motion";
 import { FaSun, FaMoon, FaStar, FaRocket } from "react-icons/fa";
 import { useState } from "react";
-
+import ppSocialImg from "../assets/imgs/pp-social.png";
 import { useNavigate } from "react-router-dom";
 import { InteractiveProfileImage } from "./InteractiveProfileImage";
 
@@ -194,7 +194,7 @@ export function StyledProfileImage() {
           }
         `}
       >
-        <InteractiveProfileImage imageUrl="/src/assets/imgs/pp-social.png" />
+        <InteractiveProfileImage imageUrl={ppSocialImg} />
       </Box>
     </Box>
   );
