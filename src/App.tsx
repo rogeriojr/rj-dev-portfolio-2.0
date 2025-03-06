@@ -17,7 +17,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 
 function App() {
   useEffect(() => {
-    document.title = `RJ-DEV - ${
+    document.title = `Rogério Jr - ${
       window.location.pathname.split("/")[1] || "Home"
     }`;
   }, []);

@@ -8,12 +8,12 @@ const config: ThemeConfig = {
 const theme = extendTheme({
   config,
   styles: {
-    global: {
+    global: (props: any) => ({
       body: {
-        bg: "gray.900",
-        color: "white",
+        bg: props.colorMode === "dark" ? "gray.900" : "white",
+        color: props.colorMode === "dark" ? "white" : "gray.800",
       },
-    },
+    }),
   },
   components: {
     Button: {
@@ -52,15 +52,15 @@ const theme = extendTheme({
       },
     },
     Heading: {
-      baseStyle: {
-        color: "white",
+      baseStyle: (props: any) => ({
+        color: props.colorMode === "dark" ? "white" : "gray.700",
         marginBottom: "4",
-      },
+      }),
     },
     Text: {
-      baseStyle: {
-        color: "gray.300",
-      },
+      baseStyle: (props: any) => ({
+        color: props.colorMode === "dark" ? "gray.300" : "gray.700",
+      }),
     },
   },
   colors: {
