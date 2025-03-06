@@ -2,7 +2,7 @@
 
 ## 📝 Sobre o Projeto
 
-Este é um portfólio profissional desenvolvido com tecnologias modernas para apresentar projetos nas áreas de desenvolvimento, design e social media. A plataforma oferece uma interface intuitiva e responsiva, permitindo a visualização detalhada de projetos e uma área administrativa para gerenciamento de conteúdo.
+Este é um portfólio profissional desenvolvido com tecnologias modernas, destacando-se por sua temática espacial única e animações interativas. O projeto apresenta uma interface intuitiva e responsiva, com elementos visuais inspirados no espaço e efeitos de animação envolventes que proporcionam uma experiência imersiva aos visitantes.
 
 ## 🚀 Tecnologias Utilizadas
 
@@ -12,6 +12,8 @@ Este é um portfólio profissional desenvolvido com tecnologias modernas para ap
 - Firebase (Authentication e Firestore)
 - React Router para navegação
 - Framer Motion para animações
+- Emotion para estilização
+- React Icons para ícones temáticos
 
 ## 🔧 Instalação e Configuração
 
@@ -88,6 +90,21 @@ npm run dev
 - Gerenciamento de projetos
 - Upload de imagens
 - Edição de conteúdo
+
+### Componentes Interativos
+
+- **Imagem de Perfil Espacial**:
+  - Efeitos de borda animados com diferentes temas
+  - Botões orbitais interativos (Sol, Lua, Estrela)
+  - Animações suaves de pulso e brilho
+  - Efeitos de hover em elementos interativos
+
+### Navegação e Interface
+
+- **Design Responsivo**: Adaptação perfeita para diferentes dispositivos
+- **Tema Claro/Escuro**: Alternância suave entre modos de visualização
+- **Animações Fluidas**: Transições suaves entre componentes e páginas
+- **Elementos Espaciais**: Botões e ícones temáticos com efeitos visuais únicos
 
 ## 📸 Screenshots
 
