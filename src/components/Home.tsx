@@ -10,7 +10,7 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { FaGithub, FaLinkedin, FaInstagram, FaBehance } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaInstagram, FaBriefcase } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { StyledProfileImage } from "./StyledProfileImage";
 
@@ -33,8 +33,7 @@ export function Home() {
             <Heading
               as="h1"
               size="2xl"
-              bgGradient="linear(to-r, brand.yellow.400, brand.yellow.500)"
-              bgClip="text"
+              color="brand.yellow.400"
               letterSpacing="tight"
               mb={4}
             >
@@ -111,7 +110,7 @@ export function Home() {
           >
             <IconButton
               as="a"
-              href="https://github.com/rogeriojosentr"
+              href="https://github.com/rogeriojr"
               target="_blank"
               aria-label="GitHub"
               icon={<FaGithub />}
@@ -122,7 +121,7 @@ export function Home() {
             />
             <IconButton
               as="a"
-              href="https://www.linkedin.com/in/rogeriojosentr/"
+              href="https://www.linkedin.com/in/rogério-júnior-174719120/"
               target="_blank"
               aria-label="LinkedIn"
               icon={<FaLinkedin />}
@@ -133,7 +132,7 @@ export function Home() {
             />
             <IconButton
               as="a"
-              href="https://www.instagram.com/rogeriojosentr/"
+              href="https://www.instagram.com/rogeriojr.dev"
               target="_blank"
               aria-label="Instagram"
               icon={<FaInstagram />}
@@ -144,10 +143,10 @@ export function Home() {
             />
             <IconButton
               as="a"
-              href="https://www.behance.net/rogeriojosentr"
+              href="https://www.workana.com/freelancer/5aea67e6fd911e0c207642b63c50fb9d"
               target="_blank"
-              aria-label="Behance"
-              icon={<FaBehance />}
+              aria-label="Workana"
+              icon={<FaBriefcase />}
               variant="ghost"
               fontSize="24px"
               color="gray.400"
