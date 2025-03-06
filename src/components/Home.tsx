@@ -4,7 +4,6 @@ import {
   Heading,
   Text,
   Stack,
-  Image,
   Button,
   Flex,
   IconButton,
@@ -21,6 +20,7 @@ import {
   FaImage,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { StyledProfileImage } from "./StyledProfileImage";
 
 export function Home() {
   return (
@@ -179,118 +179,7 @@ export function Home() {
           }}
           whileDrag={{ scale: 1.1 }}
         >
-          <Box
-            as={motion.div}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: "0.5s", delay: "0.6s" }}
-            position="relative"
-            drag
-            dragConstraints={{
-              top: -100,
-              left: -100,
-              right: 100,
-              bottom: 100,
-            }}
-            whileDrag={{ scale: 1.1 }}
-          >
-            <Box
-              as={motion.div}
-              position="absolute"
-              inset={0}
-              borderRadius="full"
-              bg="brand.yellow.400"
-              filter="blur(40px)"
-              opacity={0.2}
-              animate={{
-                scale: [1, 1.1, 1],
-              }}
-              transition={{
-                duration: "3s",
-                repeat: "infinite",
-                ease: "linear",
-              }}
-            />
-            <Box
-              position="relative"
-              borderRadius="full"
-              border="4px solid"
-              borderColor="brand.yellow.400"
-              p={1}
-            >
-              <Image
-                src="/src/assets/imgs/pp-social.png"
-                alt="Rogério Júnior"
-                w={{ base: "300px", md: "400px" }}
-                h={{ base: "300px", md: "400px" }}
-                borderRadius="full"
-                objectFit="cover"
-                zIndex={1}
-              />
-              <Box
-                as={motion.div}
-                position="absolute"
-                inset="-20px"
-                animate={{
-                  rotate: 360,
-                }}
-                transition={{
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              >
-                <IconButton
-                  position="absolute"
-                  top="50%"
-                  left="-10px"
-                  transform="translateY(-50%)"
-                  aria-label="Toggle light theme"
-                  icon={<FaSun />}
-                  variant="ghost"
-                  color="brand.yellow.400"
-                  fontSize="24px"
-                  _hover={{
-                    color: "brand.yellow.500",
-                    transform: "translateY(-50%) scale(1.1)",
-                  }}
-                  onClick={() => {}}
-                />
-                <IconButton
-                  position="absolute"
-                  top="-10px"
-                  left="50%"
-                  transform="translateX(-50%)"
-                  aria-label="Toggle dark theme"
-                  icon={<FaMoon />}
-                  variant="ghost"
-                  color="brand.yellow.400"
-                  fontSize="24px"
-                  _hover={{
-                    color: "brand.yellow.500",
-                    transform: "translateX(-50%) scale(1.1)",
-                  }}
-                  onClick={() => {}}
-                />
-                <IconButton
-                  position="absolute"
-                  top="50%"
-                  right="-10px"
-                  transform="translateY(-50%)"
-                  aria-label="Move image"
-                  icon={<FaImage />}
-                  variant="ghost"
-                  color="brand.yellow.400"
-                  fontSize="24px"
-                  _hover={{
-                    color: "brand.yellow.500",
-                    transform: "translateY(-50%) scale(1.1)",
-                  }}
-                  onClick={() => {}}
-                />
-              </Box>
-            </Box>
-          </Box>
+          <StyledProfileImage />
         </Box>
       </Flex>
     </Container>

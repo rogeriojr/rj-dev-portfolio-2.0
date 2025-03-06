@@ -1,9 +1,16 @@
-import { Box, Image } from "@chakra-ui/react";
+import { Box, Image, IconButton, useColorMode } from "@chakra-ui/react";
 import { css, keyframes } from "@emotion/react";
-import { useColorMode } from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import { FaSun, FaMoon, FaStar } from "react-icons/fa";
 
 export function StyledProfileImage() {
   const { colorMode } = useColorMode();
+
+  const pulseAnimation = keyframes`
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  `;
 
   const glowKeyframes = keyframes`
     0% { box-shadow: 0 0 10px ${colorMode === "dark" ? "#FFD700" : "#DAA520"},
@@ -14,7 +21,19 @@ export function StyledProfileImage() {
                      0 0 40px ${colorMode === "dark" ? "#FFD700" : "#DAA520"}; }
     100% { box-shadow: 0 0 10px ${colorMode === "dark" ? "#FFD700" : "#DAA520"},
                       0 0 20px ${colorMode === "dark" ? "#FFD700" : "#DAA520"},
-                      0 0 30px ${colorMode === "dark" ? "#FFD700" : "#DAA520"}; }
+                      0 0 30px ${
+                        colorMode === "dark" ? "#FFD700" : "#DAA520"
+                      }; }
+  `;
+
+  const waveEffect = (color: string) => keyframes`
+    0% { box-shadow: 0 0 0 0 ${color}; transform: scale(1); opacity: 1; }
+    100% { box-shadow: 0 0 0 50px ${color}; transform: scale(2); opacity: 0; }
+  `;
+
+  const orbitAnimation = keyframes`
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   `;
 
   return (
@@ -22,27 +41,115 @@ export function StyledProfileImage() {
       position="relative"
       width="300px"
       height="300px"
-      borderRadius="full"
-      overflow="hidden"
-      css={css`
-        &::before {
-          content: "";
-          position: absolute;
-          inset: -2px;
-          background: ${colorMode === "dark" ? "#FFD700" : "#DAA520"};
-          border-radius: inherit;
-          animation: ${glowKeyframes} 3s ease-in-out infinite;
-        }
-      `}
+      animation={`${pulseAnimation} 3s ease-in-out infinite`}
     >
-      <Image
-        src="/profile.jpg"
-        alt="Profile"
-        width="100%"
-        height="100%"
-        objectFit="cover"
+      <Box
+        position="absolute"
+        width="400px"
+        height="400px"
+        top="-50px"
+        left="-50px"
+        animation={`${orbitAnimation} 20s linear infinite`}
+      >
+        <IconButton
+          as={motion.button}
+          whileHover={{ scale: 1.2 }}
+          position="absolute"
+          top="50%"
+          left="0"
+          transform="translateY(-50%)"
+          aria-label="Sun"
+          icon={<FaSun />}
+          variant="ghost"
+          color="yellow.400"
+          fontSize="24px"
+          onClick={() => {}}
+          css={css`
+            &:hover::after {
+              content: "";
+              position: absolute;
+              inset: 0;
+              border-radius: 50%;
+              animation: ${waveEffect("rgba(255, 215, 0, 0.3)")} 1.5s ease-out
+                infinite;
+            }
+          `}
+        />
+        <IconButton
+          as={motion.button}
+          whileHover={{ scale: 1.2 }}
+          position="absolute"
+          top="0"
+          left="50%"
+          transform="translateX(-50%)"
+          aria-label="Moon"
+          icon={<FaMoon />}
+          variant="ghost"
+          color="gray.300"
+          fontSize="24px"
+          onClick={() => {}}
+          css={css`
+            &:hover::after {
+              content: "";
+              position: absolute;
+              inset: 0;
+              border-radius: 50%;
+              animation: ${waveEffect("rgba(192, 192, 192, 0.3)")} 1.5s ease-out
+                infinite;
+            }
+          `}
+        />
+        <IconButton
+          as={motion.button}
+          whileHover={{ scale: 1.2 }}
+          position="absolute"
+          top="50%"
+          right="0"
+          transform="translateY(-50%)"
+          aria-label="Star"
+          icon={<FaStar />}
+          variant="ghost"
+          color="purple.400"
+          fontSize="24px"
+          onClick={() => {}}
+          css={css`
+            &:hover::after {
+              content: "";
+              position: absolute;
+              inset: 0;
+              border-radius: 50%;
+              animation: ${waveEffect("rgba(147, 112, 219, 0.3)")} 1.5s ease-out
+                infinite;
+            }
+          `}
+        />
+      </Box>
+      <Box
+        position="relative"
+        width="300px"
+        height="300px"
         borderRadius="full"
-      />
+        overflow="hidden"
+        css={css`
+          &::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            background: ${colorMode === "dark" ? "#FFD700" : "#DAA520"};
+            border-radius: inherit;
+            animation: ${glowKeyframes} 3s ease-in-out infinite;
+          }
+        `}
+      >
+        <Image
+          src="/profile.jpg"
+          alt="Profile"
+          width="100%"
+          height="100%"
+          objectFit="cover"
+          borderRadius="full"
+        />
+      </Box>
     </Box>
   );
 }
