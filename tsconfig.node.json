@@ -12,7 +12,6 @@
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
-    "noEmit": true, // Alterado para permitir 'allowImportingTsExtensions'
 
     /* Linting */
     "strict": true,
