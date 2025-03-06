@@ -18,11 +18,9 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import { css, keyframes } from "@emotion/react";
-import styled from "@emotion/styled";
 import { Link as RouterLink, Outlet } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { FaSun, FaMoon, FaBars } from "react-icons/fa";
-import { InteractiveProfileImage } from "./InteractiveProfileImage";
 
 export function Layout() {
   const { user, logout } = useAuth();
@@ -40,35 +38,6 @@ export function Layout() {
     0% { opacity: 0.3; }
     50% { opacity: 1; }
     100% { opacity: 0.3; }
-  `;
-
-  const StyledLink = styled(ChakraLink)`
-    position: relative;
-    color: ${colorMode === "dark" ? "#FFD700" : "#B8860B"};
-    transition: all 0.3s ease;
-
-    &:hover {
-      color: ${colorMode === "dark" ? "#FFFFFF" : "#DAA520"};
-      text-shadow: 0 0 8px ${colorMode === "dark" ? "#FFD700" : "#000000"};
-    }
-
-    &:before {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 2px;
-      bottom: -2px;
-      left: 0;
-      background: ${colorMode === "dark" ? "#FFD700" : "#DAA520"};
-      visibility: hidden;
-      transform: scaleX(0);
-      transition: all 0.3s ease-in-out;
-    }
-
-    &:hover:before {
-      visibility: visible;
-      transform: scaleX(1);
-    }
   `;
 
   const NavLinks = () => (

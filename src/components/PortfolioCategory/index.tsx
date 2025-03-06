@@ -13,7 +13,7 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { motion, AnimatePresence } from "framer-motion";
 import ProjectCard from "../ProjectCard";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { db } from "../../config/firebase";
 
 const MotionSimpleGrid = motion(SimpleGrid);
 

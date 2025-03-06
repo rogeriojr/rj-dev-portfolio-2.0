@@ -13,7 +13,6 @@ import {
   VStack,
   Link as ChakraLink,
   Tooltip,
-  useBreakpointValue,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { Link as RouterLink, useLocation } from "react-router-dom";
@@ -21,9 +20,16 @@ import { motion } from "framer-motion";
 
 const MotionBox = motion(Box);
 
-const NavLink = ({ to, children }: { to: string; children: React.ReactNode }) => {
+const NavLink = ({
+  to,
+  children,
+}: {
+  to: string;
+  children: React.ReactNode;
+}) => {
   const location = useLocation();
-  const isActive = location.pathname === to || location.pathname.startsWith(`${to}/`);
+  const isActive =
+    location.pathname === to || location.pathname.startsWith(`${to}/`);
 
   return (
     <Tooltip label={`Go to ${children}`} placement="bottom">

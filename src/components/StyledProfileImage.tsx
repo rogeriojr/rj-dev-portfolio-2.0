@@ -1,4 +1,4 @@
-import { Box, Image, IconButton, useColorMode } from "@chakra-ui/react";
+import { Box, IconButton, useColorMode } from "@chakra-ui/react";
 import { css, keyframes } from "@emotion/react";
 import { motion } from "framer-motion";
 import { FaSun, FaMoon, FaStar } from "react-icons/fa";
