@@ -2,9 +2,11 @@ import { Box, Image, IconButton, useColorMode } from "@chakra-ui/react";
 import { css, keyframes } from "@emotion/react";
 import { motion } from "framer-motion";
 import { FaSun, FaMoon, FaStar } from "react-icons/fa";
+import { useState } from "react";
 
 export function StyledProfileImage() {
   const { colorMode } = useColorMode();
+  const [borderEffect, setBorderEffect] = useState("default");
 
   const pulseAnimation = keyframes`
     0% { transform: scale(1); }
@@ -12,17 +14,30 @@ export function StyledProfileImage() {
     100% { transform: scale(1); }
   `;
 
+  const getBorderColors = () => {
+    switch (borderEffect) {
+      case "sun":
+        return ["#FFD700", "#FFA500", "#FF8C00"];
+      case "moon":
+        return ["#C0C0C0", "#E6E6FA", "#B8B8B8"];
+      case "star":
+        return ["#9370DB", "#4B0082", "#8A2BE2"];
+      default:
+        return [colorMode === "dark" ? "#FFD700" : "#DAA520"];
+    }
+  };
+
   const glowKeyframes = keyframes`
-    0% { box-shadow: 0 0 10px ${colorMode === "dark" ? "#FFD700" : "#DAA520"},
-                    0 0 20px ${colorMode === "dark" ? "#FFD700" : "#DAA520"},
-                    0 0 30px ${colorMode === "dark" ? "#FFD700" : "#DAA520"}; }
-    50% { box-shadow: 0 0 20px ${colorMode === "dark" ? "#FFD700" : "#DAA520"},
-                     0 0 30px ${colorMode === "dark" ? "#FFD700" : "#DAA520"},
-                     0 0 40px ${colorMode === "dark" ? "#FFD700" : "#DAA520"}; }
-    100% { box-shadow: 0 0 10px ${colorMode === "dark" ? "#FFD700" : "#DAA520"},
-                      0 0 20px ${colorMode === "dark" ? "#FFD700" : "#DAA520"},
+    0% { box-shadow: 0 0 10px ${getBorderColors()[0]},
+                    0 0 20px ${getBorderColors()[1] || getBorderColors()[0]},
+                    0 0 30px ${getBorderColors()[2] || getBorderColors()[0]}; }
+    50% { box-shadow: 0 0 20px ${getBorderColors()[0]},
+                     0 0 30px ${getBorderColors()[1] || getBorderColors()[0]},
+                     0 0 40px ${getBorderColors()[2] || getBorderColors()[0]}; }
+    100% { box-shadow: 0 0 10px ${getBorderColors()[0]},
+                      0 0 20px ${getBorderColors()[1] || getBorderColors()[0]},
                       0 0 30px ${
-                        colorMode === "dark" ? "#FFD700" : "#DAA520"
+                        getBorderColors()[2] || getBorderColors()[0]
                       }; }
   `;
 
@@ -63,7 +78,7 @@ export function StyledProfileImage() {
           variant="ghost"
           color="yellow.400"
           fontSize="24px"
-          onClick={() => {}}
+          onClick={() => setBorderEffect("sun")}
           css={css`
             &:hover::after {
               content: "";
@@ -87,7 +102,7 @@ export function StyledProfileImage() {
           variant="ghost"
           color="gray.300"
           fontSize="24px"
-          onClick={() => {}}
+          onClick={() => setBorderEffect("moon")}
           css={css`
             &:hover::after {
               content: "";
@@ -111,7 +126,7 @@ export function StyledProfileImage() {
           variant="ghost"
           color="purple.400"
           fontSize="24px"
-          onClick={() => {}}
+          onClick={() => setBorderEffect("star")}
           css={css`
             &:hover::after {
               content: "";
@@ -135,7 +150,7 @@ export function StyledProfileImage() {
             content: "";
             position: absolute;
             inset: -2px;
-            background: ${colorMode === "dark" ? "#FFD700" : "#DAA520"};
+            background: ${getBorderColors()[0]};
             border-radius: inherit;
             animation: ${glowKeyframes} 3s ease-in-out infinite;
           }
