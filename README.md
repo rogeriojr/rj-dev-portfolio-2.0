@@ -93,7 +93,8 @@ npm run dev
 
 ### Visualização da Home
 
-[Adicionar screenshot da página inicial]
+![image](https://github.com/user-attachments/assets/00fff84a-8200-44ba-9f02-6528cff151e2)
+
 
 ### Visualização do Portfólio
 
