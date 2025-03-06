@@ -42,8 +42,8 @@ const fonts = {
 const styles = {
   global: (props: { colorMode: string }) => ({
     'html, body': {
-      backgroundColor: props.colorMode === 'dark' ? 'brand.space.500' : 'white',
-      color: props.colorMode === 'dark' ? 'white' : 'brand.space.400',
+      backgroundColor: props.colorMode === 'dark' ? 'brand.space.500' : 'brand.space.50',
+      color: props.colorMode === 'dark' ? 'white' : 'brand.space.500',
       minHeight: '100vh',
       overflowX: 'hidden'
     },
@@ -52,8 +52,8 @@ const styles = {
       '--chakra-colors-chakra-body-text': 'white'
     },
     '.chakra-ui-light': {
-      '--chakra-colors-chakra-body-bg': 'white',
-      '--chakra-colors-chakra-body-text': 'brand.space.400'
+      '--chakra-colors-chakra-body-bg': 'brand.space.50',
+      '--chakra-colors-chakra-body-text': 'brand.space.500'
     }
   })
 };
@@ -62,10 +62,10 @@ const components = {
   Button: {
     variants: {
       solid: (props: { colorMode: string }) => ({
-        bg: props.colorMode === 'dark' ? 'brand.yellow.400' : 'brand.space.500',
+        bg: props.colorMode === 'dark' ? 'brand.yellow.400' : 'brand.space.400',
         color: props.colorMode === 'dark' ? 'brand.space.500' : 'white',
         _hover: {
-          bg: props.colorMode === 'dark' ? 'brand.yellow.500' : 'brand.space.600',
+          bg: props.colorMode === 'dark' ? 'brand.yellow.500' : 'brand.space.500',
           transform: 'translateY(-2px)',
           boxShadow: 'lg'
         },
@@ -75,10 +75,10 @@ const components = {
   },
   Link: {
     baseStyle: (props: { colorMode: string }) => ({
-      color: props.colorMode === 'dark' ? 'brand.yellow.400' : 'brand.space.500',
+      color: props.colorMode === 'dark' ? 'brand.yellow.400' : 'brand.space.400',
       _hover: {
         textDecoration: 'none',
-        color: props.colorMode === 'dark' ? 'brand.yellow.500' : 'brand.space.600'
+        color: props.colorMode === 'dark' ? 'brand.yellow.500' : 'brand.space.500'
       }
     })
   }

@@ -59,7 +59,7 @@ const theme = extendTheme({
     },
     Text: {
       baseStyle: (props: any) => ({
-        color: props.colorMode === "dark" ? "gray.300" : "gray.700",
+        color: props.colorMode === "dark" ? "gray.300" : "gray.600",
       }),
     },
   },
