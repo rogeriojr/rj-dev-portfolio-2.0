@@ -3,8 +3,9 @@ import { css, keyframes } from "@emotion/react";
 import { motion } from "framer-motion";
 import { FaSun, FaMoon, FaStar, FaRocket } from "react-icons/fa";
 import { useState } from "react";
-import { InteractiveProfileImage } from "./InteractiveProfileImage";
+
 import { useNavigate } from "react-router-dom";
+import { InteractiveProfileImage } from "./InteractiveProfileImage";
 
 export function StyledProfileImage() {
   const { colorMode } = useColorMode();
