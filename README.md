@@ -109,10 +109,10 @@ npm run dev
 - **Elementos Espaciais**: Botões e ícones temáticos com efeitos visuais únicos
 
 ## 📸 Screenshots
+![Preview](https://github.com/user-attachments/assets/6ee0bd6e-0705-43f0-8024-27b66b249ba6)
 
 ### Visualização da Home
 
-![image](https://github.com/user-attachments/assets/00fff84a-8200-44ba-9f02-6528cff151e2)
 
 
 ### Visualização do Portfólio
