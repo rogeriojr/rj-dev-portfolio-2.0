@@ -3,18 +3,18 @@ import { css, keyframes } from "@emotion/react";
 import { motion } from "framer-motion";
 import { FaSun, FaMoon, FaStar, FaRocket } from "react-icons/fa";
 import { useState } from "react";
-import { InteractiveProfileImage } from "./interactiveprofileimage";
+import { InteractiveProfileImage } from "./InteractiveProfileImage";
+import { useNavigate } from "react-router-dom";
 
 export function StyledProfileImage() {
   const { colorMode } = useColorMode();
   const [borderEffect, setBorderEffect] = useState("default");
-
+  const navigate = useNavigate();
   const pulseAnimation = keyframes`
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
     100% { transform: scale(1); }
   `;
-
   const getBorderColors = () => {
     switch (borderEffect) {
       case "sun":
@@ -27,7 +27,6 @@ export function StyledProfileImage() {
         return [colorMode === "dark" ? "#FFD700" : "#DAA520"];
     }
   };
-
   const glowKeyframes = keyframes`
     0% { 
       box-shadow: 0 0 15px ${getBorderColors()[0]},
@@ -48,17 +47,14 @@ export function StyledProfileImage() {
       transform: scale(1);
     }
   `;
-
   const waveEffect = (color: string) => keyframes`
     0% { box-shadow: 0 0 0 0 ${color}; transform: scale(1); opacity: 1; }
     100% { box-shadow: 0 0 0 50px ${color}; transform: scale(2); opacity: 0; }
   `;
-
   const orbitAnimation = keyframes`
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
   `;
-
   return (
     <Box
       position="relative"
@@ -83,6 +79,7 @@ export function StyledProfileImage() {
           variant="ghost"
           color={colorMode === "dark" ? "purple.300" : "purple.500"}
           fontSize="24px"
+          onClick={() => navigate("/contact")}
           css={css`
             &:hover::after {
               content: "";

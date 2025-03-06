@@ -1,13 +1,28 @@
-import { Box, Container, Grid, Heading, Image, LinkBox, LinkOverlay, Text, VStack } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import { collection, query, where, getDocs } from 'firebase/firestore';
-import { db } from '../config/firebase';
-import { Project } from '../types';
+import {
+  Box,
+  Container,
+  Grid,
+  Heading,
+  Image,
+  LinkBox,
+  LinkOverlay,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "../config/firebase";
+import { Project } from "../types";
+import { LoadingSpinner } from "./LoadingSpinner";
+import { UnderConstruction } from "./UnderConstruction";
+import { motion } from "framer-motion";
 
 interface PortfolioCategoryProps {
-  category: 'development' | 'design' | 'social-media';
+  category: "development" | "design" | "social-media";
 }
+
+const MotionBox = motion(Box);
 
 export function PortfolioCategory({ category }: PortfolioCategoryProps) {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -16,18 +31,18 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
   useEffect(() => {
     async function fetchProjects() {
       try {
-        const projectsRef = collection(db, 'projects');
-        const q = query(projectsRef, where('category', '==', category));
+        const projectsRef = collection(db, "projects");
+        const q = query(projectsRef, where("category", "==", category));
         const querySnapshot = await getDocs(q);
-        const fetchedProjects = querySnapshot.docs.map(doc => ({
+        const fetchedProjects = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
           createdAt: doc.data().createdAt.toDate(),
-          updatedAt: doc.data().updatedAt.toDate()
+          updatedAt: doc.data().updatedAt.toDate(),
         })) as Project[];
         setProjects(fetchedProjects);
       } catch (error) {
-        console.error('Error fetching projects:', error);
+        console.error("Error fetching projects:", error);
       } finally {
         setLoading(false);
       }
@@ -37,23 +52,48 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
   }, [category]);
 
   const categoryTitles = {
-    'development': 'Desenvolvimento',
-    'design': 'Design',
-    'social-media': 'Social Media'
+    development: "Desenvolvimento",
+    design: "Design",
+    "social-media": "Social Media",
   };
 
   return (
-    <Box as="section" py={12}>
+    <MotionBox
+      as="section"
+      py={12}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <Container maxW="container.xl">
         <Heading as="h1" size="2xl" mb={8}>
           Portfólio - {categoryTitles[category]}
         </Heading>
         {loading ? (
-          <Text>Carregando projetos...</Text>
+          <LoadingSpinner />
+        ) : projects.length === 0 ? (
+          <UnderConstruction />
         ) : (
-          <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }} gap={8}>
+          <Grid
+            templateColumns={{
+              base: "1fr",
+              md: "repeat(2, 1fr)",
+              lg: "repeat(3, 1fr)",
+            }}
+            gap={8}
+          >
             {projects.map((project) => (
-              <LinkBox key={project.id} as="article" borderRadius="lg" overflow="hidden" boxShadow="md" _hover={{ transform: 'scale(1.02)', transition: 'transform 0.2s' }}>
+              <LinkBox
+                key={project.id}
+                as="article"
+                borderRadius="lg"
+                overflow="hidden"
+                boxShadow="md"
+                _hover={{
+                  transform: "scale(1.02)",
+                  transition: "transform 0.2s",
+                }}
+              >
                 <Image
                   src={project.images[0]}
                   alt={project.title}
@@ -62,7 +102,10 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
                   width="100%"
                 />
                 <VStack p={4} align="start" spacing={2}>
-                  <LinkOverlay as={RouterLink} to={`/portfolio/${category}/${project.id}`}>
+                  <LinkOverlay
+                    as={RouterLink}
+                    to={`/portfolio/${category}/${project.id}`}
+                  >
                     <Heading as="h3" size="md">
                       {project.title}
                     </Heading>
@@ -74,6 +117,6 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
           </Grid>
         )}
       </Container>
-    </Box>
+    </MotionBox>
   );
 }

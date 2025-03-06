@@ -17,8 +17,24 @@ import {
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
+import { css, keyframes } from "@emotion/react";
 
 const MotionBox = motion(Box);
+
+const starburstAnimation = keyframes`
+  0% {
+    transform: scale(1);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+`;
 
 const NavLink = ({
   to,
@@ -41,6 +57,21 @@ const NavLink = ({
         rounded={"md"}
         position="relative"
         color={isActive ? "orange.400" : "white"}
+        css={css`
+          &:hover::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, rgba(251, 146, 60, 0.6) 0%, rgba(251, 146, 60, 0) 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: ${starburstAnimation} 0.8s ease-out;
+            pointer-events: none;
+          }
+        `}
         _hover={{
           textDecoration: "none",
           color: "orange.400",
@@ -73,6 +104,7 @@ export default function Navbar() {
     { to: "/portfolio/design", label: "Design" },
     { to: "/portfolio/social-media", label: "Social Media" },
     { to: "/about", label: "About" },
+    { to: "/contact", label: "Contact" },
   ];
 
   const NavLinks = () => (

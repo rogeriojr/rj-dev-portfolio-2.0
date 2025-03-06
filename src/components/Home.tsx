@@ -116,6 +116,23 @@ export function Home() {
             >
               Contato
             </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              as="a"
+              href="/src/assets/pdf/cv-rj.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              leftIcon={<FaBriefcase />}
+              borderColor="brand.yellow.400"
+              color="brand.yellow.400"
+              _hover={{
+                bg: "brand.yellow.400",
+                color: "brand.space.500",
+              }}
+            >
+              Ver Currículo
+            </Button>
           </Stack>
 
           <HStack
