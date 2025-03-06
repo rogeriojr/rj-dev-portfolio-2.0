@@ -7,7 +7,7 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 import { motion, useAnimation } from "framer-motion";
-import { FaRocket } from "react-icons/fa";
+import { FaInfo, FaRocket } from "react-icons/fa";
 import { keyframes } from "@emotion/react";
 
 interface InteractiveProfileImageProps {
@@ -81,7 +81,7 @@ export const InteractiveProfileImage: React.FC<
                 showTooltip ? (
                   <FaRocket style={{ transform: "rotate(0deg)" }} />
                 ) : (
-                  "!"
+                  <FaInfo style={{ transform: "rotate(0deg)" }} />
                 )
               }
               aria-label="Drag indicator"

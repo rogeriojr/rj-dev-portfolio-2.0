@@ -3,7 +3,7 @@ import { css, keyframes } from "@emotion/react";
 import { motion } from "framer-motion";
 import { FaSun, FaMoon, FaStar } from "react-icons/fa";
 import { useState } from "react";
-import { InteractiveProfileImage } from "./InteractiveProfileImage";
+import { InteractiveProfileImage } from "./interactiveprofileimage";
 
 export function StyledProfileImage() {
   const { colorMode } = useColorMode();
