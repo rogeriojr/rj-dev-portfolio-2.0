@@ -3,6 +3,7 @@ import { css, keyframes } from "@emotion/react";
 import { motion } from "framer-motion";
 import { FaSun, FaMoon, FaStar } from "react-icons/fa";
 import { useState } from "react";
+import { InteractiveProfileImage } from "./InteractiveProfileImage";
 
 export function StyledProfileImage() {
   const { colorMode } = useColorMode();
@@ -28,17 +29,24 @@ export function StyledProfileImage() {
   };
 
   const glowKeyframes = keyframes`
-    0% { box-shadow: 0 0 10px ${getBorderColors()[0]},
-                    0 0 20px ${getBorderColors()[1] || getBorderColors()[0]},
-                    0 0 30px ${getBorderColors()[2] || getBorderColors()[0]}; }
-    50% { box-shadow: 0 0 20px ${getBorderColors()[0]},
-                     0 0 30px ${getBorderColors()[1] || getBorderColors()[0]},
-                     0 0 40px ${getBorderColors()[2] || getBorderColors()[0]}; }
-    100% { box-shadow: 0 0 10px ${getBorderColors()[0]},
-                      0 0 20px ${getBorderColors()[1] || getBorderColors()[0]},
-                      0 0 30px ${
-                        getBorderColors()[2] || getBorderColors()[0]
-                      }; }
+    0% { 
+      box-shadow: 0 0 15px ${getBorderColors()[0]},
+                0 0 30px ${getBorderColors()[1] || getBorderColors()[0]},
+                0 0 45px ${getBorderColors()[2] || getBorderColors()[0]};
+      transform: scale(1);
+    }
+    50% { 
+      box-shadow: 0 0 25px ${getBorderColors()[0]},
+                0 0 50px ${getBorderColors()[1] || getBorderColors()[0]},
+                0 0 75px ${getBorderColors()[2] || getBorderColors()[0]};
+      transform: scale(1.02);
+    }
+    100% { 
+      box-shadow: 0 0 15px ${getBorderColors()[0]},
+                0 0 30px ${getBorderColors()[1] || getBorderColors()[0]},
+                0 0 45px ${getBorderColors()[2] || getBorderColors()[0]};
+      transform: scale(1);
+    }
   `;
 
   const waveEffect = (color: string) => keyframes`
@@ -56,6 +64,10 @@ export function StyledProfileImage() {
       position="relative"
       width="300px"
       height="300px"
+      margin="0 auto"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
       animation={`${pulseAnimation} 3s ease-in-out infinite`}
     >
       <Box
@@ -145,6 +157,9 @@ export function StyledProfileImage() {
         height="300px"
         borderRadius="full"
         overflow="hidden"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
         css={css`
           &::before {
             content: "";
@@ -156,14 +171,7 @@ export function StyledProfileImage() {
           }
         `}
       >
-        <Image
-          src="/profile.jpg"
-          alt="Profile"
-          width="100%"
-          height="100%"
-          objectFit="cover"
-          borderRadius="full"
-        />
+        <InteractiveProfileImage imageUrl="/src/assets/imgs/pp-social.png" />
       </Box>
     </Box>
   );
