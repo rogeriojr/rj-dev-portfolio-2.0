@@ -10,15 +10,7 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import {
-  FaGithub,
-  FaLinkedin,
-  FaInstagram,
-  FaBehance,
-  FaSun,
-  FaMoon,
-  FaImage,
-} from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaInstagram, FaBehance } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { StyledProfileImage } from "./StyledProfileImage";
 
