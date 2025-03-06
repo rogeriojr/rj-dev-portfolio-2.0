@@ -92,8 +92,6 @@ export function ProfileImage({ imageUrl }: ProfileImageProps) {
           width="40px"
           height="40px"
           top="50%"
-          left="-30px"
-          transform="translate(-50%, -50%)"
           zIndex={2}
           animation={`${pulse} 2s infinite ease-in-out`}
         >
