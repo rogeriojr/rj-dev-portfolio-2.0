@@ -13,8 +13,25 @@ import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaInstagram, FaBriefcase } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { StyledProfileImage } from "./StyledProfileImage";
+import { LoadingSpinner } from "./LoadingSpinner";
+import { useEffect, useState } from "react";
 
 export function Home() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading time
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <Container maxW="container.xl" py={20}>
       <Flex

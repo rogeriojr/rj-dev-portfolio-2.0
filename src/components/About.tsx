@@ -1,6 +1,23 @@
 import { Box, Container, Heading, Text, VStack } from '@chakra-ui/react';
+import { useState, useEffect } from 'react';
+import { LoadingSpinner } from './LoadingSpinner';
 
 export function About() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading time
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <Box as="section" py={12}>
       <Container maxW="container.xl">
