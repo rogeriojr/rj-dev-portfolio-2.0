@@ -1,13 +1,32 @@
-import { Box, Container, Heading, Text, Stack, Image, Button, Flex, IconButton, HStack } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaInstagram, FaBehance } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import {
+  Box,
+  Container,
+  Heading,
+  Text,
+  Stack,
+  Image,
+  Button,
+  Flex,
+  IconButton,
+  HStack,
+} from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import {
+  FaGithub,
+  FaLinkedin,
+  FaInstagram,
+  FaBehance,
+  FaSun,
+  FaMoon,
+  FaImage,
+} from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export function Home() {
   return (
     <Container maxW="container.xl" py={20}>
       <Flex
-        direction={{ base: 'column', lg: 'row' }}
+        direction={{ base: "column", lg: "row" }}
         align="center"
         justify="space-between"
         gap={10}
@@ -49,14 +68,14 @@ export function Home() {
             transition={{ duration: "0.5s", delay: "0.2s" }}
           >
             <Text fontSize="xl" color="gray.300">
-              Transformando ideias em experiências digitais extraordinárias através de
-              código e design inovador.
+              Transformando ideias em experiências digitais extraordinárias
+              através de código e design inovador.
             </Text>
           </Box>
 
           <Stack
             as={motion.div}
-            direction={{ base: 'column', sm: 'row' }}
+            direction={{ base: "column", sm: "row" }}
             spacing={4}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -70,9 +89,9 @@ export function Home() {
               bg="brand.yellow.400"
               color="brand.space.500"
               _hover={{
-                bg: 'brand.yellow.500',
-                transform: 'translateY(-2px)',
-                boxShadow: 'lg'
+                bg: "brand.yellow.500",
+                transform: "translateY(-2px)",
+                boxShadow: "lg",
               }}
             >
               Ver Projetos
@@ -83,8 +102,8 @@ export function Home() {
               borderColor="brand.yellow.400"
               color="brand.yellow.400"
               _hover={{
-                bg: 'brand.yellow.400',
-                color: 'brand.space.500'
+                bg: "brand.yellow.400",
+                color: "brand.space.500",
               }}
             >
               Contato
@@ -107,7 +126,7 @@ export function Home() {
               variant="ghost"
               fontSize="24px"
               color="gray.400"
-              _hover={{ color: 'brand.yellow.400' }}
+              _hover={{ color: "brand.yellow.400" }}
             />
             <IconButton
               as="a"
@@ -118,7 +137,7 @@ export function Home() {
               variant="ghost"
               fontSize="24px"
               color="gray.400"
-              _hover={{ color: 'brand.yellow.400' }}
+              _hover={{ color: "brand.yellow.400" }}
             />
             <IconButton
               as="a"
@@ -129,7 +148,7 @@ export function Home() {
               variant="ghost"
               fontSize="24px"
               color="gray.400"
-              _hover={{ color: 'brand.yellow.400' }}
+              _hover={{ color: "brand.yellow.400" }}
             />
             <IconButton
               as="a"
@@ -140,7 +159,7 @@ export function Home() {
               variant="ghost"
               fontSize="24px"
               color="gray.400"
-              _hover={{ color: 'brand.yellow.400' }}
+              _hover={{ color: "brand.yellow.400" }}
             />
           </HStack>
         </Stack>
@@ -151,34 +170,127 @@ export function Home() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: "0.5s", delay: "0.6s" }}
           position="relative"
+          drag
+          dragConstraints={{
+            top: -100,
+            left: -100,
+            right: 100,
+            bottom: 100,
+          }}
+          whileDrag={{ scale: 1.1 }}
         >
           <Box
             as={motion.div}
-            position="absolute"
-            inset={0}
-            borderRadius="full"
-            bg="brand.yellow.400"
-            filter="blur(40px)"
-            opacity={0.2}
-            animate={{
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: "3s",
-              repeat: "infinite",
-              ease: "linear"
-            }}
-          />
-          <Image
-            src="/src/assets/imgs/pp-social.png"
-            alt="Rogério Júnior"
-            w={{ base: "300px", md: "400px" }}
-            h={{ base: "300px", md: "400px" }}
-            borderRadius="full"
-            objectFit="cover"
-            zIndex={1}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: "0.5s", delay: "0.6s" }}
             position="relative"
-          />
+            drag
+            dragConstraints={{
+              top: -100,
+              left: -100,
+              right: 100,
+              bottom: 100,
+            }}
+            whileDrag={{ scale: 1.1 }}
+          >
+            <Box
+              as={motion.div}
+              position="absolute"
+              inset={0}
+              borderRadius="full"
+              bg="brand.yellow.400"
+              filter="blur(40px)"
+              opacity={0.2}
+              animate={{
+                scale: [1, 1.1, 1],
+              }}
+              transition={{
+                duration: "3s",
+                repeat: "infinite",
+                ease: "linear",
+              }}
+            />
+            <Box
+              position="relative"
+              borderRadius="full"
+              border="4px solid"
+              borderColor="brand.yellow.400"
+              p={1}
+            >
+              <Image
+                src="/src/assets/imgs/pp-social.png"
+                alt="Rogério Júnior"
+                w={{ base: "300px", md: "400px" }}
+                h={{ base: "300px", md: "400px" }}
+                borderRadius="full"
+                objectFit="cover"
+                zIndex={1}
+              />
+              <Box
+                as={motion.div}
+                position="absolute"
+                inset="-20px"
+                animate={{
+                  rotate: 360,
+                }}
+                transition={{
+                  duration: 20,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+              >
+                <IconButton
+                  position="absolute"
+                  top="50%"
+                  left="-10px"
+                  transform="translateY(-50%)"
+                  aria-label="Toggle light theme"
+                  icon={<FaSun />}
+                  variant="ghost"
+                  color="brand.yellow.400"
+                  fontSize="24px"
+                  _hover={{
+                    color: "brand.yellow.500",
+                    transform: "translateY(-50%) scale(1.1)",
+                  }}
+                  onClick={() => {}}
+                />
+                <IconButton
+                  position="absolute"
+                  top="-10px"
+                  left="50%"
+                  transform="translateX(-50%)"
+                  aria-label="Toggle dark theme"
+                  icon={<FaMoon />}
+                  variant="ghost"
+                  color="brand.yellow.400"
+                  fontSize="24px"
+                  _hover={{
+                    color: "brand.yellow.500",
+                    transform: "translateX(-50%) scale(1.1)",
+                  }}
+                  onClick={() => {}}
+                />
+                <IconButton
+                  position="absolute"
+                  top="50%"
+                  right="-10px"
+                  transform="translateY(-50%)"
+                  aria-label="Move image"
+                  icon={<FaImage />}
+                  variant="ghost"
+                  color="brand.yellow.400"
+                  fontSize="24px"
+                  _hover={{
+                    color: "brand.yellow.500",
+                    transform: "translateY(-50%) scale(1.1)",
+                  }}
+                  onClick={() => {}}
+                />
+              </Box>
+            </Box>
+          </Box>
         </Box>
       </Flex>
     </Container>

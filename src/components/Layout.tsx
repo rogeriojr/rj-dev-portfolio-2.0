@@ -22,14 +22,9 @@ import styled from "@emotion/styled";
 import { Link as RouterLink, Outlet } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { FaSun, FaMoon, FaBars } from "react-icons/fa";
+import { InteractiveProfileImage } from "./InteractiveProfileImage";
 
 export function Layout() {
-  const mainContainerStyle = {
-    minHeight: "100vh",
-    width: "100%",
-    display: "flex",
-    flexDirection: "column" as const,
-  };
   const { user, logout } = useAuth();
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -253,13 +248,15 @@ export function Layout() {
                   )}
                 </Stack>
               )}
-              <IconButton
-                aria-label="Toggle color mode"
-                icon={colorMode === "dark" ? <FaSun /> : <FaMoon />}
-                onClick={toggleColorMode}
-                variant="ghost"
-                color={textColor}
-              />
+              <Flex align="center" gap={4}>
+                <IconButton
+                  aria-label="Toggle color mode"
+                  icon={colorMode === "dark" ? <FaSun /> : <FaMoon />}
+                  onClick={toggleColorMode}
+                  variant="ghost"
+                  color={textColor}
+                />
+              </Flex>
             </Flex>
           </Flex>
         </Container>
