@@ -134,8 +134,10 @@ export default function PortfolioCategory({
 
       <AnimatePresence>
         <MotionSimpleGrid
-          columns={{ base: 1, md: 2, lg: 3 }}
-          spacing={8}
+          columns={{ base: 1, md: 2, lg: 3, xl: 4 }}
+          spacing={{ base: 6, md: 8, lg: 10 }}
+          px={{ base: 4, md: 6, lg: 8 }}
+          py={8}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
