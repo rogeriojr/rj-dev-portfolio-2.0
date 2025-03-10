@@ -95,6 +95,7 @@ export default function ProjectCard({
               src={project.images[0]}
               alt={project.title}
               objectFit="contain"
+              p="4"
               h="200px"
               w="100%"
               transition="transform 0.3s ease"
@@ -154,8 +155,8 @@ export default function ProjectCard({
           >
             {project.description}
           </Text>
-          <HStack spacing={4} mt={2} width="100%" justify="space-between">
-            <VStack align="start" spacing={2}>
+          <HStack spacing={4} mt={2} width="100%" align="flex-start">
+            <VStack align="start" spacing={2} flex={1}>
               {project.links &&
                 project.links.length > 0 &&
                 project.links.map((link, index) => (
@@ -181,24 +182,26 @@ export default function ProjectCard({
                   </Link>
                 ))}
             </VStack>
-            <Button
-              rightIcon={<FaInfoCircle />}
-              variant="ghost"
-              size="sm"
-              onClick={() => onViewDetails?.(project)}
-              bgGradient="linear(to-r, blue.400, purple.500)"
-              color="white"
-              _hover={{
-                bgGradient: "linear(to-r, blue.500, purple.600)",
-                transform: "translateY(-2px)",
-                boxShadow: "0 0 15px rgba(66, 153, 225, 0.4)",
-              }}
-              _active={{
-                transform: "translateY(0)",
-              }}
-            >
-              Detalhes
-            </Button>
+            <Box>
+              <Button
+                rightIcon={<FaInfoCircle />}
+                variant="ghost"
+                size="sm"
+                onClick={() => onViewDetails?.(project)}
+                bgGradient="linear(to-r, blue.400, purple.500)"
+                color="white"
+                _hover={{
+                  bgGradient: "linear(to-r, blue.500, purple.600)",
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 0 15px rgba(66, 153, 225, 0.4)",
+                }}
+                _active={{
+                  transform: "translateY(0)",
+                }}
+              >
+                Detalhes
+              </Button>
+            </Box>
           </HStack>
         </VStack>
       </MotionBox>
