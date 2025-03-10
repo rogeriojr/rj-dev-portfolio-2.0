@@ -118,6 +118,15 @@ export function About() {
                   _hover={{ transform: "scale(1.2)" }}
                 />
               </Tooltip>
+              <Tooltip label="React Native" hasArrow>
+                <Image
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                  alt="react native"
+                  h="30px"
+                  transition="transform 0.2s"
+                  _hover={{ transform: "scale(1.2)" }}
+                />
+              </Tooltip>
               <Tooltip label="HTML5" hasArrow>
                 <Image
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
@@ -347,6 +356,114 @@ export function About() {
                 <Image
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg"
                   alt="android"
+                  h="30px"
+                  transition="transform 0.2s"
+                  _hover={{ transform: "scale(1.2)" }}
+                />
+              </Tooltip>
+              <Tooltip label="Jest" hasArrow>
+                <Image
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg"
+                  alt="jest"
+                  h="30px"
+                  transition="transform 0.2s"
+                  _hover={{ transform: "scale(1.2)" }}
+                />
+              </Tooltip>
+              <Tooltip label="Cypress" hasArrow>
+                <Image
+                  src="https://raw.githubusercontent.com/cypress-io/cypress-icons/master/src/logo/cypress-io-logo-round.svg"
+                  alt="cypress"
+                  h="30px"
+                  transition="transform 0.2s"
+                  _hover={{ transform: "scale(1.2)" }}
+                />
+              </Tooltip>
+              <Tooltip label="Docker" hasArrow>
+                <Image
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg"
+                  alt="docker"
+                  h="30px"
+                  transition="transform 0.2s"
+                  _hover={{ transform: "scale(1.2)" }}
+                />
+              </Tooltip>
+              <Tooltip label="MongoDB" hasArrow>
+                <Image
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg"
+                  alt="mongodb"
+                  h="30px"
+                  transition="transform 0.2s"
+                  _hover={{ transform: "scale(1.2)" }}
+                />
+              </Tooltip>
+              <Tooltip label="PostgreSQL" hasArrow>
+                <Image
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg"
+                  alt="postgresql"
+                  h="30px"
+                  transition="transform 0.2s"
+                  _hover={{ transform: "scale(1.2)" }}
+                />
+              </Tooltip>
+              <Tooltip label="Express" hasArrow>
+                <Image
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg"
+                  alt="express"
+                  h="30px"
+                  transition="transform 0.2s"
+                  _hover={{ transform: "scale(1.2)" }}
+                />
+              </Tooltip>
+              <Tooltip label="Sass" hasArrow>
+                <Image
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg"
+                  alt="sass"
+                  h="30px"
+                  transition="transform 0.2s"
+                  _hover={{ transform: "scale(1.2)" }}
+                />
+              </Tooltip>
+              <Tooltip label="GraphQL" hasArrow>
+                <Image
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg"
+                  alt="graphql"
+                  h="30px"
+                  transition="transform 0.2s"
+                  _hover={{ transform: "scale(1.2)" }}
+                />
+              </Tooltip>
+              <Tooltip label="Webpack" hasArrow>
+                <Image
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg"
+                  alt="webpack"
+                  h="30px"
+                  transition="transform 0.2s"
+                  _hover={{ transform: "scale(1.2)" }}
+                />
+              </Tooltip>
+              <Tooltip label="Babel" hasArrow>
+                <Image
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/babel/babel-original.svg"
+                  alt="babel"
+                  h="30px"
+                  transition="transform 0.2s"
+                  _hover={{ transform: "scale(1.2)" }}
+                />
+              </Tooltip>
+              <Tooltip label="ESLint" hasArrow>
+                <Image
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/eslint/eslint-original.svg"
+                  alt="eslint"
+                  h="30px"
+                  transition="transform 0.2s"
+                  _hover={{ transform: "scale(1.2)" }}
+                />
+              </Tooltip>
+              <Tooltip label="Redis" hasArrow>
+                <Image
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg"
+                  alt="redis"
                   h="30px"
                   transition="transform 0.2s"
                   _hover={{ transform: "scale(1.2)" }}
