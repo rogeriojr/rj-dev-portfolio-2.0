@@ -21,6 +21,11 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
   useEffect(() => {
     async function fetchProjects() {
       try {
+        if (category === 'design' || category === 'social-media') {
+          setProjects([]);
+          return;
+        }
+
         const projectsRef = collection(db, "projetos");
         const querySnapshot = await getDocs(projectsRef);
 

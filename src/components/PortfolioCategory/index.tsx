@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { motion, AnimatePresence } from "framer-motion";
+import { UnderConstruction } from "../UnderConstruction";
 import ProjectCard from "../ProjectCard";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../config/firebase";
@@ -92,6 +93,10 @@ export default function PortfolioCategory({
   }, [searchQuery, selectedTag, projects]);
 
   const categoryTitle = category.charAt(0).toUpperCase() + category.slice(1);
+
+  if (!isLoading && projects.length === 0 && (category === "design" || category === "social-media")) {
+    return <UnderConstruction />;
+  }
 
   return (
     <Container maxW="container.xl" minH="100vh" w="100%" overflowY="auto">
