@@ -94,7 +94,7 @@ export default function ProjectCard({
             <Image
               src={project.images[0]}
               alt={project.title}
-              objectFit="cover"
+              objectFit="contain"
               h="200px"
               w="100%"
               transition="transform 0.3s ease"
@@ -155,7 +155,7 @@ export default function ProjectCard({
             {project.description}
           </Text>
           <HStack spacing={4} mt={2} width="100%" justify="space-between">
-            <HStack spacing={4}>
+            <VStack align="start" spacing={2}>
               {project.links &&
                 project.links.length > 0 &&
                 project.links.map((link, index) => (
@@ -180,7 +180,7 @@ export default function ProjectCard({
                     {link.texto}
                   </Link>
                 ))}
-            </HStack>
+            </VStack>
             <Button
               rightIcon={<FaInfoCircle />}
               variant="ghost"
@@ -197,7 +197,7 @@ export default function ProjectCard({
                 transform: "translateY(0)",
               }}
             >
-              Details
+              Detalhes
             </Button>
           </HStack>
         </VStack>
