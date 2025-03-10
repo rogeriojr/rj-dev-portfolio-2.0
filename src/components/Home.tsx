@@ -122,7 +122,7 @@ export function Home() {
               size="lg"
               variant="outline"
               as="a"
-              href="/cv-rj.pdf"
+              href="./cv-rj.pdf"
               target="_blank"
               rel="noopener noreferrer"
               leftIcon={<FaBriefcase />}
