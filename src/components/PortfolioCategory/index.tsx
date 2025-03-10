@@ -19,11 +19,14 @@ const MotionSimpleGrid = motion(SimpleGrid);
 
 interface Project {
   id: string;
-  title: string;
-  description: string;
-  imageUrl: string;
-  category: string;
-  tags: string[];
+  titulo: string;
+  descricao: string;
+  imagem: string;
+  categoria: string;
+  links: Array<{
+    texto: string;
+    url: string;
+  }>;
 }
 
 interface PortfolioCategoryProps {
@@ -43,17 +46,24 @@ export default function PortfolioCategory({
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const projectsRef = collection(db, "projects");
-        const q = query(projectsRef, where("category", "==", category));
+        const projectsRef = collection(db, "projetos");
+        const q = query(projectsRef, where("categoria", "==", category));
         const querySnapshot = await getDocs(q);
 
         const fetchedProjects: Project[] = [];
         const tagSet = new Set<string>();
 
         querySnapshot.forEach((doc) => {
-          const project = { id: doc.id, ...doc.data() } as Project;
+          const data = doc.data();
+          const project = {
+            id: doc.id,
+            titulo: data.titulo || "",
+            descricao: data.descricao || "",
+            imagem: data.imagem || "",
+            categoria: data.categoria || "",
+            links: data.links || [],
+          } as Project;
           fetchedProjects.push(project);
-          project.tags?.forEach((tag) => tagSet.add(tag));
         });
 
         setProjects(fetchedProjects);
@@ -72,10 +82,9 @@ export default function PortfolioCategory({
   useEffect(() => {
     const filtered = projects.filter((project) => {
       const matchesSearch =
-        project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        project.description.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesTag =
-        selectedTag === "all" || project.tags?.includes(selectedTag);
+        project.titulo.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        project.descricao.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesTag = selectedTag === "all";
       return matchesSearch && matchesTag;
     });
     setFilteredProjects(filtered);
@@ -135,7 +144,7 @@ export default function PortfolioCategory({
             ? Array.from({ length: 6 }).map((_, index) => (
                 <ProjectCard
                   key={index}
-                  title=""
+                  title={project.titulo}
                   description=""
                   imageUrl=""
                   isLoading={true}
@@ -144,9 +153,10 @@ export default function PortfolioCategory({
             : filteredProjects.map((project) => (
                 <ProjectCard
                   key={project.id}
-                  title={project.title}
-                  description={project.description}
-                  imageUrl={project.imageUrl}
+                  title={project.titulo}
+                  description={project.descricao}
+                  imageUrl={project.imagem}
+                  links={project.links}
                 />
               ))}
         </MotionSimpleGrid>

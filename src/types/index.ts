@@ -8,7 +8,7 @@ export interface Project {
   id: string;
   title: string;
   description: string;
-  category: 'development' | 'design' | 'social-media' | 'latest' | 'popular';
+  category: 'development' | 'design' | 'social-media' | 'latest' | 'popular' | null | '' | any;
   images: string[];
   content: string;
   createdAt: Date;

@@ -8,9 +8,13 @@ interface ProjectCardProps {
   description: string;
   imageUrl: string;
   isLoading?: boolean;
+  links?: Array<{
+    texto: string;
+    url: string;
+  }>;
 }
 
-export default function ProjectCard({ title, description, imageUrl, isLoading = false }: ProjectCardProps) {
+export default function ProjectCard({ title, description, imageUrl, isLoading = false, links = [] }: ProjectCardProps) {
   const cardBg = useColorModeValue("gray.800", "gray.700");
 
   if (isLoading) {
@@ -57,7 +61,27 @@ export default function ProjectCard({ title, description, imageUrl, isLoading = 
         <Heading as="h3" size="md" mb={2}>
           {title}
         </Heading>
-        <Text noOfLines={3}>{description}</Text>
+        <Text noOfLines={3} mb={4}>{description}</Text>
+        {links.map((link, index) => (
+          <Box
+            key={index}
+            as="a"
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            display="inline-block"
+            mr={2}
+            mb={2}
+            px={3}
+            py={1}
+            bg="blue.600"
+            color="white"
+            borderRadius="md"
+            _hover={{ bg: "blue.700" }}
+          >
+            {link.texto}
+          </Box>
+        ))}
       </Box>
     </MotionBox>
   );

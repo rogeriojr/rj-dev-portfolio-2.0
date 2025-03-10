@@ -1,8 +1,11 @@
 import "./App.css";
 import { ChakraProvider } from "@chakra-ui/react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  UNSAFE_DataRouterContext,
+  UNSAFE_DataRouterStateContext,
+} from "react-router";
 import theme from "./theme";
-import { useEffect } from "react";
 import {
   Home,
   About,
@@ -16,44 +19,63 @@ import {
 } from "./components";
 import { AuthProvider } from "./contexts/AuthContext";
 
-function App() {
-  useEffect(() => {
-    document.title = `Rogério Jr - ${window.location.pathname.split("/")[1] || "Home"}`;
-  }, []);
+// Configure future flags for React Router v7
+UNSAFE_DataRouterContext.displayName = "DataRouter";
+UNSAFE_DataRouterStateContext.displayName = "DataRouterState";
+
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        { index: true, element: <Home /> },
+        { path: "about", element: <About /> },
+        { path: "contact", element: <Contact /> },
+        {
+          path: "portfolio",
+          children: [
+            {
+              path: "development",
+              element: <PortfolioCategory category="development" />,
+            },
+            {
+              path: "design",
+              element: <PortfolioCategory category="design" />,
+            },
+            {
+              path: "social-media",
+              element: <PortfolioCategory category="social-media" />,
+            },
+            { path: ":category/:id", element: <ProjectDetails /> },
+          ],
+        },
+        { path: "login", element: <Login /> },
+        {
+          path: "admin",
+          element: (
+            <AdminRoute>
+              <Admin />
+            </AdminRoute>
+          ),
+        },
+      ],
+    },
+  ],
+  {
+    future: {
+      v7_relativeSplatPath: true,
+    },
+  }
+);
+
+export function App() {
   return (
-    <ChakraProvider theme={theme}>
-      <AuthProvider>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
-              <Route path="about" element={<About />} />
-              <Route path="contact" element={<Contact />} />
-              <Route path="portfolio">
-                <Route
-                  path="development"
-                  element={<PortfolioCategory category="development" />}
-                />
-                <Route
-                  path="design"
-                  element={<PortfolioCategory category="design" />}
-                />
-                <Route
-                  path="social-media"
-                  element={<PortfolioCategory category="social-media" />}
-                />
-                <Route path=":category/:id" element={<ProjectDetails />} />
-              </Route>
-              <Route path="login" element={<Login />} />
-              <Route
-                path="admin"
-                element={<AdminRoute><Admin /></AdminRoute>}
-              />
-            </Route>
-          </Routes>
-        </Router>
-      </AuthProvider>
-    </ChakraProvider>
+    <AuthProvider>
+      <ChakraProvider theme={theme}>
+        <RouterProvider router={router} />
+      </ChakraProvider>
+    </AuthProvider>
   );
 }
 
