@@ -144,13 +144,13 @@ export default function PortfolioCategory({
             ? Array.from({ length: 6 }).map((_, index) => (
                 <ProjectCard
                   key={index}
-                  title={project.titulo}
+                  title=""
                   description=""
                   imageUrl=""
                   isLoading={true}
                 />
               ))
-            : filteredProjects.map((project) => (
+            : filteredProjects.map((project: Project) => (
                 <ProjectCard
                   key={project.id}
                   title={project.titulo}
