@@ -26,10 +26,16 @@ export function About() {
             Sobre Mim
           </Heading>
           <Text fontSize="lg" lineHeight="tall">
-            Eu sou comprometido, leal, dedicado, já tenho anos de experiencia na área e nesse momento da minha vida estou desempregado e necessito muito me realocar no mercado de trabalho, pelo sustento da minha família e filhos, preciso apenas de uma oportunidade pra mostrar meu valor!
+            Sou desenvolvedor fullstack com mais de 7 anos de experiência, especializado em frontend, principalmente com React, React Native e Node.js. Minha formação em Design Gráfico me permite criar interfaces intuitivas e focadas na experiência do usuário, sempre buscando a melhor usabilidade e performance.
           </Text>
           <Text fontSize="lg" lineHeight="tall">
-            Já trabalhei em statups fiz vários lançamentos de apps Android e IOS, plataformas E-commerce, Dashboards, Painéis adminitrativos, sistemas de caixa, aplicações de supermercado, plataformas de cursos, aplicações da area da saúde e ensino, mas a experiência mais marcante foi trabalhar em uma aplicação que fazia a gestão hospitalar das escalas médicas durante a pandemia, foi desafiador, eu percebi que meu trabalho é importante e impactava em vidas e podia salvar vidas, cada minuto valia muito, foi preciso fazer horas extras, manter a equipe unida, ter uma boa comunicação para evitar perdas em todos sentidos!
+            Tenho forte expertise em JavaScript e em diversos frameworks e bibliotecas como Vue.js, Next.js, React, React Native, Flutter, Chakra UI, Bootstrap e Materialize. Além disso, sou capacitado em Node.js, utilizando Express para criação de APIs e Jest para testes automatizados, incluindo Cypress para testes end-to-end e Jest para testes unitários.
+          </Text>
+          <Text fontSize="lg" lineHeight="tall">
+            Minha experiência no desenvolvimento de interfaces e soluções frontend é complementada com minha atuação em backend, garantindo um desenvolvimento completo e de alto desempenho, tanto em aplicações web quanto mobile. Sempre busco entregar soluções eficientes, com foco na performance e na melhor experiência possível para o usuário.
+          </Text>
+          <Text fontSize="lg" lineHeight="tall">
+            Ao longo da minha carreira, tive a oportunidade de liderar projetos significativos, incluindo o desenvolvimento de um sistema crítico de gestão hospitalar durante a pandemia, onde a eficiência e precisão eram fundamentais. Esta experiência fortaleceu minhas habilidades em trabalho em equipe, comunicação efetiva e gestão de projetos em ambientes de alta pressão.
           </Text>
           <Box mt={8}>
             <Heading as="h2" size="lg" mb={4}>
