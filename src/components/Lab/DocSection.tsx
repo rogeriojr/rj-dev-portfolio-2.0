@@ -1,0 +1,160 @@
+import React, { useState } from 'react';
+import { Box, Heading, Text, Badge, Flex, Button, Collapse, useColorModeValue, SimpleGrid, Icon, HStack, Tabs, TabList, Tab } from '@chakra-ui/react';
+import { FaCode, FaChevronUp, FaLightbulb, FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
+import { CodeViewer } from './CodeViewer';
+import { LabItem } from '../../data/lab-content';
+import { motion } from 'framer-motion';
+
+interface DocSectionProps {
+  item: LabItem;
+}
+
+export const DocSection: React.FC<DocSectionProps> = ({ item }) => {
+  const [showCode, setShowCode] = useState(false);
+
+  const borderColor = useColorModeValue('gray.200', 'gray.800');
+  const titleColor = useColorModeValue('brand.600', 'cyan.400');
+  const accentColor = useColorModeValue('cyan.600', 'cyan.200');
+
+  const typeColorMap: Record<string, string> = {
+    component: 'purple',
+    hook: 'green',
+    pattern: 'blue',
+    architecture: 'orange',
+    utility: 'pink'
+  };
+
+  return (
+    <Box
+      as={motion.div}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      // @ts-ignore
+      transition={{ duration: 0.4 }}
+      mb={16}
+      id={item.id}
+    >
+      {/* Header */}
+      <Flex align="center" gap={3} mb={4}>
+        <Heading size="lg" color={titleColor} fontFamily="Share Tech Mono">
+          {item.title}
+        </Heading>
+        <Badge colorScheme={typeColorMap[item.type] || 'gray'} fontSize="0.7em" px={2} py={0.5} rounded="md" textTransform="uppercase">
+          {item.type}
+        </Badge>
+      </Flex>
+
+      <Text fontSize="lg" color="gray.500" mb={8} maxW="container.md">
+        {item.description}
+      </Text>
+
+      {/* Problem & Solution Grid (if available) */}
+      {(item.problemStatement || item.solution) && (
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6} mb={8}>
+          {item.problemStatement && (
+            <Box p={5} rounded="lg" bg="rgba(155, 0, 0, 0.1)" border="1px solid" borderColor="red.900">
+              <HStack mb={2} color="red.400">
+                <Icon as={FaExclamationCircle} />
+                <Text fontWeight="bold" fontSize="sm" textTransform="uppercase">The Challenge</Text>
+              </HStack>
+              <Text color="gray.400" fontSize="sm">{item.problemStatement}</Text>
+            </Box>
+          )}
+          {item.solution && (
+            <Box p={5} rounded="lg" bg="rgba(0, 155, 0, 0.1)" border="1px solid" borderColor="green.900">
+              <HStack mb={2} color="green.400">
+                <Icon as={FaLightbulb} />
+                <Text fontWeight="bold" fontSize="sm" textTransform="uppercase">The Solution</Text>
+              </HStack>
+              <Text color="gray.400" fontSize="sm">{item.solution}</Text>
+            </Box>
+          )}
+        </SimpleGrid>
+      )}
+
+      {/* Interactive Demo Area */}
+      {item.demo && (
+        <Box
+          border="1px"
+          borderColor={borderColor}
+          rounded="xl"
+          bg={useColorModeValue('gray.50', 'blackAlpha.300')}
+          p={0}
+          mb={8}
+          position="relative"
+          overflow="hidden"
+          boxShadow="lg"
+        >
+          <Box
+            bg="blackAlpha.400"
+            px={4}
+            py={2}
+            borderBottom="1px solid"
+            borderColor={borderColor}
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Text fontSize="xs" fontWeight="bold" letterSpacing="widest" color="gray.500" textTransform="uppercase">
+              Interactive Preview
+            </Text>
+            <HStack spacing={1}>
+              <Box w={2} h={2} rounded="full" bg="red.500" />
+              <Box w={2} h={2} rounded="full" bg="yellow.500" />
+              <Box w={2} h={2} rounded="full" bg="green.500" />
+            </HStack>
+          </Box>
+
+          <Flex justify="center" align="center" minH="250px" p={8} bg="blackAlpha.200">
+            {item.demo}
+          </Flex>
+        </Box>
+      )}
+
+      {/* Key Features List */}
+      {item.features && (
+        <Box mb={8}>
+          <Text fontWeight="bold" mb={3} color={accentColor}>Key Technical Features</Text>
+          <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={2}>
+            {item.features.map((feature, idx) => (
+              <HStack key={idx} align="start">
+                <Icon as={FaCheckCircle} color="green.500" mt={1} boxSize={3} />
+                <Text fontSize="sm" color="gray.400">{feature}</Text>
+              </HStack>
+            ))}
+          </SimpleGrid>
+        </Box>
+      )}
+
+      {/* Implementation / Code Section */}
+      {item.code && (
+        <Box rounded="xl" overflow="hidden" border="1px solid" borderColor={borderColor}>
+          <Tabs variant="soft-rounded" colorScheme="cyan" size="sm">
+            <HStack p={2} bg="blackAlpha.400" justify="space-between">
+              <TabList>
+                <Tab color="gray.400" _selected={{ color: 'white', bg: 'whiteAlpha.200' }}>Implementation</Tab>
+              </TabList>
+              <Button
+                size="xs"
+                leftIcon={showCode ? <FaChevronUp /> : <FaCode />}
+                onClick={() => setShowCode(!showCode)}
+                variant="ghost"
+                color="gray.500"
+              >
+                {showCode ? 'Collapse' : 'Expand'}
+              </Button>
+            </HStack>
+
+            <Collapse in={showCode || !item.demo} animateOpacity>
+              <Box>
+                <CodeViewer code={item.code} />
+              </Box>
+            </Collapse>
+          </Tabs>
+        </Box>
+      )}
+
+      <Box h="1px" bg={borderColor} mt={12} />
+    </Box>
+  );
+};

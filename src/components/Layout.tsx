@@ -52,6 +52,9 @@ export function Layout() {
       <ChakraLink as={RouterLink} to="/certificates" _hover={{ color: hoverColor, textShadow: "0 0 8px rgba(255,215,0,0.6)" }} transition="all 0.3s ease">
         {t('nav.certificates')}
       </ChakraLink>
+      <ChakraLink as={RouterLink} to="/lab" _hover={{ color: "cyan.400", textShadow: "0 0 8px rgba(0,255,255,0.6)" }} transition="all 0.3s ease" color="cyan.500">
+        Cosmic Lab 🚀
+      </ChakraLink>
     </>
   );
 
@@ -124,7 +127,6 @@ export function Layout() {
                     _hover={{
                       color: "purple.300",
                       bg: "whiteAlpha.100",
-                      transform: "scale(1.1)"
                     }}
                     transition="all 0.2s"
                     animation={!isMenuFixed ? "pulse 2s infinite" : "none"}

@@ -17,7 +17,7 @@ export const certificates: Certificate[] = [
     title: { pt: 'HTML Básico', en: 'Basic HTML' },
     institution: 'Fundação Bradesco',
     hours: 11,
-    image: '/src/assets/certificate/HTML BÁSICO-11 HRS.jpg',
+    image: '/assets/certificates/HTML BÁSICO-11 HRS.jpg',
     category: 'web',
     year: 2015
   },
@@ -26,7 +26,7 @@ export const certificates: Certificate[] = [
     title: { pt: 'HTML Avançado', en: 'Advanced HTML' },
     institution: 'Fundação Bradesco',
     hours: 6,
-    image: '/src/assets/certificate/HTML AVANÇADO - 6 HRS.jpg',
+    image: '/assets/certificates/HTML AVANÇADO - 6 HRS.jpg',
     category: 'web',
     year: 2015
   },
@@ -35,7 +35,7 @@ export const certificates: Certificate[] = [
     title: { pt: 'Ilustração e Design Gráfico para Web', en: 'Illustration and Graphic Design for Web' },
     institution: 'Fundação Bradesco',
     hours: 25,
-    image: '/src/assets/certificate/ILUSTRAÇÃO E DG PARA WEB - 25 HRS.jpg',
+    image: '/assets/certificates/ILUSTRAÇÃO E DG PARA WEB - 25 HRS.jpg',
     category: 'design',
     year: 2015
   },
@@ -44,7 +44,7 @@ export const certificates: Certificate[] = [
     title: { pt: 'Inovando no CSS', en: 'Innovating in CSS' },
     institution: 'Fundação Bradesco',
     hours: 26,
-    image: '/src/assets/certificate/INOVANDO NO CSS - 26 HRS.jpg',
+    image: '/assets/certificates/INOVANDO NO CSS - 26 HRS.jpg',
     category: 'web',
     year: 2015
   },
@@ -53,7 +53,7 @@ export const certificates: Certificate[] = [
     title: { pt: 'Introdução à Fotografia Digital', en: 'Introduction to Digital Photography' },
     institution: 'Fundação Bradesco',
     hours: 27,
-    image: '/src/assets/certificate/INTRO A FOTOGRAFIA DIG - 27 HRS.jpg',
+    image: '/assets/certificates/INTRO A FOTOGRAFIA DIG - 27 HRS.jpg',
     category: 'design',
     year: 2015
   },
@@ -62,7 +62,7 @@ export const certificates: Certificate[] = [
     title: { pt: 'Introdução à Informática', en: 'Introduction to Informatics' },
     institution: 'Fundação Bradesco',
     hours: 20,
-    image: '/src/assets/certificate/INTRO A INFORMATICA - 20 HRS.jpg',
+    image: '/assets/certificates/INTRO A INFORMATICA - 20 HRS.jpg',
     category: 'other',
     year: 2014
   },
@@ -71,7 +71,7 @@ export const certificates: Certificate[] = [
     title: { pt: 'Programação J2ME', en: 'J2ME Programming' },
     institution: 'Fundação Bradesco',
     hours: 54,
-    image: '/src/assets/certificate/J2ME - 54 HRS.jpg',
+    image: '/assets/certificates/J2ME - 54 HRS.jpg',
     category: 'mobile',
     year: 2015
   },
@@ -80,7 +80,7 @@ export const certificates: Certificate[] = [
     title: { pt: 'NLW Unite - DevOps', en: 'NLW Unite - DevOps' },
     institution: 'Rocketseat',
     hours: 8,
-    image: '/src/assets/certificate/NLW Unite - DevOps.jpg',
+    image: '/assets/certificates/NLW Unite - DevOps.jpg',
     category: 'backend',
     year: 2024
   },
@@ -89,7 +89,7 @@ export const certificates: Certificate[] = [
     title: { pt: 'NLW Unite - Fullstack', en: 'NLW Unite - Fullstack' },
     institution: 'Rocketseat',
     hours: 12,
-    image: '/src/assets/certificate/NLW Unite - Fullstack.jpg',
+    image: '/assets/certificates/NLW Unite - Fullstack.jpg',
     category: 'web',
     year: 2024
   },
@@ -98,7 +98,7 @@ export const certificates: Certificate[] = [
     title: { pt: 'NLW Unite - Node.js', en: 'NLW Unite - Node.js' },
     institution: 'Rocketseat',
     hours: 10,
-    image: '/src/assets/certificate/NLW Unite - Nodejs.jpg',
+    image: '/assets/certificates/NLW Unite - Nodejs.jpg',
     category: 'backend',
     year: 2024
   },
@@ -107,7 +107,7 @@ export const certificates: Certificate[] = [
     title: { pt: 'NLW Unite - React Native', en: 'NLW Unite - React Native' },
     institution: 'Rocketseat',
     hours: 10,
-    image: '/src/assets/certificate/NLW Unite - React Native.jpg',
+    image: '/assets/certificates/NLW Unite - React Native.jpg',
     category: 'mobile',
     year: 2024
   },
@@ -116,7 +116,7 @@ export const certificates: Certificate[] = [
     title: { pt: 'NLW Unite - React.js', en: 'NLW Unite - React.js' },
     institution: 'Rocketseat',
     hours: 10,
-    image: '/src/assets/certificate/NLW Unite - Reactjs.jpg',
+    image: '/assets/certificates/NLW Unite - Reactjs.jpg',
     category: 'web',
     year: 2024
   },
@@ -125,7 +125,7 @@ export const certificates: Certificate[] = [
     title: { pt: 'Programação em C', en: 'C Programming' },
     institution: 'Fundação Bradesco',
     hours: 42,
-    image: '/src/assets/certificate/PROGRAMAÇÃO EM C.jpg',
+    image: '/assets/certificates/PROGRAMAÇÃO EM C.jpg',
     category: 'backend',
     year: 2015
   }

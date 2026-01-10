@@ -20,6 +20,7 @@ import {
 } from "./components";
 import { AuthProvider } from "./contexts/AuthContext";
 import { LanguageProvider } from "./i18n/LanguageContext";
+import CosmicLab from "./pages/CosmicLab";
 
 // Configure future flags for React Router v7
 UNSAFE_DataRouterContext.displayName = "DataRouter";
@@ -35,6 +36,7 @@ const router = createBrowserRouter(
         { path: "about", element: <About /> },
         { path: "contact", element: <Contact /> },
         { path: "certificates", element: <Certificates /> },
+        { path: "lab", element: <CosmicLab /> },
         {
           path: "portfolio",
           children: [
