@@ -24,17 +24,17 @@
     "yearsAbbr": "anos"
   },
   "projects": {
-    "title": "Portfólio - Cases de Sucesso",
-    "viewDetails": "Detalhes",
-    "viewOnline": "Ver Online",
-    "backToList": "Voltar para Projetos",
-    "loading": "Carregando projetos...",
-    "noProjects": "Nenhum projeto encontrado",
-    "notFound": "Projeto não encontrado",
-    "back": "Voltar",
-    "tags": "TECH STACK",
-    "links": "LINKS ÚTEIS",
-    "gallery": "Visualização do Projeto"
+    "title": "Registro de Missões Espaciais",
+    "viewDetails": "Analisar Missão",
+    "viewOnline": "Lançar Foguete",
+    "backToList": "Retornar à Base",
+    "loading": "Calibrando propulsores...",
+    "noProjects": "Nenhum sinal detectado",
+    "notFound": "Missão perdida no espaço",
+    "back": "Abortar",
+    "tags": "SISTEMAS HABILITADOS",
+    "links": "COORDENADAS",
+    "gallery": "Galeria do Universo"
   },
   "certificates": {
     "title": "Certificados",
@@ -66,5 +66,18 @@
     "edit": "Editar",
     "delete": "Excluir",
     "confirm": "Confirmar"
+  },
+  "cookies": {
+    "title": "Nós usamos cookies",
+    "description": "Usamos cookies para melhorar sua experiência, analisar nosso tráfego e personalizar conteúdo. Você pode escolher quais cookies aceitar.",
+    "customize": "Personalizar",
+    "acceptAll": "Aceitar Todos",
+    "necessary": "Apenas Necessários",
+    "savePreferences": "Salvar Preferências",
+    "necessaryDesc": "Cookies essenciais para o funcionamento do site. Não podem ser desativados.",
+    "analytics": "Análises",
+    "analyticsDesc": "Cookies que nos ajudam a entender como você usa o site para melhorar a experiência.",
+    "marketing": "Marketing",
+    "marketingDesc": "Cookies usados para personalizar anúncios e medir a eficácia de campanhas."
   }
 }

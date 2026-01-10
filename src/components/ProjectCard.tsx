@@ -10,8 +10,9 @@ import {
   useColorModeValue,
   Button,
   Badge,
+  Flex,
 } from "@chakra-ui/react";
-import { FaGithub, FaLink, FaInfoCircle } from "react-icons/fa";
+import { FaGithub, FaLink, FaInfoCircle, FaGlobeAmericas } from "react-icons/fa";
 import { Project } from "../types";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "../i18n/useTranslation";
@@ -35,7 +36,7 @@ export default function ProjectCard({
     "rgba(226, 232, 240, 0.6)",
     "rgba(45, 55, 72, 0.6)"
   );
-  const imageBgColor = useColorModeValue("gray.100", "gray.700");
+  const imageBgColor = useColorModeValue("gray.100", "gray.800"); // Darker for space theme
   const glowColor = useColorModeValue(
     "rgba(66, 153, 225, 0.3)",
     "rgba(99, 179, 237, 0.3)"
@@ -100,6 +101,10 @@ export default function ProjectCard({
           bg={project.title[language].toLowerCase().includes("bevas") || project.title[language].toLowerCase().includes("portal") || project.title[language].toLowerCase().includes("neoidea") || project.title[language].toLowerCase().includes("plataforma") ? "gray.800" : "white"}
           overflow="hidden"
           flexShrink={0}
+          h="200px"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
         >
           {project.images && project.images.length > 0 ? (
             <Image
@@ -107,7 +112,7 @@ export default function ProjectCard({
               alt={project.title[language]}
               objectFit="contain"
               p="6"
-              h="200px"
+              h="100%"
               w="100%"
               bg={project.title[language].toLowerCase().includes("bevas") || project.title[language].toLowerCase().includes("portal") || project.title[language].toLowerCase().includes("neoidea") || project.title[language].toLowerCase().includes("plataforma") ? "gray.800" : "white"}
               transition="transform 0.3s ease"
@@ -116,10 +121,13 @@ export default function ProjectCard({
               }}
             />
           ) : (
-            <Box
-              h="200px"
+            <Flex
+              h="100%"
               w="100%"
               bg={imageBgColor}
+              align="center"
+              justify="center"
+              direction="column"
               position="relative"
               _after={{
                 content: '""',
@@ -131,7 +139,12 @@ export default function ProjectCard({
                 background:
                   "radial-gradient(circle at center, rgba(66, 153, 225, 0.1) 0%, transparent 70%)",
               }}
-            />
+            >
+              <Icon as={FaGlobeAmericas} w={12} h={12} color="gray.400" mb={2} />
+              <Text fontSize="xs" color="gray.500" fontWeight="bold" textTransform="uppercase" letterSpacing="widest">
+                {language === 'pt' ? 'Dados Visuais Ausentes' : 'No Visual Data'}
+              </Text>
+            </Flex>
           )}
           <Box
             position="absolute"

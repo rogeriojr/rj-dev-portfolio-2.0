@@ -1,207 +1,171 @@
-import {
-  Box,
-  Container,
-  Flex,
-  Link as ChakraLink,
-  Stack,
-  Text,
-  useColorMode,
-  IconButton,
-  useDisclosure,
-  Drawer,
-  DrawerBody,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  VStack,
-  useBreakpointValue,
-  Button,
-} from "@chakra-ui/react";
+import { Box, Container, Flex, Link as ChakraLink, Stack, Text, useColorMode, IconButton, useDisclosure, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, VStack, useBreakpointValue, Button, Tooltip, Icon } from "@chakra-ui/react";
 import { css, keyframes } from "@emotion/react";
 import { Link as RouterLink, Outlet } from "react-router-dom";
-// import { useAuth } from "../contexts/AuthContext";
-import { FaSun, FaMoon, FaBars } from "react-icons/fa";
+import { FaSun, FaMoon, FaBars, FaAnchor } from "react-icons/fa";
 import { useTranslation } from "../i18n/useTranslation";
+import { CookieConsent } from "./CookieConsent";
+import { CodeTour } from "./CodeTour";
+import { useState, useEffect } from "react";
 
 export function Layout() {
-  // const { user, logout } = useAuth();
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const isMobile = useBreakpointValue({ base: true, md: false });
   const { t, language, setLanguage } = useTranslation();
 
+  const [isMenuFixed, setIsMenuFixed] = useState(() => {
+    const saved = localStorage.getItem('menuFixed');
+    return saved ? JSON.parse(saved) : false;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('menuFixed', JSON.stringify(isMenuFixed));
+  }, [isMenuFixed]);
+
+  const toggleGravity = () => setIsMenuFixed(!isMenuFixed);
+
   const bgColor = colorMode === "dark" ? "gray.900" : "white";
   const textColor = colorMode === "dark" ? "yellow.400" : "yellow.600";
-  const navBgColor =
-    colorMode === "dark" ? "rgba(0, 0, 0, 0.95)" : "rgba(255, 255, 255, 0.95)";
+  const navBgColor = colorMode === "dark"
+    ? (isMenuFixed ? "rgba(23, 25, 35, 0.95)" : "rgba(0, 0, 0, 0.6)")
+    : "rgba(255, 255, 255, 0.95)";
   const hoverColor = colorMode === "dark" ? "yellow.300" : "yellow.600";
 
   const starKeyframes = keyframes`
-    0% { opacity: 0.3; }
-    50% { opacity: 1; }
-    100% { opacity: 0.3; }
+    0% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+    100% { opacity: 0.3; transform: scale(1); }
   `;
 
+  // Define NavLinks component
   const NavLinks = () => (
     <>
-      <ChakraLink
-        as={RouterLink}
-        to="/"
-        _hover={{ color: hoverColor }}
-        transition="all 0.3s ease"
-      >
+      <ChakraLink as={RouterLink} to="/" _hover={{ color: hoverColor, textShadow: "0 0 8px rgba(255,215,0,0.6)" }} transition="all 0.3s ease">
         {t('nav.home')}
       </ChakraLink>
-      <ChakraLink
-        as={RouterLink}
-        to="/about"
-        _hover={{ color: hoverColor }}
-        transition="all 0.3s ease"
-      >
+      <ChakraLink as={RouterLink} to="/about" _hover={{ color: hoverColor, textShadow: "0 0 8px rgba(255,215,0,0.6)" }} transition="all 0.3s ease">
         {t('nav.about')}
       </ChakraLink>
-      <ChakraLink
-        as={RouterLink}
-        to="/portfolio/development"
-        _hover={{ color: hoverColor }}
-        transition="all 0.3s ease"
-      >
+      <ChakraLink as={RouterLink} to="/portfolio/development" _hover={{ color: hoverColor, textShadow: "0 0 8px rgba(255,215,0,0.6)" }} transition="all 0.3s ease">
         {t('nav.portfolio')}
+      </ChakraLink>
+      <ChakraLink as={RouterLink} to="/certificates" _hover={{ color: hoverColor, textShadow: "0 0 8px rgba(255,215,0,0.6)" }} transition="all 0.3s ease">
+        {t('nav.certificates')}
       </ChakraLink>
     </>
   );
 
   return (
+    // Changed minH="100vh" to height="auto" and removed overflow styles that might conflict with body scroll
+    // The main scroll should be on the body, not this container, unless we want a specific app-like behavior.
+    // Given the double scroll report, better to let content flow naturally.
     <Box
       minH="100vh"
       display="flex"
       flexDirection="column"
       bg={bgColor}
-      backgroundImage={`radial-gradient(circle at 1px 1px, ${colorMode === "dark" ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.1)"
+      backgroundImage={`radial-gradient(circle at 1px 1px, ${colorMode === "dark" ? "rgba(255,255,255,0.15)" : "rgba(0,0,0,0.1)"
         } 1px, transparent 0),
       radial-gradient(circle at 15px 15px, ${colorMode === "dark" ? "rgba(255,215,0,0.1)" : "rgba(43,79,129,0.05)"
         } 2px, transparent 0)`}
-      backgroundSize="40px 40px, 60px 60px"
+      backgroundSize="50px 50px, 100px 100px"
       position="relative"
-      overflow="hidden"
+      overflowX="hidden" // Keep overflowX hidden to prevent horizontal scroll
       transition="all 0.3s ease-in-out"
       css={css`
         &:before {
           content: "";
-          position: absolute;
+          position: fixed; // Fixed position for background to avoid it scrolling away or causing issues
           top: 0;
           left: 0;
           right: 0;
           bottom: 0;
           background: ${colorMode === "dark"
-          ? "radial-gradient(circle at 50% 50%, rgba(255,215,0,0.1) 0%, transparent 60%)"
+          ? "radial-gradient(circle at 50% 50%, rgba(76, 29, 149, 0.1) 0%, transparent 60%)"
           : "radial-gradient(circle at 50% 50%, rgba(43,79,129,0.1) 0%, transparent 60%)"};
-          animation: ${starKeyframes} 3s infinite;
+          animation: ${starKeyframes} 8s infinite;
+          pointer-events: none;
+          z-index: 0;
         }
       `}
     >
       <Box
         as="nav"
+        position={isMenuFixed ? "sticky" : "relative"}
+        top={0}
+        zIndex={100}
         bg={navBgColor}
         color={textColor}
         py={4}
         boxShadow={
           colorMode === "dark"
-            ? "0 4px 20px rgba(255,215,0,0.15)"
+            ? "0 4px 20px rgba(0,0,0,0.4)"
             : "0 4px 20px rgba(43,79,129,0.15)"
         }
-        backdropFilter="blur(8px)"
+        backdropFilter="blur(12px)"
         transition="all 0.3s ease-in-out"
+        borderBottom={isMenuFixed ? "1px solid rgba(255,255,255,0.05)" : "none"}
       >
         <Container maxW="container.xl">
           <Flex justify="space-between" align="center">
-            {isMobile ? (
-              <>
+            <Flex align="center" gap={4} id="app-navigation-container">
+              {!isMobile && (
+                <Tooltip
+                  label={isMenuFixed ? (language === 'pt' ? "Desativar Gravidade (Soltar Menu)" : "Disable Gravity (Release Menu)") : (language === 'pt' ? "Ativar Gravidade (Fixar Menu)" : "Activate Gravity (Fix Menu)")}
+                  hasArrow
+                  bg="purple.600"
+                >
+                  <IconButton
+                    aria-label="Toggle Menu Gravity"
+                    icon={<Icon as={FaAnchor} w={5} h={5} transform={!isMenuFixed ? "rotate(180deg)" : "rotate(0)"} />}
+                    onClick={toggleGravity}
+                    variant="ghost"
+                    color={isMenuFixed ? "purple.400" : "gray.500"}
+                    _hover={{
+                      color: "purple.300",
+                      bg: "whiteAlpha.100",
+                      transform: "scale(1.1)"
+                    }}
+                    transition="all 0.2s"
+                    animation={!isMenuFixed ? "pulse 2s infinite" : "none"}
+                  />
+                </Tooltip>
+              )}
+
+              {isMobile ? (
                 <IconButton
+                  id="app-navigation-mobile"
                   aria-label="Open menu"
                   icon={<FaBars />}
                   onClick={onOpen}
                   variant="ghost"
                   color={textColor}
                 />
-                <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
-                  <DrawerOverlay />
-                  <DrawerContent bg={bgColor}>
-                    <DrawerCloseButton color={textColor} />
-                    <DrawerHeader borderBottomWidth="1px" color={textColor}>
-                      Menu
-                    </DrawerHeader>
-                    <DrawerBody>
-                      <VStack spacing={4} align="stretch">
-                        <NavLinks />
-                        {/* {user ? (
-                          <>
-                            <ChakraLink
-                              as={RouterLink}
-                              to="/admin"
-                              _hover={{ color: "brand.yellow.400" }}
-                            >
-                              Admin
-                            </ChakraLink>
-                            <ChakraLink
-                              onClick={() => logout()}
-                              _hover={{ color: "brand.yellow.400" }}
-                              cursor="pointer"
-                            >
-                              Sair
-                            </ChakraLink>
-                          </>
-                        ) : (
-                          <ChakraLink
-                            as={RouterLink}
-                            to="/login"
-                            _hover={{ color: "brand.yellow.400" }}
-                          >
-                            Login
-                          </ChakraLink>
-                        )} */}
-                      </VStack>
-                    </DrawerBody>
-                  </DrawerContent>
-                </Drawer>
-              </>
-            ) : (
-              <Stack direction="row" spacing={8}>
-                <NavLinks />
-              </Stack>
-            )}
-            <Flex align="center" gap={4}>
-              {!isMobile && (
-                <Stack direction="row" spacing={4}>
-                  {/* {user ? (
-                    <>
-                      <ChakraLink
-                        as={RouterLink}
-                        to="/admin"
-                        _hover={{ color: "brand.yellow.400" }}
-                      >
-                        Admin
-                      </ChakraLink>
-                      <ChakraLink
-                        onClick={() => logout()}
-                        _hover={{ color: "brand.yellow.400" }}
-                        cursor="pointer"
-                      >
-                        Sair
-                      </ChakraLink>
-                    </>
-                  ) : (
-                    <ChakraLink
-                      as={RouterLink}
-                      to="/login"
-                      _hover={{ color: "brand.yellow.400" }}
-                    >
-                      Login
-                    </ChakraLink>
-                  )} */}
+              ) : (
+                <Stack id="app-navigation-desktop" direction="row" spacing={8}>
+                  <NavLinks />
                 </Stack>
               )}
+            </Flex>
+
+            {isMobile && (
+              <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
+                <DrawerOverlay />
+                <DrawerContent bg={bgColor}>
+                  <DrawerCloseButton color={textColor} />
+                  <DrawerHeader borderBottomWidth="1px" color={textColor}>
+                    Menu
+                  </DrawerHeader>
+                  <DrawerBody>
+                    <VStack spacing={4} align="stretch">
+                      <NavLinks />
+                    </VStack>
+                  </DrawerBody>
+                </DrawerContent>
+              </Drawer>
+            )}
+
+            <Flex align="center" gap={4} id="language-toggle">
               <Flex align="center" gap={2}>
                 <Button
                   size="sm"
@@ -230,20 +194,7 @@ export function Layout() {
         flex={1}
         position="relative"
         zIndex={1}
-        css={css`
-          &:before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: ${colorMode === "dark"
-            ? "radial-gradient(circle at 50% 50%, rgba(255,215,0,0.05) 0%, transparent 70%)"
-            : "radial-gradient(circle at 50% 50%, rgba(43,79,129,0.05) 0%, transparent 70%)"};
-            pointer-events: none;
-          }
-        `}
+      // Removed overflow-x hidden from here, rely on body
       >
         <Outlet />
       </Box>
@@ -252,22 +203,31 @@ export function Layout() {
         as="footer"
         bg={navBgColor}
         color={textColor}
-        py={4}
+        py={6}
         mt="auto"
         boxShadow={
           colorMode === "dark"
-            ? "0 -4px 20px rgba(255,215,0,0.15)"
+            ? "0 -4px 20px rgba(0,0,0,0.3)"
             : "0 -4px 20px rgba(43,79,129,0.15)"
         }
         backdropFilter="blur(8px)"
         transition="all 0.3s ease-in-out"
+        borderTop="1px solid rgba(255,255,255,0.05)"
       >
         <Container maxW="container.xl">
-          <Text textAlign="center">
-            &copy; {new Date().getFullYear()} Rogério Júnior. {t('footer.rights')}.
-          </Text>
+          <VStack spacing={2}>
+            <Text textAlign="center" fontSize="sm">
+              &copy; {new Date().getFullYear()} Rogério Júnior. {t('footer.rights')}.
+            </Text>
+            <Text fontSize="xs" opacity={0.6}>
+              {language === 'pt' ? 'Desenvolvido no Espaço-Tempo' : 'Developed in Space-Time'} 🌌
+            </Text>
+          </VStack>
         </Container>
       </Box>
+
+      <CookieConsent />
+      <CodeTour />
     </Box>
   );
 }

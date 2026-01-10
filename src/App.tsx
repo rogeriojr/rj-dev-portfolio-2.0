@@ -16,6 +16,7 @@ import {
   Layout,
   Admin,
   Contact,
+  Certificates,
 } from "./components";
 import { AuthProvider } from "./contexts/AuthContext";
 import { LanguageProvider } from "./i18n/LanguageContext";
@@ -33,6 +34,7 @@ const router = createBrowserRouter(
         { index: true, element: <Home /> },
         { path: "about", element: <About /> },
         { path: "contact", element: <Contact /> },
+        { path: "certificates", element: <Certificates /> },
         {
           path: "portfolio",
           children: [
@@ -66,6 +68,8 @@ const router = createBrowserRouter(
   {
     future: {
       v7_relativeSplatPath: true,
+      // @ts-ignore
+      v7_startTransition: true,
     },
   }
 );

@@ -130,6 +130,7 @@ Technological support for the world's largest emotional intelligence training, r
       pt: "Plataforma CRM e de Gestão de Vendas dedicada ao setor automotivo e segurador, com foco em automação de funil.",
       en: "CRM and Sales Management platform dedicated to the automotive and insurance sector, focused on funnel automation."
     },
+    images: ["/assets/projects/autoconect_logo.png"],
     tags: ["CRM", "React", "Dashboard", "Sales Automation", "Analytics"],
     content: {
       pt: `
@@ -162,40 +163,41 @@ System focused on optimizing the sales and after-sales cycle of vehicles and ins
   },
   "bevaswm": {
     title: {
-      pt: "Bevas WM",
-      en: "Bevas WM"
+      pt: "Bevas Wealth Management",
+      en: "Bevas Wealth Management"
     },
     description: {
-      pt: "Solução robusta de POS (Point of Sale) e WMS para gestão de varejo autônomo e controle rigoroso de estoque.",
-      en: "Robust POS (Point of Sale) and WMS solution for autonomous retail management and strict inventory control."
+      pt: "Plataforma exclusiva de gestão patrimonial e investimentos focada em High Net Worth Individuals (HNWI).",
+      en: "Exclusive wealth management and investment platform focused on High Net Worth Individuals (HNWI)."
     },
-    tags: ["POS", "WMS", "Retail Tech", "Inventory Management", "React"],
+    images: ["/assets/projects/bevas_logo.png"],
+    tags: ["Fintech", "Wealth", "Security", "React", "Data Visualization"],
     content: {
       pt: `
-### Retail Technology & Smart Inventory
-Sistema de Ponto de Venda e Gestão de Armazém (WMS) projetado para operações de varejo modernas e autônomas.
+### Gestão Patrimonial de Alta Precisão
+Boutique system developed to manage complex investment portfolios with banking-grade security.
 
-#### Desafios de Engenharia:
-- **Conciliação de Estoque**: Algoritmos de sincronização em tempo real entre vendas físicas e sistema central.
-- **Alta Estabilidade**: Interface de checkout otimizada para transações rápidas e sem falhas.
-- **Lógica de Negócio Complexa**: Gestão de múltiplas tabelas de preço e regras de fidelidade.
+#### Foco no Cliente Premium:
+- **Visão 360º de Ativos**: Dashboard consolidado que agrega investimentos on-shore e off-shore.
+- **Segurança Militar**: Criptografia de ponta a ponta e autenticação multifator para proteção de dados sensíveis.
+- **Relatórios Automatizados**: Geração de PDFs detalhados de performance e rentabilidade mensal.
 
-#### Impacto na Operação:
-- Interface intuitiva que reduz o tempo de treinamento de novos operadores.
-- Sistema de controle de perdas integrado que aumentou a acurácia do inventário.
+#### Engenharia de Software:
+- Arquitetura segura isolada da internet pública para dados críticos.
+- Interface minimalista e elegante, refletindo a sofisticação da marca.
     `,
       en: `
-### Retail Technology & Smart Inventory
-Point of Sale and Warehouse Management System (WMS) designed for modern and autonomous retail operations.
+### High Precision Wealth Management
+Boutique system developed to manage complex investment portfolios with banking-grade security.
 
-#### Engineering Challenges:
-- **Inventory Reconciliation**: Real-time synchronization algorithms between physical sales and central system.
-- **High Stability**: Optimized checkout interface for fast and flawless transactions.
-- **Complex Business Logic**: Management of multiple price tables and loyalty rules.
+#### Focus on Premium Client:
+- **360º Asset View**: Consolidated dashboard aggregating on-shore and off-shore investments.
+- **Military Security**: End-to-end encryption and multi-factor authentication for sensitive data protection.
+- **Automated Reports**: Generation of detailed monthly performance and profitability PDFs.
 
-#### Operational Impact:
-- Intuitive interface that reduces training time for new operators.
-- Integrated loss control system that increased inventory accuracy.
+#### Software Engineering:
+- Secure architecture isolated from public internet for critical data.
+- Minimalist and elegant interface, reflecting the brand's sophistication.
     `
     }
   },
@@ -208,6 +210,7 @@ Point of Sale and Warehouse Management System (WMS) designed for modern and auto
       pt: "EdTech focada em alfabetização e fluência em leitura através de uma jornada de aprendizado gamificada e interativa.",
       en: "EdTech focused on literacy and reading fluency through a gamified and interactive learning journey."
     },
+    images: ["/assets/projects/minimegaleitor_logo.png"],
     tags: ["EdTech", "Education", "React", "Gamification", "LMS"],
     content: {
       pt: `
@@ -247,6 +250,7 @@ Complex educational platform that transforms the learning process into a playful
       pt: "Plataforma SaaS de Marketing Digital para automação de postagens e gestão estratégica de presença social.",
       en: "Digital Marketing SaaS platform for post automation and strategic social presence management."
     },
+    images: ["/assets/projects/meusocialpost_logo.png"],
     tags: ["SaaS", "Social Media", "Marketing Tech", "React", "Automation"],
     content: {
       pt: `
@@ -286,6 +290,47 @@ Solution for marketing professionals to manage multiple profiles and schedule co
       pt: "Sistema de missão crítica para gestão de escalas médicas e rostering hospitalar de alta disponibilidade.",
       en: "Mission-critical system for medical shift management and high-availability hospital rostering."
     },
+    images: ["/assets/projects/plantao_extra_logo.png"],
+    tags: ["HealthTech", "Resilience", "React Native", "Real-time Telemetry", "Node.js"],
+    content: {
+      pt: `
+### Gestão Hospitalar de Missão Crítica
+Solução vital para a operação de hospitais, gerenciando escalas complexas de médicos e equipes de saúde.
+
+#### Engenharia e Resiliência:
+- **Zero Downtime**: Sistema projetado com alta tolerância a falhas, crucial durante picos de demanda na saúde pública.
+- **Telemetria em Tempo Real**: Painéis de monitoramento para gestores hospitalares visualizarem alocação de equipes instantaneamente.
+- **App Multi-plataforma**: Aplicação mobile para que médicos gerenciem seus plantões e trocas de forma intuitiva.
+
+#### Impacto Social e Técnico:
+- Peça fundamental na gestão de equipes de saúde no estado de Goiás durante a pandemia.
+- UX otimizada para profissionais sob alta pressão, garantindo rapidez e precisão na gestão de plantões.
+    `,
+      en: `
+### Mission-Critical Hospital Management
+Vital solution for hospital operations, managing complex schedules of doctors and healthcare teams.
+
+#### Engineering & Resilience:
+- **Zero Downtime**: System designed with high fault tolerance, crucial during public health demand peaks.
+- **Real-time Telemetry**: Monitoring panels for hospital managers to instantly visualize team allocation.
+- **Multi-platform App**: Mobile application for doctors to intuitively manage their shifts and exchanges.
+
+#### Social & Technical Impact:
+- Fundamental piece in healthcare team management in Goiás state during the pandemic.
+- Optimized UX for professionals under high pressure, ensuring speed and precision in shift management.
+    `
+    }
+  },
+  "plantao-extra": {
+    title: {
+      pt: "Plantão Extra",
+      en: "Extra Shift"
+    },
+    description: {
+      pt: "Sistema de missão crítica para gestão de escalas médicas e rostering hospitalar de alta disponibilidade.",
+      en: "Mission-critical system for medical shift management and high-availability hospital rostering."
+    },
+    images: ["/assets/projects/plantao_extra_logo.png"],
     tags: ["HealthTech", "Resilience", "React Native", "Real-time Telemetry", "Node.js"],
     content: {
       pt: `
@@ -318,40 +363,41 @@ Vital solution for hospital operations, managing complex schedules of doctors an
   },
   "portaltempoderquemage": {
     title: {
-      pt: "Portal tem poder quem age",
+      pt: "Portal Tem Poder Quem Age",
       en: "Power to Those Who Act Portal"
     },
     description: {
-      pt: "Plataforma de alta performance para o setor de turismo e sorteios certificados, unindo UX fluida e segurança.",
-      en: "High-performance platform for tourism and certified raffles, combining fluid UX and security."
+      pt: "Home oficial dos alunos da Febracis, conectando milhares de usuários a conteúdos transformadores de inteligência emocional.",
+      en: "Official home for Febracis students, connecting thousands of users to transformative emotional intelligence content."
     },
-    tags: ["React", "Vite", "Turismo", "Sorteios Certificados", "High Performance"],
+    images: ["/assets/projects/portaltempoderquemage_logo.png"],
+    tags: ["Education", "Coaching", "React", "High Traffic", "Video Streaming"],
     content: {
       pt: `
-### Engenharia de Frontend para Entretenimento e Viagens
-Plataforma que integra checkout de sorteios, gestão de viagens e painel administrativo completo.
+### O Maior Portal de Desenvolvimento Humano da América Latina
+Hub central para distribuição de conteúdo, gestão de ingressos e comunidade para alunos da Febracis.
 
-#### Destaques Tecnológicos:
-- **Vite Setup**: Stack moderna garantindo o menor tempo de carregamento possível para usuários mobile.
-- **Security First**: Implementação de fluxos seguros para transações de sorteios certificados.
-- **Portal Admin**: Dashboard robusto para gestão total de campanhas, prêmios e relatórios de vendas.
+#### Desafios de Escala e UX:
+- **Streaming Seguro**: Entrega de vídeo protegida para conteúdos exclusivos de cursos premium.
+- **Integração de Ecossistema**: Single Sign-On (SSO) conectando múltiplas plataformas educacionais da holding.
+- **Gamificação de Aprendizado**: Sistema de progresso que incentiva o consumo contínuo de material didático.
 
-#### Contribuição Profissional:
-- Criação de uma identidade visual proprietária e implementação de componentes UI premium.
-- Otimização de conversão através de testes A/B e melhorias contínuas em fluxos de checkout.
+#### Minha Contribuição:
+- Reescrita da camada de frontend para melhorar o SEO e o tempo de carregamento inicial.
+- Implementação de área de membros com suporte a múltiplos níveis de acesso (ACL).
     `,
       en: `
-### Frontend Engineering for Entertainment and Travel
-Platform that integrates raffle checkout, travel management, and complete administrative panel.
+### Latin America's Largest Human Development Portal
+Central hub for content distribution, ticket management, and community for Febracis students.
 
-#### Technological Highlights:
-- **Vite Setup**: Modern stack ensuring the shortest possible loading time for mobile users.
-- **Security First**: Implementation of secure flows for certified raffle transactions.
-- **Admin Portal**: Robust dashboard for complete campaign management, prizes, and sales reports.
+#### Scale & UX Challenges:
+- **Secure Streaming**: Protected video delivery for exclusive premium course content.
+- **Ecosystem Integration**: Single Sign-On (SSO) connecting multiple educational platforms of the holding.
+- **Learning Gamification**: Progress system that encourages continuous consumption of educational material.
 
-#### Professional Contribution:
-- Creation of proprietary visual identity and implementation of premium UI components.
-- Conversion optimization through A/B testing and continuous improvements in checkout flows.
+#### My Contribution:
+- Rewriting the frontend layer to improve SEO and initial load time.
+- Implementation of member area with support for multiple access levels (ACL).
     `
     }
   }
@@ -404,8 +450,9 @@ Transforming unstructured data into an active, queryable knowledge base through 
     links: [
       { texto: "Demo Chat", url: "https://ai-srv.neoidea.com.br/?uuid=bca740bd02d746f1adfb97e6d8e3d2ae&room_id=e39ca8003b410be0be0afdb81ec6e0ce&user=2fffe3b570e2e33eff1ee9d3ec3f6746&password=23e4b3eb0ac3ae12d4f9e13372b49cda" }
     ],
-    createdAt: new Date(),
-    updatedAt: new Date()
+    // Removed new Date calls to ensure historical accuracy, handled via projectDates mapping
+    createdAt: new Date("2024-01-01"),
+    updatedAt: new Date("2024-01-01")
   },
   {
     id: "neoidea-platform-v2",
@@ -459,8 +506,8 @@ Development of a 'Core' platform capable of serving multiple large corporate cli
       { texto: "Case Inova Plástica", url: "https://plataforma.neoidea.com.br/inovaplastica" },
       { texto: "Case REPI", url: "http://plataforma.neoidea.com.br/repi" }
     ],
-    createdAt: new Date(),
-    updatedAt: new Date()
+    createdAt: new Date("2024-01-01"),
+    updatedAt: new Date("2024-01-01")
   },
   {
     id: "clubshare",
@@ -506,8 +553,8 @@ Acting as a front-end specialist in brand transformation (rebranding) and benefi
     links: [
       { texto: "Acessar Plataforma", url: "https://www.clubshare.com.br/login" }
     ],
-    createdAt: new Date(),
-    updatedAt: new Date()
+    createdAt: new Date("2021-01-01"),
+    updatedAt: new Date("2021-01-01")
   },
   {
     id: "pegpag-smart24",
@@ -557,8 +604,8 @@ End-to-end integrated architecture that enables 24/7 store operations without em
       { texto: "Google Play", url: "https://play.google.com/store/apps/details?id=com.pegpag.smart24&hl=pt_BR" },
       { texto: "Apple Store", url: "https://apps.apple.com/br/app/peg-pag-smart-24h/id6740469103" }
     ],
-    createdAt: new Date(),
-    updatedAt: new Date()
+    createdAt: new Date("2022-01-01"),
+    updatedAt: new Date("2022-01-01")
   },
   {
     id: "pandaparking",
@@ -608,7 +655,262 @@ Official rotating parking platform that simplifies the lives of thousands of dri
       { texto: "Google Play", url: "https://play.google.com/store/apps/details?id=com.pandaparkingmobile&hl=pt_BR" },
       { texto: "Apple Store", url: "https://apps.apple.com/br/app/novo-panda-parking-zona-azul/id6449155370" }
     ],
-    createdAt: new Date(),
-    updatedAt: new Date()
+    createdAt: new Date("2023-01-01"),
+    updatedAt: new Date("2023-01-01")
+  },
+  {
+    id: "teste-gerenciamento-produtos",
+    title: {
+      pt: "Sistema de Gerenciamento de Produtos",
+      en: "Product Management System"
+    },
+    description: {
+      pt: "Aplicação web completa para gerenciamento de produtos com filtros avançados, paginação e layout totalmente responsivo.",
+      en: "Complete web application for product management with advanced filters, pagination, and fully responsive layout."
+    },
+    category: "development",
+    images: ["/assets/projects/gerenciamento_produtos.png"],
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "State Management", "Responsive Design", "Testing"],
+    content: {
+      pt: `
+### Sistema de Gerenciamento de Produtos
+Aplicação desenvolvida como teste técnico, demonstrando proficiência em Next.js, gerenciamento de estado e boas práticas de desenvolvimento.
+
+#### Funcionalidades Implementadas:
+- **CRUD Completo**: Listagem, cadastro, edição e exclusão de produtos com validação de formulários.
+- **Filtros Avançados**: Busca por nome, categoria e faixa de preço com resultados instantâneos.
+- **Ordenação Dinâmica**: Suporte para múltiplos critérios de ordenação (preço, nome, categoria).
+- **Paginação Eficiente**: Navegação otimizada para grandes volumes de dados.
+
+#### Stack Técnica:
+- **Frontend Framework**: Next.js 14 com App Router para SSR e SSG.
+- **Tipagem**: TypeScript para segurança de tipos em tempo de compilação.
+- **Estilização**: Tailwind CSS com componentes customizados e design system.
+- **Testes**: Snapshot testing para garantir consistência visual.
+
+#### Diferenciais:
+- Layout 100% responsivo (mobile-first approach).
+- Documentação detalhada do projeto.
+- Código limpo seguindo princípios SOLID.
+    `,
+      en: `
+### Product Management System
+Application developed as a technical test, demonstrating proficiency in Next.js, state management, and development best practices.
+
+#### Implemented Features:
+- **Complete CRUD**: Product listing, registration, editing, and deletion with form validation.
+- **Advanced Filters**: Search by name, category, and price range with instant results.
+- **Dynamic Sorting**: Support for multiple sorting criteria (price, name, category).
+- **Efficient Pagination**: Optimized navigation for handling large data volumes.
+
+#### Technical Stack:
+- **Frontend Framework**: Next.js 14 with App Router for SSR and SSG.
+- **Type Safety**: TypeScript for compile-time type security.
+- **Styling**: Tailwind CSS with custom components and design system.
+- **Testing**: Snapshot testing to ensure visual consistency.
+
+#### Key Differentiators:
+- 100% responsive layout (mobile-first approach).
+- Detailed project documentation.
+- Clean code following SOLID principles.
+    `
+    },
+    links: [
+      { texto: "Ver Demo", url: "https://teste-gerenciamento-produtos.vercel.app/" },
+      { texto: "GitHub", url: "https://github.com/rogeriojr/teste-gerenciamento-produtos" }
+    ],
+    createdAt: new Date("2024-01-01"),
+    updatedAt: new Date("2024-01-01")
+  },
+  {
+    id: "projeto-nlw-rocketseat",
+    title: {
+      pt: "Projeto NLW Rocketseat",
+      en: "NLW Rocketseat Project"
+    },
+    description: {
+      pt: "API REST desenvolvida com Node.js e Fastify durante evento NLW da Rocketseat, focada em alta performance e boas práticas.",
+      en: "REST API developed with Node.js and Fastify during Rocketseat's NLW event, focused on high performance and best practices."
+    },
+    category: "development",
+    images: ["/assets/projects/nlw_rocketseat.png"],
+    tags: ["Node.js", "Fastify", "TypeScript", "REST API", "Backend", "Microservices"],
+    content: {
+      pt: `
+### API com Microframework Fastify
+Projeto desenvolvido durante o evento Next Level Week da Rocketseat, demonstrando expertise em arquitetura backend moderna.
+
+#### Arquitetura e Implementação:
+- **Microframework Fastify**: Escolha estratégica para máxima performance e overhead mínimo.
+- **TypeScript Nativo**: Tipagem forte em toda a aplicação para maior confiabilidade.
+- **Arquitetura em Camadas**: Separação clara entre controllers, services e repositories.
+- **Validação de Schemas**: Uso de schemas Fastify para validação automática de requisições.
+
+#### Performance e Escalabilidade:
+- Suporte a alta concorrência através do event loop do Node.js.
+- Implementação de melhores práticas para APIs RESTful.
+- Documentação automática com Swagger/OpenAPI.
+
+#### Aprendizados e Aplicação:
+Projeto focado em solidificar conhecimentos em backend Node.js, demonstrando capacidade de absorver novos frameworks rapidamente e aplicar padrões da indústria.
+    `,
+      en: `
+### API with Fastify Microframework
+Project developed during Rocketseat's Next Level Week event, demonstrating expertise in modern backend architecture.
+
+#### Architecture and Implementation:
+- **Fastify Microframework**: Strategic choice for maximum performance and minimal overhead.
+- **Native TypeScript**: Strong typing throughout the application for greater reliability.
+- **Layered Architecture**: Clear separation between controllers, services, and repositories.
+- **Schema Validation**: Use of Fastify schemas for automatic request validation.
+
+#### Performance and Scalability:
+- Support for high concurrency through Node.js event loop.
+- Implementation of REST API best practices.
+- Automatic documentation with Swagger/OpenAPI.
+
+#### Learning and Application:
+Project focused on solidifying knowledge in Node.js backend, demonstrating ability to quickly absorb new frameworks and apply industry standards.
+    `
+    },
+    links: [
+      { texto: "GitHub", url: "https://github.com/rogeriojr/projeto-nlw-node-fastify" }
+    ],
+    createdAt: new Date("2024-01-01"),
+    updatedAt: new Date("2024-01-01")
+  },
+  {
+    id: "mobile-challenge-codesh",
+    title: {
+      pt: "Mobile Challenge - Coodesh",
+      en: "Mobile Challenge - Coodesh"
+    },
+    description: {
+      pt: "Desafio técnico mobile desenvolvido para Coodesh, demonstrando habilidades avançadas em desenvolvimento React Native e TypeScript.",
+      en: "Mobile technical challenge developed for Coodesh, demonstrating advanced skills in React Native and TypeScript development."
+    },
+    category: "development",
+    images: ["/assets/projects/coodesh_challenge.png"],
+    tags: ["React Native", "TypeScript", "Mobile", "API Integration", "State Management"],
+    content: {
+      pt: `
+### Desafio Técnico Mobile
+Aplicação mobile desenvolvida como parte de processo seletivo técnico da Coodesh, demonstrando proficiência em desenvolvimento mobile multiplataforma.
+
+#### Competências Demonstradas:
+- **React Native**: Desenvolvimento de interface nativa para iOS e Android a partir de uma única codebase.
+- **Consumo de APIs**: Integração com APIs RESTful, tratamento de estados de carregamento e erros.
+- **Performance Mobile**: Otimizações específicas para dispositivos móveis (lazy loading, cache, etc.).
+- **TypeScript**: Tipagem completa para maior segurança e manutenibilidade do código.
+
+#### Arquitetura:
+- Componentização eficiente com hooks customizados.
+- Gerenciamento de estado robusto.
+- Navegação otimizada para UX mobile.
+- Suporte a diferentes tamanhos de tela e orientações.
+
+#### Resultado:
+Solução completa atendendo todos os requisitos do desafio, com código limpo, documentado e seguindo padrões da comunidade React Native.
+    `,
+      en: `
+### Mobile Technical Challenge
+Mobile application developed as part of Coodesh's technical selection process, demonstrating proficiency in cross-platform mobile development.
+
+#### Demonstrated Skills:
+- **React Native**: Development of native interface for iOS and Android from a single codebase.
+- **API Consumption**: Integration with RESTful APIs, handling loading states and errors.
+- **Mobile Performance**: Mobile-specific optimizations (lazy loading, caching, etc.).
+- **TypeScript**: Complete typing for greater code security and maintainability.
+
+#### Architecture:
+- Efficient componentization with custom hooks.
+- Robust state management.
+- Optimized navigation for mobile UX.
+- Support for different screen sizes and orientations.
+
+#### Result:
+Complete solution meeting all challenge requirements, with clean, documented code following React Native community standards.
+    `
+    },
+    links: [
+      { texto: "GitHub", url: "https://github.com/rogeriojr/mobile-chalenge-20240202-codesh" }
+    ],
+    createdAt: new Date("2024-01-01"),
+    updatedAt: new Date("2024-01-01")
+  },
+  {
+    id: "yellot-cupons-app",
+    title: {
+      pt: "Yellot Cupons",
+      en: "Yellot Coupons"
+    },
+    description: {
+      pt: "Aplicativo mobile para gestão e resgate de cupons de desconto, integrado com sistema de fidelidade.",
+      en: "Mobile app for coupon management and redemption, integrated with loyalty system."
+    },
+    category: "development",
+    images: ["/assets/projects/yellot_cupons.png"],
+    tags: ["React Native", "Mobile", "Loyalty", "UX/UI"],
+    content: {
+      pt: `
+### App de Fidelidade e Cupons
+Aplicativo focado em retenção de clientes através de gamificação e benefícios exclusivos.
+
+#### Destaques:
+- **Carteira Digital**: Gestão fácil de cupons ativos e expirados.
+- **Notificações Push**: Engajamento em tempo real com novas ofertas.
+- **Design Intuitivo**: Interface limpa focada em conversão rápida.
+      `,
+      en: `
+### Loyalty and Coupon App
+App focused on customer retention through gamification and exclusive benefits.
+
+#### Highlights:
+- **Digital Wallet**: Easy management of active and expired coupons.
+- **Push Notifications**: Real-time engagement with new offers.
+- **Intuitive Design**: Clean interface focused on quick conversion.
+      `
+    },
+    createdAt: new Date("2024-01-01"),
+    updatedAt: new Date("2024-01-01")
+  },
+  {
+    id: "neo-carrossel",
+    title: {
+      pt: "Neo Carrossel 3D",
+      en: "Neo Carousel 3D"
+    },
+    description: {
+      pt: "Componente React avançado de carrossel 3D com física realista e suporte a gestos.",
+      en: "Advanced React 3D carousel component with realistic physics and gesture support."
+    },
+    category: "development",
+    images: ["/assets/projects/neo_carrossel_carousel.png", "/assets/projects/neo_carrossel_gallery.png"],
+    tags: ["React", "Three.js", "Framer Motion", "UI Component"],
+    content: {
+      pt: `
+### Experiência 3D Interativa
+Desenvolvimento de um componente de carrossel tridimensional de alta performance para vitrines digitais.
+
+#### Tecnologia:
+- **Framer Motion**: Animações fluidas baseadas em física (springs).
+- **Gestos**: Suporte a arraste e toque com inércia realista.
+- **Acessibilidade**: Navegação por teclado e leitores de tela.
+      `,
+      en: `
+### Interactive 3D Experience
+Development of a high-performance three-dimensional carousel component for digital showcases.
+
+#### Technology:
+- **Framer Motion**: Fluid physics-based animations (springs).
+- **Gestures**: Support for drag and touch with realistic inertia.
+- **Accessibility**: Keyboard navigation and screen readers.
+      `
+    },
+    links: [
+      { texto: "Demo", url: "#" }
+    ],
+    createdAt: new Date("2024-06-15"),
+    updatedAt: new Date("2024-06-15")
   }
 ];

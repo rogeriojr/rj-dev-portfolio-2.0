@@ -26,7 +26,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import ReactMarkdown from 'react-markdown';
 import { db } from '../config/firebase';
 import { Project } from '../types';
-import { FaArrowLeft, FaExternalLinkAlt, FaSearchPlus } from 'react-icons/fa';
+import { FaArrowLeft, FaExternalLinkAlt, FaSearchPlus, FaRocket } from 'react-icons/fa';
 import { PROJECT_OVERRIDES, NEW_STATIC_PROJECTS } from '../data/projects';
 import { useTranslation } from '../i18n/useTranslation';
 
@@ -59,7 +59,27 @@ export function ProjectDetails() {
         return;
       }
 
-      // 2. Try fetching from Firestore
+      // 2. Check overrides directly (for legacy projects not in Firestore)
+      if (PROJECT_OVERRIDES[id]) {
+        const override = PROJECT_OVERRIDES[id];
+        setProject({
+          id: id,
+          title: override.title || { pt: "Sem Título", en: "Untitled" },
+          description: override.description || { pt: "Sem descrição", en: "No description" },
+          category: override.category || "development",
+          images: override.images || [],
+          content: override.content || { pt: "", en: "" },
+          links: override.links || [],
+          tags: override.tags || [],
+          createdAt: override.createdAt || new Date(),
+          updatedAt: override.updatedAt || new Date(),
+          ...override
+        } as Project);
+        setLoading(false);
+        return;
+      }
+
+      // 3. Try fetching from Firestore
       try {
         const docRef = doc(db, "projetos", id);
         const docSnap = await getDoc(docRef);
@@ -91,6 +111,8 @@ export function ProjectDetails() {
           if (!overrideData) {
             if (normTitle.includes("jornada") && normTitle.includes("ser")) overrideData = PROJECT_OVERRIDES["jornadaser"];
             else if (normTitle.includes("metodo") && normTitle.includes("cis")) overrideData = PROJECT_OVERRIDES["metodocis"];
+            else if (normTitle.includes("plantao") && normTitle.includes("extra")) overrideData = PROJECT_OVERRIDES["plantaoextra"];
+            else if (normTitle.includes("portal") && normTitle.includes("poder")) overrideData = PROJECT_OVERRIDES["portaltempoderquemage"];
             else if (normTitle.includes("simerpay")) overrideData = PROJECT_OVERRIDES["simerpay"];
           }
 
@@ -127,9 +149,46 @@ export function ProjectDetails() {
 
   if (!project) {
     return (
-      <Container maxW="container.md" py={20} textAlign="center" color="white">
-        <Heading>{t('projects.notFound')}</Heading>
-        <Button mt={4} onClick={() => navigate(-1)}>{t('projects.back')}</Button>
+      <Container maxW="container.md" py={20} textAlign="center">
+        <VStack spacing={8} justify="center" minH="50vh">
+          <Box position="relative">
+            <Icon as={FaRocket} w={32} h={32} color="gray.700" transform="rotate(135deg)" opacity={0.5} />
+            <Icon as={FaSearchPlus} w={12} h={12} color="red.500" position="absolute" top="0" right="0" animation="pulse 2s infinite" />
+          </Box>
+
+          <VStack spacing={2}>
+            <Heading
+              size="2xl"
+              bgGradient="linear(to-r, red.400, orange.400)"
+              bgClip="text"
+              fontFamily="monospace"
+            >
+              ERRO 404
+            </Heading>
+            <Heading size="lg" color="white">
+              {t('projects.notFound') || "Missão perdida no espaço"}
+            </Heading>
+            <Text color="gray.400" fontSize="lg" maxW="lg">
+              {language === 'pt'
+                ? 'As coordenadas que você acessou apontam para um setor inexplorado ou um buraco negro.'
+                : 'The coordinates you accessed point to an unexplored sector or a black hole.'}
+            </Text>
+          </VStack>
+
+          <Button
+            size="lg"
+            colorScheme="purple"
+            onClick={() => navigate(-1)}
+            leftIcon={<FaArrowLeft />}
+            bgGradient="linear(to-r, purple.500, blue.500)"
+            _hover={{
+              bgGradient: "linear(to-r, purple.600, blue.600)",
+              boxShadow: "0 0 20px rgba(128, 90, 213, 0.6)"
+            }}
+          >
+            {t('projects.back') || "Retornar à Base"}
+          </Button>
+        </VStack>
       </Container>
     );
   }
@@ -166,7 +225,7 @@ export function ProjectDetails() {
             >
               <Image
                 src={coverImage}
-                alt={`${project.title} Logo`}
+                alt={`${project.title[language]} Logo`}
                 maxH="150px"
                 mx="auto"
                 mb={6}

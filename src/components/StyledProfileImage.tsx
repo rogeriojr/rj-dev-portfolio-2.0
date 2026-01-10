@@ -1,6 +1,6 @@
-import { Box, IconButton, useColorMode, Tooltip } from "@chakra-ui/react";
-import { css, keyframes } from "@emotion/react";
-import { motion } from "framer-motion";
+import { Box, IconButton, useColorMode, Tooltip, useToast } from "@chakra-ui/react";
+import { keyframes } from "@emotion/react";
+import { motion, useMotionValue, useTransform } from "framer-motion";
 import { FaSun, FaMoon, FaStar, FaRocket } from "react-icons/fa";
 import { useState } from "react";
 import ppSocialImg from "../assets/imgs/pp-social.png";
@@ -11,11 +11,14 @@ export function StyledProfileImage() {
   const { colorMode } = useColorMode();
   const [borderEffect, setBorderEffect] = useState("default");
   const navigate = useNavigate();
-  const pulseAnimation = keyframes`
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-  `;
+  const toast = useToast();
+
+  // Motion values for drag interaction
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const hueRotate = useTransform(x, [-150, 0, 150], [-90, 0, 90]); // Hue rotation centered at 0
+  const scale = useTransform(y, [-150, 150], [1.2, 0.8]); // Scale based on vertical drag
+
   const getBorderColors = () => {
     switch (borderEffect) {
       case "sun":
@@ -28,36 +31,42 @@ export function StyledProfileImage() {
         return [colorMode === "dark" ? "#FFD700" : "#DAA520"];
     }
   };
+
   const glowKeyframes = keyframes`
     0% { 
       box-shadow: 0 0 15px ${getBorderColors()[0]},
-                0 0 30px ${getBorderColors()[1] || getBorderColors()[0]},
-                0 0 45px ${getBorderColors()[2] || getBorderColors()[0]};
-      transform: scale(1);
+                0 0 30px ${getBorderColors()[1] || getBorderColors()[0]};
     }
     50% { 
       box-shadow: 0 0 25px ${getBorderColors()[0]},
-                0 0 50px ${getBorderColors()[1] || getBorderColors()[0]},
-                0 0 75px ${getBorderColors()[2] || getBorderColors()[0]};
-      transform: scale(1.02);
+                0 0 50px ${getBorderColors()[1] || getBorderColors()[0]};
     }
     100% { 
       box-shadow: 0 0 15px ${getBorderColors()[0]},
-                0 0 30px ${getBorderColors()[1] || getBorderColors()[0]},
-                0 0 45px ${getBorderColors()[2] || getBorderColors()[0]};
-      transform: scale(1);
+                0 0 30px ${getBorderColors()[1] || getBorderColors()[0]};
     }
   `;
-  const waveEffect = (color: string) => keyframes`
-    0% { box-shadow: 0 0 0 0 ${color}; transform: scale(1); opacity: 1; }
-    100% { box-shadow: 0 0 0 50px ${color}; transform: scale(2); opacity: 0; }
-  `;
+
   const orbitAnimation = keyframes`
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
   `;
+
+  const handleDragEnd = (_: any, info: any) => {
+    if (Math.abs(info.offset.x) > 100) {
+      toast({
+        title: "Mudança de Fase Cromática!",
+        description: "Você alterou o espectro de cores da imagem.",
+        status: "info",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
+  };
+
   return (
     <Box
+      id="profile-image-container"
       position="relative"
       width="300px"
       height="300px"
@@ -65,34 +74,8 @@ export function StyledProfileImage() {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      animation={`${pulseAnimation} 3s ease-in-out infinite`}
     >
-      <Tooltip label="Mova e movimente todo um universo!" placement="top">
-        <IconButton
-          as={motion.button}
-          whileHover={{ scale: 1.2 }}
-          position="absolute"
-          top="-30px"
-          right="-30px"
-          zIndex="1"
-          aria-label="Move"
-          icon={<FaRocket />}
-          variant="ghost"
-          color={colorMode === "dark" ? "purple.300" : "purple.500"}
-          fontSize="24px"
-          onClick={() => navigate("/contact")}
-          css={css`
-            &:hover::after {
-              content: "";
-              position: absolute;
-              inset: 0;
-              border-radius: 50%;
-              animation: ${waveEffect("rgba(147, 112, 219, 0.3)")} 1.5s ease-out
-                infinite;
-            }
-          `}
-        />
-      </Tooltip>
+      {/* Decorative Orbiting Planet Controls */}
       <Box
         position="absolute"
         width="400px"
@@ -100,102 +83,108 @@ export function StyledProfileImage() {
         top="-50px"
         left="-50px"
         animation={`${orbitAnimation} 20s linear infinite`}
+        pointerEvents="none"
       >
-        <IconButton
-          as={motion.button}
-          whileHover={{ scale: 1.2 }}
-          position="absolute"
-          top="50%"
-          left="0"
-          transform="translateY(-50%)"
-          aria-label="Sun"
-          icon={<FaSun />}
-          variant="ghost"
-          color="yellow.400"
-          fontSize="24px"
-          onClick={() => setBorderEffect("sun")}
-          css={css`
-            &:hover::after {
-              content: "";
-              position: absolute;
-              inset: 0;
-              border-radius: 50%;
-              animation: ${waveEffect("rgba(255, 215, 0, 0.3)")} 1.5s ease-out
-                infinite;
-            }
-          `}
-        />
-        <IconButton
-          as={motion.button}
-          whileHover={{ scale: 1.2 }}
-          position="absolute"
-          top="0"
-          left="50%"
-          transform="translateX(-50%)"
-          aria-label="Moon"
-          icon={<FaMoon />}
-          variant="ghost"
-          color="gray.300"
-          fontSize="24px"
-          onClick={() => setBorderEffect("moon")}
-          css={css`
-            &:hover::after {
-              content: "";
-              position: absolute;
-              inset: 0;
-              border-radius: 50%;
-              animation: ${waveEffect("rgba(192, 192, 192, 0.3)")} 1.5s ease-out
-                infinite;
-            }
-          `}
-        />
-        <IconButton
-          as={motion.button}
-          whileHover={{ scale: 1.2 }}
-          position="absolute"
-          top="50%"
-          right="0"
-          transform="translateY(-50%)"
-          aria-label="Star"
-          icon={<FaStar />}
-          variant="ghost"
-          color="purple.400"
-          fontSize="24px"
-          onClick={() => setBorderEffect("star")}
-          css={css`
-            &:hover::after {
-              content: "";
-              position: absolute;
-              inset: 0;
-              border-radius: 50%;
-              animation: ${waveEffect("rgba(147, 112, 219, 0.3)")} 1.5s ease-out
-                infinite;
-            }
-          `}
-        />
+        <Box position="absolute" top="0" left="50%" transform="translateX(-50%)" pointerEvents="auto">
+          <Tooltip label="Efeito Lunar" placement="top">
+            <IconButton
+              aria-label="Moon"
+              icon={<FaMoon />}
+              variant="ghost"
+              color="gray.300"
+              fontSize="20px"
+              onClick={() => setBorderEffect("moon")}
+              isRound
+              _hover={{ bg: "whiteAlpha.200", transform: "scale(1.2)" }}
+            />
+          </Tooltip>
+        </Box>
+        <Box position="absolute" top="50%" right="0" transform="translateY(-50%)" pointerEvents="auto">
+          <Tooltip label="Efeito Estelar" placement="right">
+            <IconButton
+              aria-label="Star"
+              icon={<FaStar />}
+              variant="ghost"
+              color="purple.400"
+              fontSize="20px"
+              onClick={() => setBorderEffect("star")}
+              isRound
+              _hover={{ bg: "whiteAlpha.200", transform: "scale(1.2)" }}
+            />
+          </Tooltip>
+        </Box>
+        <Box position="absolute" top="50%" left="0" transform="translateY(-50%)" pointerEvents="auto">
+          <Tooltip label="Efeito Solar" placement="left">
+            <IconButton
+              aria-label="Sun"
+              icon={<FaSun />}
+              variant="ghost"
+              color="yellow.400"
+              fontSize="20px"
+              onClick={() => setBorderEffect("sun")}
+              isRound
+              _hover={{ bg: "whiteAlpha.200", transform: "scale(1.2)" }}
+            />
+          </Tooltip>
+        </Box>
       </Box>
-      <Box
-        position="relative"
-        width="300px"
-        height="300px"
-        borderRadius="full"
-        overflow="hidden"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        css={css`
-          &::before {
-            content: "";
-            position: absolute;
-            inset: -2px;
-            background: ${getBorderColors()[0]};
-            border-radius: inherit;
-            animation: ${glowKeyframes} 3s ease-in-out infinite;
-          }
-        `}
+
+      {/* Main Draggable Profile Image */}
+      <motion.div
+        drag
+        dragConstraints={{ left: -50, right: 50, top: -50, bottom: 50 }}
+        dragElastic={0.2}
+        onDragEnd={handleDragEnd}
+        style={{ x, y, rotate: x, scale }}
+        whileHover={{ cursor: 'grab' }}
+        whileTap={{ cursor: 'grabbing' }}
       >
-        <InteractiveProfileImage imageUrl={ppSocialImg} />
-      </Box>
+        <Box
+          position="relative"
+          width="300px"
+          height="300px"
+          borderRadius="full"
+          overflow="hidden"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          as={motion.div}
+        >
+          {/* Animated Border */}
+          <Box
+            position="absolute"
+            inset="-3px"
+            borderRadius="full"
+            animation={`${glowKeyframes} 3s ease-in-out infinite`}
+            background={getBorderColors()[0]}
+            opacity={0.8}
+          />
+
+          <motion.div style={{ filter: useTransform(hueRotate, (val) => `hue-rotate(${val}deg)`) }}>
+            <InteractiveProfileImage imageUrl={ppSocialImg} />
+          </motion.div>
+        </Box>
+      </motion.div>
+
+      {/* Floating Rocket Link */}
+      <Tooltip label="Viajar para Contato" placement="bottom">
+        <IconButton
+          as={motion.button}
+          whileHover={{ scale: 1.2, rotate: 45 }}
+          position="absolute"
+          bottom="-20px"
+          right="-20px"
+          zIndex="2"
+          aria-label="Contact"
+          icon={<FaRocket />}
+          colorScheme="purple"
+          variant="solid"
+          isRound
+          size="lg"
+          onClick={() => navigate("/contact")}
+          boxShadow="0 0 15px rgba(128, 90, 213, 0.6)"
+        />
+      </Tooltip>
     </Box>
   );
 }

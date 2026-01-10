@@ -24,17 +24,17 @@
     "yearsAbbr": "years"
   },
   "projects": {
-    "title": "Portfolio - Success Cases",
-    "viewDetails": "Details",
-    "viewOnline": "View Online",
-    "backToList": "Back to Projects",
-    "loading": "Loading projects...",
-    "noProjects": "No projects found",
-    "notFound": "Project not found",
-    "back": "Back",
-    "tags": "TECH STACK",
-    "links": "USEFUL LINKS",
-    "gallery": "Project Preview"
+    "title": "Space Mission Log",
+    "viewDetails": "Analyze Mission",
+    "viewOnline": "Launch Rocket",
+    "backToList": "Return to Base",
+    "loading": "Calibrating thrusters...",
+    "noProjects": "No signals detected",
+    "notFound": "Mission lost in space",
+    "back": "Abort",
+    "tags": "ENABLED SYSTEMS",
+    "links": "COORDINATES",
+    "gallery": "Universe Gallery"
   },
   "certificates": {
     "title": "Certificates",
@@ -66,5 +66,18 @@
     "edit": "Edit",
     "delete": "Delete",
     "confirm": "Confirm"
+  },
+  "cookies": {
+    "title": "We use cookies",
+    "description": "We use cookies to enhance your experience, analyze our traffic, and personalize content. You can choose which cookies to accept.",
+    "customize": "Customize",
+    "acceptAll": "Accept All",
+    "necessary": "Necessary Only",
+    "savePreferences": "Save Preferences",
+    "necessaryDesc": "Essential cookies for the website to function. Cannot be disabled.",
+    "analytics": "Analytics",
+    "analyticsDesc": "Cookies that help us understand how you use the site to improve the experience.",
+    "marketing": "Marketing",
+    "marketingDesc": "Cookies used to personalize ads and measure campaign effectiveness."
   }
 }

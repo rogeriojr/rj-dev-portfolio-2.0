@@ -10,7 +10,7 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { FaGithub, FaLinkedin, FaInstagram, FaBriefcase } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaBriefcase } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { StyledProfileImage } from "./StyledProfileImage";
 import { LoadingSpinner } from "./LoadingSpinner";
@@ -112,7 +112,7 @@ export function Home() {
               size="lg"
               variant="outline"
               as={Link}
-              to="/contact"
+              to="/contact" // Assuming /contact route exists or redirects correctly. If not, maybe scroll to contact section.
               borderColor="brand.yellow.400"
               color="brand.yellow.400"
               _hover={{
@@ -172,17 +172,6 @@ export function Home() {
             />
             <IconButton
               as="a"
-              href="https://www.instagram.com/rogeriojr.dev"
-              target="_blank"
-              aria-label="Instagram"
-              icon={<FaInstagram />}
-              variant="ghost"
-              fontSize="24px"
-              color="gray.400"
-              _hover={{ color: "brand.yellow.400" }}
-            />
-            <IconButton
-              as="a"
               href="https://www.workana.com/freelancer/5aea67e6fd911e0c207642b63c50fb9d"
               target="_blank"
               aria-label="Workana"
@@ -196,6 +185,7 @@ export function Home() {
         </Stack>
 
         <Box
+          id="interactive-profile-wrapper"
           as={motion.div}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}

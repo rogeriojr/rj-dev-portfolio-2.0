@@ -4,6 +4,7 @@ export { Layout } from './Layout';
 export { Contact } from './Contact';
 export { PortfolioCategory } from './PortfolioCategory';
 export { ProjectDetails } from './ProjectDetails';
+export { Certificates } from './Certificates';
 
 // TODO: These components need to be implemented
 export const Login = () => null;

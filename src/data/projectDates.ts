@@ -1,0 +1,21 @@
+export const PROJECT_DATES: Record<string, string> = {
+  "jornadaser": "2023-03-10",
+  "simerpay": "2022-06-15",
+  "metodocis": "2021-08-20",
+  "autoconect": "2020-05-12",
+  "bevaswm": "2019-11-30",
+  "minimegaleitor": "2019-02-25",
+  "meusocialpost": "2018-09-14",
+  "plantaoextra": "2020-04-01",
+  "portaltempoderquemage": "2023-01-10",
+  "neoidea-ai-chat": "2024-02-15",
+  "neoidea-platform-v2": "2024-01-20",
+  "clubshare": "2021-07-01",
+  "pegpag-smart24": "2022-09-10",
+  "pandaparking": "2023-05-05",
+  "teste-gerenciamento-produtos": "2024-03-01",
+  "projeto-nlw-rocketseat": "2024-02-10",
+  "mobile-challenge-codesh": "2024-02-05",
+  "yellot-cupons-app": "2024-04-20",
+  "neo-carrossel": "2024-06-15"
+};
