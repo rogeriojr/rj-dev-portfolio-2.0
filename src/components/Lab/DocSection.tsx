@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Box, Heading, Text, Badge, Flex, Button, Collapse, useColorModeValue, SimpleGrid, Icon, HStack, Tabs, TabList, Tab } from '@chakra-ui/react';
-import { FaCode, FaChevronUp, FaLightbulb, FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
+import { Box, Heading, Text, Badge, Flex, Button, Collapse, useColorModeValue, SimpleGrid, Icon, HStack, Tabs, TabList, Tab, Stack } from '@chakra-ui/react';
+import { FaCode, FaChevronUp, FaLightbulb, FaCheckCircle, FaExclamationCircle, FaUserGraduate } from 'react-icons/fa';
 import { CodeViewer } from './CodeViewer';
+import { MermaidDiagram } from './MermaidDiagram';
 import { LabItem } from '../../data/lab-content';
 import { motion } from 'framer-motion';
+import { useTranslation } from '../../i18n/useTranslation';
 
 interface DocSectionProps {
   item: LabItem;
@@ -11,6 +13,7 @@ interface DocSectionProps {
 
 export const DocSection: React.FC<DocSectionProps> = ({ item }) => {
   const [showCode, setShowCode] = useState(false);
+  const { language } = useTranslation();
 
   const borderColor = useColorModeValue('gray.200', 'gray.800');
   const titleColor = useColorModeValue('brand.600', 'cyan.400');
@@ -37,7 +40,7 @@ export const DocSection: React.FC<DocSectionProps> = ({ item }) => {
       {/* Header */}
       <Flex align="center" gap={3} mb={4}>
         <Heading size="lg" color={titleColor} fontFamily="Share Tech Mono">
-          {item.title}
+          {item.title[language]}
         </Heading>
         <Badge colorScheme={typeColorMap[item.type] || 'gray'} fontSize="0.7em" px={2} py={0.5} rounded="md" textTransform="uppercase">
           {item.type}
@@ -45,7 +48,7 @@ export const DocSection: React.FC<DocSectionProps> = ({ item }) => {
       </Flex>
 
       <Text fontSize="lg" color="gray.500" mb={8} maxW="container.md">
-        {item.description}
+        {item.description[language]}
       </Text>
 
       {/* Problem & Solution Grid (if available) */}
@@ -55,21 +58,45 @@ export const DocSection: React.FC<DocSectionProps> = ({ item }) => {
             <Box p={5} rounded="lg" bg="rgba(155, 0, 0, 0.1)" border="1px solid" borderColor="red.900">
               <HStack mb={2} color="red.400">
                 <Icon as={FaExclamationCircle} />
-                <Text fontWeight="bold" fontSize="sm" textTransform="uppercase">The Challenge</Text>
+                <Text fontWeight="bold" fontSize="sm" textTransform="uppercase">
+                  {language === 'pt' ? 'O Desafio' : 'The Challenge'}
+                </Text>
               </HStack>
-              <Text color="gray.400" fontSize="sm">{item.problemStatement}</Text>
+              <Text color="gray.400" fontSize="sm">{item.problemStatement[language]}</Text>
             </Box>
           )}
           {item.solution && (
             <Box p={5} rounded="lg" bg="rgba(0, 155, 0, 0.1)" border="1px solid" borderColor="green.900">
               <HStack mb={2} color="green.400">
                 <Icon as={FaLightbulb} />
-                <Text fontWeight="bold" fontSize="sm" textTransform="uppercase">The Solution</Text>
+                <Text fontWeight="bold" fontSize="sm" textTransform="uppercase">
+                  {language === 'pt' ? 'A Solução' : 'The Solution'}
+                </Text>
               </HStack>
-              <Text color="gray.400" fontSize="sm">{item.solution}</Text>
+              <Text color="gray.400" fontSize="sm">{item.solution[language]}</Text>
             </Box>
           )}
         </SimpleGrid>
+      )}
+
+      {/* Mermaid Diagram Area */}
+      {item.mermaid && (
+        <Box
+          p={6}
+          bg="whiteAlpha.50"
+          rounded="xl"
+          border="1px dashed"
+          borderColor="whiteAlpha.200"
+          mb={8}
+          textAlign="center"
+        >
+          <Text fontSize="xs" color="gray.500" mb={4} textTransform="uppercase" letterSpacing="widest">
+            {language === 'pt' ? 'Diagrama Arquitetural' : 'Architectural Diagram'}
+          </Text>
+          <Box p={4} rounded="md" display="inline-block" width="100%">
+            <MermaidDiagram chart={item.mermaid} />
+          </Box>
+        </Box>
       )}
 
       {/* Interactive Demo Area */}
@@ -96,7 +123,7 @@ export const DocSection: React.FC<DocSectionProps> = ({ item }) => {
             alignItems="center"
           >
             <Text fontSize="xs" fontWeight="bold" letterSpacing="widest" color="gray.500" textTransform="uppercase">
-              Interactive Preview
+              {language === 'pt' ? 'Prévia Interativa' : 'Interactive Preview'}
             </Text>
             <HStack spacing={1}>
               <Box w={2} h={2} rounded="full" bg="red.500" />
@@ -111,15 +138,51 @@ export const DocSection: React.FC<DocSectionProps> = ({ item }) => {
         </Box>
       )}
 
+      {/* Senior Tips Section */}
+      {item.seniorTips && (
+        <Box
+          p={6}
+          mb={8}
+          rounded="xl"
+          bgGradient="linear(to-br, cyan.900, purple.900)"
+          border="1px solid"
+          borderColor="cyan.500"
+          position="relative"
+          overflow="hidden"
+        >
+          <Box position="absolute" top={-5} right={-5} opacity={0.1}>
+            <Icon as={FaUserGraduate} boxSize={40} />
+          </Box>
+          <HStack mb={4} color="cyan.300">
+            <Icon as={FaUserGraduate} />
+            <Text fontWeight="bold" textTransform="uppercase" fontSize="sm" letterSpacing="widest">
+              {language === 'pt' ? 'Insights de Especialista' : 'Senior Insights'}
+            </Text>
+          </HStack>
+          <Stack spacing={4}>
+            {item.seniorTips.map((tip, idx) => (
+              <HStack key={idx} align="start" spacing={3}>
+                <Box w={1.5} h={1.5} rounded="full" bg="cyan.400" mt={2} />
+                <Text color="gray.200" fontSize="md" fontStyle="italic">
+                  {tip[language]}
+                </Text>
+              </HStack>
+            ))}
+          </Stack>
+        </Box>
+      )}
+
       {/* Key Features List */}
       {item.features && (
         <Box mb={8}>
-          <Text fontWeight="bold" mb={3} color={accentColor}>Key Technical Features</Text>
+          <Text fontWeight="bold" mb={3} color={accentColor}>
+            {language === 'pt' ? 'Recursos Técnicos' : 'Key Technical Features'}
+          </Text>
           <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={2}>
             {item.features.map((feature, idx) => (
               <HStack key={idx} align="start">
                 <Icon as={FaCheckCircle} color="green.500" mt={1} boxSize={3} />
-                <Text fontSize="sm" color="gray.400">{feature}</Text>
+                <Text fontSize="sm" color="gray.400">{feature[language]}</Text>
               </HStack>
             ))}
           </SimpleGrid>
@@ -132,7 +195,9 @@ export const DocSection: React.FC<DocSectionProps> = ({ item }) => {
           <Tabs variant="soft-rounded" colorScheme="cyan" size="sm">
             <HStack p={2} bg="blackAlpha.400" justify="space-between">
               <TabList>
-                <Tab color="gray.400" _selected={{ color: 'white', bg: 'whiteAlpha.200' }}>Implementation</Tab>
+                <Tab color="gray.400" _selected={{ color: 'white', bg: 'whiteAlpha.200' }}>
+                  {language === 'pt' ? 'Implementação' : 'Implementation'}
+                </Tab>
               </TabList>
               <Button
                 size="xs"
@@ -141,7 +206,7 @@ export const DocSection: React.FC<DocSectionProps> = ({ item }) => {
                 variant="ghost"
                 color="gray.500"
               >
-                {showCode ? 'Collapse' : 'Expand'}
+                {showCode ? (language === 'pt' ? 'Recolher' : 'Collapse') : (language === 'pt' ? 'Expandir' : 'Expand')}
               </Button>
             </HStack>
 

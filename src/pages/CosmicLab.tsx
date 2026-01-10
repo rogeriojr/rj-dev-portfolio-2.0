@@ -4,14 +4,15 @@ import { LabLayout } from '../components/Lab/LabLayout';
 import { DocSection } from '../components/Lab/DocSection';
 import { LAB_CONTENT } from '../data/lab-content';
 import { FaRocket } from 'react-icons/fa';
+import { useTranslation } from '../i18n/useTranslation';
 
 const CosmicLab = () => {
-  const [activeCategory, setActiveCategory] = useState('frontend');
+  const [activeCategory, setActiveCategory] = useState('architecture');
   const [activeItem, setActiveItem] = useState(LAB_CONTENT[0].items[0].id);
+  const { language } = useTranslation();
 
   // Auto-scroll to section on selection
   useEffect(() => {
-    // Implement smooth scroll if item changes
     const element = document.getElementById(activeItem);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -40,11 +41,12 @@ const CosmicLab = () => {
             bgClip="text"
             fontFamily="Share Tech Mono"
           >
-            COSMIC LAB
+            {language === 'pt' ? 'LABORATÓRIO CÓSMICO' : 'COSMIC LAB'}
           </Heading>
           <Text fontSize="xl" color="gray.500">
-            Experimental research facility for advanced UI patterns, <br />
-            architecture blueprints, and AI prototypes.
+            {language === 'pt'
+              ? 'Instalação de pesquisa experimental para padrões avançados de UI, blueprints de arquitetura e protótipos de IA.'
+              : 'Experimental research facility for advanced UI patterns, architecture blueprints, and AI prototypes.'}
           </Text>
         </Box>
 

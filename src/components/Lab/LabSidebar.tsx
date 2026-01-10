@@ -1,8 +1,9 @@
 import React from 'react';
 import { Box, VStack, Text, Icon, Flex, useColorModeValue } from '@chakra-ui/react';
-import { FaAtom, FaServer, FaBrain, FaMobileAlt } from 'react-icons/fa';
+import { FaAtom, FaServer, FaBrain, FaMobileAlt, FaDraftingCompass, FaTools, FaCogs, FaShieldAlt, FaDatabase } from 'react-icons/fa';
 import { LAB_CONTENT } from '../../data/lab-content';
 import { motion } from 'framer-motion';
+import { useTranslation } from '../../i18n/useTranslation';
 
 interface LabSidebarProps {
   activeCategory: string;
@@ -17,17 +18,23 @@ const iconMap: Record<string, any> = {
   backend: FaServer,
   ai: FaBrain,
   mobile: FaMobileAlt,
+  system: FaTools,
+  architecture: FaDraftingCompass,
+  devops: FaCogs,
+  security: FaShieldAlt,
+  data: FaDatabase
 };
 
 export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeItem, onSelect }) => {
   const bg = useColorModeValue('white', 'gray.900');
   const borderColor = useColorModeValue('gray.200', 'whiteAlpha.100');
   const activeColor = 'cyan.400';
+  const { language } = useTranslation();
 
   return (
     <Box
       w={{ base: 'full', md: '280px' }}
-      h="calc(100vh - 80px)" // Adjust based on header height
+      h="calc(100vh - 80px)"
       pos="sticky"
       top="80px"
       overflowY="auto"
@@ -44,14 +51,14 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
     >
       <VStack align="stretch" spacing={6}>
         <Text fontSize="xs" fontWeight="bold" letterSpacing="widest" color="gray.500" textTransform="uppercase">
-          Cosmic Modules
+          {language === 'pt' ? 'Módulos Cósmicos' : 'Cosmic Modules'}
         </Text>
 
         {LAB_CONTENT.map((category) => (
           <Box key={category.id}>
             <Flex align="center" mb={3} color={activeCategory === category.id ? activeColor : 'inherit'}>
               <Icon as={iconMap[category.id] || FaAtom} mr={2} />
-              <Text fontWeight="bold">{category.title}</Text>
+              <Text fontWeight="bold">{category.title[language]}</Text>
             </Flex>
 
             <VStack align="stretch" pl={6} spacing={1} borderLeft="1px" borderColor={borderColor}>
@@ -80,7 +87,7 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
                       initial={false}
                     />
                   )}
-                  {item.title}
+                  {item.title[language]}
                 </Box>
               ))}
             </VStack>
