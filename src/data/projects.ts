@@ -568,7 +568,12 @@ Acting as a front-end specialist in brand transformation (rebranding) and benefi
     },
     category: "development",
     images: [
-      "/assets/projects/pegpag_logo.png"
+      "/assets/projects/pegpag_logo.png",
+      "/assets/projects/pegpag_logo_clean.png",
+      "/assets/projects/pegpag_login.png",
+      "/assets/projects/pegpag_home.png",
+      "/assets/projects/pegpag_access_logs.png",
+      "/assets/projects/pegpag_registration.png"
     ],
     tags: ["Micromarkets", "React Native", "Retail Tech", "Hardware Integration", "Dashboard"],
     content: {
@@ -596,7 +601,7 @@ End-to-end integrated architecture that enables 24/7 store operations without em
 
 #### Reliability and Operation:
 - **Offline Resilience**: Synchronization logic that allows basic purchases even with momentary internet instability.
-- **Store Stewardship**: Responsible for the entire deployment pipeline on official Apple and Google stores.
+- **Store Stewardship**: Responsable for the entire deployment pipeline on official Apple and Google stores.
     `
     },
     links: [
@@ -619,7 +624,12 @@ End-to-end integrated architecture that enables 24/7 store operations without em
     },
     category: "development",
     images: [
-      "/assets/projects/pandaparking_logo.png"
+      "/assets/projects/pandaparking_logo.png",
+      "/assets/projects/panda_mockup_1.png",
+      "/assets/projects/panda_dashboard.png",
+      "/assets/projects/panda_login.png",
+      "/assets/projects/panda_history.png",
+      "/assets/projects/panda_mockup_2.png"
     ],
     tags: ["Smart City", "React Native", "Geofencing", "Mobilidade Urbana", "GovTech"],
     content: {

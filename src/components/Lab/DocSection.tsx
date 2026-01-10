@@ -13,6 +13,7 @@ interface DocSectionProps {
 
 export const DocSection: React.FC<DocSectionProps> = ({ item }) => {
   const [showCode, setShowCode] = useState(false);
+  const [showDetails, setShowDetails] = useState(true);
   const { language } = useTranslation();
 
   const borderColor = useColorModeValue('gray.200', 'gray.800');
@@ -24,7 +25,8 @@ export const DocSection: React.FC<DocSectionProps> = ({ item }) => {
     hook: 'green',
     pattern: 'blue',
     architecture: 'orange',
-    utility: 'pink'
+    utility: 'pink',
+    god_tier: 'gold'
   };
 
   return (
@@ -32,8 +34,6 @@ export const DocSection: React.FC<DocSectionProps> = ({ item }) => {
       as={motion.div}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      // @ts-ignore
-      transition={{ duration: 0.4 }}
       mb={16}
       id={item.id}
     >
@@ -47,37 +47,102 @@ export const DocSection: React.FC<DocSectionProps> = ({ item }) => {
         </Badge>
       </Flex>
 
-      <Text fontSize="lg" color="gray.500" mb={8} maxW="container.md">
-        {item.description[language]}
-      </Text>
+      <HStack justify="space-between" mb={6} align="start">
+        <Text fontSize="lg" color="gray.500" maxW="container.md">
+          {item.description[language]}
+        </Text>
+        <Button
+          size="xs"
+          variant="outline"
+          onClick={() => setShowDetails(!showDetails)}
+          leftIcon={showDetails ? <FaChevronUp /> : <FaLightbulb />}
+          mt={1}
+        >
+          {showDetails ? (language === 'pt' ? 'Menos Detalhes' : 'Less Details') : (language === 'pt' ? 'Ver Análise' : 'View Analysis')}
+        </Button>
+      </HStack>
 
-      {/* Problem & Solution Grid (if available) */}
-      {(item.problemStatement || item.solution) && (
-        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6} mb={8}>
-          {item.problemStatement && (
-            <Box p={5} rounded="lg" bg="rgba(155, 0, 0, 0.1)" border="1px solid" borderColor="red.900">
-              <HStack mb={2} color="red.400">
-                <Icon as={FaExclamationCircle} />
-                <Text fontWeight="bold" fontSize="sm" textTransform="uppercase">
-                  {language === 'pt' ? 'O Desafio' : 'The Challenge'}
-                </Text>
-              </HStack>
-              <Text color="gray.400" fontSize="sm">{item.problemStatement[language]}</Text>
+      <Collapse in={showDetails} animateOpacity>
+        <Box mb={8}>
+          {/* Problem & Solution Grid (if available) */}
+          {(item.problemStatement || item.solution) && (
+            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6} mb={8}>
+              {item.problemStatement && (
+                <Box p={5} rounded="lg" bg="rgba(155, 0, 0, 0.1)" border="1px solid" borderColor="red.900">
+                  <HStack mb={2} color="red.400">
+                    <Icon as={FaExclamationCircle} />
+                    <Text fontWeight="bold" fontSize="sm" textTransform="uppercase">
+                      {language === 'pt' ? 'O Desafio' : 'The Challenge'}
+                    </Text>
+                  </HStack>
+                  <Text color="gray.400" fontSize="sm">{item.problemStatement[language]}</Text>
+                </Box>
+              )}
+              {item.solution && (
+                <Box p={5} rounded="lg" bg="rgba(0, 155, 0, 0.1)" border="1px solid" borderColor="green.900">
+                  <HStack mb={2} color="green.400">
+                    <Icon as={FaLightbulb} />
+                    <Text fontWeight="bold" fontSize="sm" textTransform="uppercase">
+                      {language === 'pt' ? 'A Solução' : 'The Solution'}
+                    </Text>
+                  </HStack>
+                  <Text color="gray.400" fontSize="sm">{item.solution[language]}</Text>
+                </Box>
+              )}
+            </SimpleGrid>
+          )}
+
+          {/* Key Features List */}
+          {item.features && (
+            <Box mb={8}>
+              <Text fontWeight="bold" mb={3} color={accentColor}>
+                {language === 'pt' ? 'Recursos Técnicos' : 'Key Technical Features'}
+              </Text>
+              <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={2}>
+                {item.features.map((feature, idx) => (
+                  <HStack key={idx} align="start">
+                    <Icon as={FaCheckCircle} color="green.500" mt={1} boxSize={3} />
+                    <Text fontSize="sm" color="gray.400">{feature[language]}</Text>
+                  </HStack>
+                ))}
+              </SimpleGrid>
             </Box>
           )}
-          {item.solution && (
-            <Box p={5} rounded="lg" bg="rgba(0, 155, 0, 0.1)" border="1px solid" borderColor="green.900">
-              <HStack mb={2} color="green.400">
-                <Icon as={FaLightbulb} />
-                <Text fontWeight="bold" fontSize="sm" textTransform="uppercase">
-                  {language === 'pt' ? 'A Solução' : 'The Solution'}
+
+          {/* Senior Tips Section */}
+          {item.seniorTips && (
+            <Box
+              p={6}
+              rounded="xl"
+              bgGradient="linear(to-br, cyan.900, purple.900)"
+              border="1px solid"
+              borderColor="cyan.500"
+              position="relative"
+              overflow="hidden"
+            >
+              <Box position="absolute" top={-5} right={-5} opacity={0.1}>
+                <Icon as={FaUserGraduate} boxSize={40} />
+              </Box>
+              <HStack mb={4} color="cyan.300">
+                <Icon as={FaUserGraduate} />
+                <Text fontWeight="bold" textTransform="uppercase" fontSize="sm" letterSpacing="widest">
+                  {language === 'pt' ? 'Insights de Especialista' : 'Senior Insights'}
                 </Text>
               </HStack>
-              <Text color="gray.400" fontSize="sm">{item.solution[language]}</Text>
+              <Stack spacing={4}>
+                {item.seniorTips.map((tip, idx) => (
+                  <HStack key={idx} align="start" spacing={3}>
+                    <Box w={1.5} h={1.5} rounded="full" bg="cyan.400" mt={2} />
+                    <Text color="gray.200" fontSize="md" fontStyle="italic">
+                      {tip[language]}
+                    </Text>
+                  </HStack>
+                ))}
+              </Stack>
             </Box>
           )}
-        </SimpleGrid>
-      )}
+        </Box>
+      </Collapse>
 
       {/* Mermaid Diagram Area */}
       {item.mermaid && (
@@ -135,57 +200,6 @@ export const DocSection: React.FC<DocSectionProps> = ({ item }) => {
           <Flex justify="center" align="center" minH="250px" p={8} bg="blackAlpha.200">
             {item.demo}
           </Flex>
-        </Box>
-      )}
-
-      {/* Senior Tips Section */}
-      {item.seniorTips && (
-        <Box
-          p={6}
-          mb={8}
-          rounded="xl"
-          bgGradient="linear(to-br, cyan.900, purple.900)"
-          border="1px solid"
-          borderColor="cyan.500"
-          position="relative"
-          overflow="hidden"
-        >
-          <Box position="absolute" top={-5} right={-5} opacity={0.1}>
-            <Icon as={FaUserGraduate} boxSize={40} />
-          </Box>
-          <HStack mb={4} color="cyan.300">
-            <Icon as={FaUserGraduate} />
-            <Text fontWeight="bold" textTransform="uppercase" fontSize="sm" letterSpacing="widest">
-              {language === 'pt' ? 'Insights de Especialista' : 'Senior Insights'}
-            </Text>
-          </HStack>
-          <Stack spacing={4}>
-            {item.seniorTips.map((tip, idx) => (
-              <HStack key={idx} align="start" spacing={3}>
-                <Box w={1.5} h={1.5} rounded="full" bg="cyan.400" mt={2} />
-                <Text color="gray.200" fontSize="md" fontStyle="italic">
-                  {tip[language]}
-                </Text>
-              </HStack>
-            ))}
-          </Stack>
-        </Box>
-      )}
-
-      {/* Key Features List */}
-      {item.features && (
-        <Box mb={8}>
-          <Text fontWeight="bold" mb={3} color={accentColor}>
-            {language === 'pt' ? 'Recursos Técnicos' : 'Key Technical Features'}
-          </Text>
-          <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={2}>
-            {item.features.map((feature, idx) => (
-              <HStack key={idx} align="start">
-                <Icon as={FaCheckCircle} color="green.500" mt={1} boxSize={3} />
-                <Text fontSize="sm" color="gray.400">{feature[language]}</Text>
-              </HStack>
-            ))}
-          </SimpleGrid>
         </Box>
       )}
 

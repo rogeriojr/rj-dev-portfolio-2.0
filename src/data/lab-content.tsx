@@ -1,11 +1,22 @@
 import { ReactNode } from 'react';
 import { ApiRequestSimulator } from '../components/Lab/demos/ApiRequestSimulator';
-import { TokenStreamVisualizer } from '../components/Lab/demos/TokenStreamVisualizer';
 import { InteractiveCalendar } from '../components/Lab/demos/InteractiveCalendar';
 import { CurrencyConverter } from '../components/Lab/demos/CurrencyConverter';
 import { LazyImageOverlay } from '../components/Lab/demos/LazyImageOverlay';
 import { TouchGestureSandbox } from '../components/Lab/demos/TouchGestureSandbox';
 import { CosmicDashboard } from '../components/Lab/demos/CosmicDashboard';
+import { ComplexFormSimulator } from '../components/Lab/demos/ComplexFormSimulator';
+import { UnitTestRunner } from '../components/Lab/demos/UnitTestRunner';
+import { LogStreamSimulator } from '../components/Lab/demos/LogStreamSimulator';
+import { MetricsDashboard } from '../components/Lab/demos/MetricsDashboard';
+import { FolderTreeVisualizer } from '../components/Lab/demos/FolderTreeVisualizer';
+import { DebuggerSimulator } from '../components/Lab/demos/DebuggerSimulator';
+import { DynamicFormBuilder } from '../components/Lab/demos/DynamicFormBuilder';
+import { CPFValidationSimulator } from '../components/Lab/demos/CPFValidationSimulator';
+import { FilePipelineSimulator } from '../components/Lab/demos/FilePipelineSimulator';
+import { MarkdownEngineSimulator } from '../components/Lab/demos/MarkdownEngineSimulator';
+import { DocumentPreviewSimulator } from '../components/Lab/demos/DocumentPreviewSimulator';
+import { ValidationSuiteSimulator } from '../components/Lab/demos/ValidationSuiteSimulator';
 
 export type LocalizedString = {
   en: string;
@@ -20,15 +31,15 @@ export interface LabItem {
   solution?: LocalizedString;
   features?: LocalizedString[];
   seniorTips?: LocalizedString[];
-  type: 'component' | 'hook' | 'pattern' | 'architecture' | 'utility' | 'infra' | 'security';
-  category: 'system' | 'frontend' | 'backend' | 'ai' | 'mobile' | 'utilities' | 'architecture' | 'devops' | 'security' | 'data';
+  type: 'component' | 'hook' | 'pattern' | 'architecture' | 'utility' | 'infra' | 'security' | 'testing' | 'performance' | 'leadership' | 'mission-critical' | 'iot' | 'ai-advanced' | 'god-tier';
+  category: string;
   code?: string;
   demo?: ReactNode;
   mermaid?: string;
 }
 
 export interface LabCategory {
-  id: 'system' | 'frontend' | 'backend' | 'ai' | 'mobile' | 'utilities' | 'architecture' | 'devops' | 'security' | 'data';
+  id: string;
   title: LocalizedString;
   icon: string;
   items: LabItem[];
@@ -36,262 +47,301 @@ export interface LabCategory {
 
 export const LAB_CONTENT: LabCategory[] = [
   {
-    id: 'architecture',
-    title: { en: 'Architecture & Design', pt: 'Arquitetura e Design' },
-    icon: '🏛️',
+    id: 'god-tier-backend',
+    title: { en: 'Backend Sovereignty', pt: 'Soberania Backend' },
+    icon: '⚡',
     items: [
       {
-        id: 'solid-principles',
-        title: { en: 'SOLID Principles Masterclass', pt: 'Masterclass de Princípios SOLID' },
-        description: {
-          en: 'Applying clean code principles to build hyper-scalable and testable frontend/backend systems.',
-          pt: 'Aplicando princípios de código limpo para construir sistemas frontend/backend hiper-escaláveis e testáveis.'
-        },
-        type: 'architecture',
-        category: 'architecture',
-        seniorTips: [
-          { en: "Favor 'Composition' over 'Inheritance' to stay flexible.", pt: "Favoreça 'Composição' sobre 'Herança' para manter a flexibilidade." },
-          { en: "Invert dependencies at the architectural boundary.", pt: "Inverta dependências no limite arquitetural." }
-        ],
-        mermaid: `graph TD
-          App[Application Core] --> |Interfaces| ServicePorts[Service Ports]
-          ServicePorts --> |Implementation| API[REST/GraphQL Adapters]
-          ServicePorts --> |Implementation| Storage[Database Adapters]`,
-        code: `// DIP Handler
-interface IStorage { save(data: any): void }
-class DataHandler {
-  constructor(private storage: IStorage) {}
-  execute(data) { this.storage.save(data) }
-}`
+        id: 'dist-locking-redlock',
+        title: { en: 'Distributed Locking (Redlock)', pt: 'Lock Distribuído (Redlock)' },
+        description: { en: 'Industrial-grade race condition prevention across clusters.', pt: 'Prevenção de race conditions nível industrial em clusters.' },
+        type: 'god-tier',
+        category: 'god-tier-backend',
+        mermaid: `sequenceDiagram\n  A->>Redis: SET lock_key NX PX 10000\n  Redis-->>A: OK\n  B->>Redis: SET lock_key NX PX 10000\n  Redis-->>B: FAIL`,
+        code: `// Global concurrency lock\nconst lock = await redis.set(key, '1', 'NX', 'PX', 10000);`
       },
       {
-        id: 'cqrs-pattern',
-        title: { en: 'CQRS & Data Segregation', pt: 'CQRS e Segregação de Dados' },
-        description: { en: 'Separating read and write operations for high-scale performance.', pt: 'Separando operações de leitura e escrita para performance de alta escala.' },
+        id: 'hexagonal-architecture',
+        title: { en: 'Hexagonal Architecture', pt: 'Arquitetura Hexagonal' },
+        description: { en: 'Ports and Adapters for framework-agnostic core logic.', pt: 'Ports and Adapters para lógica core agnóstica a frameworks.' },
         type: 'architecture',
-        category: 'architecture',
-        mermaid: `graph TD
-          UI[Client] -->|Commands| W[Write Model]
-          W -->|Events| R[Read Model]
-          UI -->|Queries| R`,
-        code: `// Command Side
-async handle(cmd: CreateOrder) {
-  const order = new Order(cmd.data);
-  await this.repo.save(order);
-}`
+        category: 'god-tier-backend',
+        demo: <FolderTreeVisualizer />,
+        mermaid: `graph LR\n  UI[Primary Adapter] --> PortIn[Input Port]\n  PortIn --> Core[Domain]\n  Core --> PortOut[Output Port]\n  PortOut --> DB[Secondary Adapter]`,
+        seniorTips: [{ en: "Domain logic should never depend on your choice of database.", pt: "Lógica de domínio nunca deve depender da sua escolha de banco de dados." }]
       }
     ]
   },
   {
-    id: 'devops',
-    title: { en: 'Infra & DevOps', pt: 'Infra e DevOps' },
-    icon: '☸️',
+    id: 'data-validation',
+    title: { en: 'Data & Precision', pt: 'Dados e Precisão' },
+    icon: '✅',
     items: [
       {
-        id: 'k8s-topology',
-        title: { en: 'Kubernetes Cluster Topology', pt: 'Topologia de Cluster K8s' },
-        description: { en: 'Visualizing pod orchestration and control plane communication.', pt: 'Visualizando orquestração de pods e comunicação do control plane.' },
-        type: 'infra',
-        category: 'devops',
-        seniorTips: [
-          { en: "Use Helm for managing complex manifest releases.", pt: "Use Helm para gerenciar releases de manifestos complexos." },
-          { en: "Always set resource limits (CPU/MEM) to prevent 'noisy neighbor' syndrome.", pt: "Sempre defina limites de recursos (CPU/MEM) para evitar a síndrome do 'vizinho barulhento'." }
-        ],
-        mermaid: `graph TD
-          Control[Control Plane] -->|Manage| W1[Worker Node 1]
-          Control -->|Manage| W2[Worker Node 2]
-          W1 -->|Pods| P1[App Pod]
-          W1 -->|Pods| P2[Sidecar]
-          LB[Global Load Balancer] --> Ingress[Ingress Controller]
-          Ingress --> Service[ClusterIP Service]
-          Service --> P1`,
-        code: `apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: cosmic-api
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: api`
-      }
-    ]
-  },
-  {
-    id: 'security',
-    title: { en: 'Cybersecurity', pt: 'Cibersegurança' },
-    icon: '🛡️',
-    items: [
+        id: 'cpf-validation-engine',
+        title: { en: 'CPF Validation Mastery', pt: 'Maestria em Validação de CPF' },
+        description: { en: 'Complex Brazilian document validation with logic visualization.', pt: 'Validação complexa de documentos brasileiros com visualização de lógica.' },
+        type: 'utility',
+        category: 'data-validation',
+        demo: <CPFValidationSimulator />,
+        code: `function validateCPF(cpf) {\n  // Sum algorithm for 1st and 2nd digits\n  let sum = 0;\n  for (let i = 1; i <= 9; i++) sum += parseInt(cpf[i-1]) * (11 - i);\n  return (sum * 10) % 11 === parseInt(cpf[9]);\n}`,
+        problemStatement: { en: "Simple regex doesn't catch false mathematical documents.", pt: "Regex simples não pega documentos matematicamente falsos." },
+        solution: { en: "Implement the dual-digit check algorithm from Ministry of Finance.", pt: "Implementar o algoritmo de verificação de dois dígitos do Ministério da Fazenda." }
+      },
       {
-        id: 'oauth2-pkce',
-        title: { en: 'OAuth2 + PKCE Flow', pt: 'Fluxo OAuth2 + PKCE' },
-        description: { en: 'Modern authentication standard for single-page applications and mobile.', pt: 'Padrão de autenticação moderno para SPAs e mobile.' },
+        id: 'phone-validation-mastery',
+        title: { en: 'Phone Validation (BR)', pt: 'Validação de Telefone (BR)' },
+        description: { en: 'Regex patterns for Brazilian mobile and landline standards.', pt: 'Padrões Regex para padrões brasileiros de celular e fixo.' },
+        type: 'utility',
+        category: 'data-validation',
+        demo: <ValidationSuiteSimulator />,
+        seniorTips: [{ en: "Always consider the digit 9 for mobile numbers in Brazil.", pt: "Sempre considere o dígito 9 para números de celular no Brasil." }]
+      },
+      {
+        id: 'email-purity-engine',
+        title: { en: 'Email Purity Engine', pt: 'Motor de Pureza de Email' },
+        description: { en: 'RFC-compliant email validation beyond simple regex.', pt: 'Validação de email em conformidade com RFC além de regex simples.' },
+        type: 'utility',
+        category: 'data-validation',
+        demo: <ValidationSuiteSimulator />
+      },
+      {
+        id: 'cnpj-corporate-check',
+        title: { en: 'CNPJ Corporate Check', pt: 'Verificação Corporativa CNPJ' },
+        description: { en: 'Mathematical validation for Brazilian corporate tax IDs.', pt: 'Validação matemática para IDs fiscais corporativos brasileiros.' },
+        type: 'utility',
+        category: 'data-validation',
+        demo: <ValidationSuiteSimulator />
+      },
+      {
+        id: 'password-strength-calc',
+        title: { en: 'Entropy Password Strength', pt: 'Força de Senha por Entropia' },
+        description: { en: 'Measuring security depth based on character diversity.', pt: 'Medindo a profundidade de segurança com base na diversidade de caracteres.' },
         type: 'security',
-        category: 'security',
-        seniorTips: [
-          { en: "Never store JWTs in LocalStorage; use HttpOnly Secure cookies to prevent XSS.", pt: "Nunca armazene JWTs no LocalStorage; use cookies HttpOnly Secure para evitar XSS." },
-          { en: "PKCE is mandatory even for public clients to prevent code interception attacks.", pt: "PKCE é obrigatório mesmo para clientes públicos para evitar ataques de interceptação de código." }
-        ],
-        mermaid: `sequenceDiagram
-          User->>Client: Login Click
-          Client->>Auth: Auth Request + Code Challenge
-          Auth-->>User: Logic Screen
-          User->>Auth: Credentials
-          Auth->>Client: Auth Code
-          Client->>Auth: Code + Code Verifier
-          Auth-->>Client: ID Token + Access Token`,
-        code: `// Generate Code Challenge (Web Crypto)
-const verifier = generateRandomString();
-const challenge = await sha256(verifier);`
-      }
-    ]
-  },
-  {
-    id: 'data',
-    title: { en: 'Data Engineering', pt: 'Engenharia de Dados' },
-    icon: '💾',
-    items: [
-      {
-        id: 'medallion-arch',
-        title: { en: 'Medallion Data Lakehouse', pt: 'Data Lakehouse Medalhão' },
-        description: { en: 'Organizing data quality from raw ingestion to business-ready tables.', pt: 'Organizando a qualidade dos dados desde a ingestão bruta até tabelas prontas para negócios.' },
-        type: 'architecture',
-        category: 'data',
-        seniorTips: [
-          { en: "Bronze layer should be immutable; never data-wipe the source of truth.", pt: "A camada Bronze deve ser imutável; nunca apague a fonte da verdade." },
-          { en: "Enforce schema validation at the Silver layer to prevent data garbage in Gold.", pt: "Force a validação de schema na camada Silver para evitar lixo de dados na Gold." }
-        ],
-        mermaid: `graph LR
-          Src[Sources] -->|Ingestion| Bronze[Bronze: Raw Data]
-          Bronze -->|Cleansing| Silver[Silver: Validated Data]
-          Silver -->|Aggregation| Gold[Gold: Business KPIs]
-          Gold -->|Analysis| BI[BI Dashboard]`,
-        code: `SELECT 
-  customer_id, 
-  SUM(order_value) as lifetime_value
-FROM silver_orders
-GROUP BY customer_id`
-      }
-    ]
-  },
-  {
-    id: 'ai',
-    title: { en: 'AI Orchestration', pt: 'Orquestração de IA' },
-    icon: '🧠',
-    items: [
-      {
-        id: 'agentic-loops',
-        title: { en: 'Self-Correcting Agentic Loops', pt: 'Loops Agênticos Self-Correcting' },
-        description: { en: 'Advanced AI chains where agents review and fix their own outputs.', pt: 'Cadeias de IA avançadas onde agentes revisam e corrigem seus próprios resultados.' },
-        type: 'architecture',
-        category: 'ai',
-        demo: <TokenStreamVisualizer />,
-        mermaid: `graph TD
-          Q[Query] --> P[Planner]
-          P --> E[Executor]
-          E --> C[Critic]
-          C -->|Error Found| E
-          C -->|Validated| User[Response]`,
-        code: `while (attempts < 3 && !isValid) {
-  const result = await agent.run();
-  isValid = await monitor.eval(result);
-}`
-      }
-    ]
-  },
-  {
-    id: 'frontend',
-    title: { en: 'Frontend Mastery', pt: 'Maestria Frontend' },
-    icon: '⚛️',
-    items: [
-      {
-        id: 'rsc-boundary',
-        title: { en: 'Server Components Boundary', pt: 'Limite de Server Components' },
-        description: { en: 'Visualizing the React 19 server/client lifecycle.', pt: 'Visualizando o ciclo de vida server/client do React 19.' },
-        type: 'architecture',
-        category: 'frontend',
-        seniorTips: [
-          { en: "Keep large libraries in Server Components to reduce client bundle size (0kb JS).", pt: "Mantenha bibliotecas grandes em Server Components para reduzir o bundle do client (0kb JS)." },
-          { en: "Use 'use client' only at the leaf nodes of your tree to maximize server-side work.", pt: "Use 'use client' apenas nos nós folha da sua árvore para maximizar o trabalho no servidor." }
-        ],
-        mermaid: `graph TD
-          Server[Next.js Server] -->|Fetch Data| DB[(DB)]
-          Server -->|Render RSC| HTML[Static HTML + RSC Payload]
-          HTML -->|Stream| Browser[Client Browser]
-          Browser -->|Hydrate| Island[Client Islands: 'use client']`,
-        code: `// Server Component (RSC)
-async function Page() {
-  const data = await db.query(); // Direct DB access
-  return <ClientList initial={data} />;
-}`
+        category: 'data-validation',
+        demo: <ValidationSuiteSimulator />
       },
       {
-        id: 'dashboard-sys',
-        title: { en: 'SaaS Design System', pt: 'Design System SaaS' },
-        description: { en: 'Premium dashboard logic with high-density Bento grids.', pt: 'Lógica de dashboard premium com bento grids de alta densidade.' },
+        id: 'credit-card-validator',
+        title: { en: 'Luhn Algorithm Master', pt: 'Mestre do Algoritmo de Luhn' },
+        description: { en: 'Real-time credit card checksum and brand detection.', pt: 'Checksum de cartão de crédito em tempo real e detecção de bandeira.' },
+        type: 'security',
+        category: 'data-validation',
+        demo: <ValidationSuiteSimulator />
+      },
+      {
+        id: 'ipv4-network-validator',
+        title: { en: 'IPv4 Network Validator', pt: 'Validador de Rede IPv4' },
+        description: { en: 'Checking octet ranges and CIDR notation validity.', pt: 'Verificando intervalos de octetos e validade de notação CIDR.' },
+        type: 'infra',
+        category: 'data-validation',
+        demo: <ValidationSuiteSimulator />
+      },
+      {
+        id: 'url-integrity-check',
+        title: { en: 'URL Integrity Engine', pt: 'Motor de Integridade de URL' },
+        description: { en: 'Parsing protocols, domains, and safe path traversal.', pt: 'Parsing de protocolos, domínios e caminhos seguros.' },
+        type: 'utility',
+        category: 'data-validation',
+        demo: <ValidationSuiteSimulator />
+      },
+      {
+        id: 'hex-color-precision',
+        title: { en: 'HEX Color Precision', pt: 'Precisão de Cor HEX' },
+        description: { en: 'Validating 3, 6, and 8 digit hex color codes.', pt: 'Validando códigos de cor hex de 3, 6 e 8 dígitos.' },
         type: 'component',
-        category: 'frontend',
+        category: 'data-validation',
+        demo: <ValidationSuiteSimulator />
+      },
+      {
+        id: 'date-format-iso',
+        title: { en: 'ISO Date Validation', pt: 'Validação de Data ISO' },
+        description: { en: 'Ensuring calendar consistency and leap year logic.', pt: 'Garantindo consistência de calendário e lógica de ano bissexto.' },
+        type: 'utility',
+        category: 'data-validation',
+        demo: <ValidationSuiteSimulator />
+      },
+      {
+        id: 'postal-code-brazil',
+        title: { en: 'CEP Postal Mastery', pt: 'Maestria Postal CEP' },
+        description: { en: 'Validating Brazilian postal codes with mask handling.', pt: 'Validando CEPs brasileiros com tratamento de máscara.' },
+        type: 'utility',
+        category: 'data-validation',
+        demo: <ValidationSuiteSimulator />
+      }
+    ]
+  },
+  {
+    id: 'media-pipeline',
+    title: { en: 'Media Pipelines', pt: 'Pipelines de Mídia' },
+    icon: '📁',
+    items: [
+      {
+        id: 'file-pipeline-sim',
+        title: { en: 'Advanced File Handling', pt: 'Gestão Avançada de Arquivos' },
+        description: { en: 'Multi-part uploads, image previews, and cloud integration.', pt: 'Uploads multi-part, previews de imagem e integração cloud.' },
+        type: 'infra',
+        category: 'media-pipeline',
+        demo: <FilePipelineSimulator />,
+        seniorTips: [{ en: "Always validate file magic numbers, not just extensions.", pt: "Sempre valide os 'magic numbers' dos arquivos, não apenas extensões." }]
+      },
+      {
+        id: 'pdf-document-engine',
+        title: { en: 'Document Preview Engine', pt: 'Motor de Preview de Documentos' },
+        description: { en: 'WASM-accelerated PDF rendering with UI orchestration.', pt: 'Renderização de PDF acelerada via WASM com orquestração de UI.' },
+        type: 'component',
+        category: 'media-pipeline',
+        demo: <DocumentPreviewSimulator />,
+        problemStatement: { en: "Native browser PDF views lack custom branding and control.", pt: "Visualizadores nativos de PDF carecem de marca personalizada e controle." },
+        solution: { en: "Use PDF.js on a Canvas layer for absolute control.", pt: "Usar PDF.js em uma camada Canvas para controle absoluto." }
+      }
+    ]
+  },
+  {
+    id: 'interactive-logic',
+    title: { en: 'Interactive Logic', pt: 'Lógica Interativa' },
+    icon: '📝',
+    items: [
+      {
+        id: 'markdown-core-engine',
+        title: { en: 'Markdown Content Engine', pt: 'Motor de Conteúdo Markdown' },
+        description: { en: 'Real-time parsing and preview system for enterprise editors.', pt: 'Sistema de parsing e preview em tempo real para editores corporativos.' },
+        type: 'pattern',
+        category: 'interactive-logic',
+        demo: <MarkdownEngineSimulator />,
+        code: `const html = await unified().use(remarkParse).use(remarkHtml).process(markdown);`,
+        seniorTips: [{ en: "Sanitize HTML output to prevent XSS attacks when rendering markdown.", pt: "Sanitize o output HTML para prevenir ataques XSS ao renderizar markdown." }]
+      }
+    ]
+  },
+  {
+    id: 'observability',
+    title: { en: 'Observability & SRE', pt: 'Observabilidade e SRE' },
+    icon: '📊',
+    items: [
+      {
+        id: 'log-stream-demo',
+        title: { en: 'Structured Log Streaming', pt: 'Streaming de Logs Estruturados' },
+        description: { en: 'Real-time log ingestion with JSON payload inspection.', pt: 'Ingestão de logs em tempo real com inspeção de payload JSON.' },
+        type: 'infra',
+        category: 'observability',
+        demo: <LogStreamSimulator />
+      },
+      {
+        id: 'metrics-dash-demo',
+        title: { en: 'Real-time Metrics Engine', pt: 'Motor de Métricas Real-time' },
+        description: { en: 'Visualizing CPU, Memory, and P99 Latency under load.', pt: 'Visualizando CPU, Memória e Latência P99 sob carga.' },
+        type: 'performance',
+        category: 'observability',
+        demo: <MetricsDashboard />
+      }
+    ]
+  },
+  {
+    id: 'frontend-mastery',
+    title: { en: 'Frontend Engineering', pt: 'Engenharia Frontend' },
+    icon: '👑',
+    items: [
+      {
+        id: 'complex-form-master',
+        title: { en: 'Advanced Form Orchestration', pt: 'Orquestração de Forms Avançados' },
+        description: { en: 'Multi-step validation with Zod schemas and live state.', pt: 'Validação multi-etapa com schemas Zod e estado vivo.' },
+        type: 'component',
+        category: 'frontend-mastery',
+        demo: <ComplexFormSimulator />
+      },
+      {
+        id: 'dynamic-form-builder',
+        title: { en: 'Declarative Form Engine', pt: 'Motor de Form Declarativo' },
+        description: { en: 'JSON-to-UI generation with dynamic input mapping.', pt: 'Geração JSON-to-UI com mapeamento dinâmico de inputs.' },
+        type: 'pattern',
+        category: 'frontend-mastery',
+        demo: <DynamicFormBuilder />
+      },
+      {
+        id: 'debugger-demo',
+        title: { en: 'Logic Debugger Simulator', pt: 'Simulador de Debug de Lógica' },
+        description: { en: 'Visualizing step-through execution and variable shifts.', pt: 'Visualizando execução passo-a-passo e variações de variáveis.' },
+        type: 'utility',
+        category: 'frontend-mastery',
+        demo: <DebuggerSimulator />
+      }
+    ]
+  },
+  {
+    id: 'testing-lab',
+    title: { en: 'Testing Lab', pt: 'Laboratório de Testes' },
+    icon: '🧪',
+    items: [
+      {
+        id: 'unit-test-engine',
+        title: { en: 'Visual Test Suite Runner', pt: 'Visualizador de Suite de Testes' },
+        description: { en: 'Demonstrating Jest execution logic and report generation.', pt: 'Demonstrando lógica de execução Jest e geração de relatórios.' },
+        type: 'testing',
+        category: 'testing-lab',
+        demo: <UnitTestRunner />
+      }
+    ]
+  },
+  {
+    id: 'standards',
+    title: { en: 'Engineering Standards', pt: 'Padrões de Engenharia' },
+    icon: '🏗️',
+    items: [
+      {
+        id: 'api-lifecycle-sim',
+        title: { en: 'Network Handshake Engine', pt: 'Motor de Handshake de Rede' },
+        description: { en: 'Visualizing latency and timeout handling.', pt: 'Visualizando latência e tratativa de timeouts.' },
+        type: 'architecture',
+        category: 'standards',
+        demo: <ApiRequestSimulator />
+      },
+      {
+        id: 'bento-dashboard-sys',
+        title: { en: 'SaaS Mission Control', pt: 'Controle de Missão SaaS' },
+        description: { en: 'Bento-grid architecture for high-density interfaces.', pt: 'Arquitetura bento-grid para interfaces de alta densidade.' },
+        type: 'component',
+        category: 'standards',
         demo: <CosmicDashboard />
       }
     ]
   },
   {
-    id: 'mobile',
-    title: { en: 'Mobile Mechanics', pt: 'Mecânicas Mobile' },
-    icon: '📱',
-    items: [
-      {
-        id: 'jsi-sync',
-        title: { en: 'Synchronous Bridge (JSI)', pt: 'Bridge Síncrona (JSI)' },
-        description: { en: 'Bypassing the async serialize/deserialize bottleneck in React Native.', pt: 'Contornando o gargalo de serialização assíncrona no React Native.' },
-        type: 'architecture',
-        category: 'mobile',
-        seniorTips: [
-          { en: "JSI allows C++ pointers to be shared with JS environment directly.", pt: "O JSI permite que ponteiros C++ sejam compartilhados diretamente com o ambiente JS." }
-        ],
-        mermaid: `graph LR
-          JS[JS Thread] <-->|Shared Memory| JSI[C++ Layer]
-          JSI <-->|Direct Call| Native[iOS/Android Runtime]`,
-        demo: <TouchGestureSandbox />
-      },
-      {
-        id: 'lazy-overlay',
-        title: { en: 'Progressive Image Loading', pt: 'Carregamento Progressivo' },
-        description: { en: 'Blur-up technique for mobile low-bandwidth UX.', pt: 'Técnica blur-up para UX mobile em baixa largura de banda.' },
-        type: 'component',
-        category: 'mobile',
-        demo: <LazyImageOverlay />
-      }
-    ]
-  },
-  {
     id: 'utilities',
-    title: { en: 'Advanced Utilities', pt: 'Utilitários Avançados' },
+    title: { en: 'Optimization Labs', pt: 'Laboratórios de Otimização' },
     icon: '🛠️',
     items: [
       {
-        id: 'perf-cal',
-        title: { en: 'Performance Calendar', pt: 'Calendário de Performance' },
-        description: { en: 'Infinite scrolling date engine with zero re-renders.', pt: 'Motor de datas com scroll infinito e zero re-renders.' },
+        id: 'perf-calendar-engine',
+        title: { en: 'Virtualization Calendar', pt: 'Calendário com Virtualização' },
+        description: { en: 'Optimizing render loops for large date ranges.', pt: 'Otimizando loops de render para grandes intervalos de datas.' },
         type: 'utility',
         category: 'utilities',
         demo: <InteractiveCalendar />
       },
       {
-        id: 'fx-engine',
-        title: { en: 'Real-time FX Engine', pt: 'Motor FX em Tempo Real' },
-        description: { en: 'Reactive currency conversion with slippage simulation.', pt: 'Conversão de moeda reativa com simulação de slippage.' },
+        id: 'touch-gesture-lab',
+        title: { en: 'Gesture Physics Sandbox', pt: 'Sandbox de Física de Gestos' },
+        description: { en: 'Proprietary touch mechanics for mobile apps.', pt: 'Mecânicas de toque proprietárias para apps mobile.' },
+        type: 'component',
+        category: 'utilities',
+        demo: <TouchGestureSandbox />
+      },
+      {
+        id: 'reactive-fx-engine',
+        title: { en: 'Real-time FX Engine', pt: 'Motor FX Real-time' },
+        description: { en: 'Safe currency arithmetic in high-volatility environments.', pt: 'Aritmética de moeda segura em ambientes de alta volatilidade.' },
         type: 'utility',
         category: 'utilities',
         demo: <CurrencyConverter />
       },
       {
-        id: 'api-sim',
-        title: { en: 'Network Simulator', pt: 'Simulador de Rede' },
-        description: { en: 'Visualizing TCP/UDP and API lifecycle steps.', pt: 'Visualizando steps do ciclo de vida de TCP/UDP e API.' },
-        type: 'architecture',
+        id: 'media-blur-loading',
+        title: { en: 'Progressive Image Pipeline', pt: 'Pipeline de Imagem Progressiva' },
+        description: { en: 'Maximizing perceived performance with blur-up UX.', pt: 'Maximizando performance percebida com UX blur-up.' },
+        type: 'component',
         category: 'utilities',
-        demo: <ApiRequestSimulator />
+        demo: <LazyImageOverlay />
       }
     ]
   }

@@ -1,6 +1,12 @@
 import React from 'react';
 import { Box, VStack, Text, Icon, Flex, useColorModeValue } from '@chakra-ui/react';
-import { FaAtom, FaServer, FaBrain, FaMobileAlt, FaDraftingCompass, FaTools, FaCogs, FaShieldAlt, FaDatabase } from 'react-icons/fa';
+import {
+  FaAtom, FaServer, FaBrain, FaMobileAlt, FaDraftingCompass,
+  FaTools, FaCogs, FaShieldAlt, FaDatabase, FaCloud,
+  FaFlask, FaLightbulb, FaHospital, FaBolt,
+  FaDna, FaCrown, FaStar, FaCheckDouble, FaRulerCombined,
+  FaProjectDiagram, FaSearchPlus, FaCheckCircle, FaFileAlt, FaPenNib
+} from 'react-icons/fa';
 import { LAB_CONTENT } from '../../data/lab-content';
 import { motion } from 'framer-motion';
 import { useTranslation } from '../../i18n/useTranslation';
@@ -15,14 +21,30 @@ const MotionBox = motion(Box);
 
 const iconMap: Record<string, any> = {
   frontend: FaAtom,
+  'frontend-mastery': FaCrown,
   backend: FaServer,
+  'god-tier-backend': FaStar,
+  'data-validation': FaCheckCircle,
+  'media-pipeline': FaFileAlt,
+  'interactive-logic': FaPenNib,
   ai: FaBrain,
+  'ai-advanced': FaDna,
   mobile: FaMobileAlt,
   system: FaTools,
-  architecture: FaDraftingCompass,
+  architecture: FaProjectDiagram,
   devops: FaCogs,
   security: FaShieldAlt,
-  data: FaDatabase
+  data: FaDatabase,
+  cloud: FaCloud,
+  observability: FaSearchPlus,
+  testing: FaFlask,
+  'testing-lab': FaCheckDouble,
+  leadership: FaLightbulb,
+  utilities: FaTools,
+  'mission-critical': FaHospital,
+  iot: FaBolt,
+  standards: FaRulerCombined,
+  'design-patterns': FaDraftingCompass
 };
 
 export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeItem, onSelect }) => {
