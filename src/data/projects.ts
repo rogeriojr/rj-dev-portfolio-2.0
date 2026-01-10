@@ -696,54 +696,48 @@ Official rotating parking platform that simplifies the lives of thousands of dri
     category: "development",
     images: ["/assets/projects/gerenciamento_produtos.png"],
     tags: ["Next.js", "TypeScript", "Tailwind CSS", "State Management", "Responsive Design", "Testing"],
-    content: {
-      pt: `
-### Sistema de Gerenciamento de Produtos
-Aplicação desenvolvida como teste técnico, demonstrando proficiência em Next.js, gerenciamento de estado e boas práticas de desenvolvimento.
-
-#### Funcionalidades Implementadas:
-- **CRUD Completo**: Listagem, cadastro, edição e exclusão de produtos com validação de formulários.
-- **Filtros Avançados**: Busca por nome, categoria e faixa de preço com resultados instantâneos.
-- **Ordenação Dinâmica**: Suporte para múltiplos critérios de ordenação (preço, nome, categoria).
-- **Paginação Eficiente**: Navegação otimizada para grandes volumes de dados.
-
-#### Stack Técnica:
-- **Frontend Framework**: Next.js 14 com App Router para SSR e SSG.
-- **Tipagem**: TypeScript para segurança de tipos em tempo de compilação.
-- **Estilização**: Tailwind CSS com componentes customizados e design system.
-- **Testes**: Snapshot testing para garantir consistência visual.
-
-#### Diferenciais:
-- Layout 100% responsivo (mobile-first approach).
-- Documentação detalhada do projeto.
-- Código limpo seguindo princípios SOLID.
-    `,
-      en: `
-### Product Management System
-Application developed as a technical test, demonstrating proficiency in Next.js, state management, and development best practices.
-
-#### Implemented Features:
-- **Complete CRUD**: Product listing, registration, editing, and deletion with form validation.
-- **Advanced Filters**: Search by name, category, and price range with instant results.
-- **Dynamic Sorting**: Support for multiple sorting criteria (price, name, category).
-- **Efficient Pagination**: Optimized navigation for handling large data volumes.
-
-#### Technical Stack:
-- **Frontend Framework**: Next.js 14 with App Router for SSR and SSG.
-- **Type Safety**: TypeScript for compile-time type security.
-- **Styling**: Tailwind CSS with custom components and design system.
-- **Testing**: Snapshot testing to ensure visual consistency.
-
-#### Key Differentiators:
-- 100% responsive layout (mobile-first approach).
-- Detailed project documentation.
-- Clean code following SOLID principles.
-    `
-    },
     links: [
       { texto: "Ver Demo", url: "https://teste-gerenciamento-produtos.vercel.app/" },
       { texto: "GitHub", url: "https://github.com/rogeriojr/teste-gerenciamento-produtos" }
     ],
+    content: {
+      pt: `
+### Sistema de Gerenciamento de Produtos
+Interface administrativa moderna desenvolvida com o ecossistema Next.js, focada em alto desempenho e experiência de usuário fluida.
+
+#### Arquitetura e Engenharia:
+- **Next.js 14 + App Router**: Utilização de Server Components para renderização otimizada e Client Components para interatividade.
+- **Gerenciamento de Estado**: Implementação de fluxos de dados eficientes para filtros complexos e paginação.
+- **Tailwind CSS**: Design system customizado seguindo padrões modernos de UI/UX.
+
+#### Funcionalidades Críticas:
+- **Dashboard de Produtos**: Visualização clara com métricas de inventário.
+- **Filtros Inteligentes**: Sistema de busca e filtragem multi-critério (categoria, preço, status).
+- **CRUD Operacional**: Gerenciamento completo do ciclo de vida dos produtos com validação rigorosa.
+
+#### Impacto Técnico:
+- Core Web Vitals com excelente pontuação devido à otimização de renderização.
+- Código estruturado seguindo princípios SOLID para fácil escalabilidade.
+      `,
+      en: `
+### Product Management System
+Modern administrative interface developed with the Next.js ecosystem, focused on high performance and fluid user experience.
+
+#### Architecture & Engineering:
+- **Next.js 14 + App Router**: Utilization of Server Components for optimized rendering and Client Components for interactivity.
+- **State Management**: Implementation of efficient data flows for complex filters and pagination.
+- **Tailwind CSS**: Customized design system following modern UI/UX standards.
+
+#### Critical Features:
+- **Product Dashboard**: Clear visualization with inventory metrics.
+- **Smart Filters**: Multi-criteria search and filtering system (category, price, status).
+- **Operational CRUD**: Complete management of the product life cycle with rigorous validation.
+
+#### Technical Impact:
+- Core Web Vitals with excellent scores due to rendering optimization.
+- Structured code following SOLID principles for easy scalability.
+      `
+    },
     createdAt: new Date("2024-01-01"),
     updatedAt: new Date("2024-01-01")
   },
@@ -817,49 +811,47 @@ Project focused on solidifying knowledge in Node.js backend, demonstrating abili
     category: "development",
     images: ["/assets/projects/coodesh_challenge.png"],
     tags: ["React Native", "TypeScript", "Mobile", "API Integration", "State Management"],
-    content: {
-      pt: `
-### Desafio Técnico Mobile
-Aplicação mobile desenvolvida como parte de processo seletivo técnico da Coodesh, demonstrando proficiência em desenvolvimento mobile multiplataforma.
-
-#### Competências Demonstradas:
-- **React Native**: Desenvolvimento de interface nativa para iOS e Android a partir de uma única codebase.
-- **Consumo de APIs**: Integração com APIs RESTful, tratamento de estados de carregamento e erros.
-- **Performance Mobile**: Otimizações específicas para dispositivos móveis (lazy loading, cache, etc.).
-- **TypeScript**: Tipagem completa para maior segurança e manutenibilidade do código.
-
-#### Arquitetura:
-- Componentização eficiente com hooks customizados.
-- Gerenciamento de estado robusto.
-- Navegação otimizada para UX mobile.
-- Suporte a diferentes tamanhos de tela e orientações.
-
-#### Resultado:
-Solução completa atendendo todos os requisitos do desafio, com código limpo, documentado e seguindo padrões da comunidade React Native.
-    `,
-      en: `
-### Mobile Technical Challenge
-Mobile application developed as part of Coodesh's technical selection process, demonstrating proficiency in cross-platform mobile development.
-
-#### Demonstrated Skills:
-- **React Native**: Development of native interface for iOS and Android from a single codebase.
-- **API Consumption**: Integration with RESTful APIs, handling loading states and errors.
-- **Mobile Performance**: Mobile-specific optimizations (lazy loading, caching, etc.).
-- **TypeScript**: Complete typing for greater code security and maintainability.
-
-#### Architecture:
-- Efficient componentization with custom hooks.
-- Robust state management.
-- Optimized navigation for mobile UX.
-- Support for different screen sizes and orientations.
-
-#### Result:
-Complete solution meeting all challenge requirements, with clean, documented code following React Native community standards.
-    `
-    },
     links: [
       { texto: "GitHub", url: "https://github.com/rogeriojr/mobile-chalenge-20240202-codesh" }
     ],
+    content: {
+      pt: `
+### Mobile Challenge - Coodesh
+Aplicação mobile de alta fidelidade desenvolvida para o desafio técnico da Coodesh, focada em performance e arquitetura limpa.
+
+#### Destaques Técnicos:
+- **Stack Moderna**: React Native com TypeScript para máxima segurança de tipos e velocidade de desenvolvimento.
+- **Arquitetura de Dados**: Implementação de Fetch API com tratamento de erros robusto e estados de loading globais.
+- **UI/UX Nativa**: Componentização focada em performance, garantindo scroll suave e transições fluidas em iOS e Android.
+
+#### Funcionalidades Implementadas:
+- **Listagem Dinâmica**: Consumo de API remota com atualização em tempo real.
+- **Detalhes de Itens**: Visualização rica com tratamento de imagens e dados complexos.
+- **Offline First**: Estratégias básicas de cache para melhor experiência em conexões lentas.
+
+#### Excelência em Engenharia:
+- Código documentado e testado.
+- Estrutura de pastas modular facilitando a manutenção.
+      `,
+      en: `
+### Mobile Challenge - Coodesh
+High-fidelity mobile application developed for the Coodesh technical challenge, focused on performance and clean architecture.
+
+#### Technical Highlights:
+- **Modern Stack**: React Native with TypeScript for maximum type safety and development speed.
+- **Data Architecture**: Fetch API implementation with robust error handling and global loading states.
+- **Native UI/UX**: Performance-focused componentization, ensuring smooth scrolling and fluid transitions on iOS and Android.
+
+#### Implemented Features:
+- **Dynamic Listing**: Remote API consumption with real-time updates.
+- **Item Details**: Rich visualization with image and complex data handling.
+- **Offline First**: Basic caching strategies for better experience on slow connections.
+
+#### Engineering Excellence:
+- Documented and tested code.
+- Modular folder structure facilitating maintenance.
+      `
+    },
     createdAt: new Date("2024-01-01"),
     updatedAt: new Date("2024-01-01")
   },
@@ -876,24 +868,35 @@ Complete solution meeting all challenge requirements, with clean, documented cod
     category: "development",
     images: ["/assets/projects/yellot_cupons.png"],
     tags: ["React Native", "Mobile", "Loyalty", "UX/UI"],
+    links: [
+      { texto: "Google Play", url: "https://play.google.com/store/search?q=yellot&c=apps" }
+    ],
     content: {
       pt: `
-### App de Fidelidade e Cupons
-Aplicativo focado em retenção de clientes através de gamificação e benefícios exclusivos.
+### Ecossistema Yellot Cupons
+Plataforma mobile focada em fidelização de clientes e gestão de benefícios através de um sistema de cupons dinâmico.
 
-#### Destaques:
-- **Carteira Digital**: Gestão fácil de cupons ativos e expirados.
-- **Notificações Push**: Engajamento em tempo real com novas ofertas.
-- **Design Intuitivo**: Interface limpa focada em conversão rápida.
+#### Engenharia e Funcionalidades:
+- **Gestão de Cupons**: Sistema intuitivo para visualização, ativação e resgate de diversos tipos de benefícios.
+- **Integração de Fidelidade**: Conexão direta com a base de clientes Yellot para ofertas personalizadas.
+- **Mobile Experience**: Desenvolvido com React Native, oferecendo uma experiência fluida de aplicativo nativo.
+
+#### Impacto no Negócio:
+- Aumento no engajamento de usuários através de notificações push estratégicas.
+- Facilidade de uso garantindo alta taxa de resgate de cupons.
       `,
       en: `
-### Loyalty and Coupon App
-App focused on customer retention through gamification and exclusive benefits.
+### Yellot Coupons Ecosystem
+Mobile platform focused on customer loyalty and benefits management through a dynamic coupon system.
 
-#### Highlights:
-- **Digital Wallet**: Easy management of active and expired coupons.
-- **Push Notifications**: Real-time engagement with new offers.
-- **Intuitive Design**: Clean interface focused on quick conversion.
+#### Engineering & Features:
+- **Coupon Management**: Intuitive system for viewing, activating, and redeeming various types of benefits.
+- **Loyalty Integration**: Direct connection with the Yellot customer base for personalized offers.
+- **Mobile Experience**: Developed with React Native, offering a fluid native app experience.
+
+#### Business Impact:
+- Increased user engagement through strategic push notifications.
+- Ease of use ensuring high coupon redemption rate.
       `
     },
     createdAt: new Date("2024-01-01"),
