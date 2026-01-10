@@ -50,8 +50,20 @@ Development of a robust platform for video content consumption focused on perfor
       pt: "Ecosistema Fintech completo englobando E-commerce, Mobile App e Dashboard Administrativo de alta complexidade.",
       en: "Complete Fintech ecosystem encompassing E-commerce, Mobile App, and highly complex Administrative Dashboard."
     },
-    images: ["/assets/projects/simerpay.png"],
+    images: [
+      "/assets/projects/simerpay.png",
+      "/assets/projects/simerpay_app_1.png",
+      "/assets/projects/simerpay_app_2.png",
+      "/assets/projects/simerpay_app_3.png",
+      "/assets/projects/simerpay_app_4.png",
+      "/assets/projects/simerpay_app_5.png"
+    ],
     tags: ["Fintech", "React", "React Native", "Gateways", "Transacional", "E-commerce"],
+    links: [
+      { texto: "Site Oficial", url: "https://www.simerenergia.com.br/" },
+      { texto: "Google Play", url: "https://play.google.com/store/apps/details?id=com.simerpay&hl=pt_BR" },
+      { texto: "Apple Store", url: "https://apps.apple.com/br/app/simer-pay/id1590387388" }
+    ],
     content: {
       pt: `
 ### Fintech Ecosystem & Financial Management
@@ -572,6 +584,9 @@ Acting as a front-end specialist in brand transformation (rebranding) and benefi
       "/assets/projects/pegpag_logo_clean.png",
       "/assets/projects/pegpag_login.png",
       "/assets/projects/pegpag_home.png",
+      "/assets/projects/pegpag_admin_dashboard.png",
+      "/assets/projects/pegpag_admin_sms.png",
+      "/assets/projects/pegpag_admin_login.png",
       "/assets/projects/pegpag_access_logs.png",
       "/assets/projects/pegpag_registration.png"
     ],
