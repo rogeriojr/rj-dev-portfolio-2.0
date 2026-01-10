@@ -45,10 +45,10 @@ export default function Admin() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [certificates, setCertificates] = useState<Certificate[]>([]);
   const [currentProject, setCurrentProject] = useState<Partial<Project>>({
-    title: "",
-    description: "",
+    title: { pt: "", en: "" },
+    description: { pt: "", en: "" },
     images: [],
-    content: "",
+    content: { pt: "", en: "" },
     links: [],
   });
   const [currentCertificate, setCurrentCertificate] = useState<Certificate>({
@@ -76,11 +76,11 @@ export default function Admin() {
         const data = doc.data();
         return {
           id: doc.id,
-          title: data.title || "",
-          description: data.description || "",
+          title: data.title || { pt: "", en: "" },
+          description: data.description || { pt: "", en: "" },
           category: data.category || "",
           images: data.images || [],
-          content: data.content || "",
+          content: data.content || { pt: "", en: "" },
           links: data.links || [],
           createdAt: data.createdAt?.toDate() || new Date(),
           updatedAt: data.updatedAt?.toDate() || new Date(),
@@ -139,11 +139,11 @@ export default function Admin() {
       onClose();
       fetchProjects();
       setCurrentProject({
-        title: "",
-        description: "",
+        title: { pt: "", en: "" },
+        description: { pt: "", en: "" },
         category: "development",
         images: [],
-        content: "",
+        content: { pt: "", en: "" },
         links: [],
       });
     } catch (error) {
@@ -247,7 +247,7 @@ export default function Admin() {
               <Tbody>
                 {projects.map((project) => (
                   <Tr key={project.id}>
-                    <Td>{project.title}</Td>
+                    <Td>{project.title.pt}</Td>
                     <Td>{project.category}</Td>
                     <Td>
                       <IconButton
@@ -271,25 +271,61 @@ export default function Admin() {
                 <ModalBody>
                   <Stack spacing={4}>
                     <FormControl>
-                      <FormLabel>Title</FormLabel>
+                      <FormLabel>Title (PT)</FormLabel>
                       <Input
-                        value={currentProject.title}
+                        value={currentProject.title?.pt || ""}
                         onChange={(e) =>
                           setCurrentProject({
                             ...currentProject,
-                            title: e.target.value,
+                            title: {
+                              pt: e.target.value,
+                              en: currentProject.title?.en || ""
+                            },
                           })
                         }
                       />
                     </FormControl>
                     <FormControl>
-                      <FormLabel>Description</FormLabel>
-                      <Textarea
-                        value={currentProject.description}
+                      <FormLabel>Title (EN)</FormLabel>
+                      <Input
+                        value={currentProject.title?.en || ""}
                         onChange={(e) =>
                           setCurrentProject({
                             ...currentProject,
-                            description: e.target.value,
+                            title: {
+                              pt: currentProject.title?.pt || "",
+                              en: e.target.value
+                            },
+                          })
+                        }
+                      />
+                    </FormControl>
+                    <FormControl>
+                      <FormLabel>Description (PT)</FormLabel>
+                      <Textarea
+                        value={currentProject.description?.pt || ""}
+                        onChange={(e) =>
+                          setCurrentProject({
+                            ...currentProject,
+                            description: {
+                              pt: e.target.value,
+                              en: currentProject.description?.en || ""
+                            },
+                          })
+                        }
+                      />
+                    </FormControl>
+                    <FormControl>
+                      <FormLabel>Description (EN)</FormLabel>
+                      <Textarea
+                        value={currentProject.description?.en || ""}
+                        onChange={(e) =>
+                          setCurrentProject({
+                            ...currentProject,
+                            description: {
+                              pt: currentProject.description?.pt || "",
+                              en: e.target.value
+                            },
                           })
                         }
                       />
@@ -313,13 +349,33 @@ export default function Admin() {
                       </Select>
                     </FormControl>
                     <FormControl>
-                      <FormLabel>Content</FormLabel>
+                      <FormLabel>Content (PT)</FormLabel>
                       <Textarea
-                        value={currentProject.content}
+                        value={currentProject.content?.pt || ""}
+                        rows={6}
                         onChange={(e) =>
                           setCurrentProject({
                             ...currentProject,
-                            content: e.target.value,
+                            content: {
+                              pt: e.target.value,
+                              en: currentProject.content?.en || ""
+                            },
+                          })
+                        }
+                      />
+                    </FormControl>
+                    <FormControl>
+                      <FormLabel>Content (EN)</FormLabel>
+                      <Textarea
+                        value={currentProject.content?.en || ""}
+                        rows={6}
+                        onChange={(e) =>
+                          setCurrentProject({
+                            ...currentProject,
+                            content: {
+                              pt: currentProject.content?.pt || "",
+                              en: e.target.value
+                            },
                           })
                         }
                       />

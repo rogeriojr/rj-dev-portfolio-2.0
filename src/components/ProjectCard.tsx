@@ -9,10 +9,12 @@ import {
   Icon,
   useColorModeValue,
   Button,
+  Badge,
 } from "@chakra-ui/react";
 import { FaGithub, FaLink, FaInfoCircle } from "react-icons/fa";
 import { Project } from "../types";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "../i18n/useTranslation";
 
 interface ProjectCardProps {
   project: Project;
@@ -38,6 +40,7 @@ export default function ProjectCard({
     "rgba(66, 153, 225, 0.3)",
     "rgba(99, 179, 237, 0.3)"
   );
+  const { t, language } = useTranslation();
 
   if (!project) {
     return null;
@@ -69,6 +72,9 @@ export default function ProjectCard({
         boxShadow="lg"
         position="relative"
         backdropFilter="blur(8px)"
+        display="flex"
+        flexDirection="column"
+        h="100%"
         _before={{
           content: '""',
           position: "absolute",
@@ -89,15 +95,21 @@ export default function ProjectCard({
           transform: "translateY(-8px)",
         }}
       >
-        <Box position="relative" bg={imageBgColor} overflow="hidden">
+        <Box
+          position="relative"
+          bg={project.title[language].toLowerCase().includes("bevas") || project.title[language].toLowerCase().includes("portal") || project.title[language].toLowerCase().includes("neoidea") || project.title[language].toLowerCase().includes("plataforma") ? "gray.800" : "white"}
+          overflow="hidden"
+          flexShrink={0}
+        >
           {project.images && project.images.length > 0 ? (
             <Image
               src={project.images[0]}
-              alt={project.title}
+              alt={project.title[language]}
               objectFit="contain"
-              p="4"
+              p="6"
               h="200px"
               w="100%"
+              bg={project.title[language].toLowerCase().includes("bevas") || project.title[language].toLowerCase().includes("portal") || project.title[language].toLowerCase().includes("neoidea") || project.title[language].toLowerCase().includes("plataforma") ? "gray.800" : "white"}
               transition="transform 0.3s ease"
               _hover={{
                 transform: "scale(1.05)",
@@ -134,7 +146,7 @@ export default function ProjectCard({
             }}
           />
         </Box>
-        <VStack p={6} align="start" spacing={4} position="relative" zIndex={1}>
+        <VStack p={6} align="start" spacing={4} position="relative" zIndex={1} flex="1" justify="flex-start">
           <Heading
             size="md"
             className="project-title"
@@ -146,20 +158,42 @@ export default function ProjectCard({
               transform: "translateX(4px)",
             }}
           >
-            {project.title}
+            {project.title[language]}
           </Heading>
           <Text
-            noOfLines={3}
+            noOfLines={2}
             className="project-description"
             color={useColorModeValue("gray.600", "gray.300")}
+            fontSize="sm"
           >
-            {project.description}
+            {project.description[language]}
           </Text>
-          <HStack spacing={4} mt={2} width="100%" align="flex-start">
+          {project.tags && project.tags.length > 0 && (
+            <HStack spacing={2} wrap="wrap">
+              {project.tags.slice(0, 3).map((tag, idx) => (
+                <Badge
+                  key={idx}
+                  colorScheme="blue"
+                  variant="subtle"
+                  fontSize="xs"
+                  borderRadius="full"
+                  px={2}
+                >
+                  {tag}
+                </Badge>
+              ))}
+              {project.tags.length > 3 && (
+                <Text fontSize="xs" color="gray.500">
+                  +{project.tags.length - 3}
+                </Text>
+              )}
+            </HStack>
+          )}
+          <HStack spacing={4} mt="auto" width="100%" align="center">
             <VStack align="start" spacing={2} flex={1}>
               {project.links &&
                 project.links.length > 0 &&
-                project.links.map((link, index) => (
+                project.links.slice(0, 1).map((link, index) => (
                   <Link
                     key={index}
                     href={link.url}
@@ -167,10 +201,10 @@ export default function ProjectCard({
                     color="blue.400"
                     display="inline-flex"
                     alignItems="center"
+                    fontSize="sm"
                     _hover={{
                       color: "blue.300",
-                      transform: "translateY(-2px)",
-                      textShadow: "0 0 8px rgba(66, 153, 225, 0.6)",
+                      transform: "translateY(-1px)",
                     }}
                     transition="all 0.2s"
                   >
@@ -178,7 +212,7 @@ export default function ProjectCard({
                       as={link.url.includes("github") ? FaGithub : FaLink}
                       mr={2}
                     />
-                    {link.texto}
+                    {t('projects.viewOnline')}
                   </Link>
                 ))}
             </VStack>
@@ -187,7 +221,9 @@ export default function ProjectCard({
                 rightIcon={<FaInfoCircle />}
                 variant="ghost"
                 size="sm"
-                onClick={() => onViewDetails?.(project)}
+                onClick={() => {
+                  onViewDetails?.(project);
+                }}
                 bgGradient="linear(to-r, blue.400, purple.500)"
                 color="white"
                 _hover={{
@@ -199,12 +235,12 @@ export default function ProjectCard({
                   transform: "translateY(0)",
                 }}
               >
-                Detalhes
+                {t('projects.viewDetails')}
               </Button>
             </Box>
           </HStack>
         </VStack>
       </MotionBox>
-    </AnimatePresence>
+    </AnimatePresence >
   );
 }

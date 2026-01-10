@@ -4,13 +4,19 @@ export interface User {
   isAdmin: boolean;
 }
 
+export type BilingualString = {
+  pt: string;
+  en: string;
+};
+
 export interface Project {
   id: string;
-  title: string;
-  description: string;
+  title: BilingualString;
+  description: BilingualString;
   category: 'development' | 'design' | 'social-media' | 'latest' | 'popular' | null | '' | any;
   images: string[];
-  content: string;
+  tags?: string[];
+  content: BilingualString;
   createdAt: Date;
   updatedAt: Date;
   links?: {

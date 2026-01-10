@@ -15,9 +15,11 @@ import { Link } from "react-router-dom";
 import { StyledProfileImage } from "./StyledProfileImage";
 import { LoadingSpinner } from "./LoadingSpinner";
 import { useEffect, useState } from "react";
+import { useTranslation } from "../i18n/useTranslation";
 
 export function Home() {
   const [isLoading, setIsLoading] = useState(true);
+  const { t } = useTranslation();
 
   useEffect(() => {
     // Simulate loading time
@@ -54,9 +56,12 @@ export function Home() {
               letterSpacing="tight"
               mb={4}
             >
-              Desenvolvedor Full Stack &
-              <br />
-              Designer Digital
+              {t('hero.title').split('\n').map((line, i) => (
+                <span key={i}>
+                  {line}
+                  {i === 0 && <br />}
+                </span>
+              ))}
             </Heading>
             <Heading
               as="h2"
@@ -65,7 +70,7 @@ export function Home() {
               fontWeight="normal"
               mb={6}
             >
-              Transformando ideias em realidade digital
+              {t('hero.subtitle')}
             </Heading>
           </Box>
 
@@ -76,8 +81,7 @@ export function Home() {
             transition={{ duration: "0.5s", delay: "0.2s" }}
           >
             <Text fontSize="xl" color="gray.300">
-              Transformando ideias em experiências digitais extraordinárias
-              através de código e design inovador.
+              {t('hero.description')}
             </Text>
           </Box>
 
@@ -102,7 +106,7 @@ export function Home() {
                 boxShadow: "lg",
               }}
             >
-              Ver Projetos
+              {t('hero.viewProjects')}
             </Button>
             <Button
               size="lg"
@@ -116,13 +120,13 @@ export function Home() {
                 color: "brand.space.500",
               }}
             >
-              Contato
+              {t('hero.contact')}
             </Button>
             <Button
               size="lg"
               variant="outline"
               as="a"
-              href="./cv-rj.pdf"
+              href="./Rogerio_Junior_Desenvolvedor_Senior.pdf"
               target="_blank"
               rel="noopener noreferrer"
               leftIcon={<FaBriefcase />}
@@ -133,7 +137,7 @@ export function Home() {
                 color: "brand.space.500",
               }}
             >
-              Ver Currículo
+              {t('hero.downloadCV')}
             </Button>
           </Stack>
 

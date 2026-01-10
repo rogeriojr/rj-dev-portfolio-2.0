@@ -1,0 +1,70 @@
+{
+  "nav": {
+    "home": "Início",
+    "about": "Sobre",
+    "portfolio": "Portfólio - Cases de Sucesso",
+    "certificates": "Certificados",
+    "contact": "Contato"
+  },
+  "hero": {
+    "title": "Senior Full Stack Engineer &\nMobile Specialist",
+    "subtitle": "Especialista em React, Node.js e Inteligência Artificial",
+    "description": "Transformando ideias em soluções digitais robustas, unindo engenharia de software e design de alta performance.",
+    "viewProjects": "Ver Projetos",
+    "contact": "Contato",
+    "downloadCV": "Baixar CV"
+  },
+  "about": {
+    "title": "Sobre Mim",
+    "intro": "Desenvolvedor Full Stack Sênior com expertise em React, React Native, Next.js e Inteligência Artificial",
+    "experience": "Experiência Profissional",
+    "skills": "Habilidades Técnicas",
+    "currentRole": "Atual",
+    "present": "Presente",
+    "yearsAbbr": "anos"
+  },
+  "projects": {
+    "title": "Portfólio - Cases de Sucesso",
+    "viewDetails": "Detalhes",
+    "viewOnline": "Ver Online",
+    "backToList": "Voltar para Projetos",
+    "loading": "Carregando projetos...",
+    "noProjects": "Nenhum projeto encontrado",
+    "notFound": "Projeto não encontrado",
+    "back": "Voltar",
+    "tags": "TECH STACK",
+    "links": "LINKS ÚTEIS",
+    "gallery": "Visualização do Projeto"
+  },
+  "certificates": {
+    "title": "Certificados",
+    "loading": "Carregando certificados...",
+    "noCertificates": "Nenhum certificado encontrado"
+  },
+  "contact": {
+    "title": "Entre em Contato",
+    "name": "Nome",
+    "email": "E-mail",
+    "message": "Mensagem",
+    "send": "Enviar",
+    "sending": "Enviando...",
+    "success": "Mensagem enviada com sucesso!",
+    "error": "Erro ao enviar mensagem"
+  },
+  "footer": {
+    "rights": "Todos os direitos reservados",
+    "madeWith": "Feito com",
+    "by": "por"
+  },
+  "common": {
+    "loading": "Carregando...",
+    "error": "Erro",
+    "tryAgain": "Tentar novamente",
+    "close": "Fechar",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "delete": "Excluir",
+    "confirm": "Confirmar"
+  }
+}

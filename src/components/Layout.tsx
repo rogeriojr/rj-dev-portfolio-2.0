@@ -16,19 +16,22 @@ import {
   DrawerCloseButton,
   VStack,
   useBreakpointValue,
+  Button,
 } from "@chakra-ui/react";
 import { css, keyframes } from "@emotion/react";
 import { Link as RouterLink, Outlet } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+// import { useAuth } from "../contexts/AuthContext";
 import { FaSun, FaMoon, FaBars } from "react-icons/fa";
+import { useTranslation } from "../i18n/useTranslation";
 
 export function Layout() {
-  const { user, logout } = useAuth();
+  // const { user, logout } = useAuth();
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const isMobile = useBreakpointValue({ base: true, md: false });
+  const { t, language, setLanguage } = useTranslation();
 
-  const bgColor = colorMode === "dark" ? "gray.900" : "gray.50";
+  const bgColor = colorMode === "dark" ? "gray.900" : "white";
   const textColor = colorMode === "dark" ? "yellow.400" : "yellow.600";
   const navBgColor =
     colorMode === "dark" ? "rgba(0, 0, 0, 0.95)" : "rgba(255, 255, 255, 0.95)";
@@ -48,7 +51,7 @@ export function Layout() {
         _hover={{ color: hoverColor }}
         transition="all 0.3s ease"
       >
-        Home
+        {t('nav.home')}
       </ChakraLink>
       <ChakraLink
         as={RouterLink}
@@ -56,7 +59,7 @@ export function Layout() {
         _hover={{ color: hoverColor }}
         transition="all 0.3s ease"
       >
-        Sobre Mim
+        {t('nav.about')}
       </ChakraLink>
       <ChakraLink
         as={RouterLink}
@@ -64,23 +67,7 @@ export function Layout() {
         _hover={{ color: hoverColor }}
         transition="all 0.3s ease"
       >
-        Desenvolvimento
-      </ChakraLink>
-      <ChakraLink
-        as={RouterLink}
-        to="/portfolio/design"
-        _hover={{ color: hoverColor }}
-        transition="all 0.3s ease"
-      >
-        Design
-      </ChakraLink>
-      <ChakraLink
-        as={RouterLink}
-        to="/portfolio/social-media"
-        _hover={{ color: hoverColor }}
-        transition="all 0.3s ease"
-      >
-        Social Media
+        {t('nav.portfolio')}
       </ChakraLink>
     </>
   );
@@ -91,12 +78,10 @@ export function Layout() {
       display="flex"
       flexDirection="column"
       bg={bgColor}
-      backgroundImage={`radial-gradient(circle at 1px 1px, ${
-        colorMode === "dark" ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.1)"
-      } 1px, transparent 0),
-      radial-gradient(circle at 15px 15px, ${
-        colorMode === "dark" ? "rgba(255,215,0,0.1)" : "rgba(43,79,129,0.05)"
-      } 2px, transparent 0)`}
+      backgroundImage={`radial-gradient(circle at 1px 1px, ${colorMode === "dark" ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.1)"
+        } 1px, transparent 0),
+      radial-gradient(circle at 15px 15px, ${colorMode === "dark" ? "rgba(255,215,0,0.1)" : "rgba(43,79,129,0.05)"
+        } 2px, transparent 0)`}
       backgroundSize="40px 40px, 60px 60px"
       position="relative"
       overflow="hidden"
@@ -110,8 +95,8 @@ export function Layout() {
           right: 0;
           bottom: 0;
           background: ${colorMode === "dark"
-            ? "radial-gradient(circle at 50% 50%, rgba(255,215,0,0.1) 0%, transparent 60%)"
-            : "radial-gradient(circle at 50% 50%, rgba(43,79,129,0.1) 0%, transparent 60%)"};
+          ? "radial-gradient(circle at 50% 50%, rgba(255,215,0,0.1) 0%, transparent 60%)"
+          : "radial-gradient(circle at 50% 50%, rgba(43,79,129,0.1) 0%, transparent 60%)"};
           animation: ${starKeyframes} 3s infinite;
         }
       `}
@@ -150,7 +135,7 @@ export function Layout() {
                     <DrawerBody>
                       <VStack spacing={4} align="stretch">
                         <NavLinks />
-                        {user ? (
+                        {/* {user ? (
                           <>
                             <ChakraLink
                               as={RouterLink}
@@ -175,7 +160,7 @@ export function Layout() {
                           >
                             Login
                           </ChakraLink>
-                        )}
+                        )} */}
                       </VStack>
                     </DrawerBody>
                   </DrawerContent>
@@ -189,7 +174,7 @@ export function Layout() {
             <Flex align="center" gap={4}>
               {!isMobile && (
                 <Stack direction="row" spacing={4}>
-                  {user ? (
+                  {/* {user ? (
                     <>
                       <ChakraLink
                         as={RouterLink}
@@ -214,10 +199,20 @@ export function Layout() {
                     >
                       Login
                     </ChakraLink>
-                  )}
+                  )} */}
                 </Stack>
               )}
-              <Flex align="center" gap={4}>
+              <Flex align="center" gap={2}>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => setLanguage(language === 'pt' ? 'en' : 'pt')}
+                  color={textColor}
+                  fontWeight="bold"
+                  _hover={{ bg: colorMode === "dark" ? "whiteAlpha.200" : "blackAlpha.100" }}
+                >
+                  {language === 'pt' ? 'PT' : 'EN'}
+                </Button>
                 <IconButton
                   aria-label="Toggle color mode"
                   icon={colorMode === "dark" ? <FaSun /> : <FaMoon />}
@@ -244,8 +239,8 @@ export function Layout() {
             right: 0;
             bottom: 0;
             background: ${colorMode === "dark"
-              ? "radial-gradient(circle at 50% 50%, rgba(255,215,0,0.05) 0%, transparent 70%)"
-              : "radial-gradient(circle at 50% 50%, rgba(43,79,129,0.05) 0%, transparent 70%)"};
+            ? "radial-gradient(circle at 50% 50%, rgba(255,215,0,0.05) 0%, transparent 70%)"
+            : "radial-gradient(circle at 50% 50%, rgba(43,79,129,0.05) 0%, transparent 70%)"};
             pointer-events: none;
           }
         `}
@@ -269,8 +264,7 @@ export function Layout() {
       >
         <Container maxW="container.xl">
           <Text textAlign="center">
-            &copy; {new Date().getFullYear()} Rogério Júnior. Todos os direitos
-            reservados.
+            &copy; {new Date().getFullYear()} Rogério Júnior. {t('footer.rights')}.
           </Text>
         </Container>
       </Box>

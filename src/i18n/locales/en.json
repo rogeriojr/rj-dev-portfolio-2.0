@@ -1,0 +1,70 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "portfolio": "Portfolio - Success Cases",
+    "certificates": "Certificates",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Senior Full Stack Engineer &\nMobile Specialist",
+    "subtitle": "Expert in React, Node.js and Artificial Intelligence",
+    "description": "Transforming ideas into robust digital solutions, combining software engineering and high-performance design.",
+    "viewProjects": "View Projects",
+    "contact": "Contact",
+    "downloadCV": "Download CV"
+  },
+  "about": {
+    "title": "About Me",
+    "intro": "Senior Full Stack Developer with expertise in React, React Native, Next.js and Artificial Intelligence",
+    "experience": "Professional Experience",
+    "skills": "Technical Skills",
+    "currentRole": "Current",
+    "present": "Present",
+    "yearsAbbr": "years"
+  },
+  "projects": {
+    "title": "Portfolio - Success Cases",
+    "viewDetails": "Details",
+    "viewOnline": "View Online",
+    "backToList": "Back to Projects",
+    "loading": "Loading projects...",
+    "noProjects": "No projects found",
+    "notFound": "Project not found",
+    "back": "Back",
+    "tags": "TECH STACK",
+    "links": "USEFUL LINKS",
+    "gallery": "Project Preview"
+  },
+  "certificates": {
+    "title": "Certificates",
+    "loading": "Loading certificates...",
+    "noCertificates": "No certificates found"
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send",
+    "sending": "Sending...",
+    "success": "Message sent successfully!",
+    "error": "Error sending message"
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "madeWith": "Made with",
+    "by": "by"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "tryAgain": "Try again",
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirm": "Confirm"
+  }
+}

@@ -18,6 +18,7 @@ import {
   Contact,
 } from "./components";
 import { AuthProvider } from "./contexts/AuthContext";
+import { LanguageProvider } from "./i18n/LanguageContext";
 
 // Configure future flags for React Router v7
 UNSAFE_DataRouterContext.displayName = "DataRouter";
@@ -72,11 +73,14 @@ const router = createBrowserRouter(
 export function App() {
   return (
     <AuthProvider>
-      <ChakraProvider theme={theme}>
-        <RouterProvider router={router} />
-      </ChakraProvider>
+      <LanguageProvider>
+        <ChakraProvider theme={theme}>
+          <RouterProvider router={router} />
+        </ChakraProvider>
+      </LanguageProvider>
     </AuthProvider>
   );
 }
 
 export default App;
+
