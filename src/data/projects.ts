@@ -431,32 +431,36 @@ export const NEW_STATIC_PROJECTS: Project[] = [
     tags: ["Artificial Intelligence", "RAG", "GPT-4", "Vector Databases", "AI Agents"],
     content: {
       pt: `
-### Engenharia de IA e RAG (Retrieval-Augmented Generation)
-Transformação de dados não estruturados em uma base de conhecimento ativa e consultável através de linguagem natural.
+### Autoridade e Inteligência em Videoconferência
+A sua videoconferência diz muito sobre o nível da sua marca. E quando ela acontece em um ambiente genérico, o impacto também é genérico. 
+
+Com a **Neo Idea**, você cria um espaço que realmente representa o seu negócio: um ambiente próprio, com sua identidade, sua URL e um **Agente de IA** capaz de lembrar tudo o que foi dito na reunião. É a combinação de tecnologia, autoridade e experiência que sua marca merece desde o primeiro clique.
 
 #### Arquitetura de Inteligência:
-- **Core Engine**: Orquestração sofisticada de LLMs (OpenAI GPT-4) utilizando padrões de Agentes de IA.
-- **Vector Pipeline**: Processamento e armazenamento vetorial via Supabase (pgvector) para busca semântica de alta fidelidade.
-- **Data Ingestion**: Base dinâmica que processa documentos (PDF, Excel, Docx) transformando-os em embeds vetoriais em tempo real.
+- **Core Engine**: Orquestração sofisticada de LLMs (OpenAI GPT-4) utilizando padrões de Agentes de IA para sumarização e memória de reuniões.
+- **Vector Pipeline**: Processamento e armazenamento vetorial via Supabase (pgvector) para busca semântica em históricos de conversas.
+- **Data Ingestion**: Base dinâmica que processa áudio e documentos transformando-os em conhecimento ativo em tempo real.
 
 #### Soluções de Engenharia:
-- **Context Window Optimization**: Algoritmos para seleção dos trechos mais relevantes, minimizando latência e custos.
-- **Streaming UI**: Interface de chat com respostas em tempo real (Server-Sent Events) para UX superior.
-- **System Prompt Engineering**: Desenvolvimento de guardrails e personas especializadas para alta precisão nas respostas.
+- **Branded Environments**: White-labeling completo com subdomínios personalizados e identidade visual dinâmica.
+- **Streaming UI**: Interface de chat e interatividade com respostas em tempo real para uma experiência premium.
+- **Context Memory**: Algoritmos de RAG otimizados para recuperar contextos específicos de reuniões passadas.
     `,
       en: `
-### AI Engineering & RAG (Retrieval-Augmented Generation)
-Transforming unstructured data into an active, queryable knowledge base through natural language.
+### Authority and Intelligence in Video Conferencing
+Your video conference says a lot about your brand's level. When it happens in a generic environment, the impact is also generic.
+
+With **Neo Idea**, you create a space that truly represents your business: your own environment, with your identity, your URL, and an **AI Agent** capable of remembering everything said in the meeting. It's the combination of technology, authority, and experience your brand deserves from the first click.
 
 #### Intelligence Architecture:
-- **Core Engine**: Sophisticated orchestration of LLMs (OpenAI GPT-4) using AI Agent patterns.
-- **Vector Pipeline**: Vector processing and storage via Supabase (pgvector) for high-fidelity semantic search.
-- **Data Ingestion**: Dynamic base that processes documents (PDF, Excel, Docx) transforming them into vector embeddings in real-time.
+- **Core Engine**: Sophisticated orchestration of LLMs (OpenAI GPT-4) using AI Agent patterns for meeting summarization and memory.
+- **Vector Pipeline**: Vector processing and storage via Supabase (pgvector) for semantic search in conversation histories.
+- **Data Ingestion**: Dynamic base that processes audio and documents, transforming them into active knowledge in real-time.
 
 #### Engineering Solutions:
-- **Context Window Optimization**: Algorithms for selecting the most relevant excerpts, minimizing latency and costs.
-- **Streaming UI**: Chat interface with real-time responses (Server-Sent Events) for superior UX.
-- **System Prompt Engineering**: Development of guardrails and specialized personas for high-precision responses.
+- **Branded Environments**: Complete white-labeling with custom subdomains and dynamic visual identity.
+- **Streaming UI**: Chat and interactivity interface with real-time responses for a premium experience.
+- **Context Memory**: Optimized RAG algorithms to retrieve specific contexts from past meetings.
     `
     },
     links: [
