@@ -39,8 +39,8 @@ export function Home() {
   }
 
   return (
-    <Box position="relative" minH="100vh">
-      <Container maxW="container.xl" py={{ base: 12, md: 20 }} px={{ base: 4, md: 6 }} position="relative" zIndex={1}>
+    <Box position="relative" minH={{ base: "100vh", md: "calc(100vh - 80px - 120px)" }} h={{ base: "auto", md: "calc(100vh - 80px - 120px)" }}>
+      <Container maxW="container.xl" py={{ base: 12, md: 6 }} px={{ base: 4, md: 6 }} position="relative" zIndex={1} h="100%" display="flex" flexDirection="column" justifyContent="center">
         <Box
           position="absolute"
           top="10%"
@@ -93,11 +93,12 @@ export function Home() {
           direction={{ base: "column", lg: "row" }}
           align="center"
           justify="space-between"
-          gap={{ base: 6, md: 10 }}
+          gap={{ base: 6, md: 8 }}
           position="relative"
           zIndex={2}
+          flex={1}
         >
-        <Stack spacing={{ base: 6, md: 8 }} maxW={{ base: "100%", lg: "600px" }} w="full" textAlign={{ base: "center", lg: "left" }}>
+        <Stack spacing={{ base: 6, md: 6 }} maxW={{ base: "100%", lg: "600px" }} w="full" textAlign={{ base: "center", lg: "left" }}>
           <Box
             as={motion.div}
             initial={{ opacity: 0, y: 20 }}
@@ -109,7 +110,7 @@ export function Home() {
               size={{ base: "xl", md: "2xl" }}
               color="brand.yellow.400"
               letterSpacing="tight"
-              mb={4}
+              mb={{ base: 4, md: 3 }}
             >
               {t('hero.title').split('\n').map((line, i) => (
                 <span key={i}>
@@ -135,7 +136,7 @@ export function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: "0.5s", delay: "0.2s" }}
           >
-            <Text fontSize={{ base: "md", md: "lg", lg: "xl" }} color="gray.300" lineHeight="tall">
+            <Text fontSize={{ base: "md", md: "lg", lg: "lg" }} color="gray.300" lineHeight="tall">
               {t('hero.description')}
             </Text>
           </Box>
@@ -305,7 +306,7 @@ export function Home() {
       
       <Box
         position="absolute"
-        bottom="20px"
+        bottom={{ base: "20px", md: "10px" }}
         left="50%"
         transform="translateX(-50%)"
         opacity={0.3}
