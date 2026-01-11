@@ -1,6 +1,6 @@
 import { Box, Container, Flex, Link as ChakraLink, Stack, Text, useColorMode, IconButton, useDisclosure, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, VStack, useBreakpointValue, Button, Tooltip, Icon, Divider } from "@chakra-ui/react";
 import { css, keyframes } from "@emotion/react";
-import { Link as RouterLink, Outlet } from "react-router-dom";
+import { Link as RouterLink, Outlet, useLocation } from "react-router-dom";
 import { FaSun, FaMoon, FaBars, FaAnchor, FaRocket } from "react-icons/fa";
 import { useTranslation } from "../i18n/useTranslation";
 import { CookieConsent } from "./CookieConsent";
@@ -24,8 +24,12 @@ export function Layout() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const isMobile = useBreakpointValue({ base: true, md: false });
+  const location = useLocation();
   const { t, language, setLanguage } = useTranslation();
   const { trackThemeSwitch, trackLanguageSwitch } = useGamificationTracking();
+  
+  // Detect if we're in the Lab section
+  const isInLab = location.pathname.startsWith('/lab');
   
   const handleToggleColorMode = useCallback(() => {
     toggleColorMode();
@@ -179,11 +183,14 @@ export function Layout() {
       position="relative"
       overflowX="hidden"
       w="100%"
+      maxW="100vw"
       transition="all 0.3s ease-in-out"
       css={css`
         box-sizing: border-box;
         width: 100%;
+        max-width: 100vw;
         overflow-x: hidden;
+        position: relative;
         &:before {
           content: "";
           position: fixed;
@@ -191,7 +198,8 @@ export function Layout() {
           left: 0;
           right: 0;
           bottom: 0;
-          width: 100%;
+          width: 100vw;
+          max-width: 100vw;
           background: ${colorMode === "dark"
           ? "radial-gradient(circle at 50% 50%, rgba(76, 29, 149, 0.1) 0%, transparent 60%)"
           : "radial-gradient(circle at 50% 50%, rgba(43,79,129,0.1) 0%, transparent 60%)"};
@@ -203,11 +211,11 @@ export function Layout() {
     >
       <Box
         as="nav"
-        position={isMenuFixed ? "fixed" : "relative"}
+        position={isMenuFixed || (isMobile && isInLab) ? "fixed" : "relative"}
         top={0}
         left={0}
         right={0}
-        zIndex={100}
+        zIndex={isMobile && isInLab ? 200 : 100}
         bg={navBgColor}
         color={textColor}
         py={{ base: 3, md: 4 }}
@@ -220,7 +228,7 @@ export function Layout() {
         }
         backdropFilter="blur(12px)"
         transition="all 0.3s ease-in-out"
-        borderBottom={isMenuFixed ? "1px solid rgba(255,255,255,0.05)" : "none"}
+        borderBottom={isMenuFixed || (isMobile && isInLab) ? "1px solid rgba(255,255,255,0.05)" : "none"}
         css={{
           willChange: 'transform',
           boxSizing: 'border-box',
@@ -252,7 +260,7 @@ export function Layout() {
                 </Tooltip>
               )}
 
-              {isMobile ? (
+              {isMobile && (
                 <IconButton
                   id="app-navigation-mobile"
                   aria-label="Open menu"
@@ -262,7 +270,8 @@ export function Layout() {
                   color={textColor}
                   size="sm"
                 />
-              ) : (
+              )}
+              {!isMobile && (
                 <Stack id="app-navigation-desktop" direction="row" spacing={{ base: 4, md: 6, lg: 8 }} flexWrap="wrap">
                   <NavLinks />
                 </Stack>
@@ -271,8 +280,8 @@ export function Layout() {
 
             {isMobile && (
               <Drawer isOpen={isOpen} placement="left" onClose={onClose} size="xs">
-                <DrawerOverlay />
-                <DrawerContent bg={bgColor}>
+                <DrawerOverlay zIndex={199} />
+                <DrawerContent bg={bgColor} zIndex={200}>
                   <DrawerCloseButton color={textColor} />
                   <DrawerHeader borderBottomWidth="1px" color={textColor} fontSize="lg">
                     Menu
@@ -354,45 +363,52 @@ export function Layout() {
         flex={1}
         position="relative"
         zIndex={1}
-        pt={isMenuFixed ? { base: "70px", md: "80px" } : { base: "0", md: "0" }}
+        pt={
+          isMenuFixed || (isMobile && isInLab)
+            ? { base: "70px", md: "80px" }
+            : { base: "0", md: "0" }
+        }
         transition="padding-top 0.3s ease-in-out"
         overflowX="hidden"
         w="100%"
+        maxW="100vw"
       >
         <Outlet />
       </Box>
 
-      <Box
-        as="footer"
-        bg={navBgColor}
-        color={textColor}
-        py={6}
-        mt="auto"
-        w="100%"
-        px={0}
-        boxShadow={
-          colorMode === "dark"
-            ? "0 -4px 20px rgba(0,0,0,0.3)"
-            : "0 -4px 20px rgba(43,79,129,0.15)"
-        }
-        backdropFilter="blur(8px)"
-        transition="all 0.3s ease-in-out"
-        borderTop="1px solid rgba(255,255,255,0.05)"
-        css={{
-          boxSizing: 'border-box',
-        }}
-      >
-        <Container maxW="container.xl" w="100%" mx="auto" css={{ maxWidth: '100%', boxSizing: 'border-box' }}>
-          <VStack spacing={2}>
-            <Text textAlign="center" fontSize="sm">
-              &copy; {new Date().getFullYear()} Rogério Júnior. {t('footer.rights')}.
-            </Text>
-            <Text fontSize="xs" opacity={0.6}>
-              {language === 'pt' ? 'Desenvolvido no Espaço-Tempo' : 'Developed in Space-Time'} 🌌
-            </Text>
-          </VStack>
-        </Container>
-      </Box>
+      {!isInLab && (
+        <Box
+          as="footer"
+          bg={navBgColor}
+          color={textColor}
+          py={6}
+          mt="auto"
+          w="100%"
+          px={0}
+          boxShadow={
+            colorMode === "dark"
+              ? "0 -4px 20px rgba(0,0,0,0.3)"
+              : "0 -4px 20px rgba(43,79,129,0.15)"
+          }
+          backdropFilter="blur(8px)"
+          transition="all 0.3s ease-in-out"
+          borderTop="1px solid rgba(255,255,255,0.05)"
+          css={{
+            boxSizing: 'border-box',
+          }}
+        >
+          <Container maxW="container.xl" w="100%">
+            <VStack spacing={2}>
+              <Text textAlign="center" fontSize="sm">
+                &copy; {new Date().getFullYear()} Rogério Júnior. {t('footer.rights')}.
+              </Text>
+              <Text fontSize="xs" opacity={0.6}>
+                {language === 'pt' ? 'Desenvolvido no Espaço-Tempo' : 'Developed in Space-Time'} 🌌
+              </Text>
+            </VStack>
+          </Container>
+        </Box>
+      )}
 
       <CookieConsent />
       <CodeTour />
@@ -410,14 +426,19 @@ export function Layout() {
       <GlobalEasterEggNotification egg={globalEgg} />
       <PageEasterEggNotification egg={pageEgg} />
       <AchievementNotification achievement={newAchievement} />
-      <GamificationBadge onOpen={() => setGamificationOpen(true)} />
-      <GamificationPanel isOpen={gamificationOpen} onClose={() => setGamificationOpen(false)} />
+      {/* Gamification - Hidden in Lab on mobile to avoid conflicts */}
+      {!(isMobile && isInLab) && (
+        <>
+          <GamificationBadge onOpen={() => setGamificationOpen(true)} />
+          <GamificationPanel isOpen={gamificationOpen} onClose={() => setGamificationOpen(false)} />
+        </>
+      )}
       
       {/* Command Center */}
       <CommandCenter isOpen={isCommandCenterOpen} onClose={onCommandCenterClose} />
       
-      {/* Floating Action Buttons */}
-      <WhatsAppButton />
+      {/* Floating Action Buttons - Hidden in Lab on mobile to avoid conflicts */}
+      {!(isMobile && isInLab) && <WhatsAppButton />}
       
       {/* Command Bar for Easter Eggs */}
       <CommandBar 

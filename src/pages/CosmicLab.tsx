@@ -104,13 +104,19 @@ const CosmicLab = () => {
         setActiveItem(item);
       }}
     >
-      <Container maxW="4xl" py={{ base: 4, md: 8 }} px={{ base: 4, md: 6 }}>
+      <Container 
+        maxW="4xl" 
+        py={{ base: 0, md: 8 }} 
+        px={{ base: 4, md: 6 }}
+        pt={0}
+      >
         {/* Header with Stats */}
         <MotionBox
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           mb={8}
           textAlign="center"
+          mt={{ base: 0, md: 0 }}
         >
           <VStack spacing={6}>
             <Box>

@@ -116,31 +116,26 @@ interface Skill {
 }
 
 const skills: Skill[] = [
-  // New/Highlight Skills
   { name: "Python", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
   { name: "Next.js", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
   { name: "Tailwind CSS", iconUrl: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg" },
   { name: "Supabase", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" },
 
-  // Core
   { name: "JavaScript", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
   { name: "TypeScript", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
   { name: "React", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
   { name: "React Native", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
   { name: "Node.js", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
 
-  // Mobile & Others
   { name: "Flutter", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" },
   { name: "Dart", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg" },
 
-  // Backend & DevOps
   { name: "Firebase", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" },
   { name: "Docker", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
   { name: "PostgreSQL", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
   { name: "MongoDB", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
   { name: "Redis", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" },
 
-  // Tools & Design
   { name: "Figma", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
   { name: "Git", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
   { name: "Linux", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" },
@@ -150,6 +145,8 @@ const skills: Skill[] = [
 export function About() {
   const [isLoading, setIsLoading] = useState(true);
   const { language } = useTranslation();
+  const cardBg = useColorModeValue('whiteAlpha.50', 'whiteAlpha.50');
+  const borderColor = useColorModeValue('gray.200', 'whiteAlpha.100');
 
   const bio = {
     pt: {
@@ -188,10 +185,6 @@ export function About() {
     return () => clearTimeout(timer);
   }, []);
 
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -202,8 +195,9 @@ export function About() {
     },
   };
 
-  const cardBg = useColorModeValue('whiteAlpha.50', 'whiteAlpha.50');
-  const borderColor = useColorModeValue('gray.200', 'whiteAlpha.100');
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <Box as="section" py={{ base: 8, md: 12 }} overflow="hidden" position="relative" minH="100vh" px={{ base: 4, md: 0 }}>
@@ -218,9 +212,7 @@ export function About() {
           animate="visible"
         >
           <VStack spacing={{ base: 8, md: 12 }} align="stretch">
-            {/* Intro Section with Space Theme */}
             <Box position="relative">
-              {/* Floating Space Elements - Hidden on mobile */}
               <Box
                 position="absolute"
                 top="-20px"
@@ -325,9 +317,7 @@ export function About() {
 
             <Divider borderColor="gray.700" />
 
-            {/* Experience Section */}
             <Box position="relative">
-              {/* Decorative Rocket - Hidden on mobile */}
               <Box
                 position="absolute"
                 top="-10px"
@@ -457,7 +447,6 @@ export function About() {
 
             <Divider borderColor="gray.700" />
 
-            {/* Education Section (Brief) */}
             <Box position="relative">
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -499,9 +488,7 @@ export function About() {
 
             <Divider borderColor="gray.700" />
 
-            {/* Skills Section */}
             <Box position="relative">
-              {/* Decorative Stars - Hidden on mobile */}
               <Box
                 position="absolute"
                 top="20px"

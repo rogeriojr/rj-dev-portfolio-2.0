@@ -328,7 +328,7 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
                 .map(item => (
                   <MotionBox
                     key={item.id}
-                    as="button"
+                    as={Box}
                     py={1}
                     px={2}
                     textAlign="left"
@@ -336,6 +336,7 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
                     color={activeItem === item.id ? activeColor : 'gray.400'}
                     bg={activeItem === item.id ? hoverBg : 'transparent'}
                     borderRadius="sm"
+                    cursor="pointer"
                     _hover={{ color: activeColor, bg: hoverBg }}
                     onClick={() => {
                       const category = LAB_CONTENT.find(c => c.items.some(i => i.id === item.id));
@@ -345,6 +346,15 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.2 }}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e: React.KeyboardEvent) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        const category = LAB_CONTENT.find(c => c.items.some(i => i.id === item.id));
+                        if (category) onSelect(category.id, item.id);
+                      }
+                    }}
                   >
                     {activeItem === item.id && (
                       <MotionBox
@@ -386,7 +396,7 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
                 return (
                   <MotionBox
                     key={itemId}
-                    as="button"
+                    as={Box}
                     py={1}
                     px={2}
                     textAlign="left"
@@ -394,6 +404,7 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
                     color={activeItem === itemId ? activeColor : 'gray.400'}
                     bg={activeItem === itemId ? hoverBg : 'transparent'}
                     borderRadius="sm"
+                    cursor="pointer"
                     _hover={{ color: activeColor, bg: hoverBg }}
                     onClick={() => {
                       const category = LAB_CONTENT.find(c => c.items.some(i => i.id === itemId));
@@ -402,6 +413,15 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.2 }}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e: React.KeyboardEvent) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        const category = LAB_CONTENT.find(c => c.items.some(i => i.id === itemId));
+                        if (category) onSelect(category.id, itemId);
+                      }
+                    }}
                   >
                     <Text noOfLines={1} fontSize="2xs">
                       {item.title[language]}
@@ -526,7 +546,7 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
                         return (
                           <MotionBox
                             key={item.id}
-                            as="button"
+                            as={Box}
                             py={1}
                             px={2}
                             textAlign="left"
@@ -534,6 +554,7 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
                             color={isItemActive ? activeColor : 'gray.400'}
                             bg={isItemActive ? hoverBg : 'transparent'}
                             borderRadius="sm"
+                            cursor="pointer"
                             _hover={{
                               color: activeColor,
                               bg: hoverBg,
@@ -545,6 +566,14 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             whileHover={{ x: 4 }}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e: React.KeyboardEvent) => {
+                              if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                onSelect(category.id, item.id);
+                              }
+                            }}
                           >
                             {isItemActive && (
                               <MotionBox

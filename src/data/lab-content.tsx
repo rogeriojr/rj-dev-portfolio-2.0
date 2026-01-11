@@ -654,8 +654,8 @@ const toggleTodo = (id: string) => {
     ]
   },
   {
-    id: 'real-time-systems',
-    title: { en: 'Real-time Systems', pt: 'Sistemas em Tempo Real' },
+    id: 'real-time-collaboration',
+    title: { en: 'Real-time Collaboration', pt: 'Colaboração em Tempo Real' },
     icon: '⚡',
     items: [
       {
@@ -663,7 +663,7 @@ const toggleTodo = (id: string) => {
         title: { en: 'Real-time Collaboration', pt: 'Colaboração em Tempo Real' },
         description: { en: 'Multi-user document editing with WebSocket synchronization and Operational Transform.', pt: 'Edição de documentos multi-usuário com sincronização WebSocket e Operational Transform.' },
         type: 'architecture',
-        category: 'real-time-systems',
+        category: 'real-time-collaboration',
         demo: createLazyComponent('RealTimeCollaboration'),
         code: `// Operational Transform for conflict resolution
 const transform = (op1: Operation, op2: Operation) => {
@@ -741,8 +741,8 @@ mediaRecorder.start();`,
     ]
   },
   {
-    id: 'developer-tools',
-    title: { en: 'Developer Tools', pt: 'Ferramentas de Desenvolvedor' },
+    id: 'developer-tools-advanced',
+    title: { en: 'Developer Tools Advanced', pt: 'Ferramentas de Desenvolvedor Avançadas' },
     icon: '🛠️',
     items: [
       {
@@ -750,7 +750,7 @@ mediaRecorder.start();`,
         title: { en: 'Code Diff Viewer', pt: 'Visualizador de Diff de Código' },
         description: { en: 'Side-by-side code comparison with syntax highlighting and change detection.', pt: 'Comparação lado a lado de código com syntax highlighting e detecção de mudanças.' },
         type: 'utility',
-        category: 'developer-tools',
+        category: 'developer-tools-advanced',
         demo: createLazyComponent('CodeDiffViewer'),
         code: `const calculateDiff = (oldCode: string, newCode: string) => {
   const oldLines = oldCode.split('\\n');
@@ -799,16 +799,16 @@ mediaRecorder.start();`,
     ]
   },
   {
-    id: 'productivity-tools',
-    title: { en: 'Productivity Tools', pt: 'Ferramentas de Produtividade' },
+    id: 'productivity-tools-advanced',
+    title: { en: 'Productivity Tools Advanced', pt: 'Ferramentas de Produtividade Avançadas' },
     icon: '📋',
     items: [
       {
-        id: 'advanced-todo-list',
+        id: 'advanced-todo-list-2',
         title: { en: 'Advanced Todo List', pt: 'Lista de Tarefas Avançada' },
         description: { en: 'Full-featured todo list with priorities, filters, and drag-and-drop.', pt: 'Lista de tarefas completa com prioridades, filtros e drag-and-drop.' },
         type: 'component',
-        category: 'productivity-tools',
+        category: 'productivity-tools-advanced',
         demo: createLazyComponent('TodoList'),
         code: `const [todos, setTodos] = useState<Todo[]>([]);
 const toggleTodo = (id: string) => {
@@ -832,7 +832,7 @@ const toggleTodo = (id: string) => {
         title: { en: 'Kanban Board', pt: 'Quadro Kanban' },
         description: { en: 'Visual task management with drag-and-drop between columns (Todo, In Progress, Done).', pt: 'Gerenciamento visual de tarefas com drag-and-drop entre colunas (A Fazer, Em Progresso, Concluído).' },
         type: 'component',
-        category: 'productivity-tools',
+        category: 'productivity-tools-advanced',
         demo: createLazyComponent('KanbanBoard'),
         code: `const moveTask = (taskId: string, newStatus: Task['status']) => {
   setTasks(tasks.map(task => 
