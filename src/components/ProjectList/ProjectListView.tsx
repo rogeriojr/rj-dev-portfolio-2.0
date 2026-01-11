@@ -53,23 +53,6 @@ export function ProjectListView({ project, onViewDetails, language }: ProjectLis
         zIndex: 0
       } : {}}
     >
-      {project.featured && (
-        <Box
-          position="absolute"
-          top={3}
-          right={3}
-          zIndex={10}
-          bgGradient="linear(to-r, yellow.400, orange.500)"
-          borderRadius="full"
-          px={3}
-          py={1}
-          boxShadow="0 0 15px rgba(236, 201, 75, 0.6)"
-        >
-          <Text fontSize="xs" fontWeight="bold" color="white" letterSpacing="wide">
-            {language === 'pt' ? 'DESTAQUE' : 'FEATURED'}
-          </Text>
-        </Box>
-      )}
       <HStack spacing={6} align="start" position="relative" zIndex={1}>
         <Box
           w="180px"
@@ -88,6 +71,40 @@ export function ProjectListView({ project, onViewDetails, language }: ProjectLis
           position="relative"
           boxShadow={project.featured ? `0 0 10px ${featuredGlow}` : 'none'}
         >
+          {project.featured && (
+            <Box
+              position="absolute"
+              top={2}
+              right={2}
+              zIndex={10}
+              bgGradient="linear(to-r, yellow.400, orange.500)"
+              borderRadius="full"
+              px={2}
+              py={1}
+              boxShadow="0 0 10px rgba(236, 201, 75, 0.6)"
+            >
+              <Text fontSize="2xs" fontWeight="bold" color="white" letterSpacing="wide">
+                {language === 'pt' ? 'DESTAQUE' : 'FEATURED'}
+              </Text>
+            </Box>
+          )}
+          {!project.featured && (
+            <Badge
+              position="absolute"
+              top={2}
+              right={2}
+              zIndex={10}
+              colorScheme="blue"
+              borderRadius="full"
+              px={2}
+              py={0.5}
+              fontSize="2xs"
+              textTransform="uppercase"
+              fontWeight="bold"
+            >
+              {project.category || 'Development'}
+            </Badge>
+          )}
           <Box
             w="100%"
             h="100%"
@@ -111,27 +128,15 @@ export function ProjectListView({ project, onViewDetails, language }: ProjectLis
         
         <VStack align="start" flex={1} spacing={3} minW={0}>
           <HStack justify="space-between" w="100%" align="start" flexWrap="wrap" gap={2}>
-            <HStack spacing={2} flex={1} minW={0}>
-              <Heading 
-                size="md" 
-                color={project.featured ? useColorModeValue('yellow.800', 'yellow.200') : useColorModeValue('gray.800', 'white')}
-                flex={1}
-                minW={0}
-                wordBreak="break-word"
-              >
-                {project.title[language as 'pt' | 'en']}
-              </Heading>
-            </HStack>
-            <Badge 
-              colorScheme={project.featured ? "yellow" : "blue"} 
-              px={3} 
-              py={1} 
-              borderRadius="full"
-              flexShrink={0}
-              boxShadow={project.featured ? `0 0 8px ${featuredGlow}` : 'none'}
+            <Heading 
+              size="md" 
+              color={project.featured ? useColorModeValue('yellow.800', 'yellow.200') : useColorModeValue('gray.800', 'white')}
+              flex={1}
+              minW={0}
+              wordBreak="break-word"
             >
-              {project.category}
-            </Badge>
+              {project.title[language as 'pt' | 'en']}
+            </Heading>
           </HStack>
           
           <Text
@@ -146,17 +151,21 @@ export function ProjectListView({ project, onViewDetails, language }: ProjectLis
           
           {project.tags && project.tags.length > 0 && (
             <Box w="100%">
-              <HStack wrap="wrap" spacing={2} align="start">
+              <HStack wrap="wrap" spacing={2} align="start" gap={1}>
                 {project.tags.map((tag, idx) => (
                   <Badge 
                     key={idx} 
                     colorScheme="cyan" 
                     variant="subtle" 
                     fontSize="xs"
+                    px={2.5}
+                    py={0.5}
+                    borderRadius="full"
                     whiteSpace="nowrap"
                     maxW="100%"
                     overflow="hidden"
                     textOverflow="ellipsis"
+                    mb={0.5}
                   >
                     {tag}
                   </Badge>

@@ -100,23 +100,6 @@ export default function ProjectCard({
           borderColor: project.featured ? "yellow.300" : useColorModeValue("blue.300", "cyan.400"),
         }}
       >
-        {project.featured && (
-          <Box
-            position="absolute"
-            top={2}
-            right={2}
-            zIndex={10}
-            bgGradient="linear(to-r, yellow.400, orange.500)"
-            borderRadius="full"
-            px={3}
-            py={1}
-            boxShadow="0 0 15px rgba(236, 201, 75, 0.6)"
-          >
-            <Text fontSize="xs" fontWeight="bold" color="white" letterSpacing="wide">
-              {language === 'pt' ? 'DESTAQUE' : 'FEATURED'}
-            </Text>
-          </Box>
-        )}
         <Box
           position="relative"
           bg={useColorModeValue("white", "gray.100")}
@@ -130,6 +113,40 @@ export default function ProjectCard({
           alignItems="center"
           justifyContent="center"
         >
+          {project.featured && (
+            <Box
+              position="absolute"
+              top={2}
+              right={2}
+              zIndex={10}
+              bgGradient="linear(to-r, yellow.400, orange.500)"
+              borderRadius="full"
+              px={3}
+              py={1}
+              boxShadow="0 0 15px rgba(236, 201, 75, 0.6)"
+            >
+              <Text fontSize="xs" fontWeight="bold" color="white" letterSpacing="wide">
+                {language === 'pt' ? 'DESTAQUE' : 'FEATURED'}
+              </Text>
+            </Box>
+          )}
+          {!project.featured && (
+            <Badge
+              position="absolute"
+              top={2}
+              right={2}
+              zIndex={10}
+              colorScheme="blue"
+              borderRadius="full"
+              px={2}
+              py={1}
+              fontSize="2xs"
+              textTransform="uppercase"
+              fontWeight="bold"
+            >
+              {project.category || 'Development'}
+            </Badge>
+          )}
           {project.images && project.images.length > 0 ? (
             <Box
               w="100%"
@@ -217,7 +234,7 @@ export default function ProjectCard({
           </Text>
           {project.tags && project.tags.length > 0 && (
             <Box w="100%">
-              <HStack spacing={{ base: 1, md: 2 }} wrap="wrap" align="start">
+              <HStack spacing={{ base: 1.5, md: 2 }} wrap="wrap" align="start" gap={1}>
                 {project.tags.slice(0, 4).map((tag, idx) => (
                   <Badge
                     key={idx}
@@ -225,19 +242,30 @@ export default function ProjectCard({
                     variant="subtle"
                     fontSize={{ base: "2xs", md: "xs" }}
                     borderRadius="full"
-                    px={{ base: 1.5, md: 2 }}
+                    px={{ base: 2, md: 2.5 }}
+                    py={0.5}
                     whiteSpace="nowrap"
                     maxW="100%"
                     overflow="hidden"
                     textOverflow="ellipsis"
+                    mb={0.5}
                   >
                     {tag}
                   </Badge>
                 ))}
                 {project.tags.length > 4 && (
-                  <Text fontSize={{ base: "2xs", md: "xs" }} color="gray.500" flexShrink={0}>
+                  <Badge
+                    colorScheme="gray"
+                    variant="outline"
+                    fontSize={{ base: "2xs", md: "xs" }}
+                    borderRadius="full"
+                    px={{ base: 1.5, md: 2 }}
+                    py={0.5}
+                    flexShrink={0}
+                    mb={0.5}
+                  >
                     +{project.tags.length - 4}
-                  </Text>
+                  </Badge>
                 )}
               </HStack>
             </Box>

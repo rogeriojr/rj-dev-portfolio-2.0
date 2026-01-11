@@ -1,6 +1,7 @@
-import { Box, Image, Text, Heading, Badge, useColorModeValue, VStack, HStack } from "@chakra-ui/react";
+import { Box, Image, Text, Heading, Badge, useColorModeValue, VStack, HStack, Icon } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { Project } from "../../types";
+import { FaStar } from "react-icons/fa";
 
 const MotionBox = motion(Box);
 
@@ -55,23 +56,6 @@ export function ProjectCompactView({ project, onViewDetails, language }: Project
         zIndex: 0
       } : {}}
     >
-      {project.featured && (
-        <Box
-          position="absolute"
-          top={2}
-          left={2}
-          zIndex={10}
-          bgGradient="linear(to-r, yellow.400, orange.500)"
-          borderRadius="full"
-          px={2}
-          py={1}
-          boxShadow="0 0 12px rgba(236, 201, 75, 0.6)"
-        >
-          <Text fontSize="2xs" fontWeight="bold" color="white" letterSpacing="wide">
-            {language === 'pt' ? 'DESTAQUE' : 'FEATURED'}
-          </Text>
-        </Box>
-      )}
       <Box 
         position="relative" 
         h="140px"
@@ -106,17 +90,40 @@ export function ProjectCompactView({ project, onViewDetails, language }: Project
             bg="transparent"
           />
         </Box>
-        <Badge
-          position="absolute"
-          top={2}
-          right={2}
-          colorScheme={project.featured ? "yellow" : "blue"}
-          borderRadius="full"
-          px={2}
-          boxShadow={project.featured ? `0 0 8px ${featuredGlow}` : 'none'}
-        >
-          {project.category}
-        </Badge>
+        {project.featured && (
+          <Box
+            position="absolute"
+            top={2}
+            left={2}
+            zIndex={10}
+            bgGradient="linear(to-r, yellow.400, orange.500)"
+            borderRadius="full"
+            p={1.5}
+            boxShadow="0 0 10px rgba(236, 201, 75, 0.6)"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Icon as={FaStar} w={3} h={3} color="white" />
+          </Box>
+        )}
+        {!project.featured && (
+          <Badge
+            position="absolute"
+            top={2}
+            right={2}
+            colorScheme="blue"
+            borderRadius="full"
+            px={2}
+            py={0.5}
+            fontSize="2xs"
+            textTransform="uppercase"
+            fontWeight="bold"
+            boxShadow="none"
+          >
+            {project.category || 'Development'}
+          </Badge>
+        )}
       </Box>
       
       <VStack align="start" p={3} spacing={1} position="relative" zIndex={1}>
@@ -139,17 +146,21 @@ export function ProjectCompactView({ project, onViewDetails, language }: Project
         </Text>
         {project.tags && project.tags.length > 0 && (
           <Box w="100%" mt={1}>
-            <HStack spacing={1} wrap="wrap" align="start">
+            <HStack spacing={1.5} wrap="wrap" align="start" gap={0.5}>
               {project.tags.slice(0, 3).map((tag, idx) => (
                 <Badge 
                   key={idx} 
                   fontSize="2xs" 
                   colorScheme="cyan" 
                   variant="subtle"
+                  px={1.5}
+                  py={0.5}
+                  borderRadius="full"
                   whiteSpace="nowrap"
                   maxW="100%"
                   overflow="hidden"
                   textOverflow="ellipsis"
+                  mb={0.5}
                 >
                   {tag}
                 </Badge>
