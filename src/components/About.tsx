@@ -23,6 +23,7 @@ import { FaBriefcase, FaGraduationCap, FaRocket, FaStar, FaCode } from "react-ic
 import { IoPlanet, IoTelescope, IoRocketOutline } from "react-icons/io5";
 import { useTranslation } from "../i18n/useTranslation";
 import { FloatingPlanets, FlyingRockets } from "./SpaceAnimations";
+import { SpaceBackground } from "./SpaceBackground";
 
 const MotionBox = motion(Box);
 const MotionCard = motion(Card);
@@ -206,6 +207,7 @@ export function About() {
 
   return (
     <Box as="section" py={{ base: 8, md: 12 }} overflow="hidden" position="relative" minH="100vh" px={{ base: 4, md: 0 }}>
+      <SpaceBackground />
       <FloatingPlanets />
       <FlyingRockets />
       

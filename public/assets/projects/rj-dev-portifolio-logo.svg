@@ -1,0 +1,22 @@
+<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="portfolioGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ec4899;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="portfolioGlow" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#portfolioGradient)" rx="20"/>
+  <rect width="400" height="400" fill="url(#portfolioGlow)" rx="20"/>
+  <text x="200" y="140" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#ffffff" text-anchor="middle">RJ DEV</text>
+  <text x="200" y="200" font-family="Arial, sans-serif" font-size="40" font-weight="bold" fill="#ffffff" text-anchor="middle">PORTIFOLIO</text>
+  <rect x="140" y="240" width="120" height="60" fill="none" stroke="#ffffff" stroke-width="5" rx="10" opacity="0.95"/>
+  <circle cx="170" cy="270" r="7" fill="#ffffff" opacity="0.95"/>
+  <circle cx="200" cy="270" r="7" fill="#ffffff" opacity="0.95"/>
+  <circle cx="230" cy="270" r="7" fill="#ffffff" opacity="0.95"/>
+  <rect x="150" y="310" width="100" height="4" fill="#ffffff" rx="2" opacity="0.9"/>
+</svg>

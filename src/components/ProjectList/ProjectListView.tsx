@@ -15,24 +15,62 @@ export function ProjectListView({ project, onViewDetails, language }: ProjectLis
   const bg = useColorModeValue('white', 'gray.800');
   const borderColor = useColorModeValue('gray.200', 'gray.700');
   const hoverBg = useColorModeValue('gray.50', 'gray.700');
+  const featuredBg = useColorModeValue('yellow.50', 'yellow.900');
+  const featuredBorder = useColorModeValue('yellow.400', 'yellow.500');
+  const featuredGlow = 'rgba(236, 201, 75, 0.4)';
 
   return (
     <MotionBox
-      bg={bg}
-      borderWidth="1px"
-      borderColor={borderColor}
+      bg={project.featured ? featuredBg : bg}
+      borderWidth={project.featured ? "2px" : "1px"}
+      borderColor={project.featured ? featuredBorder : borderColor}
       borderRadius="xl"
       p={6}
-      _hover={{ bg: hoverBg, borderColor: 'blue.400' }}
+      position="relative"
+      _hover={{ 
+        bg: project.featured ? featuredBg : hoverBg, 
+        borderColor: project.featured ? 'yellow.300' : 'blue.400',
+        boxShadow: project.featured ? `0 0 20px ${featuredGlow}` : 'md'
+      }}
+      boxShadow={project.featured ? `0 0 15px ${featuredGlow}` : 'none'}
       transition="all 0.2s"
       cursor="pointer"
       onClick={() => onViewDetails(project)}
-      whileHover={{ scale: 1.02, x: 5 }}
+      whileHover={{ scale: project.featured ? 1.03 : 1.02, x: 5 }}
       whileTap={{ scale: 0.98 }}
       w="100%"
       minH="200px"
+      _before={project.featured ? {
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'radial-gradient(circle at top right, rgba(236, 201, 75, 0.1), transparent 50%)',
+        borderRadius: 'xl',
+        pointerEvents: 'none',
+        zIndex: 0
+      } : {}}
     >
-      <HStack spacing={6} align="start">
+      {project.featured && (
+        <Box
+          position="absolute"
+          top={3}
+          right={3}
+          zIndex={10}
+          bgGradient="linear(to-r, yellow.400, orange.500)"
+          borderRadius="full"
+          px={3}
+          py={1}
+          boxShadow="0 0 15px rgba(236, 201, 75, 0.6)"
+        >
+          <Text fontSize="xs" fontWeight="bold" color="white" letterSpacing="wide">
+            {language === 'pt' ? 'DESTAQUE' : 'FEATURED'}
+          </Text>
+        </Box>
+      )}
+      <HStack spacing={6} align="start" position="relative" zIndex={1}>
         <Box
           w="180px"
           h="180px"
@@ -45,8 +83,10 @@ export function ProjectListView({ project, onViewDetails, language }: ProjectLis
           display="flex"
           alignItems="center"
           justifyContent="center"
-          border="1px solid"
-          borderColor={useColorModeValue('gray.200', 'gray.700')}
+          border={project.featured ? "2px solid" : "1px solid"}
+          borderColor={project.featured ? featuredBorder : useColorModeValue('gray.200', 'gray.700')}
+          position="relative"
+          boxShadow={project.featured ? `0 0 10px ${featuredGlow}` : 'none'}
         >
           <Box
             w="100%"
@@ -71,21 +111,24 @@ export function ProjectListView({ project, onViewDetails, language }: ProjectLis
         
         <VStack align="start" flex={1} spacing={3} minW={0}>
           <HStack justify="space-between" w="100%" align="start" flexWrap="wrap" gap={2}>
-            <Heading 
-              size="md" 
-              color={useColorModeValue('gray.800', 'white')}
-              flex={1}
-              minW={0}
-              wordBreak="break-word"
-            >
-              {project.title[language as 'pt' | 'en']}
-            </Heading>
+            <HStack spacing={2} flex={1} minW={0}>
+              <Heading 
+                size="md" 
+                color={project.featured ? useColorModeValue('yellow.800', 'yellow.200') : useColorModeValue('gray.800', 'white')}
+                flex={1}
+                minW={0}
+                wordBreak="break-word"
+              >
+                {project.title[language as 'pt' | 'en']}
+              </Heading>
+            </HStack>
             <Badge 
-              colorScheme="blue" 
+              colorScheme={project.featured ? "yellow" : "blue"} 
               px={3} 
               py={1} 
               borderRadius="full"
               flexShrink={0}
+              boxShadow={project.featured ? `0 0 8px ${featuredGlow}` : 'none'}
             >
               {project.category}
             </Badge>

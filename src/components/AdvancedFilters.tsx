@@ -26,6 +26,7 @@ import {
   FormLabel
 } from "@chakra-ui/react";
 import { FaGlobeAmericas, FaMoon, FaRocket, FaSatelliteDish, FaChevronDown, FaChevronUp, FaSignal, FaStar } from "react-icons/fa";
+import { IoTelescope } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
 
 export type SortOption = 'newest' | 'oldest' | 'name';
@@ -133,7 +134,7 @@ export function AdvancedFilters({
                   cursor="pointer"
                   whiteSpace={{ base: "normal", sm: "nowrap" }}
                 >
-                  {language === 'pt' ? '⭐ Apenas Projetos em Destaque' : '⭐ Featured Projects Only'}
+                  {language === 'pt' ? 'Apenas Projetos em Destaque' : 'Featured Projects Only'}
                 </FormLabel>
               </HStack>
               <Switch
@@ -160,7 +161,7 @@ export function AdvancedFilters({
           <Box id="star-chronology">
             <HStack justify="space-between" mb={{ base: 3, md: 4 }} flexWrap="wrap" gap={2}>
               <HStack spacing={2}>
-                <Icon as={FaGlobeAmericas} color="cyan.400" w={{ base: 4, md: 5 }} h={{ base: 4, md: 5 }} />
+                <Icon as={IoTelescope} color="cyan.400" w={{ base: 4, md: 5 }} h={{ base: 4, md: 5 }} />
                 <Text fontWeight="bold" fontSize={{ base: "xs", md: "sm" }} color={textColor} letterSpacing="wide" textTransform="uppercase">
                   {language === 'pt' ? 'Cronologia Estelar' : 'Star Chronology'}
                 </Text>

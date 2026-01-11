@@ -2860,4 +2860,1314 @@ The repository presents solutions for various technical challenges with focus on
     createdAt: new Date("2025-03-11"),
     updatedAt: new Date("2025-03-11")
   }
+  ,
+  {
+    id: "rj-dev-portifolio",
+    title: {
+      pt: "Rj Dev Portifolio",
+      en: "Rj Dev Portifolio"
+    },
+    description: {
+      pt: "Repositório dedicado ao meu Portifólio pessoal de trabalhos, para integrar versionamento e workflows de delploy",
+      en: "Repositório dedicado ao meu Portifólio pessoal de trabalhos, para integrar versionamento e workflows de delploy"
+    },
+    category: "development",
+
+    images: ["/assets/projects/rj-dev-portifolio-logo.svg"],
+    tags: ["HTML", "TypeScript", "JavaScript"],
+    links: [{ "texto": "GitHub", "url": "https://github.com/rogeriojr/rj-dev-portifolio" }],
+    content: {
+      pt: `
+### 🚀 Rj Dev Portifolio
+
+Repositório dedicado ao meu Portifólio pessoal de trabalhos, para integrar versionamento e workflows de delploy
+
+---
+
+#### 🏗️ Sobre o Projeto
+
+Bem-vindo ao meu repositório dedicado ao meu Portfólio pessoal de trabalhos. Este espaço foi criado para integrar versionamento e workflows de deploy, permitindo-me compartilhar e documentar meus projetos de desenvolvimento.
+Este portfólio é uma plataforma simples desenvolvida em HTML, CSS e JavaScript até o momento. Ele serve como um showcase dos meus trabalhos e habilidades, destacando projetos relevantes e experiências de desenvolvimento.
+- **Tecnologias Utilizadas:** HTML, CSS, JavaScript
+- **Funcionalidades:** Apresentação de projetos, informações de contato e detalhes sobre mim
+- **Futuras Atualizações:** Estou constantemente trabalhando para melhorar e expandir este portfólio, adicionando novos projetos e funcionalidades.
+Para acessar o meu portfólio online, clique no link abaixo:
+L...
+
+#### 🛠️ Tecnologias Utilizadas
+
+- **HTML**
+- **TypeScript**
+- **JavaScript**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/rj-dev-portifolio)
+
+      `,
+      en: `
+### 🚀 Rj Dev Portifolio
+
+Repositório dedicado ao meu Portifólio pessoal de trabalhos, para integrar versionamento e workflows de delploy
+
+---
+
+#### 🏗️ About the Project
+
+Bem-vindo ao meu repositório dedicado ao meu Portfólio pessoal de trabalhos. Este espaço foi criado para integrar versionamento e workflows de deploy, permitindo-me compartilhar e documentar meus projetos de desenvolvimento.
+Este portfólio é uma plataforma simples desenvolvida em HTML, CSS e JavaScript até o momento. Ele serve como um showcase dos meus trabalhos e habilidades, destacando projetos relevantes e experiências de desenvolvimento.
+- **Tecnologias Utilizadas:** HTML, CSS, JavaScript
+- **Funcionalidades:** Apresentação de projetos, informações de contato e detalhes sobre mim
+- **Futuras Atualizações:** Estou constantemente trabalhando para melhorar e expandir este portfólio, adicionando novos projetos e funcionalidades.
+Para acessar o meu portfólio online, clique no link abaixo:
+L...
+
+#### 🛠️ Technologies Used
+
+- **HTML**
+- **TypeScript**
+- **JavaScript**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/rj-dev-portifolio)
+
+      `
+    },
+    createdAt: new Date("2024-04-08"),
+    updatedAt: new Date("2025-03-06")
+  },
+  {
+    id: "video-youtube-downloader",
+    title: {
+      pt: "Video Youtube Downloader",
+      en: "Video Youtube Downloader"
+    },
+    description: {
+      pt: "Script Node.js para download de vídeos do YouTube em alta qualidade com suporte a múltiplos links e processamento automático.",
+      en: "Node.js script for downloading YouTube videos in high quality with support for multiple links and automatic processing."
+    },
+    category: "development",
+
+    images: ["/assets/projects/video-youtube-downloader-logo.svg"],
+    tags: ["Node.js", "JavaScript", "yt-dlp", "FFmpeg", "Video Processing"],
+    links: [{ "texto": "GitHub", "url": "https://github.com/rogeriojr/video-youtube-downloader" }],
+    content: {
+      pt: `
+### 🎬 YouTube Video Downloader
+
+Script Node.js completo para download de vídeos do YouTube na melhor qualidade disponível, com áudio e vídeo combinados automaticamente em um único arquivo.
+
+---
+
+#### 🏗️ Sobre o Projeto
+
+Este projeto demonstra integração de ferramentas externas (yt-dlp e FFmpeg) com Node.js para criar uma solução robusta de download de vídeos. O script suporta múltiplos links simultâneos e processamento automático.
+
+**Funcionalidades principais:**
+- ✅ Download de vídeos em qualidade máxima disponível
+- ✅ Suporte a múltiplos links separados por vírgula
+- ✅ Combinação automática de áudio e vídeo com FFmpeg
+- ✅ Salvamento com títulos originais dos vídeos
+- ✅ Interface de linha de comando interativa
+
+#### 🛠️ Tecnologias Utilizadas
+
+- **Node.js**: Ambiente de execução JavaScript
+- **yt-dlp**: Ferramenta moderna para download de vídeos do YouTube
+- **FFmpeg**: Processamento e combinação de áudio e vídeo
+- **readline-sync**: Interface interativa de linha de comando
+
+#### 📋 Recursos Técnicos
+
+- Processamento assíncrono de múltiplos downloads
+- Validação de links e tratamento de erros
+- Integração com ferramentas de sistema (yt-dlp, FFmpeg)
+- Gerenciamento de arquivos e diretórios
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/video-youtube-downloader)
+      `,
+      en: `
+### 🎬 YouTube Video Downloader
+
+Complete Node.js script for downloading YouTube videos in the best available quality, with audio and video automatically combined into a single file.
+
+---
+
+#### 🏗️ About the Project
+
+This project demonstrates integration of external tools (yt-dlp and FFmpeg) with Node.js to create a robust video downloading solution. The script supports multiple simultaneous links and automatic processing.
+
+**Main features:**
+- ✅ Download videos in maximum available quality
+- ✅ Support for multiple links separated by comma
+- ✅ Automatic audio and video combination with FFmpeg
+- ✅ Saving with original video titles
+- ✅ Interactive command line interface
+
+#### 🛠️ Technologies Used
+
+- **Node.js**: JavaScript runtime environment
+- **yt-dlp**: Modern tool for downloading YouTube videos
+- **FFmpeg**: Audio and video processing and combination
+- **readline-sync**: Interactive command line interface
+
+#### 📋 Technical Features
+
+- Asynchronous processing of multiple downloads
+- Link validation and error handling
+- Integration with system tools (yt-dlp, FFmpeg)
+- File and directory management
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/video-youtube-downloader)
+      `
+    },
+    createdAt: new Date("2025-02-18"),
+    updatedAt: new Date("2025-02-21")
+  },
+  {
+    id: "pass-qrcode-nodejs",
+    title: {
+      pt: "Pass Qrcode Nodejs",
+      en: "Pass Qrcode Nodejs"
+    },
+    description: {
+      pt: "Sistema de gestão de participantes em eventos presenciais com check-in via QR Code, desenvolvido com Node.js e Fastify.",
+      en: "In-person event participant management system with QR Code check-in, developed with Node.js and Fastify."
+    },
+    category: "development",
+
+    images: ["/assets/projects/pass-qrcode-nodejs-logo.svg"],
+    tags: ["Node.js", "Fastify", "TypeScript", "QR Code", "Event Management", "EJS"],
+    links: [{ "texto": "GitHub", "url": "https://github.com/rogeriojr/pass-qrcode-nodejs" }],
+    content: {
+      pt: `
+### 🎫 Pass.in - Gestão de Eventos com QR Code
+
+Sistema completo de gestão de participantes em eventos presenciais, desenvolvido durante o NLW da Rocketseat. Permite cadastro de eventos, inscrição de participantes e check-in via QR Code.
+
+---
+
+#### 🏗️ Sobre o Projeto
+
+O pass.in é uma aplicação robusta para gestão de eventos presenciais, permitindo que organizadores cadastrem eventos e participantes realizem check-in através de credenciais com QR Code.
+
+**Funcionalidades principais:**
+- ✅ Cadastro e gerenciamento de eventos
+- ✅ Sistema de inscrição pública para participantes
+- ✅ Geração automática de credenciais com QR Code
+- ✅ Check-in rápido via leitura de QR Code
+- ✅ Dashboard para organizadores visualizarem dados do evento
+- ✅ Prevenção de inscrições duplicadas
+
+#### 🛠️ Tecnologias Utilizadas
+
+- **Node.js**: Ambiente de execução JavaScript
+- **Fastify**: Framework web rápido e eficiente
+- **TypeScript**: Tipagem estática para maior segurança
+- **EJS**: Template engine para renderização de páginas
+- **SQLite**: Banco de dados leve e eficiente
+- **QR Code**: Geração de códigos QR para credenciais
+
+#### 📋 Arquitetura
+
+- **Backend**: API RESTful com Fastify
+- **Frontend**: Páginas renderizadas com EJS
+- **Database**: SQLite para persistência de dados
+- **QR Code**: Integração para geração de credenciais
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/pass-qrcode-nodejs)
+      `,
+      en: `
+### 🎫 Pass.in - Event Management with QR Code
+
+Complete in-person event participant management system, developed during Rocketseat's NLW. Allows event registration, participant enrollment and QR Code check-in.
+
+---
+
+#### 🏗️ About the Project
+
+Pass.in is a robust application for managing in-person events, allowing organizers to register events and participants to check in through QR Code credentials.
+
+**Main features:**
+- ✅ Event registration and management
+- ✅ Public enrollment system for participants
+- ✅ Automatic credential generation with QR Code
+- ✅ Fast check-in via QR Code reading
+- ✅ Dashboard for organizers to view event data
+- ✅ Prevention of duplicate enrollments
+
+#### 🛠️ Technologies Used
+
+- **Node.js**: JavaScript runtime environment
+- **Fastify**: Fast and efficient web framework
+- **TypeScript**: Static typing for greater security
+- **EJS**: Template engine for page rendering
+- **SQLite**: Lightweight and efficient database
+- **QR Code**: QR code generation for credentials
+
+#### 📋 Architecture
+
+- **Backend**: RESTful API with Fastify
+- **Frontend**: Pages rendered with EJS
+- **Database**: SQLite for data persistence
+- **QR Code**: Integration for credential generation
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/pass-qrcode-nodejs)
+      `
+    },
+    createdAt: new Date("2024-04-02"),
+    updatedAt: new Date("2025-01-13")
+  },
+  {
+    id: "polo-agreste-admin",
+    title: {
+      pt: "Polo Agreste Admin",
+      en: "Polo Agreste Admin"
+    },
+    description: {
+      pt: "Painel administrativo da plataforma de marketplace, PoloAgreste",
+      en: "Painel administrativo da plataforma de marketplace, PoloAgreste"
+    },
+    category: "development",
+
+    images: ["/assets/projects/polo-agreste-admin-logo.svg"],
+    tags: ["JavaScript"],
+    links: [{ "texto": "GitHub", "url": "https://github.com/rogeriojr/polo-agreste-admin" }],
+    content: {
+      pt: `
+### 🚀 Polo Agreste Admin
+
+Painel administrativo da plataforma de marketplace, PoloAgreste
+
+---
+
+#### 🏗️ Sobre o Projeto
+
+Projeto desenvolvido para demonstração de habilidades técnicas e boas práticas de desenvolvimento.
+
+#### 🛠️ Tecnologias Utilizadas
+
+- **JavaScript**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/polo-agreste-admin)
+
+      `,
+      en: `
+### 🚀 Polo Agreste Admin
+
+Painel administrativo da plataforma de marketplace, PoloAgreste
+
+---
+
+#### 🏗️ About the Project
+
+Project developed to demonstrate technical skills and development best practices.
+
+#### 🛠️ Technologies Used
+
+- **JavaScript**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/polo-agreste-admin)
+
+      `
+    },
+    createdAt: new Date("2020-02-06"),
+    updatedAt: new Date("2025-01-13")
+  },
+  {
+    id: "core-frontend",
+    title: {
+      pt: "Core Frontend",
+      en: "Core Frontend"
+    },
+    description: {
+      pt: "Projeto Next.js desenvolvido para demonstração de habilidades técnicas e boas práticas de desenvolvimento.",
+      en: "Next.js project developed to demonstrate technical skills and development best practices."
+    },
+    category: "development",
+
+    images: ["/assets/projects/core-frontend-logo.svg"],
+    tags: ["Next.js", "SSR", "SSG", "TypeScript", "Frontend"],
+    links: [{ "texto": "GitHub", "url": "https://github.com/rogeriojr/core-frontend" }],
+    content: {
+      pt: `
+### 🚀 Core Frontend
+
+Projeto Next.js desenvolvido para demonstração de habilidades técnicas e boas práticas de desenvolvimento.
+
+---
+
+#### 🏗️ Sobre o Projeto
+
+Projeto desenvolvido com Next.js e TypeScript para demonstração de habilidades técnicas. Aplicação moderna com suporte a SSR (Server-Side Rendering) e SSG (Static Site Generation).
+
+**Funcionalidades principais:**
+- ✅ Framework Next.js para desenvolvimento web moderno
+- ✅ TypeScript para tipagem estática e maior segurança
+- ✅ Estrutura modular e escalável
+- ✅ Otimizações de performance
+
+#### 🛠️ Tecnologias Utilizadas
+
+- **TypeScript**
+- **JavaScript**
+- **Next.js**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/core-frontend)
+
+      `,
+  en: `
+### 🚀 Core Frontend
+
+Next.js project developed to demonstrate technical skills and development best practices.
+
+---
+
+#### 🏗️ About the Project
+
+Project developed with Next.js and TypeScript to demonstrate technical skills. Modern application with support for SSR (Server-Side Rendering) and SSG (Static Site Generation).
+
+**Main features:**
+- ✅ Next.js framework for modern web development
+- ✅ TypeScript for static typing and greater security
+- ✅ Modular and scalable structure
+- ✅ Performance optimizations
+
+#### 🛠️ Technologies Used
+
+- **TypeScript**
+- **JavaScript**
+- **Next.js**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/core-frontend)
+
+      `
+    },
+    createdAt: new Date("2024-09-09"),
+    updatedAt: new Date("2025-01-13"),
+    featured: false
+  },
+  {
+    id: "partners",
+    title: {
+      pt: "Partners",
+      en: "Partners"
+    },
+    description: {
+      pt: "Projeto Next.js desenvolvido para gestão de parceiros e integrações empresariais.",
+      en: "Next.js project developed for partner management and business integrations."
+    },
+    category: "development",
+    images: ["/assets/projects/partners-logo.svg"],
+    tags: ["Next.js", "Business Management", "CRUD", "TypeScript", "API Integration"],
+    links: [{ texto: "GitHub", url: "https://github.com/rogeriojr/partners" }],
+    content: {
+      pt: `
+### 🚀 Partners
+
+Projeto Next.js desenvolvido para gestão de parceiros e integrações empresariais.
+
+---
+
+#### 🏗️ Sobre o Projeto
+
+Aplicação web desenvolvida com Next.js e TypeScript para gerenciamento de parceiros e relacionamentos empresariais. Sistema moderno com interface responsiva e funcionalidades de gestão.
+
+**Funcionalidades principais:**
+- ✅ Gestão de parceiros e relacionamentos
+- ✅ Interface moderna e responsiva
+- ✅ Integração com APIs e serviços
+- ✅ Otimizações de performance
+
+#### 🛠️ Tecnologias Utilizadas
+
+- **TypeScript**
+- **JavaScript**
+- **Next.js**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/partners)
+
+      `,
+      en: `
+### 🚀 Partners
+
+Next.js project developed for partner management and business integrations.
+
+---
+
+#### 🏗️ About the Project
+
+Web application developed with Next.js and TypeScript for partner management and business relationships. Modern system with responsive interface and management features.
+
+**Main features:**
+- ✅ Partner and relationship management
+- ✅ Modern and responsive interface
+- ✅ Integration with APIs and services
+- ✅ Performance optimizations
+
+#### 🛠️ Technologies Used
+
+- **TypeScript**
+- **JavaScript**
+- **Next.js**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/partners)
+
+      `
+    },
+    createdAt: new Date("2024-09-09"),
+    updatedAt: new Date("2025-01-13"),
+    featured: false
+  },
+  {
+    id: "teste-desenvolvedor-jr-pl-1",
+    title: {
+      pt: "Teste Desenvolvedor Jr PL",
+      en: "Junior Developer Test PL"
+    },
+    description: {
+      pt: "API Node.js com TypeScript e Express que integra serviço Python com LangChain para geração de resumos e tradução de textos.",
+      en: "Node.js API with TypeScript and Express that integrates Python service with LangChain for text summarization and translation."
+    },
+    category: "development",
+    images: ["/assets/projects/teste-desenvolvedor-jr-pl-1-logo.svg"],
+    tags: ["AI", "LangChain", "NLP", "Node.js", "Python", "API", "TypeScript", "Express"],
+    links: [{ texto: "GitHub", url: "https://github.com/rogeriojr/teste_desenvolvedor_jr_pl-1" }],
+    content: {
+      pt: `
+### 🤖 LLM Summarizer API
+
+API Node.js desenvolvida com TypeScript e Express que integra um serviço Python utilizando LangChain para processamento de linguagem natural, permitindo resumir e traduzir textos automaticamente.
+
+---
+
+#### 🏗️ Sobre o Projeto
+
+Este projeto demonstra integração entre Node.js e Python para criar uma solução completa de processamento de linguagem natural. A API recebe textos, processa através de um serviço Python com LangChain e retorna resumos traduzidos.
+
+**Funcionalidades principais:**
+- ✅ Submissão de textos para processamento
+- ✅ Geração automática de resumos com LangChain
+- ✅ Tradução de textos conforme idioma solicitado
+- ✅ Armazenamento de textos originais e resumidos
+- ✅ API RESTful completa com TypeScript
+
+#### 🛠️ Tecnologias Utilizadas
+
+- **Node.js**: Ambiente de execução JavaScript
+- **TypeScript**: Tipagem estática
+- **Express**: Framework web para Node.js
+- **Python**: Serviço de processamento de linguagem natural
+- **LangChain**: Framework para aplicações com LLMs
+- **Docker**: Containerização para serviços
+
+#### 📋 Arquitetura
+
+- **node-api/**: API Node.js com Express e TypeScript
+- **python-llm/**: Serviço Python com LangChain
+- **Repositories**: Gerenciamento de tarefas em memória
+- **Routes**: Rotas RESTful para submissão e consulta
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/teste_desenvolvedor_jr_pl-1)
+      `,
+      en: `
+### 🤖 LLM Summarizer API
+
+Node.js API developed with TypeScript and Express that integrates a Python service using LangChain for natural language processing, allowing automatic text summarization and translation.
+
+---
+
+#### 🏗️ About the Project
+
+This project demonstrates integration between Node.js and Python to create a complete natural language processing solution. The API receives texts, processes them through a Python service with LangChain and returns translated summaries.
+
+**Main features:**
+- ✅ Text submission for processing
+- ✅ Automatic summary generation with LangChain
+- ✅ Text translation according to requested language
+- ✅ Storage of original and summarized texts
+- ✅ Complete RESTful API with TypeScript
+
+#### 🛠️ Technologies Used
+
+- **Node.js**: JavaScript runtime environment
+- **TypeScript**: Static typing
+- **Express**: Web framework for Node.js
+- **Python**: Natural language processing service
+- **LangChain**: Framework for LLM applications
+- **Docker**: Containerization for services
+
+#### 📋 Architecture
+
+- **node-api/**: Node.js API with Express and TypeScript
+- **python-llm/**: Python service with LangChain
+- **Repositories**: In-memory task management
+- **Routes**: RESTful routes for submission and query
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/teste_desenvolvedor_jr_pl-1)
+      `
+    },
+    createdAt: new Date("2025-01-07"),
+    updatedAt: new Date("2025-01-08"),
+    featured: true
+  },
+  {
+    id: "micro-frontends-teddy-test-project",
+    title: {
+      pt: "Micro Frontends Teddy Test Project",
+      en: "Micro Frontends Teddy Test Project"
+    },
+    description: {
+      pt: "Aplicação de micro front-ends com Next.js e TypeScript, integrando microserviços para parceiros e empresas externas com CRUD completo.",
+      en: "Micro front-ends application with Next.js and TypeScript, integrating microservices for partners and external companies with complete CRUD."
+    },
+    category: "development",
+    images: ["/assets/projects/micro-frontends-teddy-test-project-logo.svg"],
+    tags: ["Micro Frontends", "Next.js", "Architecture", "CRUD", "Authentication", "TypeScript"],
+    links: [{ texto: "GitHub", url: "https://github.com/rogeriojr/micro-frontends-teddy-test-project" }],
+    content: {
+      pt: `
+### 🚀 Micro Frontends Teddy Test Project
+
+Repositório dedicado a demonstrar expertisies de desenvolvimento React js + Next JS + Typescript, utilizando de metodologia de microfrontends, e implementações básicas de Login, CRUD, estados e Storag
+
+---
+
+#### 🏗️ Sobre o Projeto
+
+Este projeto é uma aplicação de micro front-ends utilizando **Next.js** com **TypeScript**, integrando microserviços para **parceiros** e **empresas externas**. Ele possui funcionalidades de **CRUD** para ambas as entidades, além de autenticação com uma página de login funcional.
+   - Página de login com opção de "Manter conectado" utilizando **cookies** ou **localStorage**.
+   - Redireciona o usuário para a página inicial após o login.
+   - Se o usuário já estiver logado (nome no cookie/localStorage), ele será automaticamente redirecionado para a página inicial.
+   - Listagem de todos os parceiros integrados.
+   - Funções de **adicionar**, **editar** e **excluir** parceiros.
+   - Paginação na tabela de parceiros.
+3. **Empresas Externas**:
+   - Listagem de todas as empresas externa...
+
+#### 🛠️ Tecnologias Utilizadas
+
+- **React**
+- **TypeScript**
+- **JavaScript**
+- **Next.js**
+- **Node.js**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/micro-frontends-teddy-test-project)
+
+      `,
+      en: `
+### 🚀 Micro Frontends Teddy Test Project
+
+Repositório dedicado a demonstrar expertisies de desenvolvimento React js + Next JS + Typescript, utilizando de metodologia de microfrontends, e implementações básicas de Login, CRUD, estados e Storag
+
+---
+
+#### 🏗️ About the Project
+
+Este projeto é uma aplicação de micro front-ends utilizando **Next.js** com **TypeScript**, integrando microserviços para **parceiros** e **empresas externas**. Ele possui funcionalidades de **CRUD** para ambas as entidades, além de autenticação com uma página de login funcional.
+   - Página de login com opção de "Manter conectado" utilizando **cookies** ou **localStorage**.
+   - Redireciona o usuário para a página inicial após o login.
+   - Se o usuário já estiver logado (nome no cookie/localStorage), ele será automaticamente redirecionado para a página inicial.
+   - Listagem de todos os parceiros integrados.
+   - Funções de **adicionar**, **editar** e **excluir** parceiros.
+   - Paginação na tabela de parceiros.
+3. **Empresas Externas**:
+   - Listagem de todas as empresas externa...
+
+#### 🛠️ Technologies Used
+
+- **React**
+- **TypeScript**
+- **JavaScript**
+- **Next.js**
+- **Node.js**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/micro-frontends-teddy-test-project)
+
+      `
+    },
+    createdAt: new Date("2024-09-09"),
+    updatedAt: new Date("2024-09-09"),
+    featured: true
+  },
+  {
+    id: "nlw-unite-react-native-learning",
+    title: {
+      pt: "NLW Unite React Native Learning",
+      en: "NLW Unite React Native Learning"
+    },
+    description: {
+      pt: "Repositório de estudos para aprimorar habilidades com React Native, desenvolvido durante o NLW Unite da Rocketseat.",
+      en: "Study repository to improve React Native skills, developed during Rocketseat's NLW Unite."
+    },
+    category: "development",
+    images: ["/assets/projects/nlw-unite-react-native-learning-logo.svg"],
+    tags: ["React Native", "Mobile Development", "Expo", "Learning", "TypeScript"],
+    links: [{ texto: "GitHub", url: "https://github.com/rogeriojr/nlw-unite-react-native-learning" }],
+    content: {
+      pt: `
+### 🚀 Nlw Unite React Native Learning
+
+Repositório de estudos para aprimorar mais com a linguagem React Native
+
+---
+
+#### 🏗️ Sobre o Projeto
+
+Repositório de estudos desenvolvido durante o NLW Unite da Rocketseat para aprimorar habilidades com React Native. Projeto focado em aprendizado prático de desenvolvimento mobile.
+
+**Funcionalidades principais:**
+- ✅ Criação de aplicativos React Native sem configuração de build
+- ✅ Suporte para unimodules e auto-linking
+- ✅ Atualizações OTA e gestos prontos para uso
+- ✅ Suporte completo para React Native web
+- ✅ TypeScript por padrão
+- ✅ Compatível com Expo Client app
+
+#### 🛠️ Tecnologias Utilizadas
+
+- **TypeScript**
+- **React**
+- **JavaScript**
+- **React Native**
+- **Expo**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/nlw-unite-react-native-learning)
+
+      `,
+      en: `
+### 🚀 Nlw Unite React Native Learning
+
+Repositório de estudos para aprimorar mais com a linguagem React Native
+
+---
+
+#### 🏗️ About the Project
+
+Study repository developed during Rocketseat's NLW Unite to improve React Native skills. Project focused on practical learning of mobile development.
+
+**Main features:**
+- ✅ Create React Native apps without build configuration
+- ✅ Support for unimodules and auto-linking
+- ✅ OTA updates and gestures out of the box
+- ✅ Full support for React Native web
+- ✅ TypeScript by default
+- ✅ Works with Expo Client app
+
+#### 🛠️ Technologies Used
+
+- **TypeScript**
+- **React**
+- **JavaScript**
+- **React Native**
+- **Expo**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/nlw-unite-react-native-learning)
+
+      `
+    },
+    createdAt: new Date("2024-04-04"),
+    updatedAt: new Date("2024-04-04"),
+    featured: false
+  },
+  {
+    id: "nlw-unite-react-learning",
+    title: {
+      pt: "NLW Unite React Learning",
+      en: "NLW Unite React Learning"
+    },
+    description: {
+      pt: "Repositório de estudos para aprimorar habilidades com React, desenvolvido durante o NLW Unite da Rocketseat.",
+      en: "Study repository to improve React skills, developed during Rocketseat's NLW Unite."
+    },
+    category: "development",
+    images: ["/assets/projects/nlw-unite-react-learning-logo.svg"],
+    tags: ["React", "Learning", "Frontend", "TypeScript"],
+    links: [{ texto: "GitHub", url: "https://github.com/rogeriojr/nlw-unite-react-learning" }],
+    content: {
+      pt: `
+### 🚀 Nlw Unite React Learning
+
+Repositório de estudos para aprimorar habilidades com React, desenvolvido durante o NLW Unite da Rocketseat.
+
+---
+
+#### 🏗️ Sobre o Projeto
+
+Projeto desenvolvido com React para aprendizado e prática de conceitos fundamentais. Aplicação moderna com suporte a desenvolvimento e produção.
+
+**Funcionalidades principais:**
+- ✅ Desenvolvimento com hot reload
+- ✅ Testes automatizados
+- ✅ Build otimizado para produção
+- ✅ TypeScript para tipagem estática
+
+#### 🛠️ Tecnologias Utilizadas
+
+- **TypeScript**
+- **React**
+- **JavaScript**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/nlw-unite-react-learning)
+
+      `,
+      en: `
+### 🚀 NLW Unite React Learning
+
+Study repository to improve React skills, developed during Rocketseat's NLW Unite.
+
+---
+
+#### 🏗️ About the Project
+
+Project developed with React for learning and practicing fundamental concepts. Modern application with support for development and production.
+
+**Main features:**
+- ✅ Development with hot reload
+- ✅ Automated tests
+- ✅ Optimized production build
+- ✅ TypeScript for static typing
+
+#### 🛠️ Technologies Used
+
+- **TypeScript**
+- **React**
+- **JavaScript**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/nlw-unite-react-learning)
+
+      `
+    },
+    createdAt: new Date("2024-04-04"),
+    updatedAt: new Date("2024-04-04"),
+    featured: false
+  },
+  {
+    id: "modelo-login",
+    title: {
+      pt: "Modelo Login",
+      en: "Login Template"
+    },
+    description: {
+      pt: "Componente de autenticação reutilizável desenvolvido em React com validação de formulários e gerenciamento de estado.",
+      en: "Reusable authentication component developed in React with form validation and state management."
+    },
+    category: "development",
+    images: ["/assets/projects/modelo-login-logo.svg"],
+    tags: ["React", "Authentication", "Component", "Form Validation", "TypeScript"],
+    links: [{ texto: "GitHub", url: "https://github.com/rogeriojr/modelo-login" }],
+    content: {
+      pt: `
+### 🚀 Modelo Login
+
+Modelo de login em React
+
+---
+
+#### 🏗️ Sobre o Projeto
+
+This project was bootstrapped with Create React App.
+In the project directory, you can run:
+Runs the app in the development mode.<br>
+Open http://localhost:3000 to view it in the browser.
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
+Launches the test runner in the interactive watch mode.<br>
+See the section about running tests for more information.
+Builds the app for production to the build folder.
+It correctly bundles React in production mode and optimizes the build for the best performance.
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
+See the section about deployment for more information.
+**Note: this is a one-way operation. Once you eject, you can’t go back!**
+If you aren’t sati...
+
+#### 🛠️ Tecnologias Utilizadas
+
+- **JavaScript**
+- **React**
+- **TypeScript**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/modelo-login)
+
+      `,
+      en: `
+### 🚀 Modelo Login
+
+Modelo de login em React
+
+---
+
+#### 🏗️ About the Project
+
+This project was bootstrapped with Create React App.
+In the project directory, you can run:
+Runs the app in the development mode.<br>
+Open http://localhost:3000 to view it in the browser.
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
+Launches the test runner in the interactive watch mode.<br>
+See the section about running tests for more information.
+Builds the app for production to the build folder.
+It correctly bundles React in production mode and optimizes the build for the best performance.
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
+See the section about deployment for more information.
+**Note: this is a one-way operation. Once you eject, you can’t go back!**
+If you aren’t sati...
+
+#### 🛠️ Technologies Used
+
+- **JavaScript**
+- **React**
+- **TypeScript**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/modelo-login)
+
+      `
+    },
+    createdAt: new Date("2019-07-11"),
+    updatedAt: new Date("2024-04-01"),
+    featured: false
+  },
+  {
+    id: "guia-de-perguntas-express-ejs",
+    title: {
+      pt: "Guia de Perguntas Express EJS",
+      en: "Questions Guide Express EJS"
+    },
+    description: {
+      pt: "Aplicação web desenvolvida com Node.js e Express utilizando EJS como view engine para criação de guia de perguntas interativo.",
+      en: "Web application developed with Node.js and Express using EJS as view engine for creating an interactive questions guide."
+    },
+    category: "development",
+    images: ["/assets/projects/guia-de-perguntas-express-ejs-logo.svg"],
+    tags: ["Backend", "Express", "EJS", "Node.js", "Server-Side Rendering"],
+    links: [{ texto: "GitHub", url: "https://github.com/rogeriojr/guia-de-perguntas-express-ejs" }],
+    content: {
+      pt: `
+### 🚀 Guia de Perguntas Express EJS
+
+Este é um projeto de iniciação de backend desenvolvido com Node.js e Express setando EJS como view engine
+
+---
+
+#### 🏗️ Sobre o Projeto
+
+Este é um projeto de iniciação de backend desenvolvido com Node.js e Express. O projeto foi criado como parte do meu trabalho para portfólio, visando aprender e praticar conceitos fundamentais de desenvolvimento de backend com Node.js. É um guia de perguntas, nele contem código html e bibliotecas para o Frontend, mas onde
+o foco foi meu desenvolvimento backend, utilizando  EJS como view engine no Express
+- Implementação de rotas básicas para aprendizado.
+- Tratamento de requisições HTTP com Express.
+- Manipulação de parâmetros de URL.
+- Tratamento de erros.
+O projeto segue a seguinte estrutura:
+├── index.js As views EJS
+  ├── index.js Arquivo principal do EJS
+├── index.js Arquivo principal do servidor
+├── package.json Arquivo de manifesto do projeto
+└── README.md Este arquivo RE...
+
+#### 🛠️ Tecnologias Utilizadas
+
+- **EJS**
+- **JavaScript**
+- **Node.js**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/guia-de-perguntas-express-ejs)
+
+      `,
+      en: `
+### 🚀 Guia De Perguntas Express Ejs
+
+Este é um projeto de iniciação de backend desenvolvido com Node.js e Express setando EJS como view engine
+
+---
+
+#### 🏗️ About the Project
+
+Este é um projeto de iniciação de backend desenvolvido com Node.js e Express. O projeto foi criado como parte do meu trabalho para portfólio, visando aprender e praticar conceitos fundamentais de desenvolvimento de backend com Node.js. É um guia de perguntas, nele contem código html e bibliotecas para o Frontend, mas onde
+o foco foi meu desenvolvimento backend, utilizando  EJS como view engine no Express
+- Implementação de rotas básicas para aprendizado.
+- Tratamento de requisições HTTP com Express.
+- Manipulação de parâmetros de URL.
+- Tratamento de erros.
+O projeto segue a seguinte estrutura:
+├── index.js As views EJS
+  ├── index.js Arquivo principal do EJS
+├── index.js Arquivo principal do servidor
+├── package.json Arquivo de manifesto do projeto
+└── README.md Este arquivo RE...
+
+#### 🛠️ Technologies Used
+
+- **EJS**
+- **JavaScript**
+- **Node.js**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/guia-de-perguntas-express-ejs)
+
+      `
+    },
+    createdAt: new Date("2024-03-27"),
+    updatedAt: new Date("2024-03-27"),
+    featured: false
+  },
+  {
+    id: "express-test",
+    title: {
+      pt: "Express Test",
+      en: "Express Test"
+    },
+    description: {
+      pt: "Repositório com testes e exemplos práticos de desenvolvimento backend com Node.js e Express.",
+      en: "Repository with tests and practical examples of backend development with Node.js and Express."
+    },
+    category: "development",
+    images: ["/assets/projects/express-test-logo.svg"],
+    tags: ["Backend", "Express", "Node.js", "API", "Learning"],
+    links: [{ texto: "GitHub", url: "https://github.com/rogeriojr/express-test" }],
+    content: {
+      pt: `
+### 🚀 Express Test
+
+Repositório com testes em Node.js com Express
+
+---
+
+#### 🏗️ Sobre o Projeto
+
+Este é um projeto de iniciação de backend desenvolvido com Node.js e Express. O projeto foi criado como parte do meu trabalho para portfólio, visando aprender e praticar conceitos fundamentais de desenvolvimento de backend com Node.js.
+- Implementação de rotas básicas para aprendizado.
+- Tratamento de requisições HTTP com Express.
+- Manipulação de parâmetros de URL.
+- Tratamento de erros.
+O projeto segue a seguinte estrutura:
+├── index.js Arquivo principal do servidor
+├── package.json Arquivo de manifesto do projeto
+└── README.md Este arquivo README
+1. Certifique-se de ter o Node.js instalado em sua máquina.
+2. Clone este repositório:
+   git clone https://github.com/seu-usuario/nome-do-repositorio.git
+3. Navegue até o diretório do projeto:
+    cd nome-do-repositorio
+4. Instal...
+
+#### 🛠️ Tecnologias Utilizadas
+
+- **JavaScript**
+- **Node.js**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/express-test)
+
+      `,
+      en: `
+### 🚀 Express Test
+
+Repositório com testes em Node.js com Express
+
+---
+
+#### 🏗️ About the Project
+
+Este é um projeto de iniciação de backend desenvolvido com Node.js e Express. O projeto foi criado como parte do meu trabalho para portfólio, visando aprender e praticar conceitos fundamentais de desenvolvimento de backend com Node.js.
+- Implementação de rotas básicas para aprendizado.
+- Tratamento de requisições HTTP com Express.
+- Manipulação de parâmetros de URL.
+- Tratamento de erros.
+O projeto segue a seguinte estrutura:
+├── index.js Arquivo principal do servidor
+├── package.json Arquivo de manifesto do projeto
+└── README.md Este arquivo README
+1. Certifique-se de ter o Node.js instalado em sua máquina.
+2. Clone este repositório:
+   git clone https://github.com/seu-usuario/nome-do-repositorio.git
+3. Navegue até o diretório do projeto:
+    cd nome-do-repositorio
+4. Instal...
+
+#### 🛠️ Technologies Used
+
+- **JavaScript**
+- **Node.js**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/express-test)
+
+      `
+    },
+    createdAt: new Date("2024-03-26"),
+    updatedAt: new Date("2024-03-27"),
+    featured: false
+  },
+  {
+    id: "react-checkout-context",
+    title: {
+      pt: "React Checkout Context",
+      en: "React Checkout Context"
+    },
+    description: {
+      pt: "Carrinho de compras desenvolvido em React utilizando Hooks e Context API para gerenciamento de estado global.",
+      en: "Shopping cart developed in React using Hooks and Context API for global state management."
+    },
+    category: "development",
+    images: ["/assets/projects/react-checkout-context-logo.svg"],
+    tags: ["React", "E-commerce", "Context API", "State Management", "Shopping Cart"],
+    links: [{ texto: "GitHub", url: "https://github.com/rogeriojr/react-checkout-context" }],
+    content: {
+      pt: `
+### 🚀 React Checkout Context
+
+Carrinho de Compras em React com Hooks e Context API
+
+---
+
+#### 🏗️ Sobre o Projeto
+
+Este projeto é um exemplo básico de um carrinho de compras desenvolvido em React, utilizando os conceitos de Hooks e Context API. Ele permite adicionar produtos ao carrinho, remover itens, editar a quantidade e exibir o subtotal e total da compra.
+O projeto é dividido em três partes principais:
+1. **CartContext.js**: Este arquivo contém a implementação do Contexto do Carrinho, onde é definido o estado global do carrinho, juntamente com as funções para adicionar, remover e atualizar a quantidade dos itens.
+2. **Cart.js**: Este componente é responsável por exibir os itens no carrinho, permitindo ao usuário remover itens, editar a quantidade e exibir o subtotal da compra.
+3. **Product.js**: Este é um componente de produto simples que pode ser adicionado ao carrinho. Ele exibe informações sobr...
+
+#### 🛠️ Tecnologias Utilizadas
+
+- **JavaScript**
+- **React**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/react-checkout-context)
+
+      `,
+      en: `
+### 🚀 React Checkout Context
+
+Carrinho de Compras em React com Hooks e Context API
+
+---
+
+#### 🏗️ About the Project
+
+Este projeto é um exemplo básico de um carrinho de compras desenvolvido em React, utilizando os conceitos de Hooks e Context API. Ele permite adicionar produtos ao carrinho, remover itens, editar a quantidade e exibir o subtotal e total da compra.
+O projeto é dividido em três partes principais:
+1. **CartContext.js**: Este arquivo contém a implementação do Contexto do Carrinho, onde é definido o estado global do carrinho, juntamente com as funções para adicionar, remover e atualizar a quantidade dos itens.
+2. **Cart.js**: Este componente é responsável por exibir os itens no carrinho, permitindo ao usuário remover itens, editar a quantidade e exibir o subtotal da compra.
+3. **Product.js**: Este é um componente de produto simples que pode ser adicionado ao carrinho. Ele exibe informações sobr...
+
+#### 🛠️ Technologies Used
+
+- **JavaScript**
+- **React**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/react-checkout-context)
+
+      `
+    },
+    createdAt: new Date("2023-11-11"),
+    updatedAt: new Date("2023-11-11"),
+    featured: false
+  },
+  {
+    id: "calculadora",
+    title: {
+      pt: "Calculadora",
+      en: "Calculator"
+    },
+    description: {
+      pt: "Calculadora funcional desenvolvida em React com operações matemáticas básicas e interface moderna.",
+      en: "Functional calculator developed in React with basic mathematical operations and modern interface."
+    },
+    category: "development",
+    images: ["/assets/projects/calculadora-logo.svg"],
+    tags: ["React", "Utility", "Calculator", "TypeScript", "Frontend"],
+    links: [{ texto: "GitHub", url: "https://github.com/rogeriojr/calculadora" }],
+    content: {
+      pt: `
+### 🚀 Calculadora
+
+Calculadora funcional em react
+
+---
+
+#### 🏗️ Sobre o Projeto
+
+This project was bootstrapped with Create React App.
+In the project directory, you can run:
+Runs the app in the development mode.<br>
+Open http://localhost:3000 to view it in the browser.
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
+Launches the test runner in the interactive watch mode.<br>
+See the section about running tests for more information.
+Builds the app for production to the build folder.
+It correctly bundles React in production mode and optimizes the build for the best performance.
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
+See the section about deployment for more information.
+**Note: this is a one-way operation. Once you eject, you can’t go back!**
+If you aren’t sati...
+
+#### 🛠️ Tecnologias Utilizadas
+
+- **JavaScript**
+- **React**
+- **TypeScript**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/calculadora)
+
+      `,
+      en: `
+### 🚀 Calculadora
+
+Calculadora funcional em react
+
+---
+
+#### 🏗️ About the Project
+
+This project was bootstrapped with Create React App.
+In the project directory, you can run:
+Runs the app in the development mode.<br>
+Open http://localhost:3000 to view it in the browser.
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
+Launches the test runner in the interactive watch mode.<br>
+See the section about running tests for more information.
+Builds the app for production to the build folder.
+It correctly bundles React in production mode and optimizes the build for the best performance.
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
+See the section about deployment for more information.
+**Note: this is a one-way operation. Once you eject, you can’t go back!**
+If you aren’t sati...
+
+#### 🛠️ Technologies Used
+
+- **JavaScript**
+- **React**
+- **TypeScript**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/calculadora)
+
+      `
+    },
+    createdAt: new Date("2019-07-04"),
+    updatedAt: new Date("2019-07-05"),
+    featured: false
+  },
+  {
+    id: "cipa-senac",
+    title: {
+      pt: "CIPA Senac",
+      en: "CIPA Senac"
+    },
+    description: {
+      pt: "Projeto Integrador do 3° Módulo desenvolvido durante curso técnico, focado em desenvolvimento web com HTML, CSS e JavaScript.",
+      en: "Integrator Project of the 3rd Module developed during technical course, focused on web development with HTML, CSS and JavaScript."
+    },
+    category: "development",
+    images: ["/assets/projects/cipa-senac-logo.svg"],
+    tags: ["HTML", "CSS", "JavaScript", "Academic Project", "Web Development"],
+    links: [{ texto: "GitHub", url: "https://github.com/rogeriojr/CIPA---Senac" }],
+    content: {
+      pt: `
+### 🚀 CIPA Senac
+
+Projeto Integrador 3° Modulo
+
+---
+
+#### 🏗️ Sobre o Projeto
+
+Projeto desenvolvido para demonstração de habilidades técnicas e boas práticas de desenvolvimento.
+
+#### 🛠️ Tecnologias Utilizadas
+
+- **HTML**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/CIPA---Senac)
+
+      `,
+      en: `
+### 🚀 CIPA Senac
+
+Projeto Integrador 3° Modulo
+
+---
+
+#### 🏗️ About the Project
+
+Project developed to demonstrate technical skills and development best practices.
+
+#### 🛠️ Technologies Used
+
+- **HTML**
+
+#### 🔗 Links
+
+- [GitHub](https://github.com/rogeriojr/CIPA---Senac)
+
+      `
+    },
+    createdAt: new Date("2015-06-17"),
+    updatedAt: new Date("2016-01-07"),
+    featured: false
+  }
 ];

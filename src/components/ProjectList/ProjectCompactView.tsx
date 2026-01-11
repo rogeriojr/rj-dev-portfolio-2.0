@@ -14,27 +14,64 @@ export function ProjectCompactView({ project, onViewDetails, language }: Project
   const bg = useColorModeValue('white', 'gray.800');
   const borderColor = useColorModeValue('gray.200', 'gray.700');
   const hoverBg = useColorModeValue('blue.50', 'gray.700');
+  const featuredBg = useColorModeValue('yellow.50', 'yellow.900');
+  const featuredBorder = useColorModeValue('yellow.400', 'yellow.500');
+  const featuredGlow = 'rgba(236, 201, 75, 0.4)';
 
   return (
     <MotionBox
-      bg={bg}
-      borderWidth="1px"
-      borderColor={borderColor}
+      bg={project.featured ? featuredBg : bg}
+      borderWidth={project.featured ? "2px" : "1px"}
+      borderColor={project.featured ? featuredBorder : borderColor}
       borderRadius="lg"
       overflow="hidden"
       cursor="pointer"
       onClick={() => onViewDetails(project)}
-      whileHover={{ scale: 1.05, y: -5 }}
+      whileHover={{ scale: project.featured ? 1.08 : 1.05, y: -5 }}
       whileTap={{ scale: 0.95 }}
       transition="all 0.2s"
-      _hover={{ borderColor: 'blue.400', bg: hoverBg }}
+      _hover={{ 
+        borderColor: project.featured ? 'yellow.300' : 'blue.400', 
+        bg: project.featured ? featuredBg : hoverBg,
+        boxShadow: project.featured ? `0 0 20px ${featuredGlow}` : 'md'
+      }}
+      boxShadow={project.featured ? `0 0 15px ${featuredGlow}` : 'none'}
       h="100%"
       minH="280px"
       maxH="320px"
       display="flex"
       flexDirection="column"
       w="100%"
+      position="relative"
+      _before={project.featured ? {
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'radial-gradient(circle at top right, rgba(236, 201, 75, 0.15), transparent 50%)',
+        pointerEvents: 'none',
+        zIndex: 0
+      } : {}}
     >
+      {project.featured && (
+        <Box
+          position="absolute"
+          top={2}
+          left={2}
+          zIndex={10}
+          bgGradient="linear(to-r, yellow.400, orange.500)"
+          borderRadius="full"
+          px={2}
+          py={1}
+          boxShadow="0 0 12px rgba(236, 201, 75, 0.6)"
+        >
+          <Text fontSize="2xs" fontWeight="bold" color="white" letterSpacing="wide">
+            {language === 'pt' ? 'DESTAQUE' : 'FEATURED'}
+          </Text>
+        </Box>
+      )}
       <Box 
         position="relative" 
         h="140px"
@@ -45,9 +82,10 @@ export function ProjectCompactView({ project, onViewDetails, language }: Project
         alignItems="center"
         justifyContent="center"
         overflow="hidden"
-        borderBottom="1px solid"
-        borderColor={useColorModeValue('gray.200', 'gray.700')}
+        borderBottom={project.featured ? "2px solid" : "1px solid"}
+        borderColor={project.featured ? featuredBorder : useColorModeValue('gray.200', 'gray.700')}
         w="100%"
+        zIndex={1}
       >
         <Box
           w="100%"
@@ -72,18 +110,26 @@ export function ProjectCompactView({ project, onViewDetails, language }: Project
           position="absolute"
           top={2}
           right={2}
-          colorScheme="blue"
+          colorScheme={project.featured ? "yellow" : "blue"}
           borderRadius="full"
           px={2}
+          boxShadow={project.featured ? `0 0 8px ${featuredGlow}` : 'none'}
         >
           {project.category}
         </Badge>
       </Box>
       
-      <VStack align="start" p={3} spacing={1}>
-        <Heading size="sm" noOfLines={1} color={useColorModeValue('gray.800', 'white')}>
-          {project.title[language as 'pt' | 'en']}
-        </Heading>
+      <VStack align="start" p={3} spacing={1} position="relative" zIndex={1}>
+        <HStack spacing={1.5} w="100%">
+          <Heading 
+            size="sm" 
+            noOfLines={1} 
+            color={project.featured ? useColorModeValue('yellow.800', 'yellow.200') : useColorModeValue('gray.800', 'white')}
+            flex={1}
+          >
+            {project.title[language as 'pt' | 'en']}
+          </Heading>
+        </HStack>
         <Text
           fontSize="xs"
           color={useColorModeValue('gray.600', 'gray.400')}

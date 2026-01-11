@@ -12,7 +12,7 @@ import {
   Badge,
   Flex,
 } from "@chakra-ui/react";
-import { FaGithub, FaLink, FaInfoCircle, FaGlobeAmericas, FaStar } from "react-icons/fa";
+import { FaGithub, FaLink, FaInfoCircle, FaGlobeAmericas } from "react-icons/fa";
 import { Project } from "../types";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "../i18n/useTranslation";
@@ -100,7 +100,6 @@ export default function ProjectCard({
           borderColor: project.featured ? "yellow.300" : useColorModeValue("blue.300", "cyan.400"),
         }}
       >
-        {/* Featured Badge */}
         {project.featured && (
           <Box
             position="absolute"
@@ -112,11 +111,7 @@ export default function ProjectCard({
             px={3}
             py={1}
             boxShadow="0 0 15px rgba(236, 201, 75, 0.6)"
-            display="flex"
-            alignItems="center"
-            gap={1}
           >
-            <Icon as={FaStar} w={3} h={3} color="white" />
             <Text fontSize="xs" fontWeight="bold" color="white" letterSpacing="wide">
               {language === 'pt' ? 'DESTAQUE' : 'FEATURED'}
             </Text>
@@ -124,7 +119,7 @@ export default function ProjectCard({
         )}
         <Box
           position="relative"
-          bg={project.title[language].toLowerCase().includes("bevas") || project.title[language].toLowerCase().includes("portal") || project.title[language].toLowerCase().includes("neoidea") || project.title[language].toLowerCase().includes("plataforma") ? "gray.800" : useColorModeValue("white", "gray.100")}
+          bg={useColorModeValue("white", "gray.100")}
           overflow="hidden"
           flexShrink={0}
           h="180px"
@@ -152,18 +147,18 @@ export default function ProjectCard({
                 maxW="calc(100% - 32px)"
                 w="auto"
                 h="auto"
-                bg={project.title[language].toLowerCase().includes("bevas") || project.title[language].toLowerCase().includes("portal") || project.title[language].toLowerCase().includes("neoidea") || project.title[language].toLowerCase().includes("plataforma") ? "gray.800" : "transparent"}
+                bg="transparent"
                 transition="transform 0.3s ease"
                 _hover={{
                   transform: "scale(1.05)",
                 }}
                 onError={(e) => {
-                  console.error(`Failed to load project image: ${project.images[0]}`);
-                  // Fallback para placeholder
+                  console.error(`Failed to load image: ${project.images[0]}`);
                   const target = e.target as HTMLImageElement;
                   target.style.display = 'none';
                 }}
-                fallbackSrc="/assets/projects/neoidea_logo.png"
+                fallbackSrc={project.id.includes('neo') || project.title[language].toLowerCase().includes('neo') ? "/assets/projects/neoidea_logo.png" : undefined}
+                loading="lazy"
               />
             </Box>
           ) : (
