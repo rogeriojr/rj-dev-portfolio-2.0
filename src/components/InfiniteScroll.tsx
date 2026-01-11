@@ -1,5 +1,6 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { Box } from '@chakra-ui/react';
+import { InfiniteScrollSpinner } from './InfiniteScrollSpinner';
 
 interface InfiniteScrollProps {
   hasMore: boolean;
@@ -63,17 +64,7 @@ export function InfiniteScroll({
           justifyContent="center"
           py={4}
         >
-          {isLoading && (
-            <Box
-              w="40px"
-              h="40px"
-              border="4px solid"
-              borderColor="blue.200"
-              borderTopColor="blue.500"
-              borderRadius="full"
-              animation="spin 1s linear infinite"
-            />
-          )}
+          {isLoading && <InfiniteScrollSpinner />}
         </Box>
       )}
     </>

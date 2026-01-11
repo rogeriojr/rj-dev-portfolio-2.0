@@ -10,7 +10,6 @@ import {
   Button,
   Divider,
   useColorModeValue,
-  Spinner,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -19,17 +18,19 @@ import {
   useDisclosure,
   Icon
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
-import ReactMarkdown from 'react-markdown';
 import { db } from '../config/firebase';
+
+const ReactMarkdown = lazy(() => import('react-markdown'));
 import { Project } from '../types';
 import { FaArrowLeft, FaExternalLinkAlt, FaSearchPlus, FaRocket } from 'react-icons/fa';
 import { PROJECT_OVERRIDES, NEW_STATIC_PROJECTS } from '../data/projects';
 import { useTranslation } from '../i18n/useTranslation';
 import { StellarImageCarousel } from './StellarImageCarousel';
 import { useGamificationTracking } from '../hooks/useGamificationTracking';
+import { PlanetSpinner } from './PlanetSpinner';
 
 // Create a lookup map for static projects for easy detail access
 const STATIC_PROJECTS_DATA: Record<string, Project> = {};
@@ -150,7 +151,7 @@ export function ProjectDetails() {
   if (loading) {
     return (
       <Box display="flex" justifyContent="center" alignItems="center" minH="50vh">
-        <Spinner size="xl" color="brand.yellow.400" />
+        <PlanetSpinner size={120} />
       </Box>
     );
   }
@@ -329,19 +330,25 @@ export function ProjectDetails() {
 
             {/* Markdown Description */}
             <Box w="full" className="project-markdown" color="white">
-              <ReactMarkdown
-                components={{
-                  h1: ({ ...props }) => <Heading size={{ base: "lg", md: "xl" }} mt={{ base: 6, md: 8 }} mb={4} {...props} color="white" />,
-                  h2: ({ ...props }) => <Heading size={{ base: "md", md: "lg" }} mt={{ base: 6, md: 8 }} mb={4} color="blue.400" {...props} />,
-                  h3: ({ ...props }) => <Heading size={{ base: "sm", md: "md" }} mt={{ base: 4, md: 6 }} mb={3} color="purple.400" {...props} />,
-                  p: ({ ...props }) => <Text fontSize={{ base: "md", md: "lg" }} lineHeight="1.8" mb={{ base: 4, md: 6 }} color="gray.200" {...props} />,
-                  ul: ({ ...props }) => <Box as="ul" pl={{ base: 4, md: 6 }} mb={{ base: 4, md: 6 }} {...props} />,
-                  li: ({ ...props }) => <Box as="li" mb={3} fontSize={{ base: "md", md: "lg" }} color="gray.200" {...props} />,
-                  strong: ({ ...props }) => <Text as="span" fontWeight="bold" color="white" {...props} />,
-                }}
-              >
-                {project.content[language]}
-              </ReactMarkdown>
+              <Suspense fallback={
+                <Box display="flex" justifyContent="center" alignItems="center" py={8}>
+                  <PlanetSpinner size={80} />
+                </Box>
+              }>
+                <ReactMarkdown
+                  components={{
+                    h1: ({ ...props }) => <Heading size={{ base: "lg", md: "xl" }} mt={{ base: 6, md: 8 }} mb={4} {...props} color="white" />,
+                    h2: ({ ...props }) => <Heading size={{ base: "md", md: "lg" }} mt={{ base: 6, md: 8 }} mb={4} color="blue.400" {...props} />,
+                    h3: ({ ...props }) => <Heading size={{ base: "sm", md: "md" }} mt={{ base: 4, md: 6 }} mb={3} color="purple.400" {...props} />,
+                    p: ({ ...props }) => <Text fontSize={{ base: "md", md: "lg" }} lineHeight="1.8" mb={{ base: 4, md: 6 }} color="gray.200" {...props} />,
+                    ul: ({ ...props }) => <Box as="ul" pl={{ base: 4, md: 6 }} mb={{ base: 4, md: 6 }} {...props} />,
+                    li: ({ ...props }) => <Box as="li" mb={3} fontSize={{ base: "md", md: "lg" }} color="gray.200" {...props} />,
+                    strong: ({ ...props }) => <Text as="span" fontWeight="bold" color="white" {...props} />,
+                  }}
+                >
+                  {project.content[language]}
+                </ReactMarkdown>
+              </Suspense>
             </Box>
           </VStack>
         </Box>

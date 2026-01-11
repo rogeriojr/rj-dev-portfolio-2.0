@@ -9,12 +9,12 @@ import {
   Icon,
   Circle,
   Center,
-  Spinner,
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronLeft, FaChevronRight, FaRocket, FaSearchPlus } from 'react-icons/fa';
 import { css, keyframes } from '@emotion/react';
+import { PlanetSpinner } from './PlanetSpinner';
 
 interface StellarImageCarouselProps {
   images: string[];
@@ -294,7 +294,7 @@ export function StellarImageCarousel({ images, onImageClick }: StellarImageCarou
                 transform="translate(-50%, -50%)"
                 zIndex={2}
               >
-                <Spinner size="xl" color="cyan.400" thickness="4px" />
+                <PlanetSpinner size={80} />
               </Center>
             )}
           </AnimatePresence>

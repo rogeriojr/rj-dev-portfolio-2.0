@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { Box, Heading, Text, Badge, Flex, Button, Collapse, useColorModeValue, SimpleGrid, Icon, HStack, Tabs, TabList, Tab, Stack } from '@chakra-ui/react';
+import { PlanetSpinner } from '../PlanetSpinner';
 import { FaCode, FaChevronUp, FaLightbulb, FaCheckCircle, FaExclamationCircle, FaUserGraduate } from 'react-icons/fa';
 import { CodeViewer } from './CodeViewer';
 import { MermaidDiagram } from './MermaidDiagram';
@@ -200,7 +201,13 @@ export const DocSection: React.FC<DocSectionProps> = ({ item }) => {
           </Box>
 
           <Flex justify="center" align="center" minH={{ base: "200px", md: "250px" }} p={{ base: 4, md: 8 }} bg="blackAlpha.200" overflowX="auto">
-            {item.demo}
+            <Suspense fallback={
+              <Box display="flex" justifyContent="center" alignItems="center">
+                <PlanetSpinner size={100} />
+              </Box>
+            }>
+              {item.demo}
+            </Suspense>
           </Flex>
         </Box>
       )}

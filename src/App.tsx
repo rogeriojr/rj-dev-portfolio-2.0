@@ -5,24 +5,28 @@ import {
   UNSAFE_DataRouterContext,
   UNSAFE_DataRouterStateContext,
 } from "react-router";
+import { Suspense, lazy } from "react";
 import theme from "./theme";
-import {
-  Home,
-  About,
-  Login,
-  AdminRoute,
-  ProjectDetails,
-  PortfolioCategory,
-  Layout,
-  Admin,
-  Contact,
-  Certificates,
-} from "./components";
+import { AdminRoute, Layout, LoadingSpinner } from "./components";
 import { AuthProvider } from "./contexts/AuthContext";
 import { LanguageProvider } from "./i18n/LanguageContext";
-import CosmicLab from "./pages/CosmicLab";
 
-// Configure future flags for React Router v7
+const Home = lazy(() => import("./components/Home").then(module => ({ default: module.Home })));
+const About = lazy(() => import("./components/About").then(module => ({ default: module.About })));
+const Contact = lazy(() => import("./components/Contact").then(module => ({ default: module.Contact })));
+const Certificates = lazy(() => import("./components/Certificates").then(module => ({ default: module.Certificates })));
+const CosmicLab = lazy(() => import("./pages/CosmicLab"));
+const PortfolioCategory = lazy(() => import("./components/PortfolioCategory").then(module => ({ default: module.PortfolioCategory })));
+const ProjectDetails = lazy(() => import("./components/ProjectDetails").then(module => ({ default: module.ProjectDetails })));
+const Login = lazy(() => import("./components/Login").then(module => ({ default: module.Login })));
+const Admin = lazy(() => import("./components/Admin"));
+
+const LazyRoute = ({ children }: { children: React.ReactNode }) => (
+  <Suspense fallback={<LoadingSpinner />}>
+    {children}
+  </Suspense>
+);
+
 UNSAFE_DataRouterContext.displayName = "DataRouter";
 UNSAFE_DataRouterStateContext.displayName = "DataRouterState";
 
@@ -32,35 +36,98 @@ const router = createBrowserRouter(
       path: "/",
       element: <Layout />,
       children: [
-        { index: true, element: <Home /> },
-        { path: "about", element: <About /> },
-        { path: "contact", element: <Contact /> },
-        { path: "certificates", element: <Certificates /> },
-        { path: "lab", element: <CosmicLab /> },
+        {
+          index: true,
+          element: (
+            <LazyRoute>
+              <Home />
+            </LazyRoute>
+          ),
+        },
+        {
+          path: "about",
+          element: (
+            <LazyRoute>
+              <About />
+            </LazyRoute>
+          ),
+        },
+        {
+          path: "contact",
+          element: (
+            <LazyRoute>
+              <Contact />
+            </LazyRoute>
+          ),
+        },
+        {
+          path: "certificates",
+          element: (
+            <LazyRoute>
+              <Certificates />
+            </LazyRoute>
+          ),
+        },
+        {
+          path: "lab",
+          element: (
+            <LazyRoute>
+              <CosmicLab />
+            </LazyRoute>
+          ),
+        },
         {
           path: "portfolio",
           children: [
             {
               path: "development",
-              element: <PortfolioCategory category="development" />,
+              element: (
+                <LazyRoute>
+                  <PortfolioCategory category="development" />
+                </LazyRoute>
+              ),
             },
             {
               path: "design",
-              element: <PortfolioCategory category="design" />,
+              element: (
+                <LazyRoute>
+                  <PortfolioCategory category="design" />
+                </LazyRoute>
+              ),
             },
             {
               path: "social-media",
-              element: <PortfolioCategory category="social-media" />,
+              element: (
+                <LazyRoute>
+                  <PortfolioCategory category="social-media" />
+                </LazyRoute>
+              ),
             },
-            { path: ":category/:id", element: <ProjectDetails /> },
+            {
+              path: ":category/:id",
+              element: (
+                <LazyRoute>
+                  <ProjectDetails />
+                </LazyRoute>
+              ),
+            },
           ],
         },
-        { path: "login", element: <Login /> },
+        {
+          path: "login",
+          element: (
+            <LazyRoute>
+              <Login />
+            </LazyRoute>
+          ),
+        },
         {
           path: "admin",
           element: (
             <AdminRoute>
-              <Admin />
+              <LazyRoute>
+                <Admin />
+              </LazyRoute>
             </AdminRoute>
           ),
         },

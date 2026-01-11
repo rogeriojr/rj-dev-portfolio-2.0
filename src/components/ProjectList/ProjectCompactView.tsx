@@ -1,7 +1,9 @@
-import { Box, Image, Text, Heading, Badge, useColorModeValue, VStack, HStack, Icon } from "@chakra-ui/react";
+import { Box, Text, Heading, Badge, useColorModeValue, VStack, HStack, Icon } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { Project } from "../../types";
 import { FaStar } from "react-icons/fa";
+import { LazyImage } from "../LazyImage";
+import { memo } from "react";
 
 const MotionBox = motion(Box);
 
@@ -11,7 +13,9 @@ interface ProjectCompactViewProps {
   language: string;
 }
 
-export function ProjectCompactView({ project, onViewDetails, language }: ProjectCompactViewProps) {
+const ProjectCompactViewComponent = ({ project, onViewDetails, language }: ProjectCompactViewProps) => {
+  const projectsWithDarkBg = ['portaltempoderquemage', 'neoidea', 'calculadora', 'bevaswm'];
+  const needsDarkBg = projectsWithDarkBg.some(id => project.id.toLowerCase().includes(id.toLowerCase()));
   const bg = useColorModeValue('white', 'gray.800');
   const borderColor = useColorModeValue('gray.200', 'gray.700');
   const hoverBg = useColorModeValue('blue.50', 'gray.700');
@@ -61,7 +65,7 @@ export function ProjectCompactView({ project, onViewDetails, language }: Project
         h="140px"
         minH="140px"
         maxH="140px"
-        bg={useColorModeValue('white', 'gray.800')}
+        bg={needsDarkBg ? 'gray.900' : useColorModeValue('white', 'gray.800')}
         display="flex"
         alignItems="center"
         justifyContent="center"
@@ -79,15 +83,12 @@ export function ProjectCompactView({ project, onViewDetails, language }: Project
           justifyContent="center"
           p={3}
         >
-          <Image
+          <LazyImage
             src={project.images?.[0] || '/assets/projects/placeholder.png'}
             alt={project.title[language as 'pt' | 'en']}
-            maxW="calc(100% - 24px)"
-            maxH="calc(100% - 24px)"
-            w="auto"
-            h="auto"
+            width="calc(100% - 24px)"
+            height="calc(100% - 24px)"
             objectFit="contain"
-            bg="transparent"
           />
         </Box>
         {project.featured && (
@@ -171,4 +172,6 @@ export function ProjectCompactView({ project, onViewDetails, language }: Project
       </VStack>
     </MotionBox>
   );
-}
+};
+
+export const ProjectCompactView = memo(ProjectCompactViewComponent);

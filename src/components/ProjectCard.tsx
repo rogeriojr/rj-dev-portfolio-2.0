@@ -2,7 +2,6 @@ import {
   Box,
   Heading,
   Text,
-  Image,
   VStack,
   HStack,
   Link,
@@ -16,6 +15,8 @@ import { FaGithub, FaLink, FaInfoCircle, FaGlobeAmericas } from "react-icons/fa"
 import { Project } from "../types";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "../i18n/useTranslation";
+import { LazyImage } from "./LazyImage";
+import { memo } from "react";
 
 interface ProjectCardProps {
   project: Project;
@@ -24,10 +25,10 @@ interface ProjectCardProps {
 
 const MotionBox = motion(Box);
 
-export default function ProjectCard({
+const ProjectCardComponent = ({
   project,
   onViewDetails,
-}: ProjectCardProps) {
+}: ProjectCardProps) => {
   const bgColor = useColorModeValue(
     "rgba(255, 255, 255, 0.9)",
     "rgba(26, 32, 44, 0.9)"
@@ -36,7 +37,11 @@ export default function ProjectCard({
     "rgba(226, 232, 240, 0.6)",
     "rgba(45, 55, 72, 0.6)"
   );
-  const imageBgColor = useColorModeValue("gray.100", "gray.800"); // Darker for space theme
+  const projectsWithDarkBg = ['portaltempoderquemage', 'neoidea', 'calculadora', 'bevaswm'];
+  const needsDarkBg = projectsWithDarkBg.some(id => project.id.toLowerCase().includes(id.toLowerCase()));
+  const imageBgColor = needsDarkBg 
+    ? "gray.900" 
+    : useColorModeValue("gray.100", "gray.800");
   const glowColor = useColorModeValue(
     "rgba(66, 153, 225, 0.3)",
     "rgba(99, 179, 237, 0.3)"
@@ -102,7 +107,7 @@ export default function ProjectCard({
       >
         <Box
           position="relative"
-          bg={useColorModeValue("white", "gray.100")}
+          bg={needsDarkBg ? "gray.900" : useColorModeValue("white", "gray.100")}
           overflow="hidden"
           flexShrink={0}
           h="180px"
@@ -156,27 +161,25 @@ export default function ProjectCard({
               justifyContent="center"
               p={4}
             >
-              <Image
-                src={project.images[0]}
-                alt={project.title[language]}
-                objectFit="contain"
-                maxH="calc(100% - 32px)"
+              <Box
+                w="calc(100% - 32px)"
+                h="calc(100% - 32px)"
                 maxW="calc(100% - 32px)"
-                w="auto"
-                h="auto"
-                bg="transparent"
+                maxH="calc(100% - 32px)"
                 transition="transform 0.3s ease"
                 _hover={{
                   transform: "scale(1.05)",
                 }}
-                onError={(e) => {
-                  console.error(`Failed to load image: ${project.images[0]}`);
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                }}
-                fallbackSrc={project.id.includes('neo') || project.title[language].toLowerCase().includes('neo') ? "/assets/projects/neoidea_logo.png" : undefined}
-                loading="lazy"
-              />
+              >
+                <LazyImage
+                  src={project.images[0]}
+                  alt={project.title[language]}
+                  width="100%"
+                  height="100%"
+                  objectFit="contain"
+                  fallbackSrc={project.id.includes('neo') || project.title[language].toLowerCase().includes('neo') ? "/assets/projects/neoidea_logo.png" : undefined}
+                />
+              </Box>
             </Box>
           ) : (
             <Flex
@@ -328,4 +331,8 @@ export default function ProjectCard({
       </MotionBox>
     </AnimatePresence >
   );
-}
+};
+
+const ProjectCard = memo(ProjectCardComponent);
+
+export default ProjectCard;
