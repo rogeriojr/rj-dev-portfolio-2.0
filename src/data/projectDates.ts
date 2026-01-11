@@ -32,7 +32,6 @@ export const PROJECT_DATES: Record<string, string> = {
   "projeto-nlw-node-fastify": "2024-04-07",
   "projeto-nlw-rocketseat": "2024-02-10",
   "react-checkout-context": "2023-11-11",
-  "rj-dev-portifolio": "2024-04-08",
   "simerpay": "2022-06-15",
   "teste-desenvolvedor-jr-pl-1": "2025-01-07",
   "teste-frontend-target": "2025-03-11",

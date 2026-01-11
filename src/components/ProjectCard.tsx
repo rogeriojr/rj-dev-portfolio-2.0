@@ -38,9 +38,13 @@ const ProjectCardComponent = ({
     "rgba(45, 55, 72, 0.6)"
   );
   const projectsWithDarkBg = ['portaltempoderquemage', 'neoidea', 'calculadora', 'bevaswm'];
+  const projectsWithWhiteBg = ['metaway'];
   const needsDarkBg = projectsWithDarkBg.some(id => project.id.toLowerCase().includes(id.toLowerCase()));
+  const needsWhiteBg = projectsWithWhiteBg.some(id => project.id.toLowerCase().includes(id.toLowerCase()));
   const imageBgColor = needsDarkBg 
     ? "gray.900" 
+    : needsWhiteBg
+    ? "white"
     : useColorModeValue("gray.100", "gray.800");
   const glowColor = useColorModeValue(
     "rgba(66, 153, 225, 0.3)",
@@ -107,7 +111,7 @@ const ProjectCardComponent = ({
       >
         <Box
           position="relative"
-          bg={needsDarkBg ? "gray.900" : useColorModeValue("white", "gray.100")}
+          bg={needsDarkBg ? "gray.900" : needsWhiteBg ? "white" : useColorModeValue("white", "gray.100")}
           overflow="hidden"
           flexShrink={0}
           h={{ base: "140px", md: "160px", lg: "180px" }}
@@ -160,12 +164,16 @@ const ProjectCardComponent = ({
               alignItems="center"
               justifyContent="center"
               p={4}
+              position="relative"
             >
               <Box
-                w="calc(100% - 32px)"
-                h="calc(100% - 32px)"
-                maxW="calc(100% - 32px)"
-                maxH="calc(100% - 32px)"
+                w="100%"
+                h="100%"
+                maxW="100%"
+                maxH="100%"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
                 transition="transform 0.3s ease"
                 _hover={{
                   transform: "scale(1.05)",

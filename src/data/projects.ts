@@ -1423,7 +1423,7 @@ The system was developed following Next.js and modern React best practices:
     },
     category: "development",
     images: [
-      "/assets/projects/nlw_rocketseat.png"
+      "/assets/projects/nlw-unite.jpg"
     ],
     tags: ["Node.js", "Fastify", "TypeScript", "REST API", "Backend", "Microservices"],
     content: {
@@ -2028,7 +2028,7 @@ The component was developed with focus on performance and user experience:
     category: "development",
     featured: true,
     images: [
-      "/assets/projects/neo-test-frontend-logo.svg"
+      "/assets/projects/neoidea_logo_2024.png"
     ],
     tags: ["React", "TypeScript", "Microfrontends", "CRUD", "State Management", "SOLID"],
     links: [
@@ -2143,7 +2143,7 @@ The project demonstrates proficiency in microfrontends architecture, a modern ap
     },
     category: "development",
     images: [
-      "/assets/projects/app-plug-smart-logo.svg"
+      "/assets/projects/plug-smart-logo.jpg"
     ],
     tags: ["React Native", "Tuya IoT", "Mobile", "Smart Home", "TypeScript"],
     links: [
@@ -2262,7 +2262,7 @@ The application was developed following mobile development best practices:
     },
     category: "development",
     images: [
-      "/assets/projects/web-plug-smart-logo.svg"
+      "/assets/projects/plug-smart-logo.jpg"
     ],
     tags: ["React", "TypeScript", "Vite", "Dashboard", "Tuya IoT", "IoT Management"],
     links: [
@@ -2383,7 +2383,7 @@ The dashboard was developed with focus on performance, scalability and user expe
     },
     category: "development",
     images: [
-      "/assets/projects/api-smart-plug-logo.svg"
+      "/assets/projects/plug-smart-logo.jpg"
     ],
     tags: ["Node.js", "TypeScript", "API", "Tuya IoT", "Backend", "REST API"],
     links: [
@@ -2508,7 +2508,7 @@ The API was developed following clean architecture principles and scalability:
     },
     category: "development",
     images: [
-      "/assets/projects/vue-metaway-logo.svg"
+      "/assets/projects/logo-metaway.png"
     ],
     tags: ["Vue 3", "TypeScript", "Pinia", "Vue Router", "Cypress", "E2E Testing"],
     links: [
@@ -2629,7 +2629,7 @@ The project demonstrates expertise in modern Vue 3 development:
     },
     category: "development",
     images: [
-      "/assets/projects/nlw_rocketseat.png"
+      "/assets/projects/nlw-unite.jpg"
     ],
     tags: ["Node.js", "Fastify", "NLW", "Rocketseat", "Backend"],
     links: [
@@ -2752,7 +2752,7 @@ The project was developed focusing on performance, scalability and best practice
     },
     category: "development",
     images: [
-      "/assets/projects/teste-target-logo.svg"
+      "/assets/projects/target-logo.jpg"
     ],
     tags: ["React", "JavaScript", "Algorithms", "Technical Test", "Data Structures"],
     links: [
@@ -2861,82 +2861,6 @@ The repository presents solutions for various technical challenges with focus on
   }
   ,
   {
-    id: "rj-dev-portifolio",
-    title: {
-      pt: "Rj Dev Portifolio",
-      en: "Rj Dev Portifolio"
-    },
-    description: {
-      pt: "Repositório dedicado ao meu Portifólio pessoal de trabalhos, para integrar versionamento e workflows de delploy",
-      en: "Repositório dedicado ao meu Portifólio pessoal de trabalhos, para integrar versionamento e workflows de delploy"
-    },
-    category: "development",
-
-    images: ["/assets/projects/rj-dev-portifolio-logo.svg"],
-    tags: ["HTML", "TypeScript", "JavaScript"],
-    links: [{ "texto": "GitHub", "url": "https://github.com/rogeriojr/rj-dev-portifolio" }],
-    content: {
-      pt: `
-### 🚀 Rj Dev Portifolio
-
-Repositório dedicado ao meu Portifólio pessoal de trabalhos, para integrar versionamento e workflows de delploy
-
----
-
-#### 🏗️ Sobre o Projeto
-
-Bem-vindo ao meu repositório dedicado ao meu Portfólio pessoal de trabalhos. Este espaço foi criado para integrar versionamento e workflows de deploy, permitindo-me compartilhar e documentar meus projetos de desenvolvimento.
-Este portfólio é uma plataforma simples desenvolvida em HTML, CSS e JavaScript até o momento. Ele serve como um showcase dos meus trabalhos e habilidades, destacando projetos relevantes e experiências de desenvolvimento.
-- **Tecnologias Utilizadas:** HTML, CSS, JavaScript
-- **Funcionalidades:** Apresentação de projetos, informações de contato e detalhes sobre mim
-- **Futuras Atualizações:** Estou constantemente trabalhando para melhorar e expandir este portfólio, adicionando novos projetos e funcionalidades.
-Para acessar o meu portfólio online, clique no link abaixo:
-L...
-
-#### 🛠️ Tecnologias Utilizadas
-
-- **HTML**
-- **TypeScript**
-- **JavaScript**
-
-#### 🔗 Links
-
-- [GitHub](https://github.com/rogeriojr/rj-dev-portifolio)
-
-      `,
-      en: `
-### 🚀 Rj Dev Portifolio
-
-Repositório dedicado ao meu Portifólio pessoal de trabalhos, para integrar versionamento e workflows de delploy
-
----
-
-#### 🏗️ About the Project
-
-Bem-vindo ao meu repositório dedicado ao meu Portfólio pessoal de trabalhos. Este espaço foi criado para integrar versionamento e workflows de deploy, permitindo-me compartilhar e documentar meus projetos de desenvolvimento.
-Este portfólio é uma plataforma simples desenvolvida em HTML, CSS e JavaScript até o momento. Ele serve como um showcase dos meus trabalhos e habilidades, destacando projetos relevantes e experiências de desenvolvimento.
-- **Tecnologias Utilizadas:** HTML, CSS, JavaScript
-- **Funcionalidades:** Apresentação de projetos, informações de contato e detalhes sobre mim
-- **Futuras Atualizações:** Estou constantemente trabalhando para melhorar e expandir este portfólio, adicionando novos projetos e funcionalidades.
-Para acessar o meu portfólio online, clique no link abaixo:
-L...
-
-#### 🛠️ Technologies Used
-
-- **HTML**
-- **TypeScript**
-- **JavaScript**
-
-#### 🔗 Links
-
-- [GitHub](https://github.com/rogeriojr/rj-dev-portifolio)
-
-      `
-    },
-    createdAt: new Date("2024-04-08"),
-    updatedAt: new Date("2025-03-06")
-  },
-  {
     id: "video-youtube-downloader",
     title: {
       pt: "Video Youtube Downloader",
@@ -2948,7 +2872,7 @@ L...
     },
     category: "development",
 
-    images: ["/assets/projects/video-youtube-downloader-logo.svg"],
+    images: ["/assets/projects/yt-download.png"],
     tags: ["Node.js", "JavaScript", "yt-dlp", "FFmpeg", "Video Processing"],
     links: [{ "texto": "GitHub", "url": "https://github.com/rogeriojr/video-youtube-downloader" }],
     content: {
@@ -3040,7 +2964,7 @@ This project demonstrates integration of external tools (yt-dlp and FFmpeg) with
     },
     category: "development",
 
-    images: ["/assets/projects/pass-qrcode-nodejs-logo.svg"],
+    images: ["/assets/projects/qr-code-pass.png"],
     tags: ["Node.js", "Fastify", "TypeScript", "QR Code", "Event Management", "EJS"],
     links: [{ "texto": "GitHub", "url": "https://github.com/rogeriojr/pass-qrcode-nodejs" }],
     content: {
@@ -3138,7 +3062,7 @@ Pass.in is a robust application for managing in-person events, allowing organize
     },
     category: "development",
 
-    images: ["/assets/projects/polo-agreste-admin-logo.svg"],
+    images: ["/assets/projects/polo-agreste-logo.png"],
     tags: ["JavaScript"],
     links: [{ "texto": "GitHub", "url": "https://github.com/rogeriojr/polo-agreste-admin" }],
     content: {
@@ -3198,7 +3122,7 @@ Project developed to demonstrate technical skills and development best practices
     },
     category: "development",
 
-    images: ["/assets/projects/core-frontend-logo.svg"],
+    images: ["/assets/projects/core-frontend-logo.png"],
     tags: ["Next.js", "SSR", "SSG", "TypeScript", "Frontend"],
     links: [{ "texto": "GitHub", "url": "https://github.com/rogeriojr/core-frontend" }],
     content: {
@@ -3230,7 +3154,7 @@ Projeto desenvolvido com Next.js e TypeScript para demonstração de habilidades
 - [GitHub](https://github.com/rogeriojr/core-frontend)
 
       `,
-  en: `
+      en: `
 ### 🚀 Core Frontend
 
 Next.js project developed to demonstrate technical skills and development best practices.
@@ -3274,7 +3198,7 @@ Project developed with Next.js and TypeScript to demonstrate technical skills. M
       en: "Next.js project developed for partner management and business integrations."
     },
     category: "development",
-    images: ["/assets/projects/partners-logo.svg"],
+    images: ["/assets/projects/pattern-logo.webp"],
     tags: ["Next.js", "Business Management", "CRUD", "TypeScript", "API Integration"],
     links: [{ texto: "GitHub", url: "https://github.com/rogeriojr/partners" }],
     content: {
@@ -3350,7 +3274,7 @@ Web application developed with Next.js and TypeScript for partner management and
       en: "Node.js API with TypeScript and Express that integrates Python service with LangChain for text summarization and translation."
     },
     category: "development",
-    images: ["/assets/projects/teste-desenvolvedor-jr-pl-1-logo.svg"],
+    images: ["/assets/projects/dynadok.webp"],
     tags: ["AI", "LangChain", "NLP", "Node.js", "Python", "API", "TypeScript", "Express"],
     links: [{ texto: "GitHub", url: "https://github.com/rogeriojr/teste_desenvolvedor_jr_pl-1" }],
     content: {
@@ -3446,7 +3370,7 @@ This project demonstrates integration between Node.js and Python to create a com
       en: "Micro front-ends application with Next.js and TypeScript, integrating microservices for partners and external companies with complete CRUD."
     },
     category: "development",
-    images: ["/assets/projects/micro-frontends-teddy-test-project-logo.svg"],
+    images: ["/assets/projects/teddy.webp"],
     tags: ["Micro Frontends", "Next.js", "Architecture", "CRUD", "Authentication", "TypeScript"],
     links: [{ texto: "GitHub", url: "https://github.com/rogeriojr/micro-frontends-teddy-test-project" }],
     content: {
@@ -3530,7 +3454,7 @@ Este projeto é uma aplicação de micro front-ends utilizando **Next.js** com *
       en: "Study repository to improve React Native skills, developed during Rocketseat's NLW Unite."
     },
     category: "development",
-    images: ["/assets/projects/nlw-unite-react-native-learning-logo.svg"],
+    images: ["/assets/projects/nlw-unite.jpg"],
     tags: ["React Native", "Mobile Development", "Expo", "Learning", "TypeScript"],
     links: [{ texto: "GitHub", url: "https://github.com/rogeriojr/nlw-unite-react-native-learning" }],
     content: {
@@ -3614,7 +3538,7 @@ Study repository developed during Rocketseat's NLW Unite to improve React Native
       en: "Study repository to improve React skills, developed during Rocketseat's NLW Unite."
     },
     category: "development",
-    images: ["/assets/projects/nlw-unite-react-learning-logo.svg"],
+    images: ["/assets/projects/nlw-unite.jpg"],
     tags: ["React", "Learning", "Frontend", "TypeScript"],
     links: [{ texto: "GitHub", url: "https://github.com/rogeriojr/nlw-unite-react-learning" }],
     content: {
@@ -3690,7 +3614,7 @@ Project developed with React for learning and practicing fundamental concepts. M
       en: "Reusable authentication component developed in React with form validation and state management."
     },
     category: "development",
-    images: ["/assets/projects/modelo-login-logo.svg"],
+    images: ["/assets/projects/login-logo.webp"],
     tags: ["React", "Authentication", "Component", "Form Validation", "TypeScript"],
     links: [{ texto: "GitHub", url: "https://github.com/rogeriojr/modelo-login" }],
     content: {
@@ -3782,7 +3706,7 @@ If you aren’t sati...
       en: "Web application developed with Node.js and Express using EJS as view engine for creating an interactive questions guide."
     },
     category: "development",
-    images: ["/assets/projects/guia-de-perguntas-express-ejs-logo.svg"],
+    images: ["/assets/projects/express-logo.png"],
     tags: ["Backend", "Express", "EJS", "Node.js", "Server-Side Rendering"],
     links: [{ texto: "GitHub", url: "https://github.com/rogeriojr/guia-de-perguntas-express-ejs" }],
     content: {
@@ -3868,7 +3792,7 @@ O projeto segue a seguinte estrutura:
       en: "Repository with tests and practical examples of backend development with Node.js and Express."
     },
     category: "development",
-    images: ["/assets/projects/express-test-logo.svg"],
+    images: ["/assets/projects/express-logo.png"],
     tags: ["Backend", "Express", "Node.js", "API", "Learning"],
     links: [{ texto: "GitHub", url: "https://github.com/rogeriojr/express-test" }],
     content: {
@@ -3958,7 +3882,7 @@ O projeto segue a seguinte estrutura:
       en: "Shopping cart developed in React using Hooks and Context API for global state management."
     },
     category: "development",
-    images: ["/assets/projects/react-checkout-context-logo.svg"],
+    images: ["/assets/projects/checkout-react-logo.png"],
     tags: ["React", "E-commerce", "Context API", "State Management", "Shopping Cart"],
     links: [{ texto: "GitHub", url: "https://github.com/rogeriojr/react-checkout-context" }],
     content: {
@@ -4028,7 +3952,7 @@ O projeto é dividido em três partes principais:
       en: "Functional calculator developed in React with basic mathematical operations and modern interface."
     },
     category: "development",
-    images: ["/assets/projects/calculadora-logo.svg"],
+    images: ["/assets/projects/logo-calculadora.png"],
     tags: ["React", "Utility", "Calculator", "TypeScript", "Frontend"],
     links: [{ texto: "GitHub", url: "https://github.com/rogeriojr/calculadora" }],
     content: {
@@ -4120,7 +4044,7 @@ If you aren’t sati...
       en: "Integrator Project of the 3rd Module developed during technical course, focused on web development with HTML, CSS and JavaScript."
     },
     category: "development",
-    images: ["/assets/projects/cipa-senac-logo.svg"],
+    images: ["/assets/projects/cipa-senac-logo.jpg"],
     tags: ["HTML", "CSS", "JavaScript", "Academic Project", "Web Development"],
     links: [{ texto: "GitHub", url: "https://github.com/rogeriojr/CIPA---Senac" }],
     content: {

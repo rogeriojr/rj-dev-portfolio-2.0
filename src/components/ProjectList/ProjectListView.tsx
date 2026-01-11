@@ -15,7 +15,9 @@ interface ProjectListViewProps {
 
 const ProjectListViewComponent = ({ project, onViewDetails, language }: ProjectListViewProps) => {
   const projectsWithDarkBg = ['portaltempoderquemage', 'neoidea', 'calculadora', 'bevaswm'];
+  const projectsWithWhiteBg = ['metaway'];
   const needsDarkBg = projectsWithDarkBg.some(id => project.id.toLowerCase().includes(id.toLowerCase()));
+  const needsWhiteBg = projectsWithWhiteBg.some(id => project.id.toLowerCase().includes(id.toLowerCase()));
   const bg = useColorModeValue('white', 'gray.800');
   const borderColor = useColorModeValue('gray.200', 'gray.700');
   const hoverBg = useColorModeValue('gray.50', 'gray.700');
@@ -66,7 +68,7 @@ const ProjectListViewComponent = ({ project, onViewDetails, language }: ProjectL
           borderRadius="lg"
           overflow="hidden"
           flexShrink={0}
-          bg={needsDarkBg ? 'gray.900' : useColorModeValue('white', 'gray.800')}
+          bg={needsDarkBg ? 'gray.900' : needsWhiteBg ? 'white' : useColorModeValue('white', 'gray.800')}
           display="flex"
           alignItems="center"
           justifyContent="center"
@@ -116,14 +118,23 @@ const ProjectListViewComponent = ({ project, onViewDetails, language }: ProjectL
             alignItems="center"
             justifyContent="center"
             p={4}
+            position="relative"
           >
-            <LazyImage
-              src={project.images?.[0] || '/assets/projects/placeholder.png'}
-              alt={project.title[language as 'pt' | 'en']}
-              width="calc(100% - 32px)"
-              height="calc(100% - 32px)"
-              objectFit="contain"
-            />
+            <Box
+              w="100%"
+              h="100%"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <LazyImage
+                src={project.images?.[0] || '/assets/projects/placeholder.png'}
+                alt={project.title[language as 'pt' | 'en']}
+                width="100%"
+                height="100%"
+                objectFit="contain"
+              />
+            </Box>
           </Box>
         </Box>
         

@@ -47,7 +47,15 @@ export function LazyImage({
   };
 
   return (
-    <Box ref={imageRef} width={width} height={height} position="relative">
+    <Box 
+      ref={imageRef} 
+      width={width} 
+      height={height} 
+      position="relative"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+    >
       {!isLoaded && !hasError && (
         <Skeleton
           width={width}
@@ -70,6 +78,8 @@ export function LazyImage({
           onError={handleError}
           opacity={isLoaded ? 1 : 0}
           transition="opacity 0.3s ease-in-out"
+          display="block"
+          margin="auto"
         />
       )}
     </Box>
