@@ -114,21 +114,52 @@ export function Layout() {
   `;
 
   // Define NavLinks component
-  const NavLinks = () => (
+  const NavLinks = ({ onLinkClick }: { onLinkClick?: () => void }) => (
     <>
-      <ChakraLink as={RouterLink} to="/" _hover={{ color: hoverColor, textShadow: "0 0 8px rgba(255,215,0,0.6)" }} transition="all 0.3s ease">
+      <ChakraLink 
+        as={RouterLink} 
+        to="/" 
+        onClick={onLinkClick}
+        _hover={{ color: hoverColor, textShadow: "0 0 8px rgba(255,215,0,0.6)" }} 
+        transition="all 0.3s ease"
+      >
         {t('nav.home')}
       </ChakraLink>
-      <ChakraLink as={RouterLink} to="/about" _hover={{ color: hoverColor, textShadow: "0 0 8px rgba(255,215,0,0.6)" }} transition="all 0.3s ease">
+      <ChakraLink 
+        as={RouterLink} 
+        to="/about" 
+        onClick={onLinkClick}
+        _hover={{ color: hoverColor, textShadow: "0 0 8px rgba(255,215,0,0.6)" }} 
+        transition="all 0.3s ease"
+      >
         {t('nav.about')}
       </ChakraLink>
-      <ChakraLink as={RouterLink} to="/portfolio/development" _hover={{ color: hoverColor, textShadow: "0 0 8px rgba(255,215,0,0.6)" }} transition="all 0.3s ease">
+      <ChakraLink 
+        as={RouterLink} 
+        to="/portfolio/development" 
+        onClick={onLinkClick}
+        _hover={{ color: hoverColor, textShadow: "0 0 8px rgba(255,215,0,0.6)" }} 
+        transition="all 0.3s ease"
+      >
         {t('nav.portfolio')}
       </ChakraLink>
-      <ChakraLink as={RouterLink} to="/certificates" _hover={{ color: hoverColor, textShadow: "0 0 8px rgba(255,215,0,0.6)" }} transition="all 0.3s ease">
+      <ChakraLink 
+        as={RouterLink} 
+        to="/certificates" 
+        onClick={onLinkClick}
+        _hover={{ color: hoverColor, textShadow: "0 0 8px rgba(255,215,0,0.6)" }} 
+        transition="all 0.3s ease"
+      >
         {t('nav.certificates')}
       </ChakraLink>
-      <ChakraLink as={RouterLink} to="/lab" _hover={{ color: "cyan.400", textShadow: "0 0 8px rgba(0,255,255,0.6)" }} transition="all 0.3s ease" color="cyan.500">
+      <ChakraLink 
+        as={RouterLink} 
+        to="/lab" 
+        onClick={onLinkClick}
+        _hover={{ color: "cyan.400", textShadow: "0 0 8px rgba(0,255,255,0.6)" }} 
+        transition="all 0.3s ease" 
+        color="cyan.500"
+      >
         Cosmic Lab 🚀
       </ChakraLink>
     </>
@@ -150,13 +181,17 @@ export function Layout() {
       w="100%"
       transition="all 0.3s ease-in-out"
       css={css`
+        box-sizing: border-box;
+        width: 100%;
+        overflow-x: hidden;
         &:before {
           content: "";
-          position: fixed; // Fixed position for background to avoid it scrolling away or causing issues
+          position: fixed;
           top: 0;
           left: 0;
           right: 0;
           bottom: 0;
+          width: 100%;
           background: ${colorMode === "dark"
           ? "radial-gradient(circle at 50% 50%, rgba(76, 29, 149, 0.1) 0%, transparent 60%)"
           : "radial-gradient(circle at 50% 50%, rgba(43,79,129,0.1) 0%, transparent 60%)"};
@@ -176,7 +211,8 @@ export function Layout() {
         bg={navBgColor}
         color={textColor}
         py={{ base: 3, md: 4 }}
-        px={{ base: 2, md: 0 }}
+        px={0}
+        w="100%"
         boxShadow={
           colorMode === "dark"
             ? "0 4px 20px rgba(0,0,0,0.4)"
@@ -185,8 +221,12 @@ export function Layout() {
         backdropFilter="blur(12px)"
         transition="all 0.3s ease-in-out"
         borderBottom={isMenuFixed ? "1px solid rgba(255,255,255,0.05)" : "none"}
+        css={{
+          willChange: 'transform',
+          boxSizing: 'border-box',
+        }}
       >
-        <Container maxW="container.xl" px={{ base: 2, md: 4 }}>
+        <Container maxW="container.xl" px={{ base: 2, md: 4 }} w="100%">
           <Flex justify="space-between" align="center" gap={{ base: 2, md: 4 }}>
             <Flex align="center" gap={{ base: 2, md: 4 }} id="app-navigation-container" flex={1}>
               {!isMobile && (
@@ -239,7 +279,7 @@ export function Layout() {
                   </DrawerHeader>
                   <DrawerBody px={4}>
                     <VStack spacing={4} align="stretch">
-                      <NavLinks />
+                      <NavLinks onLinkClick={onClose} />
                       <Divider borderColor={colorMode === "dark" ? "whiteAlpha.200" : "blackAlpha.200"} />
                       <Button
                         leftIcon={<Icon as={FaRocket} />}
@@ -314,7 +354,7 @@ export function Layout() {
         flex={1}
         position="relative"
         zIndex={1}
-        pt={isMenuFixed ? { base: "70px", md: "80px" } : "0"}
+        pt={isMenuFixed ? { base: "70px", md: "80px" } : { base: "0", md: "0" }}
         transition="padding-top 0.3s ease-in-out"
         overflowX="hidden"
         w="100%"
@@ -328,6 +368,8 @@ export function Layout() {
         color={textColor}
         py={6}
         mt="auto"
+        w="100%"
+        px={0}
         boxShadow={
           colorMode === "dark"
             ? "0 -4px 20px rgba(0,0,0,0.3)"
@@ -336,8 +378,11 @@ export function Layout() {
         backdropFilter="blur(8px)"
         transition="all 0.3s ease-in-out"
         borderTop="1px solid rgba(255,255,255,0.05)"
+        css={{
+          boxSizing: 'border-box',
+        }}
       >
-        <Container maxW="container.xl">
+        <Container maxW="container.xl" w="100%" mx="auto" css={{ maxWidth: '100%', boxSizing: 'border-box' }}>
           <VStack spacing={2}>
             <Text textAlign="center" fontSize="sm">
               &copy; {new Date().getFullYear()} Rogério Júnior. {t('footer.rights')}.

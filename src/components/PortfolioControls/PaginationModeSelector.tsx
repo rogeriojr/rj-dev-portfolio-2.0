@@ -52,8 +52,13 @@ export function PaginationModeSelector({ mode, onChange }: PaginationModeSelecto
                   bg: isActive ? 'purple.600' : useColorModeValue('gray.200', 'whiteAlpha.200'),
                   transform: 'translateY(-2px)',
                 }}
+                _active={{
+                  transform: 'scale(0.9)',
+                }}
                 transition="all 0.2s"
-                size={{ base: "sm", md: "md" }}
+                size={{ base: "md", md: "md" }}
+                minW={{ base: "44px", md: "auto" }}
+                minH={{ base: "44px", md: "auto" }}
                 borderRadius="lg"
               />
             </MotionBox>

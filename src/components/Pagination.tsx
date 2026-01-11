@@ -86,13 +86,14 @@ export function Pagination({
               {language === 'pt' ? 'Missões/Setor:' : 'Items/Page:'}
             </Text>
             <Select
-              size={{ base: "xs", md: "sm" }}
+              size={{ base: "sm", md: "sm" }}
               width={{ base: "60px", md: "70px" }}
               value={itemsPerPage}
               onChange={(e) => onItemsPerPageChange(Number(e.target.value))}
               borderRadius="md"
               variant="filled"
               bg={inactiveBg}
+              minH={{ base: "44px", md: "auto" }}
               fontSize={{ base: "xs", md: "sm" }}
               _focus={{ borderColor: 'cyan.400' }}
             >
@@ -114,12 +115,15 @@ export function Pagination({
             <IconButton
               aria-label={language === 'pt' ? "Página anterior" : "Previous page"}
               icon={<FaChevronLeft />}
-              size={{ base: "xs", md: "sm" }}
+              size={{ base: "md", md: "sm" }}
+              minW={{ base: "44px", md: "auto" }}
+              minH={{ base: "44px", md: "auto" }}
               onClick={() => onPageChange(currentPage - 1)}
               isDisabled={currentPage === 1}
               variant="ghost"
               rounded="full"
               _hover={{ bg: hoverBg, transform: 'translateX(-2px)' }}
+              _active={{ transform: 'scale(0.9)' }}
             />
           </Tooltip>
 
@@ -129,7 +133,7 @@ export function Pagination({
                 <Text px={{ base: 1, md: 2 }} color="gray.500" fontSize={{ base: "xs", md: "sm" }}>...</Text>
               ) : (
                 <MotionButton
-                  size={{ base: "xs", md: "sm" }}
+                  size={{ base: "sm", md: "sm" }}
                   variant={page === currentPage ? 'solid' : 'ghost'}
                   bg={page === currentPage ? activeBg : 'transparent'}
                   color={page === currentPage ? activeColor : 'inherit'}
@@ -137,8 +141,8 @@ export function Pagination({
                   rounded="full"
                   fontWeight="bold"
                   fontSize={{ base: "xs", md: "sm" }}
-                  minW={{ base: "28px", md: "32px" }}
-                  h={{ base: "28px", md: "32px" }}
+                  minW={{ base: "44px", md: "32px" }}
+                  minH={{ base: "44px", md: "32px" }}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   _hover={{
@@ -156,12 +160,15 @@ export function Pagination({
             <IconButton
               aria-label={language === 'pt' ? "Próxima página" : "Next page"}
               icon={<FaChevronRight />}
-              size={{ base: "xs", md: "sm" }}
+              size={{ base: "md", md: "sm" }}
+              minW={{ base: "44px", md: "auto" }}
+              minH={{ base: "44px", md: "auto" }}
               onClick={() => onPageChange(currentPage + 1)}
               isDisabled={currentPage === totalPages}
               variant="ghost"
               rounded="full"
               _hover={{ bg: hoverBg, transform: 'translateX(2px)' }}
+              _active={{ transform: 'scale(0.9)' }}
             />
           </Tooltip>
         </HStack>

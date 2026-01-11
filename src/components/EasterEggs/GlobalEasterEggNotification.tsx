@@ -1,4 +1,4 @@
-import { Box, Text, VStack, Icon, useColorModeValue } from '@chakra-ui/react';
+import { Box, Text, VStack, Icon, useColorModeValue, useBreakpointValue } from '@chakra-ui/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { EasterEgg } from '../../hooks/useGlobalEasterEggs';
 import { FaRocket, FaSatellite, FaStar } from 'react-icons/fa';
@@ -20,6 +20,10 @@ const iconMap: Record<string, IconType> = {
 
 export function GlobalEasterEggNotification({ egg }: GlobalEasterEggNotificationProps) {
   const bg = useColorModeValue('white', 'gray.800');
+  const top = useBreakpointValue({ base: '10px', md: '20px' }) || '20px';
+  const right = useBreakpointValue({ base: '10px', md: '20px' }) || '20px';
+  const left = useBreakpointValue({ base: '10px', md: 'auto' }) || 'auto';
+  const maxWidth = useBreakpointValue({ base: 'calc(100vw - 20px)', md: '350px' }) || '350px';
 
   if (!egg) return null;
 
@@ -33,22 +37,26 @@ export function GlobalEasterEggNotification({ egg }: GlobalEasterEggNotification
         exit={{ opacity: 0, y: -50, scale: 0.8, rotate: 180 }}
         style={{
           position: 'fixed',
-          top: '20px',
-          right: '20px',
+          top,
+          right,
+          left,
           zIndex: 9999,
+          maxWidth,
         }}
       >
         <Box
           bg={bg}
-          borderWidth="3px"
+          borderWidth={{ base: "2px", md: "3px" }}
           borderColor={egg.icon === '🚀' ? 'orange.400' : egg.icon === '🌌' ? 'purple.400' : 'cyan.400'}
           borderRadius="xl"
-          p={6}
+          p={{ base: 4, md: 6 }}
           boxShadow="2xl"
-          minW="350px"
+          minW={{ base: "auto", md: "350px" }}
+          maxW={{ base: "calc(100vw - 20px)", md: "350px" }}
+          w={{ base: "calc(100vw - 20px)", md: "auto" }}
           backdropFilter="blur(10px)"
         >
-          <VStack spacing={3} align="center">
+          <VStack spacing={{ base: 2, md: 3 }} align="center">
             <motion.div
               initial={{ scale: 0.8, rotate: -180 }}
               animate={{ 
@@ -62,15 +70,19 @@ export function GlobalEasterEggNotification({ egg }: GlobalEasterEggNotification
             >
               <Icon 
                 as={IconComponent} 
-                w={10} 
-                h={10} 
+                w={{ base: 8, md: 10 }} 
+                h={{ base: 8, md: 10 }} 
                 color={egg.icon === '🚀' ? 'orange.400' : egg.icon === '🌌' ? 'purple.400' : 'cyan.400'} 
               />
             </motion.div>
             <Text
               fontWeight="bold"
-              fontSize="md"
+              fontSize={{ base: "xs", md: "md" }}
               textAlign="center"
+              px={{ base: 3, md: 0 }}
+              py={{ base: 1, md: 0 }}
+              wordBreak="break-word"
+              lineHeight={{ base: "1.4", md: "1.5" }}
               bgGradient={
                 egg.icon === '🚀' 
                   ? 'linear(to-r, orange.400, red.500)'
@@ -82,7 +94,13 @@ export function GlobalEasterEggNotification({ egg }: GlobalEasterEggNotification
             >
               {egg.message}
             </Text>
-            <Text fontSize="xs" color="gray.500" textAlign="center">
+            <Text 
+              fontSize={{ base: "2xs", md: "xs" }} 
+              color="gray.500" 
+              textAlign="center" 
+              px={{ base: 3, md: 0 }}
+              wordBreak="break-word"
+            >
               {egg.name}
             </Text>
           </VStack>

@@ -137,9 +137,8 @@ const router = createBrowserRouter(
   {
     future: {
       v7_relativeSplatPath: true,
-      // @ts-ignore
       v7_startTransition: true,
-    },
+    } as any,
   }
 );
 

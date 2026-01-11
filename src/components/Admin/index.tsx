@@ -64,6 +64,15 @@ export default function Admin() {
   }, []);
 
   const fetchProjects = async () => {
+    if (!db) {
+      toast({
+        title: "Firebase não disponível",
+        description: "O banco de dados não está configurado.",
+        status: "warning",
+        duration: 3000,
+      });
+      return;
+    }
     try {
       const querySnapshot = await getDocs(collection(db, "projetos"));
       if (querySnapshot.empty) {
@@ -103,6 +112,15 @@ export default function Admin() {
   };
 
   const fetchCertificates = async () => {
+    if (!db) {
+      toast({
+        title: "Firebase não disponível",
+        description: "O banco de dados não está configurado.",
+        status: "warning",
+        duration: 3000,
+      });
+      return;
+    }
     try {
       const querySnapshot = await getDocs(collection(db, "certificados"));
       const certificatesData = querySnapshot.docs.map((doc) => {
@@ -125,6 +143,15 @@ export default function Admin() {
   };
 
   const handleAddProject = async () => {
+    if (!db) {
+      toast({
+        title: "Firebase não disponível",
+        description: "O banco de dados não está configurado.",
+        status: "error",
+        duration: 3000,
+      });
+      return;
+    }
     try {
       await addDoc(collection(db, "projetos"), {
         ...currentProject,
@@ -157,8 +184,18 @@ export default function Admin() {
   };
 
   const handleDeleteProject = async (id: string) => {
+    if (!db) {
+      toast({
+        title: "Firebase não disponível",
+        description: "O banco de dados não está configurado.",
+        status: "error",
+        duration: 3000,
+      });
+      return;
+    }
+    const firestoreDb = db;
     try {
-      await deleteDoc(doc(db, "projetos", id));
+      await deleteDoc(doc(firestoreDb, "projetos", id));
       toast({
         title: "Project deleted successfully",
         status: "success",
@@ -176,6 +213,15 @@ export default function Admin() {
   };
 
   const handleAddCertificate = async () => {
+    if (!db) {
+      toast({
+        title: "Firebase não disponível",
+        description: "O banco de dados não está configurado.",
+        status: "error",
+        duration: 3000,
+      });
+      return;
+    }
     try {
       await addDoc(collection(db, "certificados"), currentCertificate);
       toast({
@@ -199,8 +245,18 @@ export default function Admin() {
   };
 
   const handleDeleteCertificate = async (id: string) => {
+    if (!db) {
+      toast({
+        title: "Firebase não disponível",
+        description: "O banco de dados não está configurado.",
+        status: "error",
+        duration: 3000,
+      });
+      return;
+    }
+    const firestoreDb = db;
     try {
-      await deleteDoc(doc(db, "certificados", id));
+      await deleteDoc(doc(firestoreDb, "certificados", id));
       toast({
         title: "Certificate deleted successfully",
         status: "success",

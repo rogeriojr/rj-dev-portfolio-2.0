@@ -337,7 +337,9 @@ export function StellarImageCarousel({ images, onImageClick }: StellarImageCarou
               top="50%"
               transform="translateY(-50%)"
               zIndex={2}
-              size={{ base: 'md', sm: 'md', md: 'lg' }}
+              size={{ base: 'lg', sm: 'lg', md: 'lg' }}
+              minW={{ base: "48px", md: "auto" }}
+              minH={{ base: "48px", md: "auto" }}
               borderRadius="full"
               bg="rgba(0, 0, 0, 0.7)"
               color="white"
@@ -347,7 +349,7 @@ export function StellarImageCarousel({ images, onImageClick }: StellarImageCarou
                 boxShadow: '0 0 20px rgba(99, 102, 241, 0.5)',
               }}
               _active={{
-                transform: 'translateY(-50%) scale(0.95)',
+                transform: 'translateY(-50%) scale(0.9)',
               }}
               onClick={(e) => {
                 e.stopPropagation();
@@ -364,7 +366,9 @@ export function StellarImageCarousel({ images, onImageClick }: StellarImageCarou
               top="50%"
               transform="translateY(-50%)"
               zIndex={2}
-              size={{ base: 'md', sm: 'md', md: 'lg' }}
+              size={{ base: 'lg', sm: 'lg', md: 'lg' }}
+              minW={{ base: "48px", md: "auto" }}
+              minH={{ base: "48px", md: "auto" }}
               borderRadius="full"
               bg="rgba(0, 0, 0, 0.7)"
               color="white"
@@ -374,7 +378,7 @@ export function StellarImageCarousel({ images, onImageClick }: StellarImageCarou
                 boxShadow: '0 0 20px rgba(139, 92, 246, 0.5)',
               }}
               _active={{
-                transform: 'translateY(-50%) scale(0.95)',
+                transform: 'translateY(-50%) scale(0.9)',
               }}
               onClick={(e) => {
                 e.stopPropagation();

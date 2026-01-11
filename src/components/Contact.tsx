@@ -60,54 +60,61 @@ export function Contact() {
   };
 
   return (
-    <Box position="relative" overflow="hidden" py={20}>
+    <Box position="relative" overflow="hidden" py={{ base: 8, md: 12, lg: 20 }}>
       {/* Decorative Orbiting Elements */}
-      <Box position="absolute" top="10%" right="5%" opacity={0.2} animation="float 10s ease-in-out infinite">
-        <Icon as={IoPlanet} w={40} h={40} color="purple.500" />
+      <Box 
+        position="absolute" 
+        top="10%" 
+        right="5%" 
+        opacity={0.2} 
+        animation="float 10s ease-in-out infinite"
+        display={{ base: "none", md: "block" }}
+      >
+        <Icon as={IoPlanet} w={{ base: 24, md: 32, lg: 40 }} h={{ base: 24, md: 32, lg: 40 }} color="purple.500" />
       </Box>
 
-      <Container maxW="container.lg" position="relative" zIndex={1}>
-        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={12}>
+      <Container maxW="container.lg" position="relative" zIndex={1} px={{ base: 4, md: 6 }}>
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 8, md: 10, lg: 12 }}>
 
           {/* Left Side: Info & Titles */}
-          <VStack spacing={8} align="stretch" justify="center">
+          <VStack spacing={{ base: 6, md: 8 }} align="stretch" justify="center">
             <MotionBox
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <HStack mb={2}>
-                <Icon as={FaSatellite} color="cyan.400" />
-                <Text fontSize="sm" letterSpacing="widest" color="cyan.400" fontWeight="bold">
+              <HStack mb={2} flexWrap="wrap">
+                <Icon as={FaSatellite} color="cyan.400" w={{ base: 4, md: 5 }} h={{ base: 4, md: 5 }} />
+                <Text fontSize={{ base: "xs", md: "sm" }} letterSpacing="widest" color="cyan.400" fontWeight="bold">
                   CANAL DE COMUNICAÇÃO
                 </Text>
               </HStack>
               <Heading
                 as="h1"
-                size="3xl"
+                size={{ base: "xl", md: "2xl", lg: "3xl" }}
                 bgGradient="linear(to-r, cyan.400, blue.500, purple.600)"
                 bgClip="text"
                 fontWeight="extrabold"
-                mb={6}
+                mb={{ base: 4, md: 6 }}
               >
                 Vamos Construir o Futuro?
               </Heading>
-              <Text fontSize="xl" color="gray.400" lineHeight="tall">
+              <Text fontSize={{ base: "md", md: "lg", lg: "xl" }} color="gray.400" lineHeight="tall">
                 Se você tem uma ideia inovadora ou um desafio técnico complexo, meu radar está ligado. Vamos conectar nossas frequências e criar algo extraordinário.
               </Text>
             </MotionBox>
 
-            <VStack spacing={4} align="stretch">
+            <VStack spacing={{ base: 3, md: 4 }} align="stretch">
               <MotionButton
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 leftIcon={<Icon as={FaWhatsapp} />}
-                size="lg"
+                size={{ base: "md", md: "lg" }}
                 colorScheme="whatsapp"
                 onClick={handleWhatsAppClick}
                 justifyContent="flex-start"
-                h="60px"
-                fontSize="lg"
+                h={{ base: "50px", md: "60px" }}
+                fontSize={{ base: "md", md: "lg" }}
               >
                 Iniciar Chat WhatsApp
               </MotionButton>
@@ -116,20 +123,20 @@ export function Contact() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 leftIcon={<Icon as={FaEnvelope} />}
-                size="lg"
+                size={{ base: "md", md: "lg" }}
                 bg="purple.600"
                 color="white"
                 _hover={{ bg: "purple.500" }}
                 onClick={handleEmailClick}
                 justifyContent="flex-start"
-                h="60px"
-                fontSize="lg"
+                h={{ base: "50px", md: "60px" }}
+                fontSize={{ base: "md", md: "lg" }}
               >
                 Enviar Sinal via Email
               </MotionButton>
             </VStack>
 
-            <HStack spacing={4} mt={4}>
+            <HStack spacing={{ base: 4, md: 4 }} mt={4} flexWrap="wrap" justify={{ base: "center", md: "flex-start" }}>
               <SocialBtn icon={FaGithub} href="https://github.com/rogeriojr" label="GitHub" />
               <SocialBtn icon={FaLinkedin} href="https://www.linkedin.com/in/rogério-júnior-174719120/" label="LinkedIn" />
               <SocialBtn icon={FaBriefcase} href="https://www.workana.com/freelancer/5aea67e6fd911e0c207642b63c50fb9d" label="Workana" />
@@ -144,7 +151,7 @@ export function Contact() {
           >
             <Box
               bg={bgForm}
-              p={8}
+              p={{ base: 4, md: 6, lg: 8 }}
               borderRadius="2xl"
               borderWidth="1px"
               borderColor={borderColor}
@@ -161,33 +168,57 @@ export function Contact() {
               />
 
               <form onSubmit={handleSubmit}>
-                <VStack spacing={6}>
-                  <Heading size="md" alignSelf="flex-start" mb={2}>
+                <VStack spacing={{ base: 4, md: 6 }}>
+                  <Heading size={{ base: "sm", md: "md" }} alignSelf="flex-start" mb={2}>
                     Transmissão Direta
                   </Heading>
 
                   <FormControl id="name" isRequired>
-                    <FormLabel>Codinome (Nome)</FormLabel>
-                    <Input placeholder="Comandante Shepard" bg="whiteAlpha.50" border="none" _focus={{ border: "1px solid", borderColor: "cyan.400", bg: "whiteAlpha.100" }} h="50px" />
+                    <FormLabel fontSize={{ base: "sm", md: "md" }}>Codinome (Nome)</FormLabel>
+                    <Input 
+                      placeholder="Comandante Shepard" 
+                      bg="whiteAlpha.50" 
+                      border="none" 
+                      _focus={{ border: "1px solid", borderColor: "cyan.400", bg: "whiteAlpha.100" }} 
+                      h={{ base: "44px", md: "50px" }}
+                      fontSize={{ base: "sm", md: "md" }}
+                    />
                   </FormControl>
 
                   <FormControl id="email" isRequired>
-                    <FormLabel>Frequência (Email)</FormLabel>
-                    <Input type="email" placeholder="shepard@normandy.sra" bg="whiteAlpha.50" border="none" _focus={{ border: "1px solid", borderColor: "cyan.400", bg: "whiteAlpha.100" }} h="50px" />
+                    <FormLabel fontSize={{ base: "sm", md: "md" }}>Frequência (Email)</FormLabel>
+                    <Input 
+                      type="email" 
+                      placeholder="shepard@normandy.sra" 
+                      bg="whiteAlpha.50" 
+                      border="none" 
+                      _focus={{ border: "1px solid", borderColor: "cyan.400", bg: "whiteAlpha.100" }} 
+                      h={{ base: "44px", md: "50px" }}
+                      fontSize={{ base: "sm", md: "md" }}
+                    />
                   </FormControl>
 
                   <FormControl id="message" isRequired>
-                    <FormLabel>Dados da Missão (Mensagem)</FormLabel>
-                    <Textarea placeholder="Detalhes do projeto, prazos e objetivos..." bg="whiteAlpha.50" border="none" _focus={{ border: "1px solid", borderColor: "cyan.400", bg: "whiteAlpha.100" }} rows={5} />
+                    <FormLabel fontSize={{ base: "sm", md: "md" }}>Dados da Missão (Mensagem)</FormLabel>
+                    <Textarea 
+                      placeholder="Detalhes do projeto, prazos e objetivos..." 
+                      bg="whiteAlpha.50" 
+                      border="none" 
+                      _focus={{ border: "1px solid", borderColor: "cyan.400", bg: "whiteAlpha.100" }} 
+                      rows={5}
+                      minH={{ base: "120px", md: "140px" }}
+                      fontSize={{ base: "sm", md: "md" }}
+                    />
                   </FormControl>
 
                   <Button
                     type="submit"
                     colorScheme="cyan"
-                    size="lg"
+                    size={{ base: "md", md: "lg" }}
                     w="full"
                     rightIcon={<Icon as={FaPaperPlane} />}
                     mt={4}
+                    fontSize={{ base: "sm", md: "md" }}
                     _hover={{ transform: "translateY(-2px)", boxShadow: "0 0 20px rgba(0, 255, 255, 0.4)" }}
                   >
                     Transmitir Mensagem
@@ -210,11 +241,14 @@ function SocialBtn({ icon, href, label }: { icon: any, href: string, label: stri
       href={href}
       target="_blank"
       aria-label={label}
-      icon={<Icon as={icon} w={6} h={6} />}
-      size="lg"
+      icon={<Icon as={icon} w={{ base: 6, md: 6 }} h={{ base: 6, md: 6 }} />}
+      size={{ base: "lg", md: "lg" }}
+      minW={{ base: "56px", md: "auto" }}
+      minH={{ base: "56px", md: "auto" }}
       variant="ghost"
       color="gray.400"
       _hover={{ color: "cyan.400", bg: "whiteAlpha.100", transform: "scale(1.1)" }}
+      _active={{ transform: "scale(0.95)" }}
     />
   )
 }

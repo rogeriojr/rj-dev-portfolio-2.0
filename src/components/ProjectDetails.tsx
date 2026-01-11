@@ -58,21 +58,26 @@ export function ProjectDetails() {
   }, [id, trackProjectView]);
 
   useEffect(() => {
-    async function fetchProject() {
-      if (!id) return;
+    if (!id) {
+      setLoading(false);
+      return;
+    }
 
+    const projectId: string = id;
+
+    async function fetchProject() {
       // 1. Check if it's one of our explicit static projects
-      if (STATIC_PROJECTS_DATA[id]) {
-        setProject(STATIC_PROJECTS_DATA[id]);
+      if (projectId in STATIC_PROJECTS_DATA) {
+        setProject(STATIC_PROJECTS_DATA[projectId]);
         setLoading(false);
         return;
       }
 
       // 2. Check overrides directly (for legacy projects not in Firestore)
-      if (PROJECT_OVERRIDES[id]) {
-        const override = PROJECT_OVERRIDES[id];
+      if (projectId in PROJECT_OVERRIDES) {
+        const override = PROJECT_OVERRIDES[projectId];
         setProject({
-          id: id,
+          id: projectId,
           title: override.title || { pt: "Sem Título", en: "Untitled" },
           description: override.description || { pt: "Sem descrição", en: "No description" },
           category: override.category || "development",
@@ -89,53 +94,59 @@ export function ProjectDetails() {
       }
 
       // 3. Try fetching from Firestore
-      try {
-        const docRef = doc(db, "projetos", id);
-        const docSnap = await getDoc(docRef);
+      if (db) {
+        try {
+          const docRef = doc(db, "projetos", projectId);
+          const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists()) {
-          const data = docSnap.data();
-          const originalTitle = data.titulo || "";
-          const normTitle = originalTitle.toLowerCase().replace(/\s+/g, '');
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            const originalTitle = data.titulo || "";
+            const normTitle = originalTitle.toLowerCase().replace(/\s+/g, '');
 
-          let fetchedProject = {
-            id: docSnap.id,
-            title: originalTitle,
-            description: data.descricao,
-            category: data.categoria,
-            images: data.imagem ? [data.imagem] : [],
-            content: data.content || "",
-            links: (data.links || [])
-              .filter((link: { url?: string; texto?: string }) => !link.url?.toLowerCase().includes("instagram"))
-              .map((link: { texto: string; url: string }) => ({
-                texto: link.texto || '',
-                url: link.url || '',
-              })),
-            createdAt: data.createdAt?.toDate() || new Date(),
-            updatedAt: data.updatedAt?.toDate() || new Date(),
-          } as Project;
+            let fetchedProject = {
+              id: docSnap.id,
+              title: originalTitle,
+              description: data.descricao,
+              category: data.categoria,
+              images: data.imagem ? [data.imagem] : [],
+              content: data.content || "",
+              links: (data.links || [])
+                .filter((link: { url?: string; texto?: string }) => !link.url?.toLowerCase().includes("instagram"))
+                .map((link: { texto: string; url: string }) => ({
+                  texto: link.texto || '',
+                  url: link.url || '',
+                })),
+              createdAt: data.createdAt?.toDate() || new Date(),
+              updatedAt: data.updatedAt?.toDate() || new Date(),
+            } as Project;
 
-          // Apply Overrides
-          let overrideData = PROJECT_OVERRIDES[normTitle];
-          if (!overrideData) {
-            if (normTitle.includes("jornada") && normTitle.includes("ser")) overrideData = PROJECT_OVERRIDES["jornadaser"];
-            else if (normTitle.includes("metodo") && normTitle.includes("cis")) overrideData = PROJECT_OVERRIDES["metodocis"];
-            else if (normTitle.includes("plantao") && normTitle.includes("extra")) overrideData = PROJECT_OVERRIDES["plantaoextra"];
-            else if (normTitle.includes("portal") && normTitle.includes("poder")) overrideData = PROJECT_OVERRIDES["portaltempoderquemage"];
-            else if (normTitle.includes("simerpay")) overrideData = PROJECT_OVERRIDES["simerpay"];
+            // Apply Overrides
+            let overrideData = PROJECT_OVERRIDES[normTitle];
+            if (!overrideData) {
+              if (normTitle.includes("jornada") && normTitle.includes("ser")) overrideData = PROJECT_OVERRIDES["jornadaser"];
+              else if (normTitle.includes("metodo") && normTitle.includes("cis")) overrideData = PROJECT_OVERRIDES["metodocis"];
+              else if (normTitle.includes("plantao") && normTitle.includes("extra")) overrideData = PROJECT_OVERRIDES["plantaoextra"];
+              else if (normTitle.includes("portal") && normTitle.includes("poder")) overrideData = PROJECT_OVERRIDES["portaltempoderquemage"];
+              else if (normTitle.includes("simerpay")) overrideData = PROJECT_OVERRIDES["simerpay"];
+            }
+
+            if (overrideData) {
+              fetchedProject = { ...fetchedProject, ...overrideData };
+            }
+
+            setProject(fetchedProject);
+          } else {
+            setProject(null);
           }
-
-          if (overrideData) {
-            fetchedProject = { ...fetchedProject, ...overrideData };
+        } catch (error) {
+          if (process.env.NODE_ENV === 'development') {
+            console.error("Error fetching project:", error);
           }
-
-          setProject(fetchedProject);
-        } else {
-          setProject(null);
+        } finally {
+          setLoading(false);
         }
-      } catch (error) {
-        console.error("Error fetching project:", error);
-      } finally {
+      } else {
         setLoading(false);
       }
     }

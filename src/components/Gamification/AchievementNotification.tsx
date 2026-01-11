@@ -33,23 +33,24 @@ export function AchievementNotification({ achievement }: AchievementNotification
             border="2px solid"
             borderColor={`${rarityColor}.400`}
             borderRadius="xl"
-            p={4}
+            p={{ base: 3, md: 4 }}
             boxShadow="2xl"
-            minW={{ base: '280px', md: '320px' }}
-            maxW={{ base: '90vw', md: '400px' }}
+            minW={{ base: 'auto', md: '320px' }}
+            maxW={{ base: 'calc(100vw - 20px)', md: '400px' }}
+            w={{ base: 'calc(100vw - 20px)', md: 'auto' }}
           >
-            <HStack spacing={3} align="start">
+            <HStack spacing={{ base: 2, md: 3 }} align="start">
               <Box
-                fontSize="3xl"
+                fontSize={{ base: "2xl", md: "3xl" }}
                 filter="drop-shadow(0 0 8px rgba(0,0,0,0.2))"
                 animation="bounce 0.5s ease-in-out"
               >
                 {achievement.icon}
               </Box>
               <VStack align="start" spacing={1} flex={1}>
-                <HStack spacing={2} align="center">
+                <HStack spacing={2} align="center" flexWrap="wrap">
                   <Text
-                    fontSize="xs"
+                    fontSize={{ base: "2xs", md: "xs" }}
                     fontWeight="bold"
                     textTransform="uppercase"
                     color={`${rarityColor}.500`}
@@ -59,14 +60,24 @@ export function AchievementNotification({ achievement }: AchievementNotification
                      achievement.rarity === 'rare' ? 'Raro' :
                      achievement.rarity === 'epic' ? 'Épico' : 'Lendário'}
                   </Text>
-                  <Text fontSize="xs" color="gray.500" fontWeight="bold">
+                  <Text fontSize={{ base: "2xs", md: "xs" }} color="gray.500" fontWeight="bold">
                     +{achievement.points} XP
                   </Text>
                 </HStack>
-                <Text fontWeight="bold" fontSize="md" color={useColorModeValue('gray.800', 'white')}>
+                <Text 
+                  fontWeight="bold" 
+                  fontSize={{ base: "sm", md: "md" }} 
+                  color={useColorModeValue('gray.800', 'white')}
+                  wordBreak="break-word"
+                >
                   {achievement.name[language]}
                 </Text>
-                <Text fontSize="sm" color="gray.600" lineHeight="short">
+                <Text 
+                  fontSize={{ base: "xs", md: "sm" }} 
+                  color="gray.600" 
+                  lineHeight={{ base: "1.4", md: "short" }}
+                  wordBreak="break-word"
+                >
                   {achievement.description[language]}
                 </Text>
               </VStack>

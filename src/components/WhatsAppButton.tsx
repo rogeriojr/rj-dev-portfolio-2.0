@@ -11,8 +11,10 @@ const MotionBox = motion(Box);
 export function WhatsAppButton() {
   const { language } = useTranslation();
   const { config, getButtonStyle } = useFloatingButtonsConfig();
-  const bg = useColorModeValue('whatsapp.500', 'whatsapp.400');
-  const hoverBg = useColorModeValue('whatsapp.600', 'whatsapp.500');
+  const bg = useColorModeValue('#25D366', '#25D366');
+  const hoverBg = useColorModeValue('#20BA5A', '#20BA5A');
+  const boxShadowColor = useColorModeValue('rgba(37, 211, 102, 0.6)', 'rgba(37, 211, 102, 0.4)');
+  const hoverBoxShadowColor = useColorModeValue('rgba(37, 211, 102, 0.8)', 'rgba(37, 211, 102, 0.6)');
 
   const handleWhatsAppClick = () => {
     const message = encodeURIComponent(
@@ -54,21 +56,23 @@ export function WhatsAppButton() {
           aria-label={language === 'pt' ? 'Abrir WhatsApp' : 'Open WhatsApp'}
           icon={<FaWhatsapp />}
           onClick={handleWhatsAppClick}
-          colorScheme="whatsapp"
           size="lg"
           borderRadius="full"
-          boxShadow="0 4px 20px rgba(37, 211, 102, 0.4)"
+          boxShadow={`0 4px 20px ${boxShadowColor}, 0 0 0 2px rgba(255, 255, 255, 0.1)`}
           bg={bg}
           color="white"
           _hover={{
             bg: hoverBg,
-            boxShadow: '0 0 25px rgba(37, 211, 102, 0.6)',
+            boxShadow: `0 0 30px ${hoverBoxShadowColor}, 0 0 0 3px rgba(255, 255, 255, 0.2)`,
+            transform: 'scale(1.1)',
           }}
           _active={{
             transform: 'scale(0.95)',
           }}
           transition="all 0.2s ease-in-out"
           cursor="pointer"
+          border="2px solid"
+          borderColor={useColorModeValue('rgba(255, 255, 255, 0.3)', 'rgba(255, 255, 255, 0.1)')}
         />
       </Tooltip>
     </MotionBox>

@@ -82,14 +82,18 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
         let fetchedProjects: Project[] = [];
 
         try {
-          const projectsRef = collection(db, "projetos");
-          const querySnapshot = await getDocs(projectsRef);
-          fetchedProjects = querySnapshot.docs.map((doc) => {
-            const data = doc.data();
-            return { id: doc.id, ...data } as unknown as Project;
-          });
+          if (db) {
+            const projectsRef = collection(db, "projetos");
+            const querySnapshot = await getDocs(projectsRef);
+            fetchedProjects = querySnapshot.docs.map((doc) => {
+              const data = doc.data();
+              return { id: doc.id, ...data } as unknown as Project;
+            });
+          }
         } catch (error) {
-          console.log("Firestore offline/unavailable, using static data.");
+          if (process.env.NODE_ENV === 'development') {
+            console.log("Firestore offline/unavailable, using static data.");
+          }
         }
 
         const overridesList = Object.entries(PROJECT_OVERRIDES).map(([id, data]) => ({
@@ -279,7 +283,7 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
           <FlyingRockets />
         </>
       )}
-      <Container ref={containerRef} maxW="container.xl" py={{ base: 12, md: 20 }} px={{ base: 4, md: 6 }} position="relative" zIndex={1}>
+      <Container ref={containerRef} maxW="container.xl" py={{ base: 12, md: 20 }} px={{ base: 4, md: 6 }} position="relative" zIndex={1} w="100%">
         {/* Floating Planet Decorations - Hidden on mobile */}
         <Box
           position="absolute"

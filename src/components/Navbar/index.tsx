@@ -45,21 +45,33 @@ const starburstAnimation = keyframes`
 const NavLink = ({
   to,
   children,
+  onClick,
 }: {
   to: string;
   children: React.ReactNode;
+  onClick?: () => void;
 }) => {
   const location = useLocation();
   const isActive =
     location.pathname === to || location.pathname.startsWith(`${to}/`);
+
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    }
+  };
 
   return (
     <Tooltip label={`Go to ${children}`} placement="bottom">
       <ChakraLink
         as={RouterLink}
         to={to}
-        px={4}
-        py={2}
+        onClick={handleClick}
+        px={{ base: 3, md: 4 }}
+        py={{ base: 3, md: 2 }}
+        minH={{ base: "44px", md: "auto" }}
+        display="flex"
+        alignItems="center"
         rounded={"md"}
         position="relative"
         color={isActive ? "orange.400" : "white"}
@@ -115,10 +127,10 @@ export default function Navbar() {
     { to: "/contact", label: "Contact" },
   ];
 
-  const NavLinks = () => (
+  const NavLinks = ({ onLinkClick }: { onLinkClick?: () => void }) => (
     <>
       {links.map((link) => (
-        <NavLink key={link.to} to={link.to}>
+        <NavLink key={link.to} to={link.to} onClick={onLinkClick}>
           {link.label}
         </NavLink>
       ))}
@@ -130,6 +142,9 @@ export default function Navbar() {
       as="nav"
       position="fixed"
       w="100%"
+      maxW="100vw"
+      left={0}
+      right={0}
       bg="gray.900"
       px={4}
       py={4}
@@ -139,7 +154,7 @@ export default function Navbar() {
     >
       <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
         <IconButton
-          size={"md"}
+          size={{ base: "md", sm: "lg" }}
           icon={<HamburgerIcon />}
           aria-label={"Open Menu"}
           display={{ md: "none" }}
@@ -147,9 +162,14 @@ export default function Navbar() {
           variant="outline"
           borderColor="orange.400"
           color="orange.400"
+          minW={{ base: "44px", sm: "48px" }}
+          minH={{ base: "44px", sm: "48px" }}
           _hover={{
             bg: "orange.400",
             color: "white",
+          }}
+          _active={{
+            transform: "scale(0.95)",
           }}
         />
 
@@ -200,8 +220,8 @@ export default function Navbar() {
           <DrawerCloseButton color="orange.400" />
           <DrawerHeader color="orange.400">Menu</DrawerHeader>
           <DrawerBody>
-            <VStack spacing={4} align="stretch">
-              <NavLinks />
+            <VStack spacing={3} align="stretch">
+              <NavLinks onLinkClick={onClose} />
               <Divider borderColor="gray.700" />
               <Box
                 as="button"
@@ -210,7 +230,8 @@ export default function Navbar() {
                   onCommandCenterOpen();
                 }}
                 px={4}
-                py={3}
+                py={{ base: 4, md: 3 }}
+                minH="48px"
                 rounded="md"
                 bgGradient="linear(to-r, orange.400, red.500)"
                 color="white"
@@ -219,6 +240,9 @@ export default function Navbar() {
                   bgGradient: "linear(to-r, orange.500, red.600)",
                   transform: "translateY(-2px)",
                   boxShadow: "0 4px 12px rgba(251, 146, 60, 0.4)",
+                }}
+                _active={{
+                  transform: "scale(0.98)",
                 }}
                 transition="all 0.2s"
                 boxShadow="md"

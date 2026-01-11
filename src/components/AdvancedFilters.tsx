@@ -292,9 +292,12 @@ export function AdvancedFilters({
             <IconButton
               aria-label="Toggle Radar"
               icon={isOpen ? <FaChevronUp /> : <FaChevronDown />}
-              size={{ base: "xs", md: "sm" }}
+              size={{ base: "md", md: "sm" }}
+              minW={{ base: "44px", md: "auto" }}
+              minH={{ base: "44px", md: "auto" }}
               variant="ghost"
               rounded="full"
+              _active={{ transform: "scale(0.9)" }}
             />
           </HStack>
 
@@ -341,14 +344,16 @@ export function AdvancedFilters({
         {/* Clear Filters Button */}
         {(selectedTags.length > 0 || yearRange[0] !== minYear || yearRange[1] !== maxYear) && (
           <Button
-            size={{ base: "xs", md: "sm" }}
+            size={{ base: "sm", md: "sm" }}
             variant="ghost"
             colorScheme="red"
             onClick={clearFilters}
             leftIcon={<Icon as={FaRocket} transform="rotate(180deg)" w={{ base: 3, md: 4 }} h={{ base: 3, md: 4 }} />}
             alignSelf={{ base: "stretch", sm: "flex-end" }}
+            minH={{ base: "44px", md: "auto" }}
             fontSize={{ base: "xs", md: "sm" }}
             _hover={{ bg: "red.50", color: "red.600" }}
+            _active={{ transform: "scale(0.95)" }}
           >
             {language === 'pt' ? 'Abortar Filtros' : 'Abort Filters'}
           </Button>

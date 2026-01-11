@@ -175,28 +175,34 @@ const ProjectListViewComponent = ({ project, onViewDetails, language }: ProjectL
             </Box>
           )}
           
-          <HStack spacing={2} mt="auto">
+          <HStack spacing={{ base: 3, md: 2 }} mt="auto">
             {project.links && project.links.length > 0 && (
               <IconButton
                 aria-label="Ver projeto"
                 icon={<FaExternalLinkAlt />}
-                size="sm"
+                size={{ base: "md", md: "sm" }}
+                minW={{ base: "44px", md: "auto" }}
+                minH={{ base: "44px", md: "auto" }}
                 variant="ghost"
                 onClick={(e) => {
                   e.stopPropagation();
                   window.open(project.links![0].url, '_blank');
                 }}
+                _active={{ transform: "scale(0.9)" }}
               />
             )}
             <IconButton
               aria-label="Ver detalhes"
               icon={<FaInfoCircle />}
-              size="sm"
+              size={{ base: "md", md: "sm" }}
+              minW={{ base: "44px", md: "auto" }}
+              minH={{ base: "44px", md: "auto" }}
               colorScheme="blue"
               onClick={(e) => {
                 e.stopPropagation();
                 onViewDetails(project);
               }}
+              _active={{ transform: "scale(0.9)" }}
             />
           </HStack>
         </VStack>

@@ -51,8 +51,8 @@ export const InteractiveProfileImage: React.FC<
     <Box
       ref={containerRef}
       position="relative"
-      width="300px"
-      height="300px"
+      width={{ base: "200px", md: "250px", lg: "300px" }}
+      height={{ base: "200px", md: "250px", lg: "300px" }}
       onMouseMove={handleMouseMove}
       onMouseLeave={() => setPosition({ x: 0, y: 0 })}
     >
@@ -66,15 +66,16 @@ export const InteractiveProfileImage: React.FC<
         >
           <Box
             position="absolute"
-            width="40px"
-            height="40px"
+            width={{ base: "32px", md: "36px", lg: "40px" }}
+            height={{ base: "32px", md: "36px", lg: "40px" }}
             top="50%"
-            left="-30px"
+            left={{ base: "-24px", md: "-27px", lg: "-30px" }}
             transform="translate(-50%, -50%)"
             zIndex={2}
             animation={`${pulse} 2s infinite ease-in-out`}
             onClick={() => setShowTooltip(!showTooltip)}
             cursor="pointer"
+            display={{ base: "none", md: "block" }}
           >
             <IconButton
               icon={
@@ -87,12 +88,13 @@ export const InteractiveProfileImage: React.FC<
               aria-label="Drag indicator"
               colorScheme={isDark ? "yellow" : "blue"}
               variant="solid"
-              size="lg"
+              size={{ base: "sm", md: "md", lg: "lg" }}
               borderRadius="full"
               _hover={{
                 transform: "scale(1.2)",
                 boxShadow: `0 0 10px ${glowColor}`,
               }}
+              _active={{ transform: "scale(0.95)" }}
               transition="all 0.3s ease-in-out"
             />
           </Box>

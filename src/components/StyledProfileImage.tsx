@@ -68,8 +68,8 @@ export function StyledProfileImage() {
     <Box
       id="profile-image-container"
       position="relative"
-      width="300px"
-      height="300px"
+      width={{ base: "200px", md: "250px", lg: "300px" }}
+      height={{ base: "200px", md: "250px", lg: "300px" }}
       margin="0 auto"
       display="flex"
       justifyContent="center"
@@ -78,10 +78,10 @@ export function StyledProfileImage() {
       {/* Decorative Orbiting Planet Controls */}
       <Box
         position="absolute"
-        width="400px"
-        height="400px"
-        top="-50px"
-        left="-50px"
+        width={{ base: "260px", md: "330px", lg: "400px" }}
+        height={{ base: "260px", md: "330px", lg: "400px" }}
+        top={{ base: "-30px", md: "-40px", lg: "-50px" }}
+        left={{ base: "-30px", md: "-40px", lg: "-50px" }}
         animation={`${orbitAnimation} 20s linear infinite`}
         pointerEvents="none"
       >
@@ -92,10 +92,12 @@ export function StyledProfileImage() {
               icon={<FaMoon />}
               variant="ghost"
               color="gray.300"
-              fontSize="20px"
+              fontSize={{ base: "16px", md: "18px", lg: "20px" }}
+              size={{ base: "sm", md: "md", lg: "md" }}
               onClick={() => setBorderEffect("moon")}
               isRound
               _hover={{ bg: "whiteAlpha.200", transform: "scale(1.2)" }}
+              _active={{ transform: "scale(0.95)" }}
             />
           </Tooltip>
         </Box>
@@ -106,10 +108,12 @@ export function StyledProfileImage() {
               icon={<FaStar />}
               variant="ghost"
               color="purple.400"
-              fontSize="20px"
+              fontSize={{ base: "16px", md: "18px", lg: "20px" }}
+              size={{ base: "sm", md: "md", lg: "md" }}
               onClick={() => setBorderEffect("star")}
               isRound
               _hover={{ bg: "whiteAlpha.200", transform: "scale(1.2)" }}
+              _active={{ transform: "scale(0.95)" }}
             />
           </Tooltip>
         </Box>
@@ -120,10 +124,12 @@ export function StyledProfileImage() {
               icon={<FaSun />}
               variant="ghost"
               color="yellow.400"
-              fontSize="20px"
+              fontSize={{ base: "16px", md: "18px", lg: "20px" }}
+              size={{ base: "sm", md: "md", lg: "md" }}
               onClick={() => setBorderEffect("sun")}
               isRound
               _hover={{ bg: "whiteAlpha.200", transform: "scale(1.2)" }}
+              _active={{ transform: "scale(0.95)" }}
             />
           </Tooltip>
         </Box>
@@ -131,18 +137,18 @@ export function StyledProfileImage() {
 
       {/* Main Draggable Profile Image */}
       <motion.div
-        drag
+        drag={typeof window !== 'undefined' && window.innerWidth >= 768}
         dragConstraints={{ left: -50, right: 50, top: -50, bottom: 50 }}
         dragElastic={0.2}
         onDragEnd={handleDragEnd}
         style={{ x, y, rotate: x, scale }}
-        whileHover={{ cursor: 'grab' }}
-        whileTap={{ cursor: 'grabbing' }}
+        whileHover={{ cursor: typeof window !== 'undefined' && window.innerWidth >= 768 ? 'grab' : 'default' }}
+        whileTap={{ cursor: typeof window !== 'undefined' && window.innerWidth >= 768 ? 'grabbing' : 'default' }}
       >
         <Box
           position="relative"
-          width="300px"
-          height="300px"
+          width={{ base: "200px", md: "250px", lg: "300px" }}
+          height={{ base: "200px", md: "250px", lg: "300px" }}
           borderRadius="full"
           overflow="hidden"
           display="flex"
@@ -172,17 +178,20 @@ export function StyledProfileImage() {
           as={motion.button}
           whileHover={{ scale: 1.2, rotate: 45 }}
           position="absolute"
-          bottom="-20px"
-          right="-20px"
+          bottom={{ base: "-15px", md: "-18px", lg: "-20px" }}
+          right={{ base: "-15px", md: "-18px", lg: "-20px" }}
           zIndex="2"
           aria-label="Contact"
           icon={<FaRocket />}
           colorScheme="purple"
           variant="solid"
           isRound
-          size="lg"
+          size={{ base: "md", md: "lg", lg: "lg" }}
+          minW={{ base: "40px", md: "auto" }}
+          minH={{ base: "40px", md: "auto" }}
           onClick={() => navigate("/contact")}
           boxShadow="0 0 15px rgba(128, 90, 213, 0.6)"
+          _active={{ transform: "scale(0.95)" }}
         />
       </Tooltip>
     </Box>

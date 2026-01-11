@@ -81,7 +81,7 @@ const ProjectCardComponent = ({
         display="flex"
         flexDirection="column"
         h="100%"
-        minH="380px"
+        minH={{ base: "320px", md: "360px", lg: "380px" }}
         w="100%"
         _before={{
           content: '""',
@@ -110,9 +110,9 @@ const ProjectCardComponent = ({
           bg={needsDarkBg ? "gray.900" : useColorModeValue("white", "gray.100")}
           overflow="hidden"
           flexShrink={0}
-          h="180px"
-          minH="180px"
-          maxH="180px"
+          h={{ base: "140px", md: "160px", lg: "180px" }}
+          minH={{ base: "140px", md: "160px", lg: "180px" }}
+          maxH={{ base: "140px", md: "160px", lg: "180px" }}
           w="100%"
           display="flex"
           alignItems="center"
@@ -201,8 +201,8 @@ const ProjectCardComponent = ({
                   "radial-gradient(circle at center, rgba(66, 153, 225, 0.1) 0%, transparent 70%)",
               }}
             >
-              <Icon as={FaGlobeAmericas} w={12} h={12} color="gray.400" mb={2} />
-              <Text fontSize="xs" color="gray.500" fontWeight="bold" textTransform="uppercase" letterSpacing="widest">
+              <Icon as={FaGlobeAmericas} w={{ base: 8, md: 10, lg: 12 }} h={{ base: 8, md: 10, lg: 12 }} color="gray.400" mb={2} />
+              <Text fontSize={{ base: "2xs", md: "xs" }} color="gray.500" fontWeight="bold" textTransform="uppercase" letterSpacing="widest">
                 {language === 'pt' ? 'Dados Visuais Ausentes' : 'No Visual Data'}
               </Text>
             </Flex>
@@ -307,7 +307,10 @@ const ProjectCardComponent = ({
               <Button
                 rightIcon={<FaInfoCircle />}
                 variant="ghost"
-                size={{ base: "xs", md: "sm" }}
+                size={{ base: "sm", md: "sm" }}
+                minH={{ base: "44px", md: "auto" }}
+                minW={{ base: "auto", md: "auto" }}
+                px={{ base: 4, md: 3 }}
                 onClick={() => {
                   onViewDetails?.(project);
                 }}
@@ -320,7 +323,7 @@ const ProjectCardComponent = ({
                   boxShadow: "0 0 15px rgba(66, 153, 225, 0.4)",
                 }}
                 _active={{
-                  transform: "translateY(0)",
+                  transform: "scale(0.95)",
                 }}
               >
                 {t('projects.viewDetails')}

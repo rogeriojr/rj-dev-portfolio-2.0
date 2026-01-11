@@ -47,6 +47,10 @@ export default function PortfolioCategory({
 
   useEffect(() => {
     const fetchProjects = async () => {
+      if (!db) {
+        setIsLoading(false);
+        return;
+      }
       try {
         const projectsRef = collection(db, "projetos");
         const q = query(projectsRef, where("categoria", "==", category));

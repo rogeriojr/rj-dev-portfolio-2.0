@@ -54,9 +54,9 @@ export default function Layout() {
           key={location.pathname}
           as="main"
           maxW="container.xl"
-          pt={24}
-          pb={16}
-          px={4}
+          pt={{ base: 20, md: 24 }}
+          pb={{ base: 8, md: 12, lg: 16 }}
+          px={{ base: 3, md: 4, lg: 6 }}
           variants={pageVariants}
           initial="initial"
           animate="animate"

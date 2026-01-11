@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Box, Text, VStack, Icon, useColorModeValue } from '@chakra-ui/react';
+import { Box, Text, VStack, Icon, useColorModeValue, useBreakpointValue } from '@chakra-ui/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaHome, FaUser, FaEnvelope, FaCertificate, FaFlask } from 'react-icons/fa';
 
@@ -86,6 +86,9 @@ export function usePageSpecificEasterEggs(enabled: boolean = true) {
 
 export function PageEasterEggNotification({ egg }: { egg: PageEasterEgg | null }) {
   const bg = useColorModeValue('white', 'gray.800');
+  const bottom = useBreakpointValue({ base: '10px', md: '20px' }) || '20px';
+  const left = useBreakpointValue({ base: '10px', md: '20px' }) || '20px';
+  const maxWidth = useBreakpointValue({ base: 'calc(100vw - 20px)', md: '300px' }) || '300px';
 
   if (!egg) return null;
 
@@ -97,33 +100,40 @@ export function PageEasterEggNotification({ egg }: { egg: PageEasterEgg | null }
         exit={{ opacity: 0, x: 100, scale: 0.5 }}
         style={{
           position: 'fixed',
-          bottom: '20px',
-          left: '20px',
+          bottom,
+          left,
           zIndex: 9995,
+          maxWidth,
         }}
       >
         <Box
           bg={bg}
-          borderWidth="2px"
+          borderWidth={{ base: "2px", md: "2px" }}
           borderColor={egg.color}
           borderRadius="xl"
-          p={4}
+          p={{ base: 3, md: 4 }}
           boxShadow="2xl"
-          minW="300px"
+          minW={{ base: "auto", md: "300px" }}
+          maxW={maxWidth}
+          w={{ base: "calc(100vw - 20px)", md: "auto" }}
         >
-          <VStack spacing={2} align="center">
+          <VStack spacing={{ base: 1.5, md: 2 }} align="center">
             <motion.div
               initial={{ scale: 0.8, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
             >
-              <Icon as={egg.icon} w={8} h={8} color={egg.color} />
+              <Icon as={egg.icon} w={{ base: 6, md: 8 }} h={{ base: 6, md: 8 }} color={egg.color} />
             </motion.div>
             <Text
               fontWeight="bold"
-              fontSize="sm"
+              fontSize={{ base: "xs", md: "sm" }}
               textAlign="center"
               color={egg.color}
+              px={{ base: 3, md: 0 }}
+              py={{ base: 1, md: 0 }}
+              wordBreak="break-word"
+              lineHeight={{ base: "1.4", md: "1.5" }}
             >
               {egg.message}
             </Text>

@@ -204,10 +204,13 @@ export function Home() {
 
           <HStack
             as={motion.div}
-            spacing={4}
+            spacing={{ base: 6, md: 4 }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: "0.5s", delay: "0.6s" }}
+            justify={{ base: "center", md: "flex-start" }}
+            flexWrap="wrap"
+            w={{ base: "100%", md: "auto" }}
           >
             <IconButton
               as="a"
@@ -216,10 +219,15 @@ export function Home() {
               aria-label="GitHub"
               icon={<FaGithub />}
               variant="ghost"
-              fontSize="24px"
+              fontSize={{ base: "24px", md: "24px" }}
+              size={{ base: "lg", md: "lg" }}
+              minW={{ base: "56px", md: "auto" }}
+              minH={{ base: "56px", md: "auto" }}
               color="gray.400"
               onClick={() => trackSocialClick('github')}
-              _hover={{ color: "brand.yellow.400" }}
+              _hover={{ color: "brand.yellow.400", transform: "scale(1.1)" }}
+              _active={{ transform: "scale(0.95)" }}
+              transition="all 0.2s"
             />
             <IconButton
               as="a"
@@ -228,11 +236,15 @@ export function Home() {
               aria-label="LinkedIn"
               icon={<FaLinkedin />}
               variant="ghost"
-              fontSize={{ base: "20px", md: "24px" }}
-              size={{ base: "md", md: "lg" }}
+              fontSize={{ base: "24px", md: "24px" }}
+              size={{ base: "lg", md: "lg" }}
+              minW={{ base: "56px", md: "auto" }}
+              minH={{ base: "56px", md: "auto" }}
               color="gray.400"
               onClick={() => trackSocialClick('linkedin')}
-              _hover={{ color: "brand.yellow.400" }}
+              _hover={{ color: "brand.yellow.400", transform: "scale(1.1)" }}
+              _active={{ transform: "scale(0.95)" }}
+              transition="all 0.2s"
             />
             <IconButton
               as="a"
@@ -241,11 +253,15 @@ export function Home() {
               aria-label="Workana"
               icon={<FaBriefcase />}
               variant="ghost"
-              fontSize={{ base: "20px", md: "24px" }}
-              size={{ base: "md", md: "lg" }}
+              fontSize={{ base: "24px", md: "24px" }}
+              size={{ base: "lg", md: "lg" }}
+              minW={{ base: "56px", md: "auto" }}
+              minH={{ base: "56px", md: "auto" }}
               color="gray.400"
               onClick={() => trackSocialClick('workana')}
-              _hover={{ color: "brand.yellow.400" }}
+              _hover={{ color: "brand.yellow.400", transform: "scale(1.1)" }}
+              _active={{ transform: "scale(0.95)" }}
+              transition="all 0.2s"
             />
           </HStack>
         </Stack>
@@ -257,28 +273,24 @@ export function Home() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: "0.5s", delay: "0.6s" }}
           position="relative"
-          drag={typeof window !== 'undefined' && window.innerWidth >= 768}
-          dragConstraints={{
-            top: -100,
-            left: -100,
-            right: 100,
-            bottom: 100,
-          }}
+          drag={false}
           whileDrag={{ scale: 1.1 }}
           whileHover={{ scale: 1.05 }}
-          display={{ base: "none", lg: "block" }}
-          maxW={{ base: "200px", lg: "none" }}
-          mx={{ base: "auto", lg: 0 }}
+          display="flex"
+          justifyContent={{ base: "center", lg: "flex-start" }}
+          alignItems="center"
+          w={{ base: "100%", lg: "auto" }}
+          mb={{ base: 6, lg: 0 }}
         >
           <StyledProfileImage />
           {/* Easter Egg: Click 3 times on profile */}
           <Tooltip label="💡 Dica: Clique 3 vezes para descobrir um easter egg!" placement="top">
             <Box
               position="absolute"
-              top="-10px"
-              right="-10px"
-              w={6}
-              h={6}
+              top={{ base: "-5px", lg: "-10px" }}
+              right={{ base: "-5px", lg: "-10px" }}
+              w={{ base: 5, lg: 6 }}
+              h={{ base: 5, lg: 6 }}
               borderRadius="full"
               bg="yellow.400"
               display="flex"
@@ -288,7 +300,7 @@ export function Home() {
               _hover={{ transform: 'scale(1.2)' }}
               transition="all 0.2s"
             >
-              <Icon as={FaStar} w={3} h={3} color="gray.800" />
+              <Icon as={FaStar} w={{ base: 2.5, lg: 3 }} h={{ base: 2.5, lg: 3 }} color="gray.800" />
             </Box>
           </Tooltip>
         </Box>

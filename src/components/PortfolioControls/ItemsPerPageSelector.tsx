@@ -26,11 +26,12 @@ export function ItemsPerPageSelector({ value, onChange }: ItemsPerPageSelectorPr
         <Select
           value={value}
           onChange={(e) => onChange(Number(e.target.value))}
-          size={{ base: "xs", md: "sm" }}
+          size={{ base: "sm", md: "sm" }}
           borderRadius="lg"
           borderColor={borderColor}
           bg={bg}
           fontSize={{ base: "xs", md: "sm" }}
+          minH={{ base: "44px", md: "auto" }}
           _hover={{ borderColor: 'blue.400' }}
           _focus={{ borderColor: 'blue.500', boxShadow: '0 0 0 1px blue.500' }}
           w={{ base: "70px", md: "80px" }}

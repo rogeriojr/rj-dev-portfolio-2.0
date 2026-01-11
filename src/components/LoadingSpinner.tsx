@@ -6,8 +6,6 @@ import { useState, useEffect } from "react";
 import { PlanetSpinner } from "./PlanetSpinner";
 
 const MotionBox = motion(Box);
-const MotionIcon = motion(FaUserAstronaut);
-const MotionRocket = motion(FaRocket);
 
 interface FloatingElement {
   id: number;
@@ -292,10 +290,14 @@ export function LoadingSpinner() {
       <HStack spacing={10} align="center" position="relative" zIndex={10}>
         <MotionBox
           animate={floatingAnimation}
-          color={colorMode === "dark" ? "cyan.400" : "blue.500"}
           filter="drop-shadow(0 0 15px rgba(56, 189, 248, 0.6))"
         >
-          <MotionIcon size={64} />
+          <Icon 
+            as={FaUserAstronaut} 
+            w={16} 
+            h={16}
+            color={colorMode === "dark" ? "cyan.400" : "blue.500"}
+          />
         </MotionBox>
 
         <Box position="relative" filter="drop-shadow(0 0 20px rgba(56, 189, 248, 0.4))">
@@ -304,10 +306,14 @@ export function LoadingSpinner() {
 
         <MotionBox
           animate={rocketFloatingAnimation}
-          color="yellow.400"
           filter="drop-shadow(0 0 15px rgba(251, 191, 36, 0.8))"
         >
-          <MotionRocket size={56} />
+          <Icon 
+            as={FaRocket} 
+            w={14} 
+            h={14}
+            color="yellow.400"
+          />
         </MotionBox>
       </HStack>
 
