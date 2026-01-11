@@ -13,63 +13,26 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
+        manualChunks(id) {
           if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom')) {
-              return 'vendor-react-core';
-            }
-            if (
-              id.includes('react-router') ||
-              id.includes('react-icons') ||
-              id.includes('react-joyride') ||
-              id.includes('react-markdown')
-            ) {
-              return 'vendor-react-libs';
-            }
-            if (
-              id.includes('@chakra-ui') || 
-              id.includes('@emotion') ||
-              id.includes('framer-motion')
-            ) {
-              return 'vendor-react-ui';
-            }
-            if (id.includes('mermaid')) {
-              return 'vendor-heavy';
-            }
-            if (id.includes('firebase')) {
-              return 'vendor-firebase';
+            if (id.includes('react') || id.includes('react-dom') || id.includes('scheduler')) {
+              return 'react-core';
             }
             return 'vendor';
           }
         },
-        entryFileNames: 'assets/[name].[hash].js',
-        chunkFileNames: 'assets/[name].[hash].js',
-        assetFileNames: 'assets/[name].[hash].[ext]',
       },
     },
-    chunkSizeWarningLimit: 1000,
-    cssCodeSplit: true,
     commonjsOptions: {
       include: [/node_modules/],
       transformMixedEsModules: true,
     },
-    minify: 'esbuild',
-    target: 'esnext',
   },
   optimizeDeps: {
     include: [
-      'react', 
-      'react-dom', 
+      'react',
+      'react-dom',
       'react/jsx-runtime',
-      'react-router-dom',
-      'react-icons',
-      'react-joyride',
-      'react-markdown',
-      '@chakra-ui/react',
-      '@chakra-ui/icons',
-      '@emotion/react',
-      '@emotion/styled',
-      'framer-motion'
     ],
     esbuildOptions: {
       define: {
