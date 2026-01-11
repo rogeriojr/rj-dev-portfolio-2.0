@@ -41,6 +41,52 @@
 
 <body>
   <div id="root"></div>
+  <script>
+    // Interceptar erros ANTES de qualquer código carregar
+    (function() {
+      const originalWarn = console.warn;
+      const originalError = console.error;
+      const originalLog = console.log;
+
+      console.warn = function(...args) {
+        const msg = String(args[0] || '').toLowerCase();
+        if (msg.includes('download') && msg.includes('react devtools')) return;
+        originalWarn.apply(console, args);
+      };
+
+      console.error = function(...args) {
+        const msg = String(args[0] || '').toLowerCase();
+        const full = args.map(a => String(a)).join(' ').toLowerCase();
+        if (
+          msg.includes('configuration_not_found') ||
+          msg.includes('identitytoolkit') ||
+          msg.includes('getprojectconfig') ||
+          full.includes('configuration_not_found') ||
+          full.includes('identitytoolkit') ||
+          full.includes('getprojectconfig') ||
+          (msg.includes('404') && (msg.includes('f46e43c2') || msg.includes('practicaldev') || msg.includes('cloudinary')))
+        ) return;
+        originalError.apply(console, args);
+      };
+
+      window.addEventListener('error', function(e) {
+        const src = (e.target && 'src' in e.target ? e.target.src : '') || e.filename || '';
+        const msg = (e.message || '').toLowerCase();
+        const srcLower = src.toLowerCase();
+        if (
+          msg.includes('getprojectconfig') ||
+          msg.includes('configuration_not_found') ||
+          msg.includes('identitytoolkit') ||
+          srcLower.includes('identitytoolkit') ||
+          srcLower.includes('getprojectconfig') ||
+          (msg.includes('404') && (srcLower.includes('f46e43c2') || srcLower.includes('practicaldev') || srcLower.includes('cloudinary')))
+        ) {
+          e.preventDefault();
+          return false;
+        }
+      }, true);
+    })();
+  </script>
   <script type="module" src="/src/main.tsx"></script>
 </body>
 

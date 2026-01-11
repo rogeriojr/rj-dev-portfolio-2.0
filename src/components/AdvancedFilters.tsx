@@ -16,7 +16,7 @@ import {
   Tag,
   TagLabel,
   TagCloseButton,
-  Tooltip, // Used for slider thumbs
+  Tooltip, 
   SimpleGrid,
   Collapse,
   useDisclosure,

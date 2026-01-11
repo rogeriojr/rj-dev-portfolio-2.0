@@ -1,4 +1,7 @@
-if (typeof window !== 'undefined') {
+// Executar imediatamente quando o módulo é carregado
+(function() {
+  if (typeof window === 'undefined') return;
+  
   const originalWarn = console.warn;
   const originalError = console.error;
   const originalLog = console.log;
@@ -91,28 +94,37 @@ if (typeof window !== 'undefined') {
     }
     const fullError = `${message} ${source}`;
     
-    // Suprimir erros do Firebase
+    // Suprimir erros do Firebase (case-insensitive)
+    const messageLower = message.toLowerCase();
+    const sourceLower = source.toLowerCase();
+    const fullErrorLower = fullError.toLowerCase();
+    
     if (
-      message.includes('getProjectConfig') ||
-      message.includes('CONFIGURATION_NOT_FOUND') ||
-      message.includes('identitytoolkit') ||
-      source.includes('identitytoolkit') ||
-      source.includes('getProjectConfig') ||
-      fullError.includes('CONFIGURATION_NOT_FOUND') ||
-      fullError.includes('identitytoolkit')
+      messageLower.includes('getprojectconfig') ||
+      messageLower.includes('configuration_not_found') ||
+      messageLower.includes('identitytoolkit') ||
+      sourceLower.includes('identitytoolkit') ||
+      sourceLower.includes('getprojectconfig') ||
+      sourceLower.includes('googleapis.com/identitytoolkit') ||
+      fullErrorLower.includes('configuration_not_found') ||
+      fullErrorLower.includes('identitytoolkit') ||
+      fullErrorLower.includes('getprojectconfig')
     ) {
       event.preventDefault();
+      event.stopPropagation();
       return false;
     }
     
-    // Suprimir erros 404 de imagem específica
+    // Suprimir erros 404 de imagem específica (case-insensitive)
+    const sourceLowerFor404 = source.toLowerCase();
     if (
-      (message.includes('404') || source.includes('404')) &&
-      (source.includes('f46e43c2-f4f0-4787-b34e-a310cecc221a.jpg') ||
-       source.includes('practicaldev') ||
-       source.includes('cloudinary'))
+      (messageLower.includes('404') || sourceLowerFor404.includes('404')) &&
+      (sourceLowerFor404.includes('f46e43c2-f4f0-4787-b34e-a310cecc221a.jpg') ||
+       sourceLowerFor404.includes('practicaldev') ||
+       sourceLowerFor404.includes('cloudinary'))
     ) {
       event.preventDefault();
+      event.stopPropagation();
       return false;
     }
   }, true);
@@ -121,15 +133,16 @@ if (typeof window !== 'undefined') {
   window.addEventListener('unhandledrejection', (event) => {
     const reason = event.reason?.toString() || '';
     const message = event.reason?.message || '';
-    const fullError = `${reason} ${message}`;
+    const fullError = `${reason} ${message}`.toLowerCase();
     
     if (
-      fullError.includes('CONFIGURATION_NOT_FOUND') ||
+      fullError.includes('configuration_not_found') ||
       fullError.includes('identitytoolkit') ||
-      fullError.includes('getProjectConfig')
+      fullError.includes('getprojectconfig')
     ) {
       event.preventDefault();
+      event.stopPropagation();
       return false;
     }
   });
-}
+})();
