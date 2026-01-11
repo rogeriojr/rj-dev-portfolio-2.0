@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig, splitVendorChunkPlugin } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
@@ -6,6 +6,7 @@ export default defineConfig({
     react({
       jsxRuntime: 'automatic',
     }),
+    splitVendorChunkPlugin(),
   ],
   resolve: {
     dedupe: ['react', 'react-dom'],
@@ -15,30 +16,25 @@ export default defineConfig({
       output: {
         manualChunks: (id) => {
           if (id.includes('node_modules')) {
-            if (id.includes('/react/') && !id.includes('/react-dom/') && !id.includes('/react-router/') && !id.includes('/react-icons/') && !id.includes('/react-joyride/') && !id.includes('/react-markdown/')) {
-              return 'vendor-react-core';
-            }
-            if (id.includes('/react-dom/')) {
-              return 'vendor-react-core';
-            }
             if (
-              id.includes('/react-router/') ||
-              id.includes('/react-icons/') ||
-              id.includes('/react-joyride/') ||
-              id.includes('/react-markdown/') ||
-              id.includes('/@chakra-ui/') || 
-              id.includes('/@emotion/') ||
-              id.includes('/framer-motion/')
+              id.includes('react') || 
+              id.includes('react-dom') ||
+              id.includes('react-router') ||
+              id.includes('react-icons') ||
+              id.includes('react-joyride') ||
+              id.includes('react-markdown') ||
+              id.includes('@chakra-ui') || 
+              id.includes('@emotion') ||
+              id.includes('framer-motion')
             ) {
               return 'vendor-react';
             }
-            if (id.includes('/mermaid/')) {
+            if (id.includes('mermaid')) {
               return 'vendor-heavy';
             }
-            if (id.includes('/firebase/')) {
+            if (id.includes('firebase')) {
               return 'vendor-firebase';
             }
-            return 'vendor-other';
           }
         },
       },
