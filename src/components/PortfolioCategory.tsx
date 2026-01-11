@@ -1,5 +1,5 @@
 import { Box, Container, Heading, VStack, Text, HStack, useColorModeValue, Icon, SimpleGrid, Flex } from "@chakra-ui/react";
-import { useEffect, useState, useMemo, useRef } from "react";
+import { useEffect, useState, useMemo, useRef, useCallback } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { db } from "../config/firebase";
@@ -57,6 +57,8 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
   const { trackFilterUsage } = useGamificationTracking();
   const accentColor = useColorModeValue('blue.500', 'cyan.300');
   const rocketBg = useColorModeValue("blue.50", "whiteAlpha.100");
+  const lastFilterRef = useRef<string>('');
+  const filterTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
   const minYear = 2014;
   const maxYear = new Date().getFullYear() + 1;
@@ -130,6 +132,19 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
   }, [allProjects]);
 
   const [yearRange, setYearRange] = useState<[number, number]>([2018, new Date().getFullYear()]);
+
+  const debouncedTrackFilter = useCallback(() => {
+    if (filterTimeoutRef.current) {
+      clearTimeout(filterTimeoutRef.current);
+    }
+    filterTimeoutRef.current = setTimeout(() => {
+      const filterKey = JSON.stringify({ tags: selectedTags, sort: sortBy, range: yearRange });
+      if (filterKey !== lastFilterRef.current) {
+        lastFilterRef.current = filterKey;
+        trackFilterUsage();
+      }
+    }, 500);
+  }, [selectedTags, sortBy, yearRange, trackFilterUsage]);
 
   useEffect(() => {
     if (allProjects.length > 0) {
@@ -412,20 +427,20 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
             selectedTags={selectedTags}
             onTagsChange={(tags) => {
               setSelectedTags(tags);
-              if (tags.length > 0) trackFilterUsage();
+              if (tags.length > 0) debouncedTrackFilter();
             }}
             availableTags={availableTags}
             yearRange={yearRange}
             onYearRangeChange={(range) => {
               setYearRange(range);
-              if (range[0] !== minYear || range[1] !== maxYear) trackFilterUsage();
+              if (range[0] !== minYear || range[1] !== maxYear) debouncedTrackFilter();
             }}
             minYear={2014}
             maxYear={new Date().getFullYear() + 1}
             sortBy={sortBy}
             onSortChange={(sort) => {
               setSortBy(sort);
-              trackFilterUsage();
+              debouncedTrackFilter();
             }}
             language={language}
             showFeaturedOnly={showFeaturedOnly}

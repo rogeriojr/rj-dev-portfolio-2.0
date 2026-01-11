@@ -16,16 +16,18 @@ interface DocSectionProps {
 export const DocSection: React.FC<DocSectionProps> = ({ item }) => {
   const [showCode, setShowCode] = useState(false);
   const [showDetails, setShowDetails] = useState(true);
-  const [hasTracked, setHasTracked] = useState(false);
   const { language } = useTranslation();
   const { trackLabExperiment } = useGamificationTracking();
 
   useEffect(() => {
-    if (showDetails && !hasTracked) {
-      trackLabExperiment(item.id);
-      setHasTracked(true);
+    if (showDetails) {
+      const trackedKey = `lab-experiment-tracked-${item.id}`;
+      if (!localStorage.getItem(trackedKey)) {
+        trackLabExperiment(item.id);
+        localStorage.setItem(trackedKey, 'true');
+      }
     }
-  }, [showDetails, hasTracked, item.id, trackLabExperiment]);
+  }, [showDetails, item.id, trackLabExperiment]);
 
   const borderColor = useColorModeValue('gray.200', 'gray.800');
   const titleColor = useColorModeValue('brand.600', 'cyan.400');

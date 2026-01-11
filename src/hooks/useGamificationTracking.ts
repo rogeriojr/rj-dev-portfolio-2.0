@@ -7,8 +7,10 @@ export function useGamificationTracking() {
   const { unlockAchievement, updateAchievementProgress, incrementStat } = useGamification();
 
   useEffect(() => {
-    if (location.pathname === '/lab' || location.pathname.includes('/lab')) {
+    const labVisitorKey = 'cosmic-lab-visitor-unlocked';
+    if ((location.pathname === '/lab' || location.pathname.includes('/lab')) && !localStorage.getItem(labVisitorKey)) {
       unlockAchievement('cosmic-lab-visitor', true);
+      localStorage.setItem(labVisitorKey, 'true');
     }
   }, [location.pathname, unlockAchievement]);
 
@@ -155,6 +157,7 @@ export function useGamificationTracking() {
       startTime = now;
       localStorage.setItem(timeKey, startTime.toString());
       localStorage.setItem(sessionStartKey, now.toString());
+      localStorage.setItem(lastCheckKey, '0');
     } else if (!sessionStart) {
       localStorage.setItem(sessionStartKey, now.toString());
     }
@@ -163,7 +166,7 @@ export function useGamificationTracking() {
 
     const checkTimeTraveler = () => {
       const timeSpent = Math.floor((Date.now() - startTime) / 60000);
-      if (timeSpent >= 30 && timeSpent > lastCheck) {
+      if (timeSpent > lastCheck && timeSpent > 0) {
         localStorage.setItem(lastCheckKey, timeSpent.toString());
         updateAchievementProgress('time-traveler', timeSpent);
       }

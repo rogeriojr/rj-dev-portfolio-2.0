@@ -63,7 +63,7 @@ export function Layout() {
   useEffect(() => {
     const hasVisited = localStorage.getItem('portfolio-visited');
     if (!hasVisited) {
-      unlockAchievement('first-visit');
+      unlockAchievement('first-visit', true);
       localStorage.setItem('portfolio-visited', 'true');
     }
   }, [unlockAchievement]);
@@ -82,7 +82,7 @@ export function Layout() {
       };
       const achievementId = eggIdMap[globalEgg.id];
       if (achievementId) {
-        unlockAchievement(achievementId);
+        unlockAchievement(achievementId, true);
       }
     }
   }, [globalEgg, unlockAchievement]);
