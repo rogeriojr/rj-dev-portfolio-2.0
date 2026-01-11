@@ -191,7 +191,7 @@ export function Home() {
                 e.preventDefault();
                 trackCVDownload();
                 const link = document.createElement('a');
-                link.href = "./Rogerio_Junior_Desenvolvedor_Senior.pdf";
+                link.href = "./Rogério- Senior Software Engineer.pdf";
                 link.target = "_blank";
                 link.rel = "noopener noreferrer";
                 document.body.appendChild(link);
