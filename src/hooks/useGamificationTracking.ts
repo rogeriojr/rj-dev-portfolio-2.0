@@ -8,21 +8,23 @@ export function useGamificationTracking() {
 
   useEffect(() => {
     if (location.pathname === '/lab' || location.pathname.includes('/lab')) {
-      unlockAchievement('cosmic-lab-visitor', false);
+      unlockAchievement('cosmic-lab-visitor', true);
     }
   }, [location.pathname, unlockAchievement]);
 
   const trackThemeSwitch = useCallback(() => {
-    const current = localStorage.getItem('chakra-ui-color-mode-switches') || '0';
-    const newCount = parseInt(current) + 1;
-    localStorage.setItem('chakra-ui-color-mode-switches', newCount.toString());
+    const switchKey = 'portfolio-theme-switches';
+    const currentCount = parseInt(localStorage.getItem(switchKey) || '0');
+    const newCount = currentCount + 1;
+    localStorage.setItem(switchKey, newCount.toString());
     updateAchievementProgress('theme-switcher', newCount);
   }, [updateAchievementProgress]);
 
   const trackLanguageSwitch = useCallback(() => {
-    const current = localStorage.getItem('portfolio-language-switches') || '0';
-    const newCount = parseInt(current) + 1;
-    localStorage.setItem('portfolio-language-switches', newCount.toString());
+    const switchKey = 'portfolio-language-switches';
+    const currentCount = parseInt(localStorage.getItem(switchKey) || '0');
+    const newCount = currentCount + 1;
+    localStorage.setItem(switchKey, newCount.toString());
     updateAchievementProgress('language-explorer', newCount);
   }, [updateAchievementProgress]);
 
@@ -34,11 +36,11 @@ export function useGamificationTracking() {
       localStorage.setItem('portfolio-viewed-projects', JSON.stringify(viewedProjects));
       
       const count = viewedProjects.length;
-      if (count >= 5) {
-        unlockAchievement('portfolio-explorer', false);
+      if (count === 5) {
+        unlockAchievement('portfolio-explorer', true);
       }
-      if (count >= 15) {
-        unlockAchievement('project-master', false);
+      if (count === 15) {
+        unlockAchievement('project-master', true);
       }
       updateAchievementProgress('portfolio-explorer', count);
       updateAchievementProgress('project-master', count);
@@ -53,39 +55,63 @@ export function useGamificationTracking() {
   }, [updateAchievementProgress]);
 
   useEffect(() => {
+    const scrollKey = 'scroll-master-unlocked';
+    if (localStorage.getItem(scrollKey)) {
+      return;
+    }
+
     let maxScroll = 0;
     let scrollChecked = false;
     const handleScroll = () => {
       const scrollDepth = window.scrollY + window.innerHeight;
       maxScroll = Math.max(maxScroll, scrollDepth);
       
-      if (maxScroll > 1000 && !scrollChecked) {
+      if ((maxScroll > 1000 || window.scrollY > 1000) && !scrollChecked) {
         scrollChecked = true;
-        unlockAchievement('scroll-master', false);
+        localStorage.setItem(scrollKey, 'true');
+        unlockAchievement('scroll-master', true);
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [unlockAchievement]);
+    window.addEventListener('wheel', handleScroll, { passive: true });
+    
+    handleScroll();
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('wheel', handleScroll);
+    };
+  }, [unlockAchievement, location.pathname]);
 
   useEffect(() => {
     const hour = new Date().getHours();
-    if (hour >= 0 && hour < 6) {
-      unlockAchievement('night-owl', false);
+    const nightOwlKey = 'night-owl-unlocked';
+    if (hour >= 0 && hour < 6 && !localStorage.getItem(nightOwlKey)) {
+      unlockAchievement('night-owl', true);
+      localStorage.setItem(nightOwlKey, 'true');
     }
   }, [unlockAchievement]);
 
   useEffect(() => {
     const sessionKey = 'portfolio-session-start';
     const visitedKey = 'portfolio-visited-pages';
+    const speedDemonKey = 'speed-demon-unlocked';
     
-    if (!localStorage.getItem(sessionKey)) {
-      localStorage.setItem(sessionKey, Date.now().toString());
+    if (localStorage.getItem(speedDemonKey)) {
+      return;
+    }
+
+    const lastSession = localStorage.getItem(sessionKey);
+    const now = Date.now();
+    const sessionTimeout = 5 * 60 * 1000;
+
+    if (!lastSession || (now - parseInt(lastSession)) > sessionTimeout) {
+      localStorage.setItem(sessionKey, now.toString());
       localStorage.setItem(visitedKey, JSON.stringify([]));
     }
 
-    const startTime = parseInt(localStorage.getItem(sessionKey) || Date.now().toString());
+    const startTime = parseInt(localStorage.getItem(sessionKey) || now.toString());
     const visitedPages = new Set<string>(JSON.parse(localStorage.getItem(visitedKey) || '[]'));
 
     const checkSpeedDemon = () => {
@@ -93,47 +119,57 @@ export function useGamificationTracking() {
       const requiredPages = ['/', '/about', '/contact', '/portfolio/development', '/lab'];
       const allVisited = requiredPages.every(page => visitedPages.has(page));
       
-      if (allVisited && timeSpent < 2 && !localStorage.getItem('speed-demon-unlocked')) {
-        unlockAchievement('speed-demon', false);
-        localStorage.setItem('speed-demon-unlocked', 'true');
+      if (allVisited && timeSpent < 2) {
+        unlockAchievement('speed-demon', true);
+        localStorage.setItem(speedDemonKey, 'true');
       }
     };
 
     const currentPath = location.pathname;
-    if (!visitedPages.has(currentPath)) {
-      visitedPages.add(currentPath);
+    const normalizedPath = currentPath.endsWith('/') && currentPath.length > 1 
+      ? currentPath.slice(0, -1) 
+      : currentPath;
+    
+    if (!visitedPages.has(normalizedPath)) {
+      visitedPages.add(normalizedPath);
       localStorage.setItem(visitedKey, JSON.stringify(Array.from(visitedPages)));
+      checkSpeedDemon();
+    } else {
       checkSpeedDemon();
     }
 
-    const interval = setInterval(checkSpeedDemon, 5000);
+    const interval = setInterval(checkSpeedDemon, 2000);
     return () => clearInterval(interval);
   }, [location.pathname, unlockAchievement]);
 
   useEffect(() => {
     const timeKey = 'portfolio-time-spent-start';
     const lastCheckKey = 'portfolio-time-traveler-last-check';
+    const sessionStartKey = 'portfolio-current-session-start';
     
-    if (!localStorage.getItem(timeKey)) {
-      localStorage.setItem(timeKey, Date.now().toString());
+    const now = Date.now();
+    let startTime = parseInt(localStorage.getItem(timeKey) || '0');
+    const sessionStart = parseInt(localStorage.getItem(sessionStartKey) || '0');
+    
+    if (!startTime || now - startTime > 86400000) {
+      startTime = now;
+      localStorage.setItem(timeKey, startTime.toString());
+      localStorage.setItem(sessionStartKey, now.toString());
+    } else if (!sessionStart) {
+      localStorage.setItem(sessionStartKey, now.toString());
     }
 
-    const startTime = parseInt(localStorage.getItem(timeKey) || Date.now().toString());
     const lastCheck = parseInt(localStorage.getItem(lastCheckKey) || '0');
-    const now = Date.now();
 
     const checkTimeTraveler = () => {
       const timeSpent = Math.floor((Date.now() - startTime) / 60000);
-      if (timeSpent >= 30 && timeSpent !== lastCheck) {
+      if (timeSpent >= 30 && timeSpent > lastCheck) {
         localStorage.setItem(lastCheckKey, timeSpent.toString());
         updateAchievementProgress('time-traveler', timeSpent);
       }
     };
 
-    if (now - startTime >= 1800000) {
-      checkTimeTraveler();
-    }
-
+    checkTimeTraveler();
     const interval = setInterval(checkTimeTraveler, 60000);
     return () => clearInterval(interval);
   }, [updateAchievementProgress]);
@@ -144,14 +180,14 @@ export function useGamificationTracking() {
       clicked.push(platform);
       localStorage.setItem('portfolio-social-clicks', JSON.stringify(clicked));
       
-      if (clicked.length >= 3) {
-        unlockAchievement('social-butterfly', false);
+      if (clicked.length === 3) {
+        unlockAchievement('social-butterfly', true);
       }
     }
   }, [unlockAchievement]);
 
   const trackCVDownload = useCallback(() => {
-    unlockAchievement('cv-downloader', false);
+    unlockAchievement('cv-downloader', true);
   }, [unlockAchievement]);
 
   const trackLabExperiment = useCallback((experimentId: string) => {

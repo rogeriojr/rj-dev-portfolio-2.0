@@ -31,7 +31,15 @@ const getInitialState = (): GameificationState => {
         unlockedAchievementIds: new Set(parsed.unlockedAchievementIds || []),
         achievements: ALL_ACHIEVEMENTS.map(a => {
           const storedAch = parsed.achievements?.find((sa: Achievement) => sa.id === a.id);
-          return storedAch ? { ...a, ...storedAch } : { ...a };
+          if (storedAch) {
+            return { 
+              ...a, 
+              ...storedAch, 
+              progress: storedAch.progress ?? a.progress ?? 0,
+              unlockedAt: storedAch.unlockedAt ? new Date(storedAch.unlockedAt) : undefined
+            };
+          }
+          return { ...a };
         }),
         xpHistory: (parsed.xpHistory || []).map((h: { date: string; xp: number; reason?: string }) => ({
           date: new Date(h.date),

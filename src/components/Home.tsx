@@ -184,14 +184,20 @@ export function Home() {
             <Button
               size="lg"
               variant="outline"
-              as="a"
-              href="./Rogerio_Junior_Desenvolvedor_Senior.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
               leftIcon={<FaBriefcase />}
               borderColor="brand.yellow.400"
               color="brand.yellow.400"
-              onClick={trackCVDownload}
+              onClick={(e) => {
+                e.preventDefault();
+                trackCVDownload();
+                const link = document.createElement('a');
+                link.href = "./Rogerio_Junior_Desenvolvedor_Senior.pdf";
+                link.target = "_blank";
+                link.rel = "noopener noreferrer";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+              }}
               _hover={{
                 bg: "brand.yellow.400",
                 color: "brand.space.500",
@@ -212,9 +218,6 @@ export function Home() {
             w={{ base: "100%", md: "auto" }}
           >
             <IconButton
-              as="a"
-              href="https://github.com/rogeriojr"
-              target="_blank"
               aria-label="GitHub"
               icon={<FaGithub />}
               variant="ghost"
@@ -223,15 +226,16 @@ export function Home() {
               minW={{ base: "56px", md: "auto" }}
               minH={{ base: "56px", md: "auto" }}
               color="gray.400"
-              onClick={() => trackSocialClick('github')}
+              onClick={(e) => {
+                e.preventDefault();
+                trackSocialClick('github');
+                window.open('https://github.com/rogeriojr', '_blank', 'noopener,noreferrer');
+              }}
               _hover={{ color: "brand.yellow.400", transform: "scale(1.1)" }}
               _active={{ transform: "scale(0.95)" }}
               transition="all 0.2s"
             />
             <IconButton
-              as="a"
-              href="https://www.linkedin.com/in/rogério-júnior-174719120/"
-              target="_blank"
               aria-label="LinkedIn"
               icon={<FaLinkedin />}
               variant="ghost"
@@ -240,15 +244,16 @@ export function Home() {
               minW={{ base: "56px", md: "auto" }}
               minH={{ base: "56px", md: "auto" }}
               color="gray.400"
-              onClick={() => trackSocialClick('linkedin')}
+              onClick={(e) => {
+                e.preventDefault();
+                trackSocialClick('linkedin');
+                window.open('https://www.linkedin.com/in/rogério-júnior-174719120/', '_blank', 'noopener,noreferrer');
+              }}
               _hover={{ color: "brand.yellow.400", transform: "scale(1.1)" }}
               _active={{ transform: "scale(0.95)" }}
               transition="all 0.2s"
             />
             <IconButton
-              as="a"
-              href="https://www.workana.com/freelancer/5aea67e6fd911e0c207642b63c50fb9d"
-              target="_blank"
               aria-label="Workana"
               icon={<FaBriefcase />}
               variant="ghost"
@@ -257,7 +262,11 @@ export function Home() {
               minW={{ base: "56px", md: "auto" }}
               minH={{ base: "56px", md: "auto" }}
               color="gray.400"
-              onClick={() => trackSocialClick('workana')}
+              onClick={(e) => {
+                e.preventDefault();
+                trackSocialClick('workana');
+                window.open('https://www.workana.com/freelancer/5aea67e6fd911e0c207642b63c50fb9d', '_blank', 'noopener,noreferrer');
+              }}
               _hover={{ color: "brand.yellow.400", transform: "scale(1.1)" }}
               _active={{ transform: "scale(0.95)" }}
               transition="all 0.2s"
