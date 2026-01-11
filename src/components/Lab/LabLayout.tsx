@@ -94,7 +94,7 @@ export const LabLayout: React.FC<LabLayoutProps> = ({ children, activeCategory, 
       w="100%"
       maxW="100vw"
       h={isMobile ? "calc(100vh - 70px)" : "auto"}
-      overflow="hidden"
+      overflow={isMobile ? "hidden" : "visible"}
       css={{
         ...(isMobile && {
           paddingTop: '70px',
@@ -104,7 +104,8 @@ export const LabLayout: React.FC<LabLayoutProps> = ({ children, activeCategory, 
       <Flex 
         w="100%" 
         maxW="100vw"
-        h={isMobile ? "100%" : "calc(100vh - 80px)"}
+        h={isMobile ? "100%" : "auto"}
+        minH={isMobile ? "100%" : "calc(100vh - 80px)"}
         position="relative"
         direction={{ base: "column", md: "row" }}
       >
@@ -166,12 +167,11 @@ export const LabLayout: React.FC<LabLayoutProps> = ({ children, activeCategory, 
           maxW="100vw"
           ml={{ base: 0, md: `${sidebarWidth}px` }}
           position="relative"
-          overflowY="auto"
+          overflowY={isMobile ? "auto" : "visible"}
           overflowX="hidden"
-          h="100%"
+          h={isMobile ? "100%" : "auto"}
           transition="margin-left 0.3s ease"
           css={{
-            WebkitOverflowScrolling: 'touch',
             ...(isMobile && {
               WebkitOverflowScrolling: 'touch',
               overscrollBehavior: 'contain',
