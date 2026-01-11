@@ -1,7 +1,6 @@
 import { Achievement } from '../types/gamification';
 
 export const ALL_ACHIEVEMENTS: Achievement[] = [
-  // Easter Eggs
   {
     id: 'konami-code',
     name: { pt: 'Código Konami', en: 'Konami Code' },
@@ -75,7 +74,6 @@ export const ALL_ACHIEVEMENTS: Achievement[] = [
     category: 'easter-egg',
   },
   
-  // Interações
   {
     id: 'first-visit',
     name: { pt: 'Primeira Visita', en: 'First Visit' },
@@ -246,7 +244,6 @@ export const getRarityColor = (rarity: Achievement['rarity']): string => {
 };
 
 export const calculateLevel = (totalXP: number): number => {
-  // Fórmula: level = sqrt(xp / 100)
   return Math.floor(Math.sqrt(totalXP / 100)) + 1;
 };
 

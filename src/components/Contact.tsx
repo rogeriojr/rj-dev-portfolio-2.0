@@ -14,7 +14,7 @@ import {
   useColorModeValue,
   SimpleGrid,
   useToast,
-  IconButton // Explicitly import IconButton
+  IconButton
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import {
@@ -61,7 +61,6 @@ export function Contact() {
 
   return (
     <Box position="relative" overflow="hidden" py={{ base: 8, md: 12, lg: 20 }}>
-      {/* Decorative Orbiting Elements */}
       <Box 
         position="absolute" 
         top="10%" 
@@ -76,7 +75,6 @@ export function Contact() {
       <Container maxW="container.lg" position="relative" zIndex={1} px={{ base: 4, md: 6 }}>
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 8, md: 10, lg: 12 }}>
 
-          {/* Left Side: Info & Titles */}
           <VStack spacing={{ base: 6, md: 8 }} align="stretch" justify="center">
             <MotionBox
               initial={{ opacity: 0, x: -50 }}
@@ -143,7 +141,6 @@ export function Contact() {
             </HStack>
           </VStack>
 
-          {/* Right Side: Holographic Form */}
           <MotionBox
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}

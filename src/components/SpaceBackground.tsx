@@ -16,7 +16,6 @@ export function SpaceBackground() {
   const [stars, setStars] = useState<Star[]>([]);
 
   useEffect(() => {
-    // Generate random stars
     const newStars: Star[] = Array.from({ length: 50 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
@@ -41,7 +40,6 @@ export function SpaceBackground() {
       zIndex={0}
       overflow="hidden"
     >
-      {/* Animated stars */}
       {stars.map((star) => (
         <motion.div
           key={star.id}
@@ -67,7 +65,6 @@ export function SpaceBackground() {
         />
       ))}
 
-      {/* Shooting stars */}
       <motion.div
         style={{
           position: 'absolute',

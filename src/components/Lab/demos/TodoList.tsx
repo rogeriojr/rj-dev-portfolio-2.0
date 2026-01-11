@@ -113,7 +113,6 @@ export function TodoList() {
   return (
     <Box w="full" maxW="600px" mx="auto">
       <VStack spacing={4} align="stretch">
-        {/* Header */}
         <HStack justify="space-between" mb={4}>
           <Text fontSize="xl" fontWeight="bold">
             Todo List
@@ -125,7 +124,6 @@ export function TodoList() {
           </HStack>
         </HStack>
 
-        {/* Add Todo */}
         <HStack spacing={2}>
           <Input
             placeholder="Nova tarefa..."
@@ -153,7 +151,6 @@ export function TodoList() {
           />
         </HStack>
 
-        {/* Filters */}
         <HStack spacing={2}>
           {(['all', 'active', 'completed'] as const).map((f) => (
             <Button
@@ -170,7 +167,6 @@ export function TodoList() {
 
         <Divider />
 
-        {/* Todo List */}
         <VStack spacing={2} align="stretch" maxH="400px" overflowY="auto">
           <AnimatePresence>
             {filteredTodos.length === 0 ? (

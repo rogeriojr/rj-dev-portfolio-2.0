@@ -13,11 +13,10 @@ export function StyledProfileImage() {
   const navigate = useNavigate();
   const toast = useToast();
 
-  // Motion values for drag interaction
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const hueRotate = useTransform(x, [-150, 0, 150], [-90, 0, 90]); // Hue rotation centered at 0
-  const scale = useTransform(y, [-150, 150], [1.2, 0.8]); // Scale based on vertical drag
+  const hueRotate = useTransform(x, [-150, 0, 150], [-90, 0, 90]);
+  const scale = useTransform(y, [-150, 150], [1.2, 0.8]);
 
   const getBorderColors = () => {
     switch (borderEffect) {
@@ -75,7 +74,6 @@ export function StyledProfileImage() {
       justifyContent="center"
       alignItems="center"
     >
-      {/* Decorative Orbiting Planet Controls */}
       <Box
         position="absolute"
         width={{ base: "260px", md: "330px", lg: "400px" }}
@@ -135,7 +133,6 @@ export function StyledProfileImage() {
         </Box>
       </Box>
 
-      {/* Main Draggable Profile Image */}
       <motion.div
         drag={typeof window !== 'undefined' && window.innerWidth >= 768}
         dragConstraints={{ left: -50, right: 50, top: -50, bottom: 50 }}
@@ -156,7 +153,6 @@ export function StyledProfileImage() {
           justifyContent="center"
           as={motion.div}
         >
-          {/* Animated Border */}
           <Box
             position="absolute"
             inset="-3px"
@@ -172,7 +168,6 @@ export function StyledProfileImage() {
         </Box>
       </motion.div>
 
-      {/* Floating Rocket Link */}
       <Tooltip label="Viajar para Contato" placement="bottom">
         <IconButton
           as={motion.button}

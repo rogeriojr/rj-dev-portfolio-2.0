@@ -7,14 +7,9 @@ import { FaRocket, FaFlagCheckered, FaUserAstronaut, FaGlobeAmericas, FaAdjust }
 export function CodeTour() {
   const { language } = useTranslation();
 
-
-  // Custom colors for the space theme
-
-
   const [run, setRun] = useState(false);
 
   useEffect(() => {
-    // Check if user has seen the guide
     const seen = localStorage.getItem('hasSeenSpaceTour_v5');
     if (!seen) {
       const timer = setTimeout(() => {
@@ -24,9 +19,6 @@ export function CodeTour() {
     }
   }, []);
 
-
-
-  // Removed custom tooltip to restore standard usability
   const steps: Step[] = [
     {
       target: 'body',
@@ -131,8 +123,8 @@ export function CodeTour() {
       styles={{
         options: {
           zIndex: 10000,
-          primaryColor: '#9F7AEA', // Purple.400
-          textColor: '#2D3748', // Gray.800
+          primaryColor: '#9F7AEA',
+          textColor: '#2D3748',
           backgroundColor: '#FFFFFF',
           arrowColor: '#FFFFFF',
           overlayColor: 'rgba(0, 0, 0, 0.85)',

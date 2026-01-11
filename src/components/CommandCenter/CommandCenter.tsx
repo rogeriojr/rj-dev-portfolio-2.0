@@ -129,7 +129,6 @@ export function CommandCenter({ isOpen, onClose }: CommandCenterProps) {
             </TabList>
 
             <TabPanels>
-              {/* Floating Buttons Tab */}
               <TabPanel px={0}>
                 <VStack align="stretch" spacing={4}>
                   {buttonConfigs.map((button) => {
@@ -265,7 +264,6 @@ export function CommandCenter({ isOpen, onClose }: CommandCenterProps) {
                 </VStack>
               </TabPanel>
 
-              {/* Appearance Tab */}
               <TabPanel px={0}>
                 <VStack align="stretch" spacing={4}>
                   <MotionBox

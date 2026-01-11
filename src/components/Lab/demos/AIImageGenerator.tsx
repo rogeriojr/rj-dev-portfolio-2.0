@@ -53,7 +53,6 @@ export function AIImageGenerator() {
     setIsGenerating(true);
     setProgress(0);
 
-    // Simulate generation progress
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 90) {
@@ -64,7 +63,6 @@ export function AIImageGenerator() {
       });
     }, 200);
 
-    // Simulate API call
     setTimeout(() => {
       const newImage: GeneratedImage = {
         id: Date.now().toString(),
@@ -86,7 +84,6 @@ export function AIImageGenerator() {
   return (
     <Box w="full" maxW="900px" mx="auto">
       <VStack spacing={6} align="stretch">
-        {/* Generator Panel */}
         <Box p={6} bg={cardBg} borderRadius="xl" border="1px solid" borderColor={borderColor}>
           <VStack spacing={4} align="stretch">
             <HStack spacing={2}>
@@ -142,7 +139,6 @@ export function AIImageGenerator() {
           </VStack>
         </Box>
 
-        {/* Generated Images Gallery */}
         {generatedImages.length > 0 && (
           <Box>
             <HStack mb={4} spacing={2}>
@@ -210,7 +206,6 @@ export function AIImageGenerator() {
           </Box>
         )}
 
-        {/* Info */}
         <Box p={4} bg="purple.50" borderRadius="md" border="1px" borderColor="purple.200">
           <HStack spacing={2}>
             <Icon as={FaStar} color="purple.500" />

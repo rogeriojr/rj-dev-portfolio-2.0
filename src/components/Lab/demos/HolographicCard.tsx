@@ -66,7 +66,6 @@ export const HolographicCard = () => {
           borderColor="whiteAlpha.200"
           boxShadow="2xl"
         >
-          {/* Holo Content */}
           <VStack spacing={4} align="center" transform="translateZ(50px)" h="full" justify="center">
             <Box
               w="100px"
@@ -84,7 +83,6 @@ export const HolographicCard = () => {
             </Text>
           </VStack>
 
-          {/* Shine/Glare Effect */}
           <Box
             position="absolute"
             top={0}
@@ -98,7 +96,6 @@ export const HolographicCard = () => {
             style={{ mixBlendMode: 'overlay' }}
           />
 
-          {/* Grid Pattern Overlay */}
           <Box
             position="absolute"
             top={0} left={0} right={0} bottom={0}

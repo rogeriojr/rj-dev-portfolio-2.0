@@ -55,7 +55,6 @@ export function CookieConsent() {
             spacing={{ base: 4, md: 6 }}
             align={{ base: "stretch", md: "center" }}
           >
-            {/* Cookie Icon and Text */}
             <HStack flex={1} align="start" spacing={3}>
               <Text fontSize="2xl">🍪</Text>
               <VStack align="start" spacing={1} flex={1}>
@@ -68,7 +67,6 @@ export function CookieConsent() {
               </VStack>
             </HStack>
 
-            {/* Buttons */}
             <HStack spacing={2} flexShrink={0}>
               <Button
                 size="sm"
@@ -94,7 +92,6 @@ export function CookieConsent() {
             </HStack>
           </Stack>
 
-          {/* Customize Options */}
           <Collapse in={showCustomize} animateOpacity>
             <Box mt={4} pt={4} borderTop="1px" borderColor={borderColor}>
               <VStack align="stretch" spacing={3}>

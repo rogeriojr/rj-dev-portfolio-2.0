@@ -96,7 +96,6 @@ export function WebSocketSimulator() {
   return (
     <Box w="full" maxW="600px" mx="auto">
       <VStack spacing={4} align="stretch">
-        {/* Connection Status */}
         <HStack justify="space-between" p={4} bg={bgColor} borderRadius="md" border="1px" borderColor={borderColor}>
           <HStack>
             <Icon as={FaWifi} color={isConnected ? 'green.400' : 'red.400'} opacity={isConnected ? 1 : 0.3} />
@@ -118,7 +117,6 @@ export function WebSocketSimulator() {
           </HStack>
         </HStack>
 
-        {/* Messages Area */}
         <Box
           h="300px"
           overflowY="auto"
@@ -153,7 +151,6 @@ export function WebSocketSimulator() {
           </VStack>
         </Box>
 
-        {/* Input Area */}
         <HStack>
           <Input
             value={inputValue}
@@ -173,7 +170,6 @@ export function WebSocketSimulator() {
           </Button>
         </HStack>
 
-        {/* Info */}
         <Box p={3} bg="blue.50" borderRadius="md" border="1px" borderColor="blue.200">
           <Text fontSize="xs" color="blue.700">
             <Code fontSize="xs">WebSocket</Code> provides full-duplex communication over a single TCP connection.

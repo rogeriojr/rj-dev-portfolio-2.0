@@ -6,8 +6,6 @@ import {
 import { FaCreditCard, FaUserPlus, FaBell, FaDatabase, FaServer, FaShieldAlt } from 'react-icons/fa';
 import React from 'react';
 
-// --- Sub-Components (Internal for Demo) ---
-
 const Card = ({ children, title }: { children: React.ReactNode, title?: string }) => (
   <Box
     bg="black"
@@ -137,7 +135,6 @@ const ComputeSettings = () => (
 export const CosmicDashboard = () => {
   return (
     <Box w="full" bg="gray.950" p={4} rounded="xl" border="1px solid" borderColor="gray.800">
-      {/* Top Bar */}
       <HStack mb={8} justify="space-between" align="center">
         <HStack spacing={4}>
           <Heading size="md" color="white" letterSpacing="tight">Project Titan</Heading>
@@ -150,7 +147,6 @@ export const CosmicDashboard = () => {
         </HStack>
       </HStack>
 
-      {/* Main Grid */}
       <Grid
         templateAreas={{
           base: `"pay" "team" "analytics" "compute"`,
@@ -174,7 +170,6 @@ export const CosmicDashboard = () => {
         </GridItem>
       </Grid>
 
-      {/* Footer / Logs */}
       <Box mt={4} p={3} bg="black" borderTop="1px solid" borderColor="gray.800" rounded="lg">
         <HStack spacing={2} mb={2}>
           <Icon as={FaShieldAlt} color="green.500" boxSize={3} />

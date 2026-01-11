@@ -195,7 +195,6 @@ export function LoadingSpinner() {
       zIndex={9999}
       overflow="hidden"
     >
-      {/* Animated Starfield Background */}
       {Array.from({ length: 30 }).map((_, i) => (
         <MotionBox
           key={`star-${i}`}
@@ -220,10 +219,8 @@ export function LoadingSpinner() {
         />
       ))}
 
-      {/* Floating Elements from Left to Right */}
       {floatingElements.map(renderFloatingElement)}
 
-      {/* Nebula Glow Effects */}
       <MotionBox
         position="absolute"
         top="10%"
@@ -286,7 +283,6 @@ export function LoadingSpinner() {
         }}
       />
 
-      {/* Main Content - Astronaut, Yellow Rocket and Planet Spinner */}
       <HStack spacing={10} align="center" position="relative" zIndex={10}>
         <MotionBox
           animate={floatingAnimation}
@@ -317,7 +313,6 @@ export function LoadingSpinner() {
         </MotionBox>
       </HStack>
 
-      {/* Shooting Stars */}
       {Array.from({ length: 3 }).map((_, i) => (
         <MotionBox
           key={`shooting-${i}`}

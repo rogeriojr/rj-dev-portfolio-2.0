@@ -7,7 +7,6 @@ const defaultCode = `function fibonacci(n) {
   return fibonacci(n - 1) + fibonacci(n - 2);
 }
 
-// Calculate first 10 Fibonacci numbers
 for (let i = 0; i < 10; i++) {
   console.log(\`F(\${i}) = \${fibonacci(i)}\`);
 }`;
@@ -31,7 +30,6 @@ export function CodeEditorSimulator() {
     };
 
     try {
-      // Simple eval for demo (not safe for production!)
       eval(code);
       setOutput(logs.length > 0 ? logs : ['Code executed successfully']);
     } catch (error: unknown) {
@@ -55,15 +53,13 @@ export function CodeEditorSimulator() {
   return (
     <Box w="full" maxW="900px" mx="auto">
       <VStack spacing={4} align="stretch">
-        {/* Editor */}
         <Box
           borderRadius="md"
           overflow="hidden"
           border="1px"
           borderColor={borderColor}
           boxShadow="lg"
-        >
-          {/* Editor Header */}
+          >
           <HStack
             justify="space-between"
             p={2}
@@ -101,7 +97,6 @@ export function CodeEditorSimulator() {
             </HStack>
           </HStack>
 
-          {/* Code Area */}
           <Box bg={editorBg} p={4} position="relative">
             <Textarea
               value={code}
@@ -128,7 +123,6 @@ export function CodeEditorSimulator() {
           </Box>
         </Box>
 
-        {/* Output */}
         {output.length > 0 && (
           <Box
             p={4}
@@ -166,7 +160,6 @@ export function CodeEditorSimulator() {
           </Box>
         )}
 
-        {/* Info */}
         <Box p={3} bg="green.50" borderRadius="md" border="1px" borderColor="green.200">
           <Text fontSize="xs" color="green.700">
             This is a simplified code editor. In production, use libraries like{' '}

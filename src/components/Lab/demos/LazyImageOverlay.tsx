@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Box, Image, Skeleton, Text, VStack } from '@chakra-ui/react';
 
-// Mock low-res and high-res for demo
 const LOW_RES = "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=100&auto=format&fit=crop";
 const HIGH_RES = "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1080&auto=format&fit=crop";
 
@@ -11,7 +10,6 @@ export const LazyImageOverlay = () => {
 
   return (
     <Box position="relative" w="full" maxW="500px" h="300px" overflow="hidden" rounded="xl" boxShadow="xl">
-      {/* Low Res Blur Placeholder */}
       <Box
         position="absolute"
         top={0} left={0} right={0} bottom={0}
@@ -22,7 +20,6 @@ export const LazyImageOverlay = () => {
         transition="opacity 0.8s ease-out"
       />
 
-      {/* High Res Image */}
       <Image
         src={HIGH_RES}
         alt="Cosmic View"
@@ -39,7 +36,6 @@ export const LazyImageOverlay = () => {
         transitionDuration="0.6s"
       />
 
-      {/* Overlay Text */}
       <Box
         position="absolute"
         bottom={0} left={0} right={0}
@@ -52,7 +48,6 @@ export const LazyImageOverlay = () => {
         <Text color="gray.300" fontSize="sm">High-resolution lazy loaded asset</Text>
       </Box>
 
-      {/* Loading Indicator */}
       {!isLoaded && (
         <VStack position="absolute" top="50%" left="50%" transform="translate(-50%, -50%)">
           <Skeleton height="20px" width="100px" />

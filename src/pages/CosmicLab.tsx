@@ -12,7 +12,6 @@ const MotionBox = motion(Box);
 
 const CosmicLab = () => {
   const [activeCategory, setActiveCategory] = useState(() => {
-    // Initialize with first category if available
     return LAB_CONTENT.length > 0 ? LAB_CONTENT[0].id : 'god-tier-backend';
   });
   const [activeItem, setActiveItem] = useState<string | null>(null);
@@ -22,7 +21,6 @@ const CosmicLab = () => {
 
   const debouncedSearch = useDebounce(searchTerm, 300);
 
-  // Calculate statistics
   const stats = useMemo(() => {
     const totalItems = LAB_CONTENT.reduce((sum, cat) => sum + cat.items.length, 0);
     const totalCategories = LAB_CONTENT.length;
@@ -35,7 +33,6 @@ const CosmicLab = () => {
     };
   }, []);
 
-  // Filter items based on search and type
   const filteredContent = useMemo(() => {
     return LAB_CONTENT.map(category => ({
       ...category,
@@ -56,7 +53,6 @@ const CosmicLab = () => {
     return filteredContent.find(c => c.id === activeCategory) || filteredContent[0];
   }, [filteredContent, activeCategory]);
 
-  // Auto-scroll to section on selection
   useEffect(() => {
     if (activeItem) {
       const element = document.getElementById(activeItem);
@@ -68,7 +64,6 @@ const CosmicLab = () => {
     }
   }, [activeItem]);
 
-  // Reset active item when category changes or when filtered content changes
   useEffect(() => {
     if (filteredContent.length === 0) {
       setActiveItem(null);
@@ -110,7 +105,6 @@ const CosmicLab = () => {
         px={{ base: 4, md: 6 }}
         pt={0}
       >
-        {/* Header with Stats */}
         <MotionBox
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -139,7 +133,6 @@ const CosmicLab = () => {
               </Text>
             </Box>
 
-            {/* Statistics */}
             <SimpleGrid columns={{ base: 1, sm: 3 }} spacing={{ base: 3, md: 4 }} w="full" maxW="600px" mx="auto">
               <Box p={{ base: 3, md: 4 }} bg={cardBg} borderRadius="xl" border="1px" borderColor={borderColor}>
                 <VStack spacing={1}>
@@ -178,7 +171,6 @@ const CosmicLab = () => {
           </VStack>
         </MotionBox>
 
-        {/* Search and Filters */}
         <MotionBox
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -224,7 +216,6 @@ const CosmicLab = () => {
           </Flex>
         </MotionBox>
 
-        {/* Results Count */}
         {filteredContent.length === 0 && (
           <Box textAlign="center" py={12}>
             <Text fontSize="lg" color="gray.500" mb={2}>
@@ -236,7 +227,6 @@ const CosmicLab = () => {
           </Box>
         )}
 
-        {/* Content */}
         {filteredContent.length > 0 && (
           <Box position="relative">
             {filteredContent.map((category) => (

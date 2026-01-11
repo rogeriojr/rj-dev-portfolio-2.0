@@ -133,7 +133,6 @@ export function KanbanBoard() {
   return (
     <Box w="full" maxW="1400px" mx="auto">
       <VStack spacing={4} align="stretch">
-        {/* Header */}
         <HStack justify="space-between" mb={4}>
           <Text fontSize="2xl" fontWeight="bold">
             Kanban Board
@@ -143,7 +142,6 @@ export function KanbanBoard() {
           </Badge>
         </HStack>
 
-        {/* Add Task */}
         <Card bg={bg} border="1px solid" borderColor={borderColor}>
           <CardBody>
             <VStack spacing={3} align="stretch">
@@ -172,7 +170,6 @@ export function KanbanBoard() {
           </CardBody>
         </Card>
 
-        {/* Kanban Columns */}
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={4}>
           {COLUMNS.map((column) => (
             <VStack

@@ -21,7 +21,6 @@ export const MarkdownEngineSimulator = () => {
   const [markdown, setMarkdown] = useState(defaultMd);
 
   const renderPreview = (text: string) => {
-    // Simple mock parser for demo purposes
     return text.split('\n').map((line, i) => {
       if (line.startsWith('# ')) return <Text key={i} fontSize="lg" fontWeight="bold" color="cyan.400">{line.replace('# ', '')}</Text>;
       if (line.startsWith('## ')) return <Text key={i} fontSize="md" fontWeight="bold" color="purple.400" mt={2}>{line.replace('## ', '')}</Text>;

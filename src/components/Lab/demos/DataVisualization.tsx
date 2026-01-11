@@ -182,7 +182,6 @@ export function DataVisualization() {
   return (
     <Box w="full" maxW="800px" mx="auto">
       <VStack spacing={6} align="stretch">
-        {/* Controls */}
         <HStack justify="space-between" flexWrap="wrap" gap={3}>
           <HStack spacing={2}>
             <Icon as={FaChartLine} color="blue.500" />
@@ -202,7 +201,6 @@ export function DataVisualization() {
           </Select>
         </HStack>
 
-        {/* Chart */}
         <Box
           p={6}
           bg={bg}
@@ -214,7 +212,6 @@ export function DataVisualization() {
           {renderChart()}
         </Box>
 
-        {/* Legend */}
         <SimpleGrid columns={{ base: 2, md: 5 }} spacing={3}>
           {data.map((item) => (
             <Card key={item.label} bg={cardBg} size="sm">

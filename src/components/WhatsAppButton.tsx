@@ -25,10 +25,8 @@ export function WhatsAppButton() {
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
   };
 
-  // Se desabilitado na Central de Comando, não renderiza
   if (!config.whatsapp.enabled) return null;
 
-  // Usa configuração personalizada se diferente do padrão, senão usa posição fixa original
   const hasCustomPosition = config.whatsapp.position !== 'bottom-right' || 
                             config.whatsapp.customX !== undefined || 
                             config.whatsapp.customY !== undefined;

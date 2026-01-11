@@ -53,7 +53,6 @@ export function FileUploader() {
         uploaded: false,
       };
 
-      // Generate preview for images
       if (file.type.startsWith('image/')) {
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -66,7 +65,6 @@ export function FileUploader() {
 
       setFiles((prev) => [...prev, newFile]);
 
-      // Simulate upload
       let progress = 0;
       const interval = setInterval(() => {
         progress += 10;
@@ -115,7 +113,6 @@ export function FileUploader() {
   return (
     <Box w="full" maxW="800px" mx="auto">
       <VStack spacing={6} align="stretch">
-        {/* Upload Area */}
         <Box
           p={8}
           bg={bg}
@@ -154,7 +151,6 @@ export function FileUploader() {
           />
         </Box>
 
-        {/* Files List */}
         {files.length > 0 && (
           <VStack spacing={3} align="stretch">
             <Text fontSize="md" fontWeight="bold">
@@ -236,7 +232,6 @@ export function FileUploader() {
           </VStack>
         )}
 
-        {/* Info */}
         <Box p={4} bg="blue.50" borderRadius="md" border="1px" borderColor="blue.200">
           <HStack spacing={2}>
             <Icon as={FaUpload} color="blue.500" />

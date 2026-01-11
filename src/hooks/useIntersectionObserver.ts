@@ -23,7 +23,6 @@ export function useIntersectionObserver({
     const element = ref.current;
     if (!element) return;
 
-    // Skip if already visible and frozen
     if (freezeOnceVisible && isIntersecting) return;
 
     const observer = new IntersectionObserver(

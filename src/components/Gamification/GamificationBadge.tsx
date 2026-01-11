@@ -22,15 +22,12 @@ export function GamificationBadge({ onOpen }: GamificationBadgeProps) {
   const hasNewAchievements = stats.achievementsUnlocked > 0;
   const completionPercentage = (stats.achievementsUnlocked / stats.totalAchievements) * 100;
 
-  // Se desabilitado na Central de Comando, não renderiza
   if (!config.gamification.enabled) return null;
 
-  // Usa configuração personalizada se diferente do padrão, senão usa posição fixa original
   const hasCustomPosition = config.gamification.position !== 'bottom-right' || 
                             config.gamification.customX !== undefined || 
                             config.gamification.customY !== undefined;
 
-  // Calcular posição baseada no botão WhatsApp (padrão original)
   const whatsappBottom = 24; // bottom do WhatsApp em desktop
   const whatsappHeight = 56; // altura do botão lg
   const spacing = 16; // espaçamento entre botões

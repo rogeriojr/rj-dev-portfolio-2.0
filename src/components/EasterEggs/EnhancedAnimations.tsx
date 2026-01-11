@@ -4,7 +4,6 @@ import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { FaRocket } from 'react-icons/fa';
 import { IoPlanet } from 'react-icons/io5';
 
-// Animação otimizada de partículas estelares
 export const StarParticles = memo(() => {
   const stars = useMemo(() => {
     return Array.from({ length: 20 }, (_, i) => ({
@@ -49,7 +48,6 @@ export const StarParticles = memo(() => {
 
 StarParticles.displayName = 'StarParticles';
 
-// Animação otimizada de foguete
 export const RocketAnimation = memo(({ active }: { active: boolean }) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -89,7 +87,6 @@ export const RocketAnimation = memo(({ active }: { active: boolean }) => {
 
 RocketAnimation.displayName = 'RocketAnimation';
 
-// Animação de planeta flutuante otimizada
 export const FloatingPlanet = memo(({ delay = 0 }: { delay?: number }) => {
   const size = useMemo(() => 40 + Math.random() * 20, []);
   const startX = useMemo(() => Math.random() * 100, []);
@@ -123,7 +120,6 @@ export const FloatingPlanet = memo(({ delay = 0 }: { delay?: number }) => {
 
 FloatingPlanet.displayName = 'FloatingPlanet';
 
-// Sistema de partículas otimizado com requestAnimationFrame
 export const OptimizedParticles = memo(({ count = 10 }: { count?: number }) => {
   const particles = useMemo(() => {
     return Array.from({ length: count }, (_, i) => ({

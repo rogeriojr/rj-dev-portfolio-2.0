@@ -802,7 +802,6 @@ The system implements a sophisticated generative AI architecture with RAG:
     links: [
       { texto: "Demo Chat", url: "https://ai-srv.neoidea.com.br/?uuid=bca740bd02d746f1adfb97e6d8e3d2ae&room_id=e39ca8003b410be0be0afdb81ec6e0ce&user=2fffe3b570e2e33eff1ee9d3ec3f6746&password=23e4b3eb0ac3ae12d4f9e13372b49cda" }
     ],
-    // Removed new Date calls to ensure historical accuracy, handled via projectDates mapping
     createdAt: new Date("2024-01-01"),
     updatedAt: new Date("2024-01-01")
   },
@@ -1293,7 +1292,7 @@ The system implements a robust architecture for multi-city operation:
     images: [
       "/assets/projects/gerenciamento_produtos.png",
       "/assets/projects/product-mgmt/logo.png"
-    ].filter(img => img), // Remove imagens vazias
+    ].filter(img => img),
     tags: ["Next.js", "TypeScript", "Tailwind CSS", "State Management", "Responsive Design", "Testing"],
     links: [
       { texto: "Ver Demo", url: "https://teste-gerenciamento-produtos.vercel.app/" },

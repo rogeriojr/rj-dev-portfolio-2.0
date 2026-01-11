@@ -153,7 +153,6 @@ export function VoiceRecorder() {
   return (
     <Box w="full" maxW="700px" mx="auto">
       <VStack spacing={6} align="stretch">
-        {/* Recorder Controls */}
         <Box p={6} bg={bg} borderRadius="xl" border="1px solid" borderColor={borderColor}>
           <VStack spacing={4}>
             <Text fontSize="lg" fontWeight="bold">
@@ -207,7 +206,6 @@ export function VoiceRecorder() {
           </VStack>
         </Box>
 
-        {/* Current Recording Playback */}
         {currentRecording && (
           <Box p={4} bg={cardBg} borderRadius="lg" border="1px solid" borderColor={borderColor}>
             <VStack spacing={3} align="stretch">
@@ -250,7 +248,6 @@ export function VoiceRecorder() {
           </Box>
         )}
 
-        {/* Recordings List */}
         {recordings.length > 0 && (
           <Box>
             <Text fontSize="md" fontWeight="bold" mb={3}>
@@ -308,7 +305,6 @@ export function VoiceRecorder() {
           </Box>
         )}
 
-        {/* Info */}
         <Box p={4} bg="blue.50" borderRadius="md" border="1px" borderColor="blue.200">
           <HStack spacing={2}>
             <Icon as={FaMicrophone} color="blue.500" />

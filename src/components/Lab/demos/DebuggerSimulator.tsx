@@ -26,7 +26,6 @@ export const DebuggerSimulator = () => {
     const nextLine = (currentLine + 1) % codeLines.length;
     setCurrentLine(nextLine);
 
-    // Mock logic sync
     if (nextLine === 1) setVariables((v: any) => ({ ...v, total: 0 }));
     if (nextLine === 4) setVariables((v: any) => ({ ...v, item: '{ id: 1, price: 99 }', active: 'true' }));
     if (nextLine === 5) setVariables((v: any) => ({ ...v, total: 99 }));

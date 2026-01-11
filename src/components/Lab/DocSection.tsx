@@ -38,7 +38,6 @@ export const DocSection: React.FC<DocSectionProps> = ({ item }) => {
       mb={16}
       id={item.id}
     >
-      {/* Header */}
       <Flex align="center" gap={{ base: 2, md: 3 }} mb={4} flexWrap="wrap">
         <Heading size={{ base: "md", md: "lg" }} color={titleColor} fontFamily="Share Tech Mono" wordBreak="break-word">
           {item.title[language]}
@@ -66,7 +65,6 @@ export const DocSection: React.FC<DocSectionProps> = ({ item }) => {
 
       <Collapse in={showDetails} animateOpacity>
         <Box mb={8}>
-          {/* Problem & Solution Grid (if available) */}
           {(item.problemStatement || item.solution) && (
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 4, md: 6 }} mb={{ base: 6, md: 8 }}>
               {item.problemStatement && (
@@ -94,7 +92,6 @@ export const DocSection: React.FC<DocSectionProps> = ({ item }) => {
             </SimpleGrid>
           )}
 
-          {/* Key Features List */}
           {item.features && (
             <Box mb={{ base: 6, md: 8 }}>
               <Text fontWeight="bold" mb={3} color={accentColor} fontSize={{ base: "sm", md: "md" }}>
@@ -111,7 +108,6 @@ export const DocSection: React.FC<DocSectionProps> = ({ item }) => {
             </Box>
           )}
 
-          {/* Senior Tips Section */}
           {item.seniorTips && (
             <Box
               p={{ base: 4, md: 6 }}
@@ -146,7 +142,6 @@ export const DocSection: React.FC<DocSectionProps> = ({ item }) => {
         </Box>
       </Collapse>
 
-      {/* Mermaid Diagram Area */}
       {item.mermaid && (
         <Box
           p={{ base: 4, md: 6 }}
@@ -167,7 +162,6 @@ export const DocSection: React.FC<DocSectionProps> = ({ item }) => {
         </Box>
       )}
 
-      {/* Interactive Demo Area */}
       {item.demo && (
         <Box
           border="1px"
@@ -212,7 +206,6 @@ export const DocSection: React.FC<DocSectionProps> = ({ item }) => {
         </Box>
       )}
 
-      {/* Implementation / Code Section */}
       {item.code && (
         <Box rounded="xl" overflow="hidden" border="1px solid" borderColor={borderColor}>
           <Tabs variant="soft-rounded" colorScheme="cyan" size={{ base: "xs", md: "sm" }}>

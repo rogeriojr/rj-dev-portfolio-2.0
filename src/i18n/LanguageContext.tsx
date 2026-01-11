@@ -19,15 +19,12 @@ const translations = {
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>(() => {
-    // Try to get from localStorage, default to 'pt'
     const saved = localStorage.getItem('portfolio-language');
     return (saved === 'pt' || saved === 'en') ? saved : 'pt';
   });
 
   useEffect(() => {
-    // Persist language preference
     localStorage.setItem('portfolio-language', language);
-    // Update HTML lang attribute for accessibility
     document.documentElement.lang = language;
   }, [language]);
 
@@ -43,7 +40,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
       if (value && typeof value === 'object') {
         value = value[k];
       } else {
-        return key; // Return key if translation not found
+        return key;
       }
     }
 

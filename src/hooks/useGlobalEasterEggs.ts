@@ -113,7 +113,6 @@ export function useGlobalEasterEggs(enabled: boolean = true) {
       setKeySequence(prev => {
         const newSequence = [...prev, key].slice(-30);
 
-        // Verificar easter eggs com sequência de teclas
         GLOBAL_EASTER_EGGS.forEach(egg => {
           if (typeof egg.trigger === 'string') {
             const sequenceString = newSequence.join(',');

@@ -18,7 +18,6 @@ export const LabLayout: React.FC<LabLayoutProps> = ({ children, activeCategory, 
   const [sidebarWidth, setSidebarWidth] = React.useState(320);
   const isMobile = useBreakpointValue({ base: true, md: false });
 
-  // Get sidebar width from localStorage
   React.useEffect(() => {
     const savedCompact = localStorage.getItem('cosmic-lab-compact');
     if (savedCompact) {
@@ -27,7 +26,6 @@ export const LabLayout: React.FC<LabLayoutProps> = ({ children, activeCategory, 
     }
   }, []);
 
-  // Listen for storage changes (when compact mode is toggled)
   React.useEffect(() => {
     const handleStorageChange = () => {
       const savedCompact = localStorage.getItem('cosmic-lab-compact');
@@ -46,12 +44,10 @@ export const LabLayout: React.FC<LabLayoutProps> = ({ children, activeCategory, 
     };
   }, []);
 
-  // Disable body scroll when drawer is open on mobile
   React.useEffect(() => {
     if (isMobile && isOpen) {
       document.body.style.overflow = 'hidden';
     } else if (isMobile && !isOpen) {
-      // Keep body scroll disabled when in Lab on mobile
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -63,10 +59,8 @@ export const LabLayout: React.FC<LabLayoutProps> = ({ children, activeCategory, 
     };
   }, [isMobile, isOpen]);
 
-  // Disable body scroll on mobile when in Lab to prevent double scroll
   React.useEffect(() => {
     if (isMobile) {
-      // Prevent body scroll - only Lab content should scroll
       document.body.style.overflow = 'hidden';
       document.body.style.height = '100vh';
       document.body.style.width = '100%';
@@ -102,7 +96,6 @@ export const LabLayout: React.FC<LabLayoutProps> = ({ children, activeCategory, 
       h={isMobile ? "calc(100vh - 70px)" : "auto"}
       overflow="hidden"
       css={{
-        // No mobile, garantir que não haja padding extra
         ...(isMobile && {
           paddingTop: '70px',
         }),
@@ -115,7 +108,6 @@ export const LabLayout: React.FC<LabLayoutProps> = ({ children, activeCategory, 
         position="relative"
         direction={{ base: "column", md: "row" }}
       >
-        {/* Desktop Sidebar - Fixed Position */}
         <Box 
           display={{ base: 'none', md: 'flex' }}
           position="fixed"
@@ -134,7 +126,6 @@ export const LabLayout: React.FC<LabLayoutProps> = ({ children, activeCategory, 
           <LabSidebar activeCategory={activeCategory} activeItem={activeItem} onSelect={handleSelect} />
         </Box>
 
-        {/* Mobile Sidebar Drawer - Bottom Sheet Style */}
         <Drawer 
           isOpen={isOpen} 
           placement="bottom" 
@@ -169,7 +160,6 @@ export const LabLayout: React.FC<LabLayoutProps> = ({ children, activeCategory, 
           </DrawerContent>
         </Drawer>
 
-        {/* Main Content Area - Single scroll on mobile */}
         <Box 
           flex="1" 
           w="full" 
@@ -181,21 +171,17 @@ export const LabLayout: React.FC<LabLayoutProps> = ({ children, activeCategory, 
           h="100%"
           transition="margin-left 0.3s ease"
           css={{
-            // Use native scroll, no nested scroll
             WebkitOverflowScrolling: 'touch',
-            // Ensure this is the only scrollable element on mobile
             ...(isMobile && {
               WebkitOverflowScrolling: 'touch',
               overscrollBehavior: 'contain',
               width: '100%',
               maxWidth: '100vw',
-              // Remover qualquer padding que empurre conteúdo para baixo
               paddingTop: 0,
               marginTop: 0,
             }),
           }}
         >
-          {/* Mobile Top Bar - FIXO abaixo da navbar - COLADO NO TOPO */}
           {isMobile && (
             <Box 
               position="fixed"
@@ -216,14 +202,10 @@ export const LabLayout: React.FC<LabLayoutProps> = ({ children, activeCategory, 
                 width: '100%',
                 maxWidth: '100vw',
                 boxSizing: 'border-box',
-                // Fundo completamente opaco
                 backgroundColor: bg + ' !important',
                 background: bg + ' !important',
-                // Garantir que cubra tudo
                 boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-                // Forçar opacidade total
                 opacity: 1,
-                // Garantir que está acima do conteúdo
                 isolation: 'isolate',
               }}
             >
@@ -276,7 +258,6 @@ export const LabLayout: React.FC<LabLayoutProps> = ({ children, activeCategory, 
             </Box>
           )}
 
-          {/* Mobile Floating Menu Button - Creative Design */}
           {isMobile && (
             <MotionBox
               position="fixed"
@@ -309,7 +290,6 @@ export const LabLayout: React.FC<LabLayoutProps> = ({ children, activeCategory, 
             </MotionBox>
           )}
 
-          {/* Content - Começa DEPOIS da barra fixa */}
           <Box 
             p={{ base: 4, md: 4, lg: 8 }} 
             maxW={{ base: "100vw", md: "1200px" }} 
@@ -320,14 +300,11 @@ export const LabLayout: React.FC<LabLayoutProps> = ({ children, activeCategory, 
               boxSizing: 'border-box',
               width: '100%',
               maxWidth: '100vw',
-              // Garantir que o conteúdo comece DEPOIS da barra fixa no mobile
               ...(isMobile && {
-                // Padding top para compensar a altura da barra fixa (aproximadamente 60px)
                 paddingTop: '60px',
                 marginTop: 0,
                 position: 'relative',
                 zIndex: 1,
-                // Garantir que não apareça por trás da barra fixa
                 transform: 'translateZ(0)',
               }),
             }}

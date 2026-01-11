@@ -97,13 +97,11 @@ export function AdvancedFilters({
       position="relative"
       overflow="hidden"
     >
-      {/* Decorative HUD Lines */}
       <Box position="absolute" top="0" left="0" w="100%" h="2px" bgGradient="linear(to-r, transparent, cyan.500, transparent)" opacity={0.5} />
       <Box position="absolute" bottom="0" right="0" w="100%" h="2px" bgGradient="linear(to-r, transparent, purple.500, transparent)" opacity={0.5} />
 
       <VStack spacing={{ base: 4, md: 6, lg: 8 }} align="stretch" position="relative" zIndex={1}>
 
-        {/* Featured Filter - Prominent */}
         {onFeaturedOnlyChange && (
           <Box
             p={{ base: 3, md: 4 }}
@@ -155,9 +153,7 @@ export function AdvancedFilters({
           </Box>
         )}
 
-        {/* Top Controls Grid */}
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 4, md: 6, lg: 8 }} alignItems="center">
-          {/* Timeline Control with Thematic Slider */}
           <Box id="star-chronology">
             <HStack justify="space-between" mb={{ base: 3, md: 4 }} flexWrap="wrap" gap={2}>
               <HStack spacing={2}>
@@ -187,7 +183,6 @@ export function AdvancedFilters({
                   <RangeSliderFilledTrack bgGradient="linear(to-r, cyan.400, purple.500, pink.500)" />
                 </RangeSliderTrack>
 
-                {/* Start Thumb (Earth/Moon) */}
                 <RangeSliderThumb index={0} boxSize={8} bg="transparent" boxShadow="none" zIndex={2}>
                   <Tooltip label={yearRange[0].toString()} placement="top" hasArrow bg="blue.600">
                     <Box w="100%" h="100%" transition="transform 0.2s" _hover={{ transform: 'scale(1.2)' }}>
@@ -201,7 +196,6 @@ export function AdvancedFilters({
                   </Tooltip>
                 </RangeSliderThumb>
 
-                {/* End Thumb (Rocket) */}
                 <RangeSliderThumb index={1} boxSize={8} bg="transparent" boxShadow="none" zIndex={2}>
                   <Tooltip label={yearRange[1].toString()} placement="top" hasArrow bg="pink.600">
                     <Box w="100%" h="100%" transition="transform 0.2s" _hover={{ transform: 'rotate(45deg) scale(1.2)' }}>
@@ -227,7 +221,6 @@ export function AdvancedFilters({
             </Box>
           </Box>
 
-          {/* Sort Control */}
           <Box>
             <HStack mb={2} spacing={2}>
               <Icon as={FaSignal} color="green.400" w={{ base: 4, md: 5 }} h={{ base: 4, md: 5 }} />
@@ -252,7 +245,6 @@ export function AdvancedFilters({
           </Box>
         </SimpleGrid>
 
-        {/* Tech Radar / Tags Section */}
         <Box
           id="tech-scanner"
           borderWidth="1px"
@@ -341,7 +333,6 @@ export function AdvancedFilters({
 
         </Box>
 
-        {/* Clear Filters Button */}
         {(selectedTags.length > 0 || yearRange[0] !== minYear || yearRange[1] !== maxYear) && (
           <Button
             size={{ base: "sm", md: "sm" }}

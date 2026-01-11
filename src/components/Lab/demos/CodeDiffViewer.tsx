@@ -55,7 +55,6 @@ export function CodeDiffViewer() {
         oldIndex++;
         newIndex++;
       } else {
-        // Simple diff: mark old as removed, new as added
         diff.push({ type: 'removed', content: oldLines[oldIndex], lineNumber: oldIndex + 1 });
         diff.push({ type: 'added', content: newLines[newIndex], lineNumber: newIndex + 1 });
         oldIndex++;
@@ -71,7 +70,6 @@ export function CodeDiffViewer() {
   return (
     <Box w="full" maxW="1200px" mx="auto">
       <VStack spacing={6} align="stretch">
-        {/* Header */}
         <HStack spacing={2}>
           <Icon as={FaCode} color="blue.500" />
           <Text fontSize="lg" fontWeight="bold">
@@ -79,7 +77,6 @@ export function CodeDiffViewer() {
           </Text>
         </HStack>
 
-        {/* Code Editors */}
         <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={4}>
           <VStack align="stretch" spacing={2}>
             <HStack justify="space-between">
@@ -118,7 +115,6 @@ export function CodeDiffViewer() {
           </VStack>
         </SimpleGrid>
 
-        {/* Diff View */}
         <Box>
           <Text fontSize="md" fontWeight="bold" mb={3}>
             Diff Unificado
@@ -177,7 +173,6 @@ export function CodeDiffViewer() {
           </Box>
         </Box>
 
-        {/* Stats */}
         <HStack spacing={4} justify="center" flexWrap="wrap">
           <Badge colorScheme="red" fontSize="sm" px={3} py={1}>
             {diff.filter((l) => l.type === 'removed').length} linhas removidas

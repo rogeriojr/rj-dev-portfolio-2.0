@@ -23,7 +23,7 @@ export interface Project {
     texto: string;
     url: string;
   }[];
-  featured?: boolean; // Projetos em destaque para recrutadores
+  featured?: boolean;
 }
 
 export interface Certificate {

@@ -32,7 +32,6 @@ import { StellarImageCarousel } from './StellarImageCarousel';
 import { useGamificationTracking } from '../hooks/useGamificationTracking';
 import { PlanetSpinner } from './PlanetSpinner';
 
-// Create a lookup map for static projects for easy detail access
 const STATIC_PROJECTS_DATA: Record<string, Project> = {};
 NEW_STATIC_PROJECTS.forEach(p => {
   STATIC_PROJECTS_DATA[p.id] = p;
@@ -66,14 +65,12 @@ export function ProjectDetails() {
     const projectId: string = id;
 
     async function fetchProject() {
-      // 1. Check if it's one of our explicit static projects
       if (projectId in STATIC_PROJECTS_DATA) {
         setProject(STATIC_PROJECTS_DATA[projectId]);
         setLoading(false);
         return;
       }
 
-      // 2. Check overrides directly (for legacy projects not in Firestore)
       if (projectId in PROJECT_OVERRIDES) {
         const override = PROJECT_OVERRIDES[projectId];
         setProject({
@@ -93,7 +90,6 @@ export function ProjectDetails() {
         return;
       }
 
-      // 3. Try fetching from Firestore
       if (db) {
         try {
           const docRef = doc(db, "projetos", projectId);
@@ -121,7 +117,6 @@ export function ProjectDetails() {
               updatedAt: data.updatedAt?.toDate() || new Date(),
             } as Project;
 
-            // Apply Overrides
             let overrideData = PROJECT_OVERRIDES[normTitle];
             if (!overrideData) {
               if (normTitle.includes("jornada") && normTitle.includes("ser")) overrideData = PROJECT_OVERRIDES["jornadaser"];
@@ -235,7 +230,6 @@ export function ProjectDetails() {
           gridTemplateColumns={{ base: "1fr", lg: "350px 1fr" }}
           gap={{ base: 6, md: 8, lg: 12 }}
         >
-          {/* Sidebar / Info */}
           <VStack align="start" spacing={{ base: 4, md: 6 }}>
             <Box
               p={{ base: 4, md: 6, lg: 8 }}
@@ -310,9 +304,7 @@ export function ProjectDetails() {
             </Box>
           </VStack>
 
-          {/* Main Content */}
           <VStack align="start" spacing={{ base: 6, md: 8, lg: 10 }}>
-            {/* Stellar Image Carousel */}
             {project.images && project.images.length > 0 && (
               <Box w="full">
                 <Heading 
@@ -339,7 +331,6 @@ export function ProjectDetails() {
 
             <Divider borderColor="gray.700" />
 
-            {/* Markdown Description */}
             <Box w="full" className="project-markdown" color="white">
               <Suspense fallback={
                 <Box display="flex" justifyContent="center" alignItems="center" py={8}>
@@ -365,7 +356,6 @@ export function ProjectDetails() {
         </Box>
       </Container>
 
-      {/* Lightbox Modal */}
       <Modal isOpen={isOpen} onClose={onClose} size={{ base: "full", md: "4xl", lg: "6xl" }} isCentered>
         <ModalOverlay backdropFilter="blur(10px)" bg="blackAlpha.800" />
         <ModalContent bg="transparent" boxShadow="none" m={{ base: 2, md: 4 }}>

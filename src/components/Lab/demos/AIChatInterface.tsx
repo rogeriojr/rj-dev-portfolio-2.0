@@ -86,7 +86,6 @@ export function AIChatInterface() {
     setInputValue('');
     setIsTyping(true);
 
-    // Simulate AI thinking
     setTimeout(() => {
       const aiResponse: Message = {
         id: (Date.now() + 1).toString(),
@@ -101,7 +100,6 @@ export function AIChatInterface() {
 
   return (
     <Box w="full" maxW="700px" mx="auto" h="600px" display="flex" flexDirection="column">
-      {/* Header */}
       <HStack
         p={4}
         bg={aiBg}
@@ -122,7 +120,6 @@ export function AIChatInterface() {
         </Badge>
       </HStack>
 
-      {/* Messages */}
       <VStack
         spacing={3}
         align="stretch"
@@ -218,7 +215,6 @@ export function AIChatInterface() {
         <div ref={messagesEndRef} />
       </VStack>
 
-      {/* Input */}
       <HStack mt={4} spacing={2}>
         <Input
           placeholder="Digite sua mensagem..."
@@ -237,7 +233,6 @@ export function AIChatInterface() {
         </Button>
       </HStack>
 
-      {/* Info */}
       <Box mt={2} p={2} bg="purple.50" borderRadius="md" border="1px" borderColor="purple.200">
         <HStack spacing={2}>
           <Icon as={FaStar} color="purple.500" />

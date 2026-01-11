@@ -27,7 +27,6 @@ export function PlanetSpinner({ size = 80 }: PlanetSpinnerProps) {
       justifyContent="center"
       bg="transparent"
     >
-      {/* Central Planet (Teal) */}
       <motion.div
         style={{
           position: "absolute",
@@ -48,7 +47,6 @@ export function PlanetSpinner({ size = 80 }: PlanetSpinnerProps) {
         }}
       />
 
-      {/* Orbit 1 - Inner Planet (Teal) */}
       <motion.div
         style={{
           position: "absolute",
@@ -77,7 +75,6 @@ export function PlanetSpinner({ size = 80 }: PlanetSpinnerProps) {
         />
       </motion.div>
 
-      {/* Orbit 2 - Middle Planet (Light Gray) */}
       <motion.div
         style={{
           position: "absolute",
@@ -106,7 +103,6 @@ export function PlanetSpinner({ size = 80 }: PlanetSpinnerProps) {
         />
       </motion.div>
 
-      {/* Orbit 3 - Outer Planet (Black/Dark) */}
       <motion.div
         style={{
           position: "absolute",
@@ -135,7 +131,6 @@ export function PlanetSpinner({ size = 80 }: PlanetSpinnerProps) {
         />
       </motion.div>
 
-      {/* Orbital Rings - Subtle */}
       <Box
         position="absolute"
         top="50%"

@@ -78,12 +78,10 @@ export function useGamification() {
   const [state, setState] = useState<GameificationState>(getInitialState);
   const [newAchievement, setNewAchievement] = useState<Achievement | null>(null);
 
-  // Salvar estado quando mudar
   useEffect(() => {
     saveState(state);
   }, [state]);
 
-  // Atualizar nível baseado em XP
   useEffect(() => {
     const newLevel = calculateLevel(state.stats.totalXP);
     if (newLevel !== state.stats.level) {
@@ -116,7 +114,7 @@ export function useGamification() {
 
   const unlockAchievement = useCallback((achievementId: string, showNotification: boolean = true) => {
     if (state.unlockedAchievementIds.has(achievementId)) {
-      return false; // Já desbloqueado
+      return false;
     }
 
     const achievement = ALL_ACHIEVEMENTS.find(a => a.id === achievementId);
@@ -148,7 +146,6 @@ export function useGamification() {
       };
     });
 
-    // Adicionar XP
     addXP(achievement.points, `Conquista: ${achievement.name.pt}`);
 
     if (showNotification) {
@@ -166,7 +163,6 @@ export function useGamification() {
           const newProgress = Math.min(progress, a.maxProgress);
           const wasUnlocked = prev.unlockedAchievementIds.has(achievementId);
           
-          // Se completou e ainda não estava desbloqueado
           if (newProgress >= a.maxProgress && !wasUnlocked) {
             setTimeout(() => unlockAchievement(achievementId), 100);
           }

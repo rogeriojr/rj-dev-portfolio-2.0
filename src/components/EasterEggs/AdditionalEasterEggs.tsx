@@ -76,7 +76,6 @@ export function useAdditionalEasterEggs(enabled: boolean = true) {
           setActiveEgg(egg);
           setTimeout(() => setActiveEgg(null), egg.duration || 3000);
         } else if (typeof egg.trigger === 'string') {
-          // Handle string triggers if needed
         }
       });
     };

@@ -28,7 +28,6 @@ export function Layout() {
   const { t, language, setLanguage } = useTranslation();
   const { trackThemeSwitch, trackLanguageSwitch } = useGamificationTracking();
   
-  // Detect if we're in the Lab section
   const isInLab = location.pathname.startsWith('/lab');
   
   const handleToggleColorMode = useCallback(() => {
@@ -41,30 +40,26 @@ export function Layout() {
     trackLanguageSwitch();
   }, [setLanguage, trackLanguageSwitch]);
   
-  // Global easter eggs
   const { settings } = usePortfolioSettings();
   const { activeEgg: globalEgg } = useGlobalEasterEggs(settings?.easterEggsEnabled ?? true);
   const { activeEgg: pageEgg } = usePageSpecificEasterEggs(settings?.easterEggsEnabled ?? true);
   
-  // Gamification
   const { unlockAchievement, newAchievement, incrementStat } = useGamification();
   const [gamificationOpen, setGamificationOpen] = useState(false);
   const { isOpen: isCommandCenterOpen, onOpen: onCommandCenterOpen, onClose: onCommandCenterClose } = useDisclosure();
   
-  // Track time spent
   useEffect(() => {
     const startTime = Date.now();
     const interval = setInterval(() => {
-      const timeSpent = Math.floor((Date.now() - startTime) / 60000); // minutos
+      const timeSpent = Math.floor((Date.now() - startTime) / 60000);
       if (timeSpent > 0 && timeSpent % 5 === 0) {
         incrementStat('timeSpent', 5);
       }
-    }, 300000); // A cada 5 minutos
+    }, 300000);
     
     return () => clearInterval(interval);
   }, [incrementStat]);
   
-  // Unlock first visit achievement
   useEffect(() => {
     const hasVisited = localStorage.getItem('portfolio-visited');
     if (!hasVisited) {
@@ -73,7 +68,6 @@ export function Layout() {
     }
   }, [unlockAchievement]);
   
-  // Track easter eggs for achievements
   useEffect(() => {
     if (globalEgg) {
       const eggIdMap: Record<string, string> = {
@@ -117,7 +111,6 @@ export function Layout() {
     100% { opacity: 0.3; transform: scale(1); }
   `;
 
-  // Define NavLinks component
   const NavLinks = ({ onLinkClick }: { onLinkClick?: () => void }) => (
     <>
       <ChakraLink 
@@ -413,7 +406,6 @@ export function Layout() {
       <CookieConsent />
       <CodeTour />
       
-      {/* Interactive Elements */}
       {settings?.showAnimations !== false && (
         <>
           <FloatingStars count={30} />
@@ -422,11 +414,9 @@ export function Layout() {
       )}
       <SecretComboTracker />
       
-      {/* Global Easter Egg Notifications */}
       <GlobalEasterEggNotification egg={globalEgg} />
       <PageEasterEggNotification egg={pageEgg} />
       <AchievementNotification achievement={newAchievement} />
-      {/* Gamification - Hidden in Lab on mobile to avoid conflicts */}
       {!(isMobile && isInLab) && (
         <>
           <GamificationBadge onOpen={() => setGamificationOpen(true)} />
@@ -434,17 +424,13 @@ export function Layout() {
         </>
       )}
       
-      {/* Command Center */}
       <CommandCenter isOpen={isCommandCenterOpen} onClose={onCommandCenterClose} />
       
-      {/* Floating Action Buttons - Hidden in Lab on mobile to avoid conflicts */}
       {!(isMobile && isInLab) && <WhatsAppButton />}
       
-      {/* Command Bar for Easter Eggs */}
       <CommandBar 
         enabled={settings?.easterEggsEnabled ?? true}
         onCommand={(egg) => {
-          // Trigger the easter egg effect
           if (egg.effect) {
             egg.effect();
           }

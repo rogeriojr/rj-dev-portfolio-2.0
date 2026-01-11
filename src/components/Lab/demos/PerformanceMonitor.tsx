@@ -57,7 +57,6 @@ export function PerformanceMonitor() {
   return (
     <Box w="full" maxW="800px" mx="auto">
       <VStack spacing={6} align="stretch">
-        {/* Header */}
         <HStack justify="space-between">
           <HStack>
             <Icon as={FaChartLine} color="cyan.400" />
@@ -70,7 +69,6 @@ export function PerformanceMonitor() {
           </Badge>
         </HStack>
 
-        {/* Metrics Grid */}
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
           {metrics.map((metric) => {
             const percentage = (metric.value / metric.max) * 100;
@@ -121,7 +119,6 @@ export function PerformanceMonitor() {
           })}
         </SimpleGrid>
 
-        {/* Controls */}
         <Box p={4} bg={bgColor} borderRadius="md" border="1px" borderColor={borderColor}>
           <HStack justify="center">
             <Button
@@ -148,7 +145,6 @@ export function PerformanceMonitor() {
           </HStack>
         </Box>
 
-        {/* Info */}
         <Box p={3} bg="blue.50" borderRadius="md" border="1px" borderColor="blue.200">
           <Text fontSize="xs" color="blue.700">
             Real-time performance monitoring helps identify bottlenecks and optimize application

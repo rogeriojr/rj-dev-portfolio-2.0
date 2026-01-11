@@ -152,7 +152,6 @@ export function GamificationPanel({ isOpen, onClose }: GamificationPanelProps) {
           </DrawerHeader>
           <DrawerBody p={4}>
             <VStack spacing={6} align="stretch">
-              {/* Stats Overview */}
               <Box
                 p={4}
                 bgGradient="linear(to-r, purple.500, pink.500)"
@@ -198,7 +197,6 @@ export function GamificationPanel({ isOpen, onClose }: GamificationPanelProps) {
                 </VStack>
               </Box>
 
-              {/* Quick Stats */}
               <SimpleGrid columns={2} spacing={3}>
                 <Stat p={3} bg={cardBg} borderRadius="lg">
                   <StatLabel fontSize="xs">{language === 'pt' ? 'Conquistas' : 'Achievements'}</StatLabel>
@@ -222,7 +220,6 @@ export function GamificationPanel({ isOpen, onClose }: GamificationPanelProps) {
 
               <Divider />
 
-              {/* Tabs for Achievements */}
               <Tabs variant="soft-rounded" colorScheme="purple">
                 <TabList>
                   <Tab fontSize="sm">{language === 'pt' ? 'Todas' : 'All'}</Tab>
@@ -272,7 +269,6 @@ export function GamificationPanel({ isOpen, onClose }: GamificationPanelProps) {
 
               <Divider />
 
-              {/* Reset Button */}
               <Button
                 size="sm"
                 variant="ghost"
@@ -287,7 +283,6 @@ export function GamificationPanel({ isOpen, onClose }: GamificationPanelProps) {
         </DrawerContent>
       </Drawer>
 
-      {/* Reset Confirmation Modal */}
       <Modal isOpen={isResetOpen} onClose={onResetClose}>
         <ModalOverlay />
         <ModalContent>

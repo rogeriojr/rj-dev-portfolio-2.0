@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { useMemo, memo } from "react";
 
 export const FloatingStars = memo(({ count = 20 }: { count?: number }) => {
-  // Usar useMemo para evitar recriação a cada render
   const stars = useMemo(() => {
     return Array.from({ length: count }, (_, i) => ({
       id: i,

@@ -13,7 +13,6 @@ export function useCookieConsent() {
   const [consent, setConsent] = useState<CookieConsent | null>(null);
 
   useEffect(() => {
-    // Check if user has already given consent
     const savedConsent = localStorage.getItem(CONSENT_KEY);
 
     if (savedConsent) {
@@ -25,7 +24,6 @@ export function useCookieConsent() {
         setShowBanner(true);
       }
     } else {
-      // Show banner after a short delay for better UX
       setTimeout(() => setShowBanner(true), 1000);
     }
   }, []);
@@ -49,7 +47,7 @@ export function useCookieConsent() {
   };
 
   const acceptCustom = (customConsent: CookieConsent) => {
-    saveConsent({ ...customConsent, necessary: true }); // Necessary always true
+    saveConsent({ ...customConsent, necessary: true });
   };
 
   const saveConsent = (consentData: CookieConsent) => {
@@ -57,7 +55,6 @@ export function useCookieConsent() {
     setConsent(consentData);
     setShowBanner(false);
 
-    // Trigger analytics initialization if accepted
     if (consentData.analytics && typeof (window as any).gtag !== 'undefined') {
       (window as any).gtag('consent', 'update', {
         analytics_storage: 'granted',

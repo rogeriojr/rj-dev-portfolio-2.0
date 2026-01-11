@@ -17,7 +17,6 @@ export function InfiniteScrollSpinner() {
       justifyContent="center"
       overflow="visible"
     >
-      {/* Central Planet */}
       <motion.div
         style={{
           position: "absolute",
@@ -39,7 +38,6 @@ export function InfiniteScrollSpinner() {
         }}
       />
 
-      {/* Orbiting Rocket 1 */}
       <motion.div
         style={{
           position: "absolute",
@@ -68,7 +66,6 @@ export function InfiniteScrollSpinner() {
         </Box>
       </motion.div>
 
-      {/* Orbiting Rocket 2 */}
       <motion.div
         style={{
           position: "absolute",
@@ -97,7 +94,6 @@ export function InfiniteScrollSpinner() {
         </Box>
       </motion.div>
 
-      {/* Floating Stars */}
       {[...Array(3)].map((_, i) => (
         <motion.div
           key={i}
@@ -137,7 +133,6 @@ export function InfiniteScrollSpinner() {
         />
       ))}
 
-      {/* Orbital Ring */}
       <Box
         position="absolute"
         top="50%"

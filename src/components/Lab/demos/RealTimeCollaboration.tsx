@@ -47,7 +47,6 @@ export function RealTimeCollaboration() {
   const cardBg = useColorModeValue('gray.50', 'gray.700');
 
   useEffect(() => {
-    // Simulate real-time updates
     const interval = setInterval(() => {
       if (Math.random() > 0.7 && users[1].isActive) {
         const newChange: Change = {
@@ -68,7 +67,6 @@ export function RealTimeCollaboration() {
   return (
     <Box w="full" maxW="900px" mx="auto">
       <VStack spacing={6} align="stretch">
-        {/* Header */}
         <HStack justify="space-between" flexWrap="wrap" gap={3}>
           <HStack spacing={2}>
             <Icon as={FaUsers} color="blue.500" />
@@ -84,7 +82,6 @@ export function RealTimeCollaboration() {
           </HStack>
         </HStack>
 
-        {/* Active Users */}
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={3}>
           {users.map((user) => (
             <HStack
@@ -120,7 +117,6 @@ export function RealTimeCollaboration() {
           ))}
         </SimpleGrid>
 
-        {/* Document Editor */}
         <Box
           p={6}
           bg={bg}
@@ -184,7 +180,6 @@ export function RealTimeCollaboration() {
           )}
         </Box>
 
-        {/* Change History */}
         <Box>
           <Text fontSize="md" fontWeight="bold" mb={3}>
             Histórico de Mudanças
@@ -230,7 +225,6 @@ export function RealTimeCollaboration() {
           </VStack>
         </Box>
 
-        {/* Info */}
         <Box p={4} bg="blue.50" borderRadius="md" border="1px" borderColor="blue.200">
           <HStack spacing={2}>
             <Icon as={FaUsers} color="blue.500" />

@@ -21,7 +21,6 @@ export const CurrencyConverter = () => {
 
   const calculatedev = () => {
     setLoading(true);
-    // Simulate API delay
     setTimeout(() => {
       const rate = MOCK_RATES[to] / MOCK_RATES[from];
       setResult(parseFloat(amount) * rate);

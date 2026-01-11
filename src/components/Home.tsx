@@ -27,7 +27,6 @@ export function Home() {
   const { trackSocialClick, trackCVDownload } = useGamificationTracking();
 
   useEffect(() => {
-    // Simulate loading time
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1000);
@@ -42,7 +41,6 @@ export function Home() {
   return (
     <Box position="relative" minH="100vh">
       <Container maxW="container.xl" py={{ base: 12, md: 20 }} px={{ base: 4, md: 6 }} position="relative" zIndex={1}>
-        {/* Floating Space Elements - Hidden on mobile */}
         <Box
           position="absolute"
           top="10%"
@@ -172,7 +170,7 @@ export function Home() {
               size={{ base: "md", md: "lg" }}
               variant="outline"
               as={Link}
-              to="/contact" // Assuming /contact route exists or redirects correctly. If not, maybe scroll to contact section.
+              to="/contact"
               borderColor="brand.yellow.400"
               color="brand.yellow.400"
               _hover={{
@@ -283,7 +281,6 @@ export function Home() {
           mb={{ base: 6, lg: 0 }}
         >
           <StyledProfileImage />
-          {/* Easter Egg: Click 3 times on profile */}
           <Tooltip label="💡 Dica: Clique 3 vezes para descobrir um easter egg!" placement="top">
             <Box
               position="absolute"
@@ -306,7 +303,6 @@ export function Home() {
         </Box>
       </Flex>
       
-      {/* Secret Message */}
       <Box
         position="absolute"
         bottom="20px"

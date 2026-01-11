@@ -6,14 +6,12 @@ export function useGamificationTracking() {
   const location = useLocation();
   const { unlockAchievement, updateAchievementProgress, incrementStat } = useGamification();
 
-  // Track page visits
   useEffect(() => {
     if (location.pathname === '/cosmic-lab' || location.pathname.includes('/cosmic-lab')) {
       unlockAchievement('cosmic-lab-visitor', false);
     }
   }, [location.pathname, unlockAchievement]);
 
-  // Track theme switches
   const trackThemeSwitch = useCallback(() => {
     const current = localStorage.getItem('chakra-ui-color-mode-switches') || '0';
     const newCount = parseInt(current) + 1;
@@ -21,7 +19,6 @@ export function useGamificationTracking() {
     updateAchievementProgress('theme-switcher', newCount);
   }, [updateAchievementProgress]);
 
-  // Track language switches
   const trackLanguageSwitch = useCallback(() => {
     const current = localStorage.getItem('portfolio-language-switches') || '0';
     const newCount = parseInt(current) + 1;
@@ -29,7 +26,6 @@ export function useGamificationTracking() {
     updateAchievementProgress('language-explorer', newCount);
   }, [updateAchievementProgress]);
 
-  // Track project views
   const trackProjectView = useCallback((projectId: string) => {
     incrementStat('projectsViewed', 1);
     const viewedProjects = JSON.parse(localStorage.getItem('portfolio-viewed-projects') || '[]');
@@ -49,7 +45,6 @@ export function useGamificationTracking() {
     }
   }, [incrementStat, unlockAchievement, updateAchievementProgress]);
 
-  // Track filter usage
   const trackFilterUsage = useCallback(() => {
     const current = localStorage.getItem('portfolio-filter-uses') || '0';
     const newCount = parseInt(current) + 1;
@@ -57,7 +52,6 @@ export function useGamificationTracking() {
     updateAchievementProgress('filter-master', newCount);
   }, [updateAchievementProgress]);
 
-  // Track scroll depth
   useEffect(() => {
     let maxScroll = 0;
     const handleScroll = () => {
@@ -73,7 +67,6 @@ export function useGamificationTracking() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [unlockAchievement]);
 
-  // Track time of day
   useEffect(() => {
     const hour = new Date().getHours();
     if (hour >= 0 && hour < 6) {
@@ -81,7 +74,6 @@ export function useGamificationTracking() {
     }
   }, [unlockAchievement]);
 
-  // Track social link clicks
   const trackSocialClick = useCallback((platform: string) => {
     const clicked = JSON.parse(localStorage.getItem('portfolio-social-clicks') || '[]');
     if (!clicked.includes(platform)) {
@@ -94,7 +86,6 @@ export function useGamificationTracking() {
     }
   }, [unlockAchievement]);
 
-  // Track CV download
   const trackCVDownload = useCallback(() => {
     unlockAchievement('cv-downloader', false);
   }, [unlockAchievement]);

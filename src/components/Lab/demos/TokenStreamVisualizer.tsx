@@ -8,7 +8,6 @@ export const TokenStreamVisualizer = () => {
   const [isStreaming, setIsStreaming] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Simple "tokenizer" by splitting by space for demo purposes, or chunks of chars
   const allTokens = SAMPLE_TEXT.match(/.{1,4}/g) || [];
 
   const startStream = () => {
@@ -34,7 +33,6 @@ export const TokenStreamVisualizer = () => {
     setIsStreaming(false);
   };
 
-  // Generate a consistent color for token visualization based on index
   const getTokenColor = (index: number) => {
     const colors = ['cyan.200', 'purple.200', 'green.200', 'yellow.200', 'pink.200'];
     return colors[index % colors.length];

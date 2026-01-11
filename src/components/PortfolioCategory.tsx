@@ -28,7 +28,6 @@ import { useSpaceEasterEggs, EasterEggNotification } from "./EasterEggs/SpaceEas
 import { useAdditionalEasterEggs, AdditionalEasterEggNotification } from "./EasterEggs/AdditionalEasterEggs";
 import { FloatingPlanets, FlyingRockets } from "./SpaceAnimations";
 
-// Import unified data sources
 import { PROJECT_OVERRIDES, NEW_STATIC_PROJECTS } from "../data/projects";
 import { PROJECT_DATES } from "../data/projectDates";
 
@@ -46,7 +45,6 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<SortOption>('newest');
   const [showFeaturedOnly, setShowFeaturedOnly] = useState(() => {
-    // Mostrar featured por padrão na primeira visita
     const hasVisited = localStorage.getItem('portfolio-has-visited');
     if (!hasVisited) {
       localStorage.setItem('portfolio-has-visited', 'true');
@@ -63,17 +61,14 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
   const minYear = 2014;
   const maxYear = new Date().getFullYear() + 1;
   
-  // Portfolio settings with localStorage persistence
   const { settings, updateSetting, resetSettings } = usePortfolioSettings();
   const [displayedProjects, setDisplayedProjects] = useState<Project[]>([]);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   
-  // Easter eggs
   const { activeEgg } = useSpaceEasterEggs(settings.easterEggsEnabled);
   const { activeEgg: additionalEgg } = useAdditionalEasterEggs(settings.easterEggsEnabled);
 
-  // Debounce search for performance
   const debouncedSearch = useDebounce(searchTerm, 300);
 
   useEffect(() => {
@@ -144,7 +139,6 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
 
   const filteredProjects = useMemo(() => {
     let filtered = allProjects.filter(project => {
-      // Filtro de featured
       if (showFeaturedOnly && !project.featured) {
         return false;
       }
@@ -163,13 +157,10 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
       return matchesSearch && matchesTags && matchesYear;
     });
 
-    // Ordenar: featured primeiro, depois pelo sortBy
     filtered.sort((a, b) => {
-      // Sempre colocar featured primeiro
       if (a.featured && !b.featured) return -1;
       if (!a.featured && b.featured) return 1;
       
-      // Se ambos são featured ou ambos não são, usar sortBy
       switch (sortBy) {
         case 'newest':
           return b.createdAt.getTime() - a.createdAt.getTime();
@@ -208,9 +199,6 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
     scrollContainerRef: containerRef,
   });
 
-  // Note: itemsPerPage is synced via usePagination hook's internal useEffect
-
-  // Reset pagination when filters change (only for paged mode)
   useEffect(() => {
     if (settings.paginationMode === 'paged' && currentPage !== 1) {
       goToPage(1);
@@ -218,14 +206,11 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearch, selectedTags, yearRange, sortBy, showFeaturedOnly]);
 
-  // Handle displayed projects based on pagination mode
   useEffect(() => {
     if (settings.paginationMode === 'infinite') {
-      // Infinite scroll mode: show initial items
       const initialCount = settings.itemsPerPage;
       setDisplayedProjects(filteredProjects.slice(0, initialCount));
     } else {
-      // Paged mode: show items for current page
       if (filteredProjects.length > 0) {
         const newProjects = filteredProjects.slice(startIndex, endIndex);
         setDisplayedProjects(newProjects);
@@ -235,7 +220,6 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
     }
   }, [filteredProjects, settings.paginationMode, settings.itemsPerPage, startIndex, endIndex, currentPage]);
 
-  // Reset displayed projects when switching pagination modes
   useEffect(() => {
     if (settings.paginationMode === 'infinite') {
       const initialCount = settings.itemsPerPage;
@@ -284,7 +268,6 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
         </>
       )}
       <Container ref={containerRef} maxW="container.xl" py={{ base: 12, md: 20 }} px={{ base: 4, md: 6 }} position="relative" zIndex={1} w="100%">
-        {/* Floating Planet Decorations - Hidden on mobile */}
         <Box
           position="absolute"
           top="20px"
@@ -310,7 +293,6 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
           <Icon as={FaSatellite} w={{ base: 12, md: 16 }} h={{ base: 12, md: 16 }} color="cyan.400" />
         </Box>
 
-        {/* Meteor Shower Effect - Hidden on mobile */}
         <Box 
           position="absolute" 
           top="300px" 
@@ -323,7 +305,6 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
         </Box>
 
         <VStack spacing={{ base: 8, md: 12 }} align="stretch" position="relative" zIndex={2}>
-          {/* Header */}
           <MotionBox
             textAlign="center"
             initial={{ opacity: 0, y: -50 }}
@@ -339,7 +320,6 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
                 position="relative"
               >
                 <Icon as={FaRocket} w={12} h={12} color={accentColor} />
-                {/* Rocket exhaust effect */}
                 <Box
                   position="absolute" bottom="-10px" left="50%" transform="translateX(-50%)"
                   w="20px" h="20px" bg="orange.400" filter="blur(10px)" opacity={0.6} borderRadius="full"
@@ -369,7 +349,6 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
             </SimpleGrid>
           </MotionBox>
 
-          {/* Search Bar */}
           <MotionBox
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -382,7 +361,6 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
             />
           </MotionBox>
 
-          {/* Portfolio Controls */}
           <MotionBox
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -404,7 +382,6 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
                   mode={settings.paginationMode}
                   onChange={(mode) => {
                     updateSetting('paginationMode', mode);
-                    // Reset to page 1 when switching modes
                     if (mode === 'paged') {
                       goToPage(1);
                     } else {
@@ -431,7 +408,6 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
             </Flex>
           </MotionBox>
 
-          {/* Advanced Filters */}
           <AdvancedFilters
             selectedTags={selectedTags}
             onTagsChange={(tags) => {
@@ -456,7 +432,6 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
             onFeaturedOnlyChange={setShowFeaturedOnly}
           />
 
-          {/* Projects Display - Dynamic Layout */}
           <AnimatePresence mode="wait">
             {displayedProjects.length === 0 ? (
               <MotionBox
@@ -578,7 +553,6 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
             )}
           </AnimatePresence>
 
-          {/* Pagination - Only show for paged mode */}
           {settings.paginationMode === 'paged' && filteredProjects.length > settings.itemsPerPage && (
             <MotionBox
               initial={{ opacity: 0 }}
@@ -601,11 +575,9 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
         </VStack>
       </Container>
       
-      {/* Easter Egg Notifications */}
       <EasterEggNotification egg={activeEgg} />
       <AdditionalEasterEggNotification egg={additionalEgg} />
       
-      {/* Settings Panel */}
       <SettingsPanel
         isOpen={settingsOpen}
         onClose={() => setSettingsOpen(false)}
@@ -617,7 +589,6 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
   );
 }
 
-// Helper Component for Stats
 function StatBox({ label, value, icon, color }: { label: string, value: number, icon: IconType, color?: string }) {
   const bg = useColorModeValue('white', 'whiteAlpha.50');
   const borderColor = useColorModeValue('gray.100', 'whiteAlpha.100');

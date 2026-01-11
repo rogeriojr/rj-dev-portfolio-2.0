@@ -75,7 +75,6 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
   const debouncedSearch = useDebounce(searchTerm, 300);
   const { isOpen: showFilters, onToggle: toggleFilters } = useDisclosure();
 
-  // Load preferences from localStorage
   useEffect(() => {
     const savedFavorites = localStorage.getItem(STORAGE_KEYS.FAVORITES);
     const savedRecent = localStorage.getItem(STORAGE_KEYS.RECENT);
@@ -88,7 +87,6 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
     if (savedCompact) setIsCompact(JSON.parse(savedCompact));
   }, []);
 
-  // Save preferences to localStorage
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.FAVORITES, JSON.stringify(Array.from(favorites)));
   }, [favorites]);
@@ -103,11 +101,9 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.COMPACT, JSON.stringify(isCompact));
-    // Dispatch custom event to notify layout of width change
     window.dispatchEvent(new CustomEvent('cosmic-lab-compact-changed'));
   }, [isCompact]);
 
-  // Track recent items
   useEffect(() => {
     if (activeItem) {
       setRecentItems(prev => {
@@ -141,7 +137,6 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
     });
   };
 
-  // Filter content
   const filteredContent = useMemo(() => {
     return LAB_CONTENT.map(category => ({
       ...category,
@@ -158,7 +153,6 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
     })).filter(category => category.items.length > 0);
   }, [debouncedSearch, filterType, language]);
 
-  // Get all unique types
   const allTypes = useMemo(() => {
     const types = new Set(LAB_CONTENT.flatMap(cat => cat.items.map(item => item.type)));
     return Array.from(types).sort();
@@ -211,7 +205,6 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
       }}
     >
       <VStack align="stretch" spacing={3} position="relative" zIndex={1}>
-        {/* Header with Controls */}
         <Flex justify="space-between" align="center" mb={2}>
           <HStack spacing={2}>
             <Icon as={FaRocket} w={4} h={4} color={activeColor} />
@@ -233,7 +226,6 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
           </HStack>
         </Flex>
 
-        {/* Search Bar */}
         <InputGroup size="sm">
           <InputLeftElement pointerEvents="none" h="full">
             <Icon as={FaSearch} color="gray.400" w={3} h={3} />
@@ -256,7 +248,6 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
           />
         </InputGroup>
 
-        {/* Quick Filters */}
         {showFilters && (
           <Collapse in={showFilters} animateOpacity>
             <VStack align="stretch" spacing={2} p={2} bg={cardBg} borderRadius="md" border="1px" borderColor={borderColor}>
@@ -307,7 +298,6 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
 
         <Divider borderColor={borderColor} />
 
-        {/* Favorites Section */}
         {favorites.size > 0 && (
           <Box>
             <HStack mb={2} justify="space-between">
@@ -378,7 +368,6 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
           </Box>
         )}
 
-        {/* Recent Items */}
         {recentItems.length > 0 && !isCompact && (
           <Box>
             <HStack mb={2} justify="space-between">
@@ -434,7 +423,6 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
           </Box>
         )}
 
-        {/* Categories */}
         <Text fontSize="2xs" fontWeight="bold" letterSpacing="widest" color="gray.500" textTransform="uppercase" mb={1}>
           {language === 'pt' ? 'Categorias' : 'Categories'}
         </Text>
@@ -455,7 +443,6 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.2 }}
                 >
-                  {/* Category Header */}
                   <MotionBox
                     as="button"
                     w="100%"
@@ -529,7 +516,6 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
                     </Flex>
                   </MotionBox>
 
-                  {/* Category Items */}
                   <Collapse in={!isCollapsed} animateOpacity>
                     <VStack
                       align="stretch"
@@ -632,7 +618,6 @@ export const LabSidebar: React.FC<LabSidebarProps> = ({ activeCategory, activeIt
           </AnimatePresence>
         </VStack>
 
-        {/* Empty State */}
         {filteredContent.length === 0 && (
           <Box textAlign="center" py={8}>
             <Icon as={FaSearch} w={8} h={8} color="gray.400" mb={2} />

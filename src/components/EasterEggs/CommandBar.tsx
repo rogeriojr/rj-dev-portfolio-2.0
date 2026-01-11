@@ -27,7 +27,6 @@ interface CommandBarProps {
   enabled?: boolean;
 }
 
-// Easter eggs que podem ser ativados via comando
 const COMMAND_EASTER_EGGS: (EasterEgg & { command: string; description: string })[] = [
   {
     id: 'konami',
@@ -112,10 +111,8 @@ const iconMap: Record<string, IconType> = {
 function CommandBarFloatingButton({ onOpen }: { onOpen: () => void }) {
   const { config, getButtonStyle } = useFloatingButtonsConfig();
   
-  // Se desabilitado na Central de Comando, não renderiza
   if (!config.commandBar.enabled) return null;
   
-  // Usa configuração personalizada se diferente do padrão, senão usa posição fixa original
   const hasCustomPosition = config.commandBar.position !== 'bottom-left' || 
                             config.commandBar.customX !== undefined || 
                             config.commandBar.customY !== undefined;
@@ -159,7 +156,6 @@ export function CommandBar({ onCommand, enabled = true }: CommandBarProps) {
   const textColor = useColorModeValue('cyan.300', 'cyan.200');
   const suggestionBg = useColorModeValue('gray.700', 'gray.800');
 
-  // Filtrar comandos disponíveis baseado na página atual
   const availableCommands = useMemo(() => {
     const pageEgg = PAGE_EASTER_EGGS.find(egg => location.pathname === egg.path);
     const commands = [...COMMAND_EASTER_EGGS];
@@ -180,7 +176,6 @@ export function CommandBar({ onCommand, enabled = true }: CommandBarProps) {
     return commands;
   }, [location.pathname]);
 
-  // Filtrar sugestões baseado no input
   const suggestions = useMemo(() => {
     if (!input.trim()) return availableCommands.slice(0, 5);
     const lowerInput = input.toLowerCase();
@@ -193,7 +188,6 @@ export function CommandBar({ onCommand, enabled = true }: CommandBarProps) {
       .slice(0, 5);
   }, [input, availableCommands]);
 
-  // Atalho de teclado: Ctrl+K ou Ctrl+J para abrir
   useEffect(() => {
     if (!enabled) return;
 
@@ -208,7 +202,6 @@ export function CommandBar({ onCommand, enabled = true }: CommandBarProps) {
         });
       }
       
-      // ESC para fechar
       if (e.key === 'Escape' && isOpen) {
         setIsOpen(false);
         setInput('');
@@ -219,7 +212,6 @@ export function CommandBar({ onCommand, enabled = true }: CommandBarProps) {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [enabled, isOpen]);
 
-  // Focar no input quando abrir
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 100);
@@ -231,17 +223,14 @@ export function CommandBar({ onCommand, enabled = true }: CommandBarProps) {
     
     if (!trimmed) return;
 
-    // Adicionar ao histórico
     setHistory(prev => [...prev, trimmed].slice(-20));
     setHistoryIndex(-1);
 
-    // Comando help
     if (trimmed === 'help') {
       setShowSuggestions(true);
       return;
     }
 
-    // Buscar comando
     const egg = availableCommands.find(cmd => cmd.command.toLowerCase() === trimmed);
     
     if (egg && egg.id !== 'help') {
@@ -254,7 +243,6 @@ export function CommandBar({ onCommand, enabled = true }: CommandBarProps) {
       setInput('');
       setShowSuggestions(false);
     } else {
-      // Comando não encontrado
       setInput('');
     }
   }, [availableCommands, onCommand]);
@@ -287,13 +275,11 @@ export function CommandBar({ onCommand, enabled = true }: CommandBarProps) {
 
   return (
     <>
-      {/* Botão flutuante para abrir */}
       {!isOpen && <CommandBarFloatingButton onOpen={() => {
         setIsOpen(true);
         setTimeout(() => inputRef.current?.focus(), 100);
       }} />}
 
-      {/* Barra de comandos */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -318,7 +304,6 @@ export function CommandBar({ onCommand, enabled = true }: CommandBarProps) {
               boxShadow="0 8px 32px rgba(0, 0, 0, 0.5)"
               overflow="hidden"
             >
-              {/* Header */}
               <HStack
                 px={4} py={2}
                 borderBottomWidth="1px"
@@ -346,7 +331,6 @@ export function CommandBar({ onCommand, enabled = true }: CommandBarProps) {
                 />
               </HStack>
 
-              {/* Input */}
               <Box p={4}>
                 <HStack spacing={2}>
                   <Text color={textColor} fontSize="sm">$</Text>
@@ -369,7 +353,6 @@ export function CommandBar({ onCommand, enabled = true }: CommandBarProps) {
                   />
                 </HStack>
 
-                {/* Sugestões */}
                 <Collapse in={showSuggestions && suggestions.length > 0} animateOpacity>
                   <VStack align="stretch" mt={2} spacing={1} maxH="200px" overflowY="auto">
                     {suggestions.map((cmd) => {
@@ -410,7 +393,6 @@ export function CommandBar({ onCommand, enabled = true }: CommandBarProps) {
                   </VStack>
                 </Collapse>
 
-                {/* Ajuda rápida */}
                 {input === '' && (
                   <HStack mt={2} spacing={2} flexWrap="wrap">
                     <Text fontSize="xs" color="gray.500">

@@ -44,7 +44,6 @@ export const InteractiveCalendar = () => {
 
   return (
     <Box bg={bg} p={6} rounded="xl" shadow="xl" border="1px solid" borderColor={borderColor} maxW="500px">
-      {/* Header */}
       <HStack justify="space-between" mb={6}>
         <Heading size="md">{monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}</Heading>
         <HStack>
@@ -53,14 +52,12 @@ export const InteractiveCalendar = () => {
         </HStack>
       </HStack>
 
-      {/* Days Header */}
       <Grid templateColumns="repeat(7, 1fr)" gap={2} mb={2}>
         {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
           <Text key={day} textAlign="center" fontSize="xs" fontWeight="bold" color="gray.500">{day}</Text>
         ))}
       </Grid>
 
-      {/* Calendar Grid */}
       <Grid templateColumns="repeat(7, 1fr)" gap={2}>
         {Array.from({ length: firstDayOfMonth }).map((_, i) => (
           <GridItem key={`empty-${i}`} />
@@ -87,7 +84,6 @@ export const InteractiveCalendar = () => {
             >
               <Text fontSize="sm" fontWeight={isToday ? "bold" : "normal"} color={isToday ? "cyan.300" : "inherit"}>{day}</Text>
 
-              {/* Event Dots */}
               <HStack spacing={1} position="absolute" bottom={1} right={1}>
                 {dayEvents.map(e => (
                   <Box key={e.id} w="6px" h="6px" rounded="full" bg={e.type === 'task' ? 'purple.400' : 'green.400'} />
@@ -98,7 +94,6 @@ export const InteractiveCalendar = () => {
         })}
       </Grid>
 
-      {/* Add Event Modal */}
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>

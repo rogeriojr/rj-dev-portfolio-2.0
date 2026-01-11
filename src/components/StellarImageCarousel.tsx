@@ -59,7 +59,6 @@ export function StellarImageCarousel({ images, onImageClick }: StellarImageCarou
     setDirection(dir);
     setCurrentIndex(index);
     setIsAutoPlaying(false);
-    // Verificar se a imagem existe antes de marcar como carregando
     if (!imageErrors.has(index)) {
       setImageLoading(prev => new Set(prev).add(index));
     }
@@ -102,14 +101,12 @@ export function StellarImageCarousel({ images, onImageClick }: StellarImageCarou
     }),
   };
 
-  // Análise inteligente do tipo de imagem
   const currentImage = images[currentIndex] || '';
   const isLogo = currentImage.includes('logo') || currentImage.includes('Logo');
   const isScreenshot = currentImage.includes('screenshot') ||
     currentImage.includes('Screenshot') ||
     currentImage.match(/\.(png|jpg|jpeg)$/i) && !isLogo;
 
-  // Determinar fundo baseado no tipo de imagem
   const getBackgroundColor = () => {
     if (isLogo) return 'white';
     if (isScreenshot) return 'gray.900';
@@ -130,7 +127,6 @@ export function StellarImageCarousel({ images, onImageClick }: StellarImageCarou
 
   return (
     <Box position="relative" w="full" mb={8}>
-      {/* Starfield Background */}
       <Box
         position="absolute"
         inset={0}
@@ -175,7 +171,6 @@ export function StellarImageCarousel({ images, onImageClick }: StellarImageCarou
         ))}
       </Box>
 
-      {/* Main Carousel Container */}
       <Box
         position="relative"
         w="full"
@@ -191,7 +186,6 @@ export function StellarImageCarousel({ images, onImageClick }: StellarImageCarou
           background: ${getBackgroundPattern()};
         `}
       >
-        {/* Image Container - Sempre mostra imagem completa */}
         <Box
           position="absolute"
           top={0}
@@ -299,7 +293,6 @@ export function StellarImageCarousel({ images, onImageClick }: StellarImageCarou
             )}
           </AnimatePresence>
 
-          {/* Overlay on Hover */}
           <Box
             position="absolute"
             top={0}
@@ -326,7 +319,6 @@ export function StellarImageCarousel({ images, onImageClick }: StellarImageCarou
           </Box>
         </Box>
 
-        {/* Navigation Arrows */}
         {images.length > 1 && (
           <>
             <IconButton
@@ -389,7 +381,6 @@ export function StellarImageCarousel({ images, onImageClick }: StellarImageCarou
           </>
         )}
 
-        {/* Slide Counter */}
         {images.length > 1 && (
           <Box
             position="absolute"
@@ -414,7 +405,6 @@ export function StellarImageCarousel({ images, onImageClick }: StellarImageCarou
         )}
       </Box>
 
-      {/* Thumbnail Navigation */}
       {images.length > 1 && (
         <Box
           mt={{ base: 4, sm: 5, md: 6 }}
@@ -509,7 +499,6 @@ export function StellarImageCarousel({ images, onImageClick }: StellarImageCarou
                       <Circle size={{ base: '4px', sm: '5px', md: '6px' }} bg="white" />
                     </Box>
                   )}
-                  {/* Hover overlay */}
                   <Box
                     position="absolute"
                     top={0}
@@ -532,7 +521,6 @@ export function StellarImageCarousel({ images, onImageClick }: StellarImageCarou
         </Box>
       )}
 
-      {/* Progress Indicator */}
       {images.length > 1 && isAutoPlaying && (
         <Box
           mt={{ base: 3, sm: 3, md: 4 }}

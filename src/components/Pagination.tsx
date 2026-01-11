@@ -31,7 +31,6 @@ export function Pagination({
   const inactiveBg = useColorModeValue('gray.100', 'whiteAlpha.100');
   const hoverBg = useColorModeValue('gray.200', 'whiteAlpha.200');
 
-  // Generate page numbers with ellipsis
   const getPageNumbers = () => {
     const pages: (number | string)[] = [];
     const maxVisible = 7;
@@ -44,14 +43,12 @@ export function Pagination({
       return Array.from({ length: totalPages }, (_, i) => i + 1);
     }
 
-    // Always show first page
     pages.push(1);
 
     if (currentPage > 3) {
       pages.push('...');
     }
 
-    // Show pages around current page
     const start = Math.max(2, currentPage - 1);
     const end = Math.min(totalPages - 1, currentPage + 1);
 
@@ -63,7 +60,6 @@ export function Pagination({
       pages.push('...');
     }
 
-    // Always show last page
     if (totalPages > 1) {
       pages.push(totalPages);
     }
@@ -71,7 +67,6 @@ export function Pagination({
     return pages;
   };
 
-  // Don't render if no pages
   if (totalPages <= 0) {
     return null;
   }
@@ -80,7 +75,6 @@ export function Pagination({
     <Box mt={{ base: 8, md: 12 }} py={{ base: 3, md: 4 }} borderTop="1px solid" borderColor={useColorModeValue('gray.200', 'whiteAlpha.100')}>
       <VStack spacing={4} align="stretch">
         <HStack justify="space-between" wrap="wrap" spacing={{ base: 2, md: 4 }} align="center">
-          {/* Items per page selector */}
           <HStack spacing={2} flexWrap="wrap">
             <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="medium" color="gray.500" whiteSpace="nowrap">
               {language === 'pt' ? 'Missões/Setor:' : 'Items/Page:'}
@@ -104,12 +98,10 @@ export function Pagination({
             </Select>
           </HStack>
 
-          {/* Page info */}
           <Text fontSize={{ base: "xs", md: "sm" }} color="gray.500" fontWeight="medium" whiteSpace="nowrap">
             {startItem}-{endItem} / {totalItems}
           </Text>
 
-          {/* Pagination controls */}
           <HStack spacing={{ base: 1, md: 2 }} flexWrap="wrap" justify="center">
           <Tooltip label={language === 'pt' ? "Setor Anterior" : "Previous Sector"} hasArrow>
             <IconButton

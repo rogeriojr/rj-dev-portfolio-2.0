@@ -58,7 +58,6 @@ export function StateMachineVisualizer() {
   return (
     <Box w="full" maxW="700px" mx="auto">
       <VStack spacing={6} align="stretch">
-        {/* Current State Display */}
         <Box
           p={6}
           bg={bgColor}
@@ -89,7 +88,6 @@ export function StateMachineVisualizer() {
           </AnimatePresence>
         </Box>
 
-        {/* State Diagram */}
         <Box p={6} bg={bgColor} borderRadius="xl" border="1px" borderColor={borderColor}>
           <Text fontSize="sm" fontWeight="bold" mb={4} textTransform="uppercase" color="gray.500">
             State Machine Diagram
@@ -115,7 +113,6 @@ export function StateMachineVisualizer() {
           </HStack>
         </Box>
 
-        {/* Controls */}
         <Box p={4} bg={bgColor} borderRadius="md" border="1px" borderColor={borderColor}>
           <Text fontSize="sm" fontWeight="bold" mb={3} color="gray.500">
             Available Events
@@ -145,7 +142,6 @@ export function StateMachineVisualizer() {
           </HStack>
         </Box>
 
-        {/* History */}
         {history.length > 0 && (
           <Box p={4} bg={bgColor} borderRadius="md" border="1px" borderColor={borderColor}>
             <Text fontSize="sm" fontWeight="bold" mb={3} color="gray.500">
@@ -164,7 +160,6 @@ export function StateMachineVisualizer() {
           </Box>
         )}
 
-        {/* Info */}
         <Box p={3} bg="purple.50" borderRadius="md" border="1px" borderColor="purple.200">
           <Text fontSize="xs" color="purple.700">
             State machines provide predictable state transitions and help prevent invalid states.

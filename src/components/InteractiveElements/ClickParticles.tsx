@@ -10,9 +10,7 @@ interface Particle {
 export const ClickParticles = memo(() => {
   const [particles, setParticles] = useState<Particle[]>([]);
 
-  // Usar useCallback para evitar recriação da função
   const handleClick = useCallback((e: MouseEvent) => {
-    // Apenas em elementos interativos ou áreas específicas
     const target = e.target as HTMLElement;
     if (target.closest('button, a, [role="button"]')) {
       const newParticle: Particle = {
@@ -21,7 +19,6 @@ export const ClickParticles = memo(() => {
         y: e.clientY,
       };
       setParticles(prev => {
-        // Limitar número máximo de partículas para performance
         const updated = [...prev, newParticle].slice(-10);
         return updated;
       });

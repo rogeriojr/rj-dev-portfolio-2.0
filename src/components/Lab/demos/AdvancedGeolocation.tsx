@@ -137,7 +137,6 @@ export function AdvancedGeolocation() {
   return (
     <Box w="full" maxW="1000px" mx="auto">
       <VStack spacing={4} align="stretch">
-        {/* Map Canvas (Simulated) */}
         <Box
           h="400px"
           bg={bg}
@@ -148,7 +147,6 @@ export function AdvancedGeolocation() {
           overflow="hidden"
           bgGradient="linear(to-br, blue.100, green.100)"
         >
-          {/* Simulated Map Markers */}
           {filteredLocations.map((loc, idx) => (
             <MotionBox
               key={loc.id}
@@ -181,7 +179,6 @@ export function AdvancedGeolocation() {
             </MotionBox>
           ))}
 
-          {/* User Location Marker */}
           {userLocation && (
             <Box
               position="absolute"
@@ -215,7 +212,6 @@ export function AdvancedGeolocation() {
             </Box>
           )}
 
-          {/* Map Info Overlay */}
           <Box
             position="absolute"
             bottom={4}
@@ -264,7 +260,6 @@ export function AdvancedGeolocation() {
           </Box>
         </Box>
 
-        {/* Controls */}
         <HStack spacing={2} flexWrap="wrap">
           <InputGroup flex={1} minW="200px">
             <InputLeftElement pointerEvents="none">
@@ -313,7 +308,6 @@ export function AdvancedGeolocation() {
           </Button>
         </HStack>
 
-        {/* Location List */}
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={3}>
           {filteredLocations.map((loc) => (
             <Card

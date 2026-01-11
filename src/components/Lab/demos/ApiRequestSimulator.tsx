@@ -40,7 +40,6 @@ export const ApiRequestSimulator = () => {
   return (
     <Box bg="gray.900" p={6} rounded="xl" border="1px solid" borderColor="gray.700" w="full" maxW="600px">
       <VStack align="stretch" spacing={6}>
-        {/* Controls */}
         <HStack justify="space-between" wrap="wrap" gap={4}>
           <HStack>
             <Button leftIcon={<FaPlay />} size="sm" colorScheme="cyan" onClick={() => runSimulation(false)} isLoading={status === 'loading'}>
@@ -58,12 +57,10 @@ export const ApiRequestSimulator = () => {
           </HStack>
         </HStack>
 
-        {/* Visualizer */}
         <Box position="relative" h="60px" bg="blackAlpha.400" rounded="md" overflow="hidden">
           <HStack h="full" px={4} spacing={0}>
             <Box as={FaServer} color="gray.500" w={6} h={6} />
 
-            {/* Connection Line */}
             <Box flex={1} h="2px" bg="gray.700" mx={4} position="relative">
               {status === 'loading' && (
                 <Box
@@ -96,7 +93,6 @@ export const ApiRequestSimulator = () => {
           </HStack>
         </Box>
 
-        {/* Console Output */}
         <Box bg="black" p={4} rounded="md" fontFamily="monospace" fontSize="xs" h="150px" overflowY="auto">
           {logs.length === 0 ? <Text color="gray.600">// Ready to start simulation...</Text> : logs.map((log, i) => (
             <Text key={i} color="green.300" borderBottom="1px solid" borderColor="whiteAlpha.100" py={1}>{log}</Text>
@@ -107,6 +103,4 @@ export const ApiRequestSimulator = () => {
   );
 };
 
-// Need access to motion for the ping animation if using as prop, but standard CSS animation is simpler for this ping.
-// Added motion import for completeness if creating a keyframe isn't enough.
 import { motion } from 'framer-motion';

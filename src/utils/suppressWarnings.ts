@@ -1,4 +1,3 @@
-// Executar imediatamente quando o módulo é carregado
 (function() {
   if (typeof window === 'undefined') return;
   
@@ -6,7 +5,6 @@
   const originalError = console.error;
   const originalLog = console.log;
 
-  // Interceptar console.log (alguns erros podem ser logados assim)
   console.log = (...args: any[]) => {
     const fullMessage = args.map(arg => String(arg)).join(' ').toLowerCase();
     
@@ -22,7 +20,6 @@
     originalLog.apply(console, args);
   };
 
-  // Interceptar console.warn
   console.warn = (...args: any[]) => {
     const message = args[0]?.toString() || '';
     const errorString = JSON.stringify(args);
@@ -46,7 +43,6 @@
     originalWarn.apply(console, args);
   };
 
-  // Interceptar console.error
   console.error = (...args: any[]) => {
     const message = args[0]?.toString() || '';
     const errorString = JSON.stringify(args);
@@ -67,7 +63,6 @@
       messageLower.includes('encountered two children with the same key') ||
       messageLower.includes('validatedomnesting') ||
       messageLower.includes('cannot appear as a descendant of') ||
-      // Suprimir erros de imagem 404 específicos
       (messageLower.includes('404') && (messageLower.includes('f46e43c2-f4f0-4787-b34e-a310cecc221a.jpg') || messageLower.includes('practicaldev') || messageLower.includes('cloudinary'))) ||
       errorString.toLowerCase().includes('f46e43c2-f4f0-4787-b34e-a310cecc221a.jpg') ||
       fullMessage.includes('f46e43c2-f4f0-4787-b34e-a310cecc221a.jpg') ||
@@ -80,7 +75,6 @@
     originalError.apply(console, args);
   };
 
-  // Interceptar erros de rede e recursos não encontrados
   window.addEventListener('error', (event) => {
     const message = event.message || '';
     const target = event.target as HTMLImageElement | HTMLScriptElement | HTMLLinkElement | null;
@@ -94,7 +88,6 @@
     }
     const fullError = `${message} ${source}`;
     
-    // Suprimir erros do Firebase (case-insensitive)
     const messageLower = message.toLowerCase();
     const sourceLower = source.toLowerCase();
     const fullErrorLower = fullError.toLowerCase();
@@ -115,7 +108,6 @@
       return false;
     }
     
-    // Suprimir erros 404 de imagem específica (case-insensitive)
     const sourceLowerFor404 = source.toLowerCase();
     if (
       (messageLower.includes('404') || sourceLowerFor404.includes('404')) &&
@@ -129,7 +121,6 @@
     }
   }, true);
 
-  // Interceptar erros de recursos (imagens, etc)
   window.addEventListener('unhandledrejection', (event) => {
     const reason = event.reason?.toString() || '';
     const message = event.reason?.message || '';

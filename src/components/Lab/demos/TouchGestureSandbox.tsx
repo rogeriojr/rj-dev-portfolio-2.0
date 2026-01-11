@@ -10,7 +10,6 @@ export const TouchGestureSandbox = () => {
   const scale = useMotionValue(1);
   const rotate = useMotionValue(0);
 
-  // Background grid for context
   const bg = useColorModeValue('gray.50', 'gray.900');
   const borderColor = useColorModeValue('gray.200', 'gray.700');
 
@@ -45,7 +44,6 @@ export const TouchGestureSandbox = () => {
         Reset
       </Button>
 
-      {/* Constraints Area */}
       <Box
         ref={constraintsRef}
         w="full"

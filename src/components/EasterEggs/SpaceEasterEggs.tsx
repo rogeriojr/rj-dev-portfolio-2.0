@@ -46,9 +46,8 @@ export function useSpaceEasterEggs(enabled: boolean = true) {
     const handleKeyPress = (e: KeyboardEvent) => {
       const key = e.code;
       setKeySequence(prev => {
-        const newSequence = [...prev, key].slice(-20); // Mantém últimas 20 teclas
+        const newSequence = [...prev, key].slice(-20);
         
-        // Verifica cada easter egg
         EASTER_EGGS.forEach(egg => {
           const sequenceString = newSequence.join(',');
           

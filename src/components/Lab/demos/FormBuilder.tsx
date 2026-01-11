@@ -123,7 +123,6 @@ export function FormBuilder() {
   return (
     <Box w="full" maxW="800px" mx="auto">
       <VStack spacing={6} align="stretch">
-        {/* Builder Panel */}
         <Box p={6} bg={cardBg} borderRadius="xl" border="1px solid" borderColor={borderColor}>
           <VStack spacing={4} align="stretch">
             <HStack justify="space-between">
@@ -227,7 +226,6 @@ export function FormBuilder() {
           </VStack>
         </Box>
 
-        {/* Preview */}
         <Box p={6} bg={bg} borderRadius="xl" border="1px solid" borderColor={borderColor}>
           <VStack spacing={4} align="stretch">
             <HStack justify="space-between">
