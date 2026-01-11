@@ -44,14 +44,7 @@ export function PortfolioCategory({ category }: PortfolioCategoryProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<SortOption>('newest');
-  const [showFeaturedOnly, setShowFeaturedOnly] = useState(() => {
-    const hasVisited = localStorage.getItem('portfolio-has-visited');
-    if (!hasVisited) {
-      localStorage.setItem('portfolio-has-visited', 'true');
-      return true;
-    }
-    return false;
-  });
+  const [showFeaturedOnly, setShowFeaturedOnly] = useState(false);
   const navigate = useNavigate();
   const { t, language } = useTranslation();
   const { trackFilterUsage } = useGamificationTracking();
