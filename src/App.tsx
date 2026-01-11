@@ -5,7 +5,7 @@ import {
   UNSAFE_DataRouterContext,
   UNSAFE_DataRouterStateContext,
 } from "react-router";
-import { Suspense, lazy } from "react";
+import React, { Suspense, lazy } from "react";
 import theme from "./theme";
 import { AdminRoute, Layout, LoadingSpinner } from "./components";
 import { AuthProvider } from "./contexts/AuthContext";
