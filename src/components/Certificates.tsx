@@ -2,7 +2,6 @@ import { Box, SimpleGrid, Container, Heading, Text, VStack, Badge, HStack, Icon,
 import { LazyImage } from './LazyImage';
 import { certificates } from '../data/certificates';
 import { useTranslation } from '../i18n/useTranslation';
-import { SpaceBackground } from './SpaceBackground';
 import { FaAward, FaCalendarAlt, FaClock, FaUniversity, FaCertificate } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
@@ -22,7 +21,6 @@ export function Certificates() {
 
   return (
     <Box position="relative" minH="100vh">
-      <SpaceBackground />
       <Container maxW="container.xl" py={20} position="relative" zIndex={1}>
         <VStack spacing={12} align="stretch">
           <MotionBox

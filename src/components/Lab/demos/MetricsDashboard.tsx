@@ -84,19 +84,21 @@ export const MetricsDashboard = () => {
         </Grid>
 
         <Box p={3} bg="red.900" borderRadius="lg" border="1px solid" borderColor="red.900">
-          <HStack justify="space-between">
-            <VStack align="start" spacing={0}>
-              <Text fontSize="2xs" color="red.300" fontWeight="bold">P99_LATENCY</Text>
-              <Text fontSize="xl" fontWeight="bold" color="white">{latency}ms</Text>
-            </VStack>
-            <Flex direction="column" align="end">
-              <StatHelpText m={0} color="red.300">
-                <StatArrow type="increase" />
-                2.4%
-              </StatHelpText>
-              <Icon as={FaExclamationCircle} color="red.400" boxSize={4} />
-            </Flex>
-          </HStack>
+          <Stat>
+            <HStack justify="space-between">
+              <VStack align="start" spacing={0}>
+                <StatLabel fontSize="2xs" color="red.300" fontWeight="bold" m={0}>P99_LATENCY</StatLabel>
+                <StatNumber fontSize="xl" fontWeight="bold" color="white" m={0}>{latency}ms</StatNumber>
+              </VStack>
+              <Flex direction="column" align="end">
+                <StatHelpText m={0} color="red.300">
+                  <StatArrow type="increase" />
+                  2.4%
+                </StatHelpText>
+                <Icon as={FaExclamationCircle} color="red.400" boxSize={4} />
+              </Flex>
+            </HStack>
+          </Stat>
         </Box>
 
         <Text fontSize="9px" color="whiteAlpha.400" textAlign="center">

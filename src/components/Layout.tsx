@@ -1,17 +1,93 @@
-import { Box, Container, Flex, Link as ChakraLink, Stack, Text, useColorMode, IconButton, useDisclosure, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, VStack, useBreakpointValue, Button, Tooltip, Icon } from "@chakra-ui/react";
+import { Box, Container, Flex, Link as ChakraLink, Stack, Text, useColorMode, IconButton, useDisclosure, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, VStack, useBreakpointValue, Button, Tooltip, Icon, Divider } from "@chakra-ui/react";
 import { css, keyframes } from "@emotion/react";
 import { Link as RouterLink, Outlet } from "react-router-dom";
-import { FaSun, FaMoon, FaBars, FaAnchor } from "react-icons/fa";
+import { FaSun, FaMoon, FaBars, FaAnchor, FaRocket } from "react-icons/fa";
 import { useTranslation } from "../i18n/useTranslation";
 import { CookieConsent } from "./CookieConsent";
 import { CodeTour } from "./CodeTour";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { useGlobalEasterEggs } from "../hooks/useGlobalEasterEggs";
+import { GlobalEasterEggNotification } from "./EasterEggs/GlobalEasterEggNotification";
+import { usePageSpecificEasterEggs, PageEasterEggNotification } from "./EasterEggs/PageSpecificEasterEggs";
+import { usePortfolioSettings } from "../hooks/usePortfolioSettings";
+import { FloatingStars, SecretComboTracker, ClickParticles } from "./InteractiveElements";
+import { CommandBar } from "./EasterEggs/CommandBar";
+import { useGamification } from "../hooks/useGamification";
+import { AchievementNotification } from "./Gamification/AchievementNotification";
+import { GamificationPanel } from "./Gamification/GamificationPanel";
+import { GamificationBadge } from "./Gamification/GamificationBadge";
+import { useGamificationTracking } from "../hooks/useGamificationTracking";
+import { WhatsAppButton } from "./WhatsAppButton";
+import { CommandCenter } from "./CommandCenter/CommandCenter";
 
 export function Layout() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const isMobile = useBreakpointValue({ base: true, md: false });
   const { t, language, setLanguage } = useTranslation();
+  const { trackThemeSwitch, trackLanguageSwitch } = useGamificationTracking();
+  
+  const handleToggleColorMode = useCallback(() => {
+    toggleColorMode();
+    trackThemeSwitch();
+  }, [toggleColorMode, trackThemeSwitch]);
+  
+  const handleSetLanguage = useCallback((lang: 'pt' | 'en') => {
+    setLanguage(lang);
+    trackLanguageSwitch();
+  }, [setLanguage, trackLanguageSwitch]);
+  
+  // Global easter eggs
+  const { settings } = usePortfolioSettings();
+  const { activeEgg: globalEgg } = useGlobalEasterEggs(settings?.easterEggsEnabled ?? true);
+  const { activeEgg: pageEgg } = usePageSpecificEasterEggs(settings?.easterEggsEnabled ?? true);
+  
+  // Gamification
+  const { unlockAchievement, newAchievement, incrementStat } = useGamification();
+  const [gamificationOpen, setGamificationOpen] = useState(false);
+  const { isOpen: isCommandCenterOpen, onOpen: onCommandCenterOpen, onClose: onCommandCenterClose } = useDisclosure();
+  
+  // Track time spent
+  useEffect(() => {
+    const startTime = Date.now();
+    const interval = setInterval(() => {
+      const timeSpent = Math.floor((Date.now() - startTime) / 60000); // minutos
+      if (timeSpent > 0 && timeSpent % 5 === 0) {
+        incrementStat('timeSpent', 5);
+      }
+    }, 300000); // A cada 5 minutos
+    
+    return () => clearInterval(interval);
+  }, [incrementStat]);
+  
+  // Unlock first visit achievement
+  useEffect(() => {
+    const hasVisited = localStorage.getItem('portfolio-visited');
+    if (!hasVisited) {
+      unlockAchievement('first-visit');
+      localStorage.setItem('portfolio-visited', 'true');
+    }
+  }, [unlockAchievement]);
+  
+  // Track easter eggs for achievements
+  useEffect(() => {
+    if (globalEgg) {
+      const eggIdMap: Record<string, string> = {
+        'konami': 'konami-code',
+        'space': 'space-mode',
+        'rocket': 'rocket-launch',
+        'star': 'star-discoverer',
+        'planet': 'planet-explorer',
+        'dev': 'dev-mode',
+        'triple-click': 'triple-click',
+        'secret-combo': 'hello-world',
+      };
+      const achievementId = eggIdMap[globalEgg.id];
+      if (achievementId) {
+        unlockAchievement(achievementId);
+      }
+    }
+  }, [globalEgg, unlockAchievement]);
 
   const [isMenuFixed, setIsMenuFixed] = useState(() => {
     const saved = localStorage.getItem('menuFixed');
@@ -59,9 +135,6 @@ export function Layout() {
   );
 
   return (
-    // Changed minH="100vh" to height="auto" and removed overflow styles that might conflict with body scroll
-    // The main scroll should be on the body, not this container, unless we want a specific app-like behavior.
-    // Given the double scroll report, better to let content flow naturally.
     <Box
       minH="100vh"
       display="flex"
@@ -73,7 +146,8 @@ export function Layout() {
         } 2px, transparent 0)`}
       backgroundSize="50px 50px, 100px 100px"
       position="relative"
-      overflowX="hidden" // Keep overflowX hidden to prevent horizontal scroll
+      overflowX="hidden"
+      w="100%"
       transition="all 0.3s ease-in-out"
       css={css`
         &:before {
@@ -94,12 +168,15 @@ export function Layout() {
     >
       <Box
         as="nav"
-        position={isMenuFixed ? "sticky" : "relative"}
+        position={isMenuFixed ? "fixed" : "relative"}
         top={0}
+        left={0}
+        right={0}
         zIndex={100}
         bg={navBgColor}
         color={textColor}
-        py={4}
+        py={{ base: 3, md: 4 }}
+        px={{ base: 2, md: 0 }}
         boxShadow={
           colorMode === "dark"
             ? "0 4px 20px rgba(0,0,0,0.4)"
@@ -109,9 +186,9 @@ export function Layout() {
         transition="all 0.3s ease-in-out"
         borderBottom={isMenuFixed ? "1px solid rgba(255,255,255,0.05)" : "none"}
       >
-        <Container maxW="container.xl">
-          <Flex justify="space-between" align="center">
-            <Flex align="center" gap={4} id="app-navigation-container">
+        <Container maxW="container.xl" px={{ base: 2, md: 4 }}>
+          <Flex justify="space-between" align="center" gap={{ base: 2, md: 4 }}>
+            <Flex align="center" gap={{ base: 2, md: 4 }} id="app-navigation-container" flex={1}>
               {!isMobile && (
                 <Tooltip
                   label={isMenuFixed ? (language === 'pt' ? "Desativar Gravidade (Soltar Menu)" : "Disable Gravity (Release Menu)") : (language === 'pt' ? "Ativar Gravidade (Fixar Menu)" : "Activate Gravity (Fix Menu)")}
@@ -120,10 +197,11 @@ export function Layout() {
                 >
                   <IconButton
                     aria-label="Toggle Menu Gravity"
-                    icon={<Icon as={FaAnchor} w={5} h={5} transform={!isMenuFixed ? "rotate(180deg)" : "rotate(0)"} />}
+                    icon={<Icon as={FaAnchor} w={{ base: 4, md: 5 }} h={{ base: 4, md: 5 }} transform={!isMenuFixed ? "rotate(180deg)" : "rotate(0)"} />}
                     onClick={toggleGravity}
                     variant="ghost"
                     color={isMenuFixed ? "purple.400" : "gray.500"}
+                    size={{ base: "sm", md: "md" }}
                     _hover={{
                       color: "purple.300",
                       bg: "whiteAlpha.100",
@@ -142,39 +220,78 @@ export function Layout() {
                   onClick={onOpen}
                   variant="ghost"
                   color={textColor}
+                  size="sm"
                 />
               ) : (
-                <Stack id="app-navigation-desktop" direction="row" spacing={8}>
+                <Stack id="app-navigation-desktop" direction="row" spacing={{ base: 4, md: 6, lg: 8 }} flexWrap="wrap">
                   <NavLinks />
                 </Stack>
               )}
             </Flex>
 
             {isMobile && (
-              <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
+              <Drawer isOpen={isOpen} placement="left" onClose={onClose} size="xs">
                 <DrawerOverlay />
                 <DrawerContent bg={bgColor}>
                   <DrawerCloseButton color={textColor} />
-                  <DrawerHeader borderBottomWidth="1px" color={textColor}>
+                  <DrawerHeader borderBottomWidth="1px" color={textColor} fontSize="lg">
                     Menu
                   </DrawerHeader>
-                  <DrawerBody>
+                  <DrawerBody px={4}>
                     <VStack spacing={4} align="stretch">
                       <NavLinks />
+                      <Divider borderColor={colorMode === "dark" ? "whiteAlpha.200" : "blackAlpha.200"} />
+                      <Button
+                        leftIcon={<Icon as={FaRocket} />}
+                        onClick={() => {
+                          onClose();
+                          onCommandCenterOpen();
+                        }}
+                        bgGradient="linear(to-r, orange.400, red.500)"
+                        color="white"
+                        _hover={{
+                          bgGradient: "linear(to-r, orange.500, red.600)",
+                        }}
+                        size="sm"
+                      >
+                        {language === 'pt' ? 'Central de Comando' : 'Command Center'}
+                      </Button>
                     </VStack>
                   </DrawerBody>
                 </DrawerContent>
               </Drawer>
             )}
 
-            <Flex align="center" gap={4} id="language-toggle">
-              <Flex align="center" gap={2}>
+            <Flex align="center" gap={{ base: 1, md: 2, lg: 4 }} id="language-toggle" flexShrink={0}>
+              <Flex align="center" gap={1}>
+                <Tooltip
+                  label={language === 'pt' ? 'Central de Comando' : 'Command Center'}
+                  placement="bottom"
+                  hasArrow
+                >
+                  <IconButton
+                    aria-label={language === 'pt' ? 'Abrir Central de Comando' : 'Open Command Center'}
+                    icon={<Icon as={FaRocket} />}
+                    onClick={onCommandCenterOpen}
+                    variant="ghost"
+                    color={textColor}
+                    size={{ base: "sm", md: "md" }}
+                    _hover={{
+                      bg: colorMode === "dark" ? "whiteAlpha.200" : "blackAlpha.100",
+                      color: "orange.400",
+                      transform: "scale(1.1)",
+                    }}
+                    transition="all 0.2s"
+                  />
+                </Tooltip>
                 <Button
-                  size="sm"
+                  size={{ base: "xs", md: "sm" }}
                   variant="ghost"
-                  onClick={() => setLanguage(language === 'pt' ? 'en' : 'pt')}
+                  onClick={() => handleSetLanguage(language === 'pt' ? 'en' : 'pt')}
                   color={textColor}
                   fontWeight="bold"
+                  fontSize={{ base: "xs", md: "sm" }}
+                  px={{ base: 2, md: 3 }}
                   _hover={{ bg: colorMode === "dark" ? "whiteAlpha.200" : "blackAlpha.100" }}
                 >
                   {language === 'pt' ? 'PT' : 'EN'}
@@ -182,9 +299,10 @@ export function Layout() {
                 <IconButton
                   aria-label="Toggle color mode"
                   icon={colorMode === "dark" ? <FaSun /> : <FaMoon />}
-                  onClick={toggleColorMode}
+                  onClick={handleToggleColorMode}
                   variant="ghost"
                   color={textColor}
+                  size={{ base: "sm", md: "md" }}
                 />
               </Flex>
             </Flex>
@@ -196,7 +314,10 @@ export function Layout() {
         flex={1}
         position="relative"
         zIndex={1}
-      // Removed overflow-x hidden from here, rely on body
+        pt={isMenuFixed ? { base: "70px", md: "80px" } : "0"}
+        transition="padding-top 0.3s ease-in-out"
+        overflowX="hidden"
+        w="100%"
       >
         <Outlet />
       </Box>
@@ -230,6 +351,39 @@ export function Layout() {
 
       <CookieConsent />
       <CodeTour />
+      
+      {/* Interactive Elements */}
+      {settings?.showAnimations !== false && (
+        <>
+          <FloatingStars count={30} />
+          <ClickParticles />
+        </>
+      )}
+      <SecretComboTracker />
+      
+      {/* Global Easter Egg Notifications */}
+      <GlobalEasterEggNotification egg={globalEgg} />
+      <PageEasterEggNotification egg={pageEgg} />
+      <AchievementNotification achievement={newAchievement} />
+      <GamificationBadge onOpen={() => setGamificationOpen(true)} />
+      <GamificationPanel isOpen={gamificationOpen} onClose={() => setGamificationOpen(false)} />
+      
+      {/* Command Center */}
+      <CommandCenter isOpen={isCommandCenterOpen} onClose={onCommandCenterClose} />
+      
+      {/* Floating Action Buttons */}
+      <WhatsAppButton />
+      
+      {/* Command Bar for Easter Eggs */}
+      <CommandBar 
+        enabled={settings?.easterEggsEnabled ?? true}
+        onCommand={(egg) => {
+          // Trigger the easter egg effect
+          if (egg.effect) {
+            egg.effect();
+          }
+        }}
+      />
     </Box>
   );
 }

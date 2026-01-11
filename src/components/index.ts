@@ -5,8 +5,6 @@ export { Contact } from './Contact';
 export { PortfolioCategory } from './PortfolioCategory';
 export { ProjectDetails } from './ProjectDetails';
 export { Certificates } from './Certificates';
-
-// TODO: These components need to be implemented
-export const Login = () => null;
-export const Admin = () => null;
-export const AdminRoute = ({ children }: { children: React.ReactNode }) => children;
+export { Login } from './Login';
+export { default as Admin } from './Admin';
+export { AdminRoute } from './AdminRoute';

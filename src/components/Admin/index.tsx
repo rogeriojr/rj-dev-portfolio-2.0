@@ -333,11 +333,11 @@ export default function Admin() {
                     <FormControl>
                       <FormLabel>Category</FormLabel>
                       <Select
-                        value={currentProject.category}
+                        value={currentProject.category || ''}
                         onChange={(e) =>
                           setCurrentProject({
                             ...currentProject,
-                            category: e.target.value as Project["category"],
+                            category: (e.target.value || null) as Project["category"],
                           })
                         }
                       >

@@ -4,7 +4,6 @@ import {
   Heading,
   Text,
   Image,
-  Grid,
   VStack,
   HStack,
   Badge,
@@ -29,6 +28,8 @@ import { Project } from '../types';
 import { FaArrowLeft, FaExternalLinkAlt, FaSearchPlus, FaRocket } from 'react-icons/fa';
 import { PROJECT_OVERRIDES, NEW_STATIC_PROJECTS } from '../data/projects';
 import { useTranslation } from '../i18n/useTranslation';
+import { StellarImageCarousel } from './StellarImageCarousel';
+import { useGamificationTracking } from '../hooks/useGamificationTracking';
 
 // Create a lookup map for static projects for easy detail access
 const STATIC_PROJECTS_DATA: Record<string, Project> = {};
@@ -47,6 +48,13 @@ export function ProjectDetails() {
   const bgColor = useColorModeValue("white", "gray.900");
   const borderColor = useColorModeValue("gray.200", "gray.700");
   const { t, language } = useTranslation();
+  const { trackProjectView } = useGamificationTracking();
+  
+  useEffect(() => {
+    if (id) {
+      trackProjectView(id);
+    }
+  }, [id, trackProjectView]);
 
   useEffect(() => {
     async function fetchProject() {
@@ -97,10 +105,10 @@ export function ProjectDetails() {
             images: data.imagem ? [data.imagem] : [],
             content: data.content || "",
             links: (data.links || [])
-              .filter((link: any) => !link.url?.toLowerCase().includes("instagram"))
-              .map((link: any) => ({
-                texto: link.texto,
-                url: link.url,
+              .filter((link: { url?: string; texto?: string }) => !link.url?.toLowerCase().includes("instagram"))
+              .map((link: { texto: string; url: string }) => ({
+                texto: link.texto || '',
+                url: link.url || '',
               })),
             createdAt: data.createdAt?.toDate() || new Date(),
             updatedAt: data.updatedAt?.toDate() || new Date(),
@@ -153,7 +161,7 @@ export function ProjectDetails() {
         <VStack spacing={8} justify="center" minH="50vh">
           <Box position="relative">
             <Icon as={FaRocket} w={32} h={32} color="gray.700" transform="rotate(135deg)" opacity={0.5} />
-            <Icon as={FaSearchPlus} w={12} h={12} color="red.500" position="absolute" top="0" right="0" animation="pulse 2s infinite" />
+            <Icon as={FaSearchPlus} w={12} h={12} color="red.500" position="absolute" top="0" right="0" />
           </Box>
 
           <VStack spacing={2}>
@@ -193,26 +201,32 @@ export function ProjectDetails() {
     );
   }
 
-  const coverImage = project.images[0];
+  const coverImage = project.images && project.images.length > 0 ? project.images[0] : '';
 
   return (
-    <Box as="section" py={8} minH="100vh">
-      <Container maxW="container.xl">
+    <Box as="section" py={{ base: 6, md: 8 }} minH="100vh" px={{ base: 4, md: 0 }}>
+      <Container maxW="container.xl" px={{ base: 4, md: 6 }}>
         <Button
           leftIcon={<FaArrowLeft />}
           variant="ghost"
-          mb={8}
+          mb={{ base: 6, md: 8 }}
+          size={{ base: "sm", md: "md" }}
+          fontSize={{ base: "sm", md: "md" }}
           onClick={() => navigate(-1)}
           _hover={{ bg: "transparent", color: "brand.yellow.400" }}
         >
           {t('projects.backToList')}
         </Button>
 
-        <Grid templateColumns={{ base: "1fr", lg: "350px 1fr" }} gap={12}>
+        <Box
+          display="grid"
+          gridTemplateColumns={{ base: "1fr", lg: "350px 1fr" }}
+          gap={{ base: 6, md: 8, lg: 12 }}
+        >
           {/* Sidebar / Info */}
-          <VStack align="start" spacing={6}>
+          <VStack align="start" spacing={{ base: 4, md: 6 }}>
             <Box
-              p={8}
+              p={{ base: 4, md: 6, lg: 8 }}
               bg={bgColor}
               borderRadius="2xl"
               boxShadow="2xl"
@@ -220,35 +234,37 @@ export function ProjectDetails() {
               borderColor={borderColor}
               w="full"
               textAlign="center"
-              position="sticky"
-              top="100px"
+              position={{ base: "relative", lg: "sticky" }}
+              top={{ base: 0, lg: "100px" }}
             >
-              <Image
-                src={coverImage}
-                alt={`${project.title[language]} Logo`}
-                maxH="150px"
-                mx="auto"
-                mb={6}
-                objectFit="contain"
-                cursor="pointer"
-                onClick={() => handleImageClick(coverImage)}
-              />
-              <Heading size="lg" mb={2} bgGradient="linear(to-r, blue.400, purple.600)" bgClip="text">
+              {coverImage && (
+                <Image
+                  src={coverImage}
+                  alt={`${project.title[language]} Logo`}
+                  maxH={{ base: "100px", md: "120px", lg: "150px" }}
+                  mx="auto"
+                  mb={{ base: 4, md: 6 }}
+                  objectFit="contain"
+                  cursor="pointer"
+                  onClick={() => handleImageClick(coverImage)}
+                />
+              )}
+              <Heading size={{ base: "md", md: "lg" }} mb={2} bgGradient="linear(to-r, blue.400, purple.600)" bgClip="text" wordBreak="break-word">
                 {project.title[language]}
               </Heading>
-              <Badge colorScheme="purple" px={3} py={1} borderRadius="full" mb={4}>
+              <Badge colorScheme="purple" px={{ base: 2, md: 3 }} py={1} borderRadius="full" mb={4} fontSize={{ base: "xs", md: "sm" }}>
                 {project.category}
               </Badge>
-              <Text color="gray.500" mb={6} fontSize="md">
+              <Text color="gray.500" mb={{ base: 4, md: 6 }} fontSize={{ base: "sm", md: "md" }} lineHeight="tall">
                 {project.description[language]}
               </Text>
 
               {project.tags && project.tags.length > 0 && (
-                <VStack align="start" width="full" mb={6}>
-                  <Text fontWeight="bold" fontSize="sm" color="gray.400" mb={2}>{t('projects.tags')}</Text>
-                  <HStack wrap="wrap" spacing={2}>
+                <VStack align="start" width="full" mb={{ base: 4, md: 6 }}>
+                  <Text fontWeight="bold" fontSize={{ base: "xs", md: "sm" }} color="gray.400" mb={2}>{t('projects.tags')}</Text>
+                  <HStack wrap="wrap" spacing={{ base: 1.5, md: 2 }}>
                     {project.tags.map((tag, idx) => (
-                      <Badge key={idx} colorScheme="blue" variant="subtle" px={2} borderRadius="md">
+                      <Badge key={idx} colorScheme="blue" variant="subtle" px={{ base: 1.5, md: 2 }} py={0.5} borderRadius="md" fontSize={{ base: "2xs", md: "xs" }}>
                         {tag}
                       </Badge>
                     ))}
@@ -257,8 +273,8 @@ export function ProjectDetails() {
               )}
 
               {project.links && project.links.length > 0 && (
-                <VStack width="full" spacing={3}>
-                  <Text fontWeight="bold" fontSize="sm" color="gray.400" w="full" textAlign="left">{t('projects.links')}</Text>
+                <VStack width="full" spacing={{ base: 2, md: 3 }}>
+                  <Text fontWeight="bold" fontSize={{ base: "xs", md: "sm" }} color="gray.400" w="full" textAlign="left">{t('projects.links')}</Text>
                   {project.links.map((link, idx) => (
                     <Button
                       key={idx}
@@ -268,8 +284,11 @@ export function ProjectDetails() {
                       variant="outline"
                       colorScheme="blue"
                       width="full"
+                      size={{ base: "sm", md: "md" }}
+                      fontSize={{ base: "xs", md: "sm" }}
                       leftIcon={<FaExternalLinkAlt />}
                       _hover={{ bg: "blue.50" }}
+                      wordBreak="break-word"
                     >
                       {link.texto}
                     </Button>
@@ -280,57 +299,29 @@ export function ProjectDetails() {
           </VStack>
 
           {/* Main Content */}
-          <VStack align="start" spacing={10}>
-            {/* Screenshots Gallery */}
-            {project.images.length > 1 && (
+          <VStack align="start" spacing={{ base: 6, md: 8, lg: 10 }}>
+            {/* Stellar Image Carousel */}
+            {project.images && project.images.length > 0 && (
               <Box w="full">
-                <Heading size="md" mb={6} borderBottom="2px solid" borderColor="blue.400" pb={2} display="inline-block" color="white">
-                  {t('projects.gallery')}
+                <Heading 
+                  size={{ base: "sm", md: "md" }}
+                  mb={{ base: 4, md: 6 }}
+                  borderBottom="2px solid" 
+                  borderColor="blue.400" 
+                  pb={2} 
+                  display="inline-block" 
+                  color="white"
+                  position="relative"
+                >
+                  <HStack spacing={2} align="center" flexWrap="wrap">
+                    <Icon as={FaRocket} color="yellow.400" w={{ base: 4, md: 5 }} h={{ base: 4, md: 5 }} />
+                    <Text fontSize={{ base: "sm", md: "md" }}>{t('projects.gallery') || 'Galeria Estelar'}</Text>
+                  </HStack>
                 </Heading>
-                <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }} gap={6}>
-                  {project.images.map((img, idx) => (
-                    <Box
-                      key={idx}
-                      borderRadius="xl"
-                      overflow="hidden"
-                      boxShadow="xl"
-                      transition="all 0.3s"
-                      _hover={{ transform: "scale(1.03)", boxShadow: "2xl" }}
-                      border="1px solid"
-                      borderColor={borderColor}
-                      position="relative"
-                      cursor="pointer"
-                      onClick={() => handleImageClick(img)}
-                      role="group"
-                    >
-                      <Image
-                        src={img}
-                        alt={`Screenshot ${idx + 1}`}
-                        w="full"
-                        h="300px"
-                        objectFit={img.includes('logo') ? "contain" : "cover"}
-                        bg={img.includes('logo') ? "white" : "gray.800"}
-                        p={img.includes('logo') ? 8 : 0}
-                      />
-                      <Box
-                        position="absolute"
-                        top={0}
-                        left={0}
-                        right={0}
-                        bottom={0}
-                        bg="rgba(0,0,0,0.4)"
-                        opacity={0}
-                        transition="opacity 0.3s"
-                        _groupHover={{ opacity: 1 }}
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="center"
-                      >
-                        <Icon as={FaSearchPlus} color="white" w={8} h={8} />
-                      </Box>
-                    </Box>
-                  ))}
-                </Grid>
+                <StellarImageCarousel 
+                  images={project.images} 
+                  onImageClick={handleImageClick}
+                />
               </Box>
             )}
 
@@ -340,12 +331,12 @@ export function ProjectDetails() {
             <Box w="full" className="project-markdown" color="white">
               <ReactMarkdown
                 components={{
-                  h1: ({ ...props }) => <Heading size="xl" mt={8} mb={4} {...props} color="white" />,
-                  h2: ({ ...props }) => <Heading size="lg" mt={8} mb={4} color="blue.400" {...props} />,
-                  h3: ({ ...props }) => <Heading size="md" mt={6} mb={3} color="purple.400" {...props} />,
-                  p: ({ ...props }) => <Text fontSize="lg" lineHeight="1.8" mb={6} color="gray.200" {...props} />,
-                  ul: ({ ...props }) => <Box as="ul" pl={6} mb={6} {...props} />,
-                  li: ({ ...props }) => <Box as="li" mb={3} fontSize="lg" color="gray.200" {...props} />,
+                  h1: ({ ...props }) => <Heading size={{ base: "lg", md: "xl" }} mt={{ base: 6, md: 8 }} mb={4} {...props} color="white" />,
+                  h2: ({ ...props }) => <Heading size={{ base: "md", md: "lg" }} mt={{ base: 6, md: 8 }} mb={4} color="blue.400" {...props} />,
+                  h3: ({ ...props }) => <Heading size={{ base: "sm", md: "md" }} mt={{ base: 4, md: 6 }} mb={3} color="purple.400" {...props} />,
+                  p: ({ ...props }) => <Text fontSize={{ base: "md", md: "lg" }} lineHeight="1.8" mb={{ base: 4, md: 6 }} color="gray.200" {...props} />,
+                  ul: ({ ...props }) => <Box as="ul" pl={{ base: 4, md: 6 }} mb={{ base: 4, md: 6 }} {...props} />,
+                  li: ({ ...props }) => <Box as="li" mb={3} fontSize={{ base: "md", md: "lg" }} color="gray.200" {...props} />,
                   strong: ({ ...props }) => <Text as="span" fontWeight="bold" color="white" {...props} />,
                 }}
               >
@@ -353,30 +344,31 @@ export function ProjectDetails() {
               </ReactMarkdown>
             </Box>
           </VStack>
-        </Grid>
+        </Box>
       </Container>
 
       {/* Lightbox Modal */}
-      <Modal isOpen={isOpen} onClose={onClose} size="6xl" isCentered>
+      <Modal isOpen={isOpen} onClose={onClose} size={{ base: "full", md: "4xl", lg: "6xl" }} isCentered>
         <ModalOverlay backdropFilter="blur(10px)" bg="blackAlpha.800" />
-        <ModalContent bg="transparent" boxShadow="none">
+        <ModalContent bg="transparent" boxShadow="none" m={{ base: 2, md: 4 }}>
           <ModalCloseButton
             color="white"
-            size="lg"
+            size={{ base: "md", md: "lg" }}
             zIndex={2}
             position="fixed"
-            top="20px"
-            right="20px"
+            top={{ base: "10px", md: "20px" }}
+            right={{ base: "10px", md: "20px" }}
             bg="blackAlpha.600"
             borderRadius="full"
             _hover={{ bg: "blackAlpha.800" }}
           />
-          <ModalBody p={0} display="flex" justifyContent="center">
+          <ModalBody p={{ base: 2, md: 0 }} display="flex" justifyContent="center">
             {selectedImage && (
               <Image
                 src={selectedImage}
                 alt="Enlarged view"
-                maxH="90vh"
+                maxH={{ base: "85vh", md: "90vh" }}
+                maxW="100%"
                 borderRadius="lg"
                 objectFit="contain"
               />

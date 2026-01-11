@@ -20,9 +20,12 @@ import {
   SimpleGrid,
   Collapse,
   useDisclosure,
-  IconButton
+  IconButton,
+  Switch,
+  FormControl,
+  FormLabel
 } from "@chakra-ui/react";
-import { FaGlobeAmericas, FaMoon, FaRocket, FaSatelliteDish, FaChevronDown, FaChevronUp, FaSignal } from "react-icons/fa";
+import { FaGlobeAmericas, FaMoon, FaRocket, FaSatelliteDish, FaChevronDown, FaChevronUp, FaSignal, FaStar } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 
 export type SortOption = 'newest' | 'oldest' | 'name';
@@ -38,6 +41,8 @@ interface AdvancedFiltersProps {
   sortBy: SortOption;
   onSortChange: (option: SortOption) => void;
   language: 'pt' | 'en';
+  showFeaturedOnly?: boolean;
+  onFeaturedOnlyChange?: (show: boolean) => void;
 }
 
 const MotionTag = motion(Tag);
@@ -52,7 +57,9 @@ export function AdvancedFilters({
   maxYear,
   sortBy,
   onSortChange,
-  language
+  language,
+  showFeaturedOnly = false,
+  onFeaturedOnlyChange
 }: AdvancedFiltersProps) {
 
   const boxBg = useColorModeValue('white', 'gray.800');
@@ -93,20 +100,72 @@ export function AdvancedFilters({
       <Box position="absolute" top="0" left="0" w="100%" h="2px" bgGradient="linear(to-r, transparent, cyan.500, transparent)" opacity={0.5} />
       <Box position="absolute" bottom="0" right="0" w="100%" h="2px" bgGradient="linear(to-r, transparent, purple.500, transparent)" opacity={0.5} />
 
-      <VStack spacing={8} align="stretch" position="relative" zIndex={1}>
+      <VStack spacing={{ base: 4, md: 6, lg: 8 }} align="stretch" position="relative" zIndex={1}>
+
+        {/* Featured Filter - Prominent */}
+        {onFeaturedOnlyChange && (
+          <Box
+            p={{ base: 3, md: 4 }}
+            borderRadius="xl"
+            bgGradient={showFeaturedOnly 
+              ? "linear(to-r, yellow.400, orange.500)" 
+              : useColorModeValue("gray.100", "whiteAlpha.100")}
+            borderWidth="2px"
+            borderColor={showFeaturedOnly ? "orange.400" : borderColor}
+            boxShadow={showFeaturedOnly ? "0 0 20px rgba(236, 201, 75, 0.4)" : "none"}
+            transition="all 0.3s"
+          >
+            <FormControl display="flex" alignItems="center" justifyContent="space-between" flexDirection={{ base: "column", sm: "row" }} gap={{ base: 2, sm: 0 }}>
+              <HStack spacing={{ base: 2, md: 3 }} flex={1}>
+                <Icon 
+                  as={FaStar} 
+                  color={showFeaturedOnly ? "white" : "yellow.400"} 
+                  w={{ base: 4, md: 5 }}
+                  h={{ base: 4, md: 5 }}
+                  filter={showFeaturedOnly ? "drop-shadow(0 0 8px rgba(255,255,255,0.8))" : "none"}
+                />
+                <FormLabel 
+                  htmlFor="featured-filter" 
+                  mb={0} 
+                  fontWeight="bold"
+                  color={showFeaturedOnly ? "white" : textColor}
+                  fontSize={{ base: "sm", md: "md" }}
+                  cursor="pointer"
+                  whiteSpace={{ base: "normal", sm: "nowrap" }}
+                >
+                  {language === 'pt' ? '⭐ Apenas Projetos em Destaque' : '⭐ Featured Projects Only'}
+                </FormLabel>
+              </HStack>
+              <Switch
+                id="featured-filter"
+                isChecked={showFeaturedOnly}
+                onChange={(e) => onFeaturedOnlyChange(e.target.checked)}
+                colorScheme="orange"
+                size={{ base: "md", md: "lg" }}
+              />
+            </FormControl>
+            {showFeaturedOnly && (
+              <Text fontSize={{ base: "2xs", md: "xs" }} color="white" mt={2} opacity={0.9}>
+                {language === 'pt' 
+                  ? 'Mostrando apenas projetos destacados para recrutadores' 
+                  : 'Showing only featured projects for recruiters'}
+              </Text>
+            )}
+          </Box>
+        )}
 
         {/* Top Controls Grid */}
-        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={8} alignItems="center">
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 4, md: 6, lg: 8 }} alignItems="center">
           {/* Timeline Control with Thematic Slider */}
           <Box id="star-chronology">
-            <HStack justify="space-between" mb={4}>
-              <HStack>
-                <Icon as={FaGlobeAmericas} color="cyan.400" />
-                <Text fontWeight="bold" fontSize="sm" color={textColor} letterSpacing="wide" textTransform="uppercase">
+            <HStack justify="space-between" mb={{ base: 3, md: 4 }} flexWrap="wrap" gap={2}>
+              <HStack spacing={2}>
+                <Icon as={FaGlobeAmericas} color="cyan.400" w={{ base: 4, md: 5 }} h={{ base: 4, md: 5 }} />
+                <Text fontWeight="bold" fontSize={{ base: "xs", md: "sm" }} color={textColor} letterSpacing="wide" textTransform="uppercase">
                   {language === 'pt' ? 'Cronologia Estelar' : 'Star Chronology'}
                 </Text>
               </HStack>
-              <Tag size="sm" colorScheme="purple" variant="solid" borderRadius="full">
+              <Tag size={{ base: "xs", md: "sm" }} colorScheme="purple" variant="solid" borderRadius="full" fontSize={{ base: "xs", md: "sm" }}>
                 {yearRange[0]} - {yearRange[1]}
               </Tag>
             </HStack>
@@ -157,10 +216,10 @@ export function AdvancedFilters({
                 </RangeSliderThumb>
               </RangeSlider>
 
-              <HStack justify="space-between" color="gray.500" fontSize="xs" mt={-2}>
-                <Text>{minYear} (Origem)</Text>
+              <HStack justify="space-between" color="gray.500" fontSize={{ base: "2xs", md: "xs" }} mt={-2} flexWrap="wrap" gap={1}>
+                <Text>{minYear} ({language === 'pt' ? 'Origem' : 'Origin'})</Text>
                 <HStack spacing={1}>
-                  <Icon as={FaMoon} boxSize={3} />
+                  <Icon as={FaMoon} boxSize={{ base: 2.5, md: 3 }} />
                   <Text>{language === 'pt' ? 'Presente' : 'Today'}</Text>
                 </HStack>
               </HStack>
@@ -169,19 +228,20 @@ export function AdvancedFilters({
 
           {/* Sort Control */}
           <Box>
-            <HStack mb={2}>
-              <Icon as={FaSignal} color="green.400" />
-              <Text fontWeight="bold" fontSize="sm" color="gray.500" letterSpacing="wide" textTransform="uppercase">
+            <HStack mb={2} spacing={2}>
+              <Icon as={FaSignal} color="green.400" w={{ base: 4, md: 5 }} h={{ base: 4, md: 5 }} />
+              <Text fontWeight="bold" fontSize={{ base: "xs", md: "sm" }} color="gray.500" letterSpacing="wide" textTransform="uppercase">
                 {language === 'pt' ? 'Prioridade da Missão' : 'Mission Priority'}
               </Text>
             </HStack>
             <Select
               value={sortBy}
               onChange={(e) => onSortChange(e.target.value as SortOption)}
-              size="md"
+              size={{ base: "sm", md: "md" }}
               borderRadius="lg"
               variant="filled"
               bg={useColorModeValue('gray.100', 'whiteAlpha.100')}
+              fontSize={{ base: "sm", md: "md" }}
               _focus={{ borderColor: "purple.400" }}
             >
               <option value="newest">{language === 'pt' ? '📅 Mais Recentes (Lançamentos)' : '📅 Newest (Launches)'}</option>
@@ -210,39 +270,41 @@ export function AdvancedFilters({
             transition: "all 0.3s"
           }}
         >
-          <HStack justify="space-between" mb={4} cursor="pointer" onClick={onToggle}>
-            <HStack>
+          <HStack justify="space-between" mb={{ base: 3, md: 4 }} cursor="pointer" onClick={onToggle} flexWrap="wrap" gap={2}>
+            <HStack spacing={2} flexWrap="wrap">
               <Icon
                 as={FaSatelliteDish}
                 color={isOpen ? "green.400" : "gray.400"}
                 animation={isOpen ? "pulse 2s infinite" : "none"}
                 transform={isOpen ? "rotate(-15deg)" : "rotate(0)"}
                 transition="transform 0.3s"
+                w={{ base: 4, md: 5 }}
+                h={{ base: 4, md: 5 }}
               />
-              <Text fontWeight="bold" fontSize="sm" textTransform="uppercase" letterSpacing="wider">
+              <Text fontWeight="bold" fontSize={{ base: "xs", md: "sm" }} textTransform="uppercase" letterSpacing="wider">
                 {language === 'pt' ? 'Scanner de Tecnologias' : 'Tech Scanner'}
               </Text>
-              <Tag size="sm" colorScheme={selectedTags.length > 0 ? "green" : "gray"} variant="subtle">
+              <Tag size={{ base: "xs", md: "sm" }} colorScheme={selectedTags.length > 0 ? "green" : "gray"} variant="subtle" fontSize={{ base: "2xs", md: "xs" }}>
                 {selectedTags.length > 0 ? `${selectedTags.length} ${language === 'pt' ? 'Sinais Ativos' : 'Active Signals'}` : 'Standby'}
               </Tag>
             </HStack>
             <IconButton
               aria-label="Toggle Radar"
               icon={isOpen ? <FaChevronUp /> : <FaChevronDown />}
-              size="xs"
+              size={{ base: "xs", md: "sm" }}
               variant="ghost"
               rounded="full"
             />
           </HStack>
 
           <Collapse in={isOpen} animateOpacity startingHeight={40}>
-            <Wrap spacing={2}>
+            <Wrap spacing={{ base: 2, md: 3 }}>
               <AnimatePresence>
                 {tagsToShow.map(tag => (
                   <WrapItem key={tag}>
                     <MotionTag
                       layout
-                      size="md"
+                      size={{ base: "sm", md: "md" }}
                       variant={selectedTags.includes(tag) ? 'solid' : 'outline'}
                       colorScheme={selectedTags.includes(tag) ? "cyan" : "gray"}
                       cursor="pointer"
@@ -254,8 +316,11 @@ export function AdvancedFilters({
                       borderColor={selectedTags.includes(tag) ? "cyan.400" : "gray.600"}
                       opacity={!isOpen && !selectedTags.includes(tag) ? 0.6 : 1}
                       transition="all 0.2s"
+                      px={{ base: 2.5, md: 3 }}
+                      py={{ base: 1.5, md: 2 }}
+                      fontSize={{ base: "xs", md: "sm" }}
                     >
-                      <TagLabel>{tag}</TagLabel>
+                      <TagLabel wordBreak="break-word">{tag}</TagLabel>
                       {selectedTags.includes(tag) && <TagCloseButton onClick={(e) => { e.stopPropagation(); toggleTag(tag); }} />}
                     </MotionTag>
                   </WrapItem>
@@ -265,7 +330,7 @@ export function AdvancedFilters({
           </Collapse>
 
           {!isOpen && availableTags.length > 8 && (
-            <Text fontSize="xs" color="gray.500" mt={2} textAlign="center" cursor="pointer" onClick={onToggle} _hover={{ color: "cyan.400" }}>
+            <Text fontSize={{ base: "2xs", md: "xs" }} color="gray.500" mt={2} textAlign="center" cursor="pointer" onClick={onToggle} _hover={{ color: "cyan.400" }}>
               +{availableTags.length - 8} {language === 'pt' ? 'sinais ocultos... (Clique para expandir o espectro)' : 'hidden signals... (Click to expand spectrum)'}
             </Text>
           )}
@@ -275,12 +340,13 @@ export function AdvancedFilters({
         {/* Clear Filters Button */}
         {(selectedTags.length > 0 || yearRange[0] !== minYear || yearRange[1] !== maxYear) && (
           <Button
-            size="sm"
+            size={{ base: "xs", md: "sm" }}
             variant="ghost"
             colorScheme="red"
             onClick={clearFilters}
-            leftIcon={<Icon as={FaRocket} transform="rotate(180deg)" />}
-            alignSelf="flex-end"
+            leftIcon={<Icon as={FaRocket} transform="rotate(180deg)" w={{ base: 3, md: 4 }} h={{ base: 3, md: 4 }} />}
+            alignSelf={{ base: "stretch", sm: "flex-end" }}
+            fontSize={{ base: "xs", md: "sm" }}
             _hover={{ bg: "red.50", color: "red.600" }}
           >
             {language === 'pt' ? 'Abortar Filtros' : 'Abort Filters'}

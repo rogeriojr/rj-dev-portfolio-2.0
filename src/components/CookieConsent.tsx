@@ -37,7 +37,7 @@ export function CookieConsent() {
       bottom={0}
       left={0}
       right={0}
-      zIndex={9999}
+      zIndex={10001}
       initial={{ y: 100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.3 }}

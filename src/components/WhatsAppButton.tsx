@@ -1,0 +1,76 @@
+import { IconButton, Tooltip, useColorModeValue, Box } from '@chakra-ui/react';
+import { FaWhatsapp } from 'react-icons/fa';
+import { motion } from 'framer-motion';
+import { useTranslation } from '../i18n/useTranslation';
+import { useFloatingButtonsConfig } from '../hooks/useFloatingButtonsConfig';
+
+const WHATSAPP_NUMBER = '+5564981294566';
+
+const MotionBox = motion(Box);
+
+export function WhatsAppButton() {
+  const { language } = useTranslation();
+  const { config, getButtonStyle } = useFloatingButtonsConfig();
+  const bg = useColorModeValue('whatsapp.500', 'whatsapp.400');
+  const hoverBg = useColorModeValue('whatsapp.600', 'whatsapp.500');
+
+  const handleWhatsAppClick = () => {
+    const message = encodeURIComponent(
+      language === 'pt' 
+        ? 'Olá! Vi seu portfólio e gostaria de conversar sobre um projeto.'
+        : 'Hello! I saw your portfolio and would like to discuss a project.'
+    );
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+  };
+
+  // Se desabilitado na Central de Comando, não renderiza
+  if (!config.whatsapp.enabled) return null;
+
+  // Usa configuração personalizada se diferente do padrão, senão usa posição fixa original
+  const hasCustomPosition = config.whatsapp.position !== 'bottom-right' || 
+                            config.whatsapp.customX !== undefined || 
+                            config.whatsapp.customY !== undefined;
+
+  return (
+    <MotionBox
+      style={hasCustomPosition ? getButtonStyle('whatsapp') : undefined}
+      position={hasCustomPosition ? undefined : "fixed"}
+      bottom={hasCustomPosition ? undefined : { base: '20px', md: '24px' }}
+      right={hasCustomPosition ? undefined : { base: '20px', md: '24px' }}
+      zIndex={hasCustomPosition ? undefined : 10000}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      css={{ 
+        pointerEvents: 'auto',
+        isolation: 'isolate'
+      }}
+    >
+      <Tooltip
+        label={language === 'pt' ? 'Falar no WhatsApp' : 'Chat on WhatsApp'}
+        placement="left"
+        hasArrow
+      >
+        <IconButton
+          aria-label={language === 'pt' ? 'Abrir WhatsApp' : 'Open WhatsApp'}
+          icon={<FaWhatsapp />}
+          onClick={handleWhatsAppClick}
+          colorScheme="whatsapp"
+          size="lg"
+          borderRadius="full"
+          boxShadow="0 4px 20px rgba(37, 211, 102, 0.4)"
+          bg={bg}
+          color="white"
+          _hover={{
+            bg: hoverBg,
+            boxShadow: '0 0 25px rgba(37, 211, 102, 0.6)',
+          }}
+          _active={{
+            transform: 'scale(0.95)',
+          }}
+          transition="all 0.2s ease-in-out"
+          cursor="pointer"
+        />
+      </Tooltip>
+    </MotionBox>
+  );
+}

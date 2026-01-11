@@ -13,11 +13,17 @@ import {
   VStack,
   Link as ChakraLink,
   Tooltip,
+  Icon,
+  Divider,
+  Text,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { css, keyframes } from "@emotion/react";
+import { FaRocket } from "react-icons/fa";
+import { CommandCenter } from "../CommandCenter/CommandCenter";
+import { useTranslation } from "../../i18n/useTranslation";
 
 const MotionBox = motion(Box);
 
@@ -97,6 +103,8 @@ const NavLink = ({
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen: isCommandCenterOpen, onOpen: onCommandCenterOpen, onClose: onCommandCenterClose } = useDisclosure();
+  const { language } = useTranslation();
 
   const links = [
     { to: "/", label: "Home" },
@@ -159,6 +167,30 @@ export default function Navbar() {
 
         <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
           <NavLinks />
+          <Tooltip
+            label={language === 'pt' ? 'Central de Comando - Personalizar Botões' : 'Command Center - Customize Buttons'}
+            placement="bottom"
+            hasArrow
+          >
+            <IconButton
+              aria-label={language === 'pt' ? 'Abrir Central de Comando' : 'Open Command Center'}
+              icon={<Icon as={FaRocket} />}
+              onClick={onCommandCenterOpen}
+              variant="solid"
+              colorScheme="orange"
+              bgGradient="linear(to-r, orange.400, red.500)"
+              color="white"
+              size="md"
+              borderRadius="md"
+              _hover={{
+                bgGradient: "linear(to-r, orange.500, red.600)",
+                transform: "scale(1.1)",
+                boxShadow: "0 0 20px rgba(251, 146, 60, 0.5)",
+              }}
+              transition="all 0.2s"
+              boxShadow="md"
+            />
+          </Tooltip>
         </HStack>
       </Flex>
 
@@ -170,10 +202,40 @@ export default function Navbar() {
           <DrawerBody>
             <VStack spacing={4} align="stretch">
               <NavLinks />
+              <Divider borderColor="gray.700" />
+              <Box
+                as="button"
+                onClick={() => {
+                  onClose();
+                  onCommandCenterOpen();
+                }}
+                px={4}
+                py={3}
+                rounded="md"
+                bgGradient="linear(to-r, orange.400, red.500)"
+                color="white"
+                fontWeight="bold"
+                _hover={{
+                  bgGradient: "linear(to-r, orange.500, red.600)",
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 4px 12px rgba(251, 146, 60, 0.4)",
+                }}
+                transition="all 0.2s"
+                boxShadow="md"
+              >
+                <HStack spacing={2} justify="center">
+                  <Icon as={FaRocket} />
+                  <Text>
+                    {language === 'pt' ? 'Central de Comando' : 'Command Center'}
+                  </Text>
+                </HStack>
+              </Box>
             </VStack>
           </DrawerBody>
         </DrawerContent>
       </Drawer>
+
+      <CommandCenter isOpen={isCommandCenterOpen} onClose={onCommandCenterClose} />
     </Box>
   );
 }

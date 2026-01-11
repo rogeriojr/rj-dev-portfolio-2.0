@@ -1,6 +1,7 @@
-import { Box, Button, HStack, IconButton, Text, Select, useColorModeValue, Tooltip } from '@chakra-ui/react';
+import { Box, Button, HStack, VStack, IconButton, Text, Select, useColorModeValue, Tooltip } from '@chakra-ui/react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import { useTranslation } from '../i18n/useTranslation';
 
 const MotionButton = motion(Button);
 
@@ -21,6 +22,7 @@ export function Pagination({
   onItemsPerPageChange,
   totalItems,
 }: PaginationProps) {
+  const { language } = useTranslation();
   const startItem = (currentPage - 1) * itemsPerPage + 1;
   const endItem = Math.min(currentPage * itemsPerPage, totalItems);
 
@@ -33,6 +35,10 @@ export function Pagination({
   const getPageNumbers = () => {
     const pages: (number | string)[] = [];
     const maxVisible = 7;
+
+    if (totalPages <= 0) {
+      return [];
+    }
 
     if (totalPages <= maxVisible) {
       return Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -65,41 +71,50 @@ export function Pagination({
     return pages;
   };
 
+  // Don't render if no pages
+  if (totalPages <= 0) {
+    return null;
+  }
+
   return (
-    <Box mt={12} py={4} borderTop="1px solid" borderColor={useColorModeValue('gray.200', 'whiteAlpha.100')}>
-      <HStack justify="space-between" wrap="wrap" spacing={4}>
-        {/* Items per page selector */}
-        <HStack>
-          <Text fontSize="sm" fontWeight="medium" color="gray.500">Missões/Setor:</Text>
-          <Select
-            size="sm"
-            width="70px"
-            value={itemsPerPage}
-            onChange={(e) => onItemsPerPageChange(Number(e.target.value))}
-            borderRadius="md"
-            variant="filled"
-            bg={inactiveBg}
-            _focus={{ borderColor: 'cyan.400' }}
-          >
-            <option value="6">6</option>
-            <option value="9">9</option>
-            <option value="12">12</option>
-            <option value="18">18</option>
-          </Select>
-        </HStack>
+    <Box mt={{ base: 8, md: 12 }} py={{ base: 3, md: 4 }} borderTop="1px solid" borderColor={useColorModeValue('gray.200', 'whiteAlpha.100')}>
+      <VStack spacing={4} align="stretch">
+        <HStack justify="space-between" wrap="wrap" spacing={{ base: 2, md: 4 }} align="center">
+          {/* Items per page selector */}
+          <HStack spacing={2} flexWrap="wrap">
+            <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="medium" color="gray.500" whiteSpace="nowrap">
+              {language === 'pt' ? 'Missões/Setor:' : 'Items/Page:'}
+            </Text>
+            <Select
+              size={{ base: "xs", md: "sm" }}
+              width={{ base: "60px", md: "70px" }}
+              value={itemsPerPage}
+              onChange={(e) => onItemsPerPageChange(Number(e.target.value))}
+              borderRadius="md"
+              variant="filled"
+              bg={inactiveBg}
+              fontSize={{ base: "xs", md: "sm" }}
+              _focus={{ borderColor: 'cyan.400' }}
+            >
+              <option value="6">6</option>
+              <option value="9">9</option>
+              <option value="12">12</option>
+              <option value="18">18</option>
+            </Select>
+          </HStack>
 
-        {/* Page info */}
-        <Text fontSize="sm" color="gray.500" fontWeight="medium">
-          {startItem}-{endItem} / {totalItems}
-        </Text>
+          {/* Page info */}
+          <Text fontSize={{ base: "xs", md: "sm" }} color="gray.500" fontWeight="medium" whiteSpace="nowrap">
+            {startItem}-{endItem} / {totalItems}
+          </Text>
 
-        {/* Pagination controls */}
-        <HStack spacing={2}>
-          <Tooltip label="Setor Anterior" hasArrow>
+          {/* Pagination controls */}
+          <HStack spacing={{ base: 1, md: 2 }} flexWrap="wrap" justify="center">
+          <Tooltip label={language === 'pt' ? "Setor Anterior" : "Previous Sector"} hasArrow>
             <IconButton
-              aria-label="Página anterior"
+              aria-label={language === 'pt' ? "Página anterior" : "Previous page"}
               icon={<FaChevronLeft />}
-              size="sm"
+              size={{ base: "xs", md: "sm" }}
               onClick={() => onPageChange(currentPage - 1)}
               isDisabled={currentPage === 1}
               variant="ghost"
@@ -111,16 +126,19 @@ export function Pagination({
           {getPageNumbers().map((page, index) => (
             <Box key={index}>
               {page === '...' ? (
-                <Text px={2} color="gray.500">...</Text>
+                <Text px={{ base: 1, md: 2 }} color="gray.500" fontSize={{ base: "xs", md: "sm" }}>...</Text>
               ) : (
                 <MotionButton
-                  size="sm"
+                  size={{ base: "xs", md: "sm" }}
                   variant={page === currentPage ? 'solid' : 'ghost'}
                   bg={page === currentPage ? activeBg : 'transparent'}
                   color={page === currentPage ? activeColor : 'inherit'}
                   onClick={() => onPageChange(page as number)}
                   rounded="full"
                   fontWeight="bold"
+                  fontSize={{ base: "xs", md: "sm" }}
+                  minW={{ base: "28px", md: "32px" }}
+                  h={{ base: "28px", md: "32px" }}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   _hover={{
@@ -134,11 +152,11 @@ export function Pagination({
             </Box>
           ))}
 
-          <Tooltip label="Próximo Setor" hasArrow>
+          <Tooltip label={language === 'pt' ? "Próximo Setor" : "Next Sector"} hasArrow>
             <IconButton
-              aria-label="Próxima página"
+              aria-label={language === 'pt' ? "Próxima página" : "Next page"}
               icon={<FaChevronRight />}
-              size="sm"
+              size={{ base: "xs", md: "sm" }}
               onClick={() => onPageChange(currentPage + 1)}
               isDisabled={currentPage === totalPages}
               variant="ghost"
@@ -147,7 +165,8 @@ export function Pagination({
             />
           </Tooltip>
         </HStack>
-      </HStack>
+        </HStack>
+      </VStack>
     </Box>
   );
 }

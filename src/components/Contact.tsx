@@ -26,7 +26,6 @@ import {
   FaPaperPlane,
   FaSatellite,
 } from "react-icons/fa";
-import { SpaceBackground } from "./SpaceBackground";
 import { IoPlanet } from "react-icons/io5";
 
 const MotionBox = motion(Box);
@@ -62,8 +61,6 @@ export function Contact() {
 
   return (
     <Box position="relative" overflow="hidden" py={20}>
-      <SpaceBackground />
-
       {/* Decorative Orbiting Elements */}
       <Box position="absolute" top="10%" right="5%" opacity={0.2} animation="float 10s ease-in-out infinite">
         <Icon as={IoPlanet} w={40} h={40} color="purple.500" />

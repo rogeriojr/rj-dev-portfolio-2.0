@@ -13,7 +13,7 @@ export interface Project {
   id: string;
   title: BilingualString;
   description: BilingualString;
-  category: 'development' | 'design' | 'social-media' | 'latest' | 'popular' | null | '' | any;
+  category: 'development' | 'design' | 'social-media' | 'latest' | 'popular' | null | '';
   images: string[];
   tags?: string[];
   content: BilingualString;
@@ -23,6 +23,7 @@ export interface Project {
     texto: string;
     url: string;
   }[];
+  featured?: boolean; // Projetos em destaque para recrutadores
 }
 
 export interface Certificate {

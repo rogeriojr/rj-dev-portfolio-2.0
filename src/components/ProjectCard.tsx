@@ -12,7 +12,7 @@ import {
   Badge,
   Flex,
 } from "@chakra-ui/react";
-import { FaGithub, FaLink, FaInfoCircle, FaGlobeAmericas } from "react-icons/fa";
+import { FaGithub, FaLink, FaInfoCircle, FaGlobeAmericas, FaStar } from "react-icons/fa";
 import { Project } from "../types";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "../i18n/useTranslation";
@@ -65,17 +65,19 @@ export default function ProjectCard({
             duration: 0.2,
           },
         }}
-        borderWidth="1px"
-        borderColor={borderColor}
+        borderWidth={project.featured ? "2px" : "1px"}
+        borderColor={project.featured ? "yellow.400" : borderColor}
         borderRadius="2xl"
         overflow="hidden"
         bg={bgColor}
-        boxShadow="lg"
+        boxShadow={project.featured ? "0 0 20px rgba(236, 201, 75, 0.4)" : "lg"}
         position="relative"
         backdropFilter="blur(8px)"
         display="flex"
         flexDirection="column"
         h="100%"
+        minH="380px"
+        w="100%"
         _before={{
           content: '""',
           position: "absolute",
@@ -94,32 +96,76 @@ export default function ProjectCard({
             opacity: 1,
           },
           transform: "translateY(-8px)",
+          boxShadow: project.featured ? "0 0 30px rgba(236, 201, 75, 0.6)" : "2xl",
+          borderColor: project.featured ? "yellow.300" : useColorModeValue("blue.300", "cyan.400"),
         }}
       >
+        {/* Featured Badge */}
+        {project.featured && (
+          <Box
+            position="absolute"
+            top={2}
+            right={2}
+            zIndex={10}
+            bgGradient="linear(to-r, yellow.400, orange.500)"
+            borderRadius="full"
+            px={3}
+            py={1}
+            boxShadow="0 0 15px rgba(236, 201, 75, 0.6)"
+            display="flex"
+            alignItems="center"
+            gap={1}
+          >
+            <Icon as={FaStar} w={3} h={3} color="white" />
+            <Text fontSize="xs" fontWeight="bold" color="white" letterSpacing="wide">
+              {language === 'pt' ? 'DESTAQUE' : 'FEATURED'}
+            </Text>
+          </Box>
+        )}
         <Box
           position="relative"
-          bg={project.title[language].toLowerCase().includes("bevas") || project.title[language].toLowerCase().includes("portal") || project.title[language].toLowerCase().includes("neoidea") || project.title[language].toLowerCase().includes("plataforma") ? "gray.800" : "white"}
+          bg={project.title[language].toLowerCase().includes("bevas") || project.title[language].toLowerCase().includes("portal") || project.title[language].toLowerCase().includes("neoidea") || project.title[language].toLowerCase().includes("plataforma") ? "gray.800" : useColorModeValue("white", "gray.100")}
           overflow="hidden"
           flexShrink={0}
-          h="200px"
+          h="180px"
+          minH="180px"
+          maxH="180px"
+          w="100%"
           display="flex"
           alignItems="center"
           justifyContent="center"
         >
           {project.images && project.images.length > 0 ? (
-            <Image
-              src={project.images[0]}
-              alt={project.title[language]}
-              objectFit="contain"
-              p="6"
-              h="100%"
+            <Box
               w="100%"
-              bg={project.title[language].toLowerCase().includes("bevas") || project.title[language].toLowerCase().includes("portal") || project.title[language].toLowerCase().includes("neoidea") || project.title[language].toLowerCase().includes("plataforma") ? "gray.800" : "white"}
-              transition="transform 0.3s ease"
-              _hover={{
-                transform: "scale(1.05)",
-              }}
-            />
+              h="100%"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              p={4}
+            >
+              <Image
+                src={project.images[0]}
+                alt={project.title[language]}
+                objectFit="contain"
+                maxH="calc(100% - 32px)"
+                maxW="calc(100% - 32px)"
+                w="auto"
+                h="auto"
+                bg={project.title[language].toLowerCase().includes("bevas") || project.title[language].toLowerCase().includes("portal") || project.title[language].toLowerCase().includes("neoidea") || project.title[language].toLowerCase().includes("plataforma") ? "gray.800" : "transparent"}
+                transition="transform 0.3s ease"
+                _hover={{
+                  transform: "scale(1.05)",
+                }}
+                onError={(e) => {
+                  console.error(`Failed to load project image: ${project.images[0]}`);
+                  // Fallback para placeholder
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                }}
+                fallbackSrc="/assets/projects/neoidea_logo.png"
+              />
+            </Box>
           ) : (
             <Flex
               h="100%"
@@ -146,26 +192,16 @@ export default function ProjectCard({
               </Text>
             </Flex>
           )}
-          <Box
-            position="absolute"
-            top={0}
-            left={0}
-            right={0}
-            bottom={0}
-            bgGradient="linear(to-b, transparent 50%, rgba(0,0,0,0.6))"
-            transition="opacity 0.3s ease"
-            _groupHover={{
-              opacity: 0.8,
-            }}
-          />
         </Box>
-        <VStack p={6} align="start" spacing={4} position="relative" zIndex={1} flex="1" justify="flex-start">
+        <VStack p={4} align="start" spacing={3} position="relative" zIndex={1} flex="1" justify="flex-start" minW={0} w="100%" minH={0}>
           <Heading
-            size="md"
+            size={{ base: "sm", md: "md" }}
             className="project-title"
             bgGradient="linear(to-r, blue.400, purple.500)"
             bgClip="text"
             transition="all 0.3s ease"
+            wordBreak="break-word"
+            w="100%"
             _hover={{
               bgGradient: "linear(to-r, blue.500, purple.600)",
               transform: "translateX(4px)",
@@ -174,36 +210,45 @@ export default function ProjectCard({
             {project.title[language]}
           </Heading>
           <Text
-            noOfLines={2}
+            noOfLines={3}
             className="project-description"
             color={useColorModeValue("gray.600", "gray.300")}
-            fontSize="sm"
+            fontSize={{ base: "xs", md: "sm" }}
+            lineHeight="tall"
+            w="100%"
+            wordBreak="break-word"
           >
             {project.description[language]}
           </Text>
           {project.tags && project.tags.length > 0 && (
-            <HStack spacing={2} wrap="wrap">
-              {project.tags.slice(0, 3).map((tag, idx) => (
-                <Badge
-                  key={idx}
-                  colorScheme="blue"
-                  variant="subtle"
-                  fontSize="xs"
-                  borderRadius="full"
-                  px={2}
-                >
-                  {tag}
-                </Badge>
-              ))}
-              {project.tags.length > 3 && (
-                <Text fontSize="xs" color="gray.500">
-                  +{project.tags.length - 3}
-                </Text>
-              )}
-            </HStack>
+            <Box w="100%">
+              <HStack spacing={{ base: 1, md: 2 }} wrap="wrap" align="start">
+                {project.tags.slice(0, 4).map((tag, idx) => (
+                  <Badge
+                    key={idx}
+                    colorScheme="blue"
+                    variant="subtle"
+                    fontSize={{ base: "2xs", md: "xs" }}
+                    borderRadius="full"
+                    px={{ base: 1.5, md: 2 }}
+                    whiteSpace="nowrap"
+                    maxW="100%"
+                    overflow="hidden"
+                    textOverflow="ellipsis"
+                  >
+                    {tag}
+                  </Badge>
+                ))}
+                {project.tags.length > 4 && (
+                  <Text fontSize={{ base: "2xs", md: "xs" }} color="gray.500" flexShrink={0}>
+                    +{project.tags.length - 4}
+                  </Text>
+                )}
+              </HStack>
+            </Box>
           )}
-          <HStack spacing={4} mt="auto" width="100%" align="center">
-            <VStack align="start" spacing={2} flex={1}>
+          <HStack spacing={{ base: 2, md: 4 }} mt="auto" width="100%" align="center" flexWrap="wrap">
+            <VStack align="start" spacing={2} flex={1} minW={0}>
               {project.links &&
                 project.links.length > 0 &&
                 project.links.slice(0, 1).map((link, index) => (
@@ -214,31 +259,35 @@ export default function ProjectCard({
                     color="blue.400"
                     display="inline-flex"
                     alignItems="center"
-                    fontSize="sm"
+                    fontSize={{ base: "xs", md: "sm" }}
                     _hover={{
                       color: "blue.300",
                       transform: "translateY(-1px)",
                     }}
                     transition="all 0.2s"
+                    wordBreak="break-all"
                   >
                     <Icon
                       as={link.url.includes("github") ? FaGithub : FaLink}
-                      mr={2}
+                      mr={1}
+                      w={{ base: 3, md: 4 }}
+                      h={{ base: 3, md: 4 }}
                     />
                     {t('projects.viewOnline')}
                   </Link>
                 ))}
             </VStack>
-            <Box>
+            <Box flexShrink={0}>
               <Button
                 rightIcon={<FaInfoCircle />}
                 variant="ghost"
-                size="sm"
+                size={{ base: "xs", md: "sm" }}
                 onClick={() => {
                   onViewDetails?.(project);
                 }}
                 bgGradient="linear(to-r, blue.400, purple.500)"
                 color="white"
+                fontSize={{ base: "xs", md: "sm" }}
                 _hover={{
                   bgGradient: "linear(to-r, blue.500, purple.600)",
                   transform: "translateY(-2px)",

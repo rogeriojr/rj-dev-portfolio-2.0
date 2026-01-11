@@ -17,5 +17,12 @@ export const PROJECT_DATES: Record<string, string> = {
   "projeto-nlw-rocketseat": "2024-02-10",
   "mobile-challenge-codesh": "2024-02-05",
   "yellot-cupons-app": "2024-04-20",
-  "neo-carrossel": "2024-06-15"
+  "neo-carrossel": "2024-06-15",
+  "neo-test-frontend": "2025-04-02",
+  "app-plug-smart": "2025-03-03",
+  "web-plug-smart": "2025-03-03",
+  "api-smart-plug": "2025-03-03",
+  "vue-test-metaway": "2025-02-26",
+  "projeto-nlw-node-fastify": "2024-04-07",
+  "teste-frontend-target": "2025-03-11"
 };
