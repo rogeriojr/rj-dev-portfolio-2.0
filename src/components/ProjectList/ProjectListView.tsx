@@ -4,6 +4,7 @@ import { Project } from "../../types";
 import { FaExternalLinkAlt, FaInfoCircle } from "react-icons/fa";
 import { LazyImage } from "../LazyImage";
 import { memo } from "react";
+import { useProjectImageBackground } from "../../utils/projectUtils";
 
 const MotionBox = motion(Box);
 
@@ -14,10 +15,7 @@ interface ProjectListViewProps {
 }
 
 const ProjectListViewComponent = ({ project, onViewDetails, language }: ProjectListViewProps) => {
-  const projectsWithDarkBg = ['portaltempoderquemage', 'neoidea', 'calculadora', 'bevaswm'];
-  const projectsWithWhiteBg = ['metaway'];
-  const needsDarkBg = projectsWithDarkBg.some(id => project.id.toLowerCase().includes(id.toLowerCase()));
-  const needsWhiteBg = projectsWithWhiteBg.some(id => project.id.toLowerCase().includes(id.toLowerCase()));
+  const imageBgColor = useProjectImageBackground(project, 'white', 'gray.800');
   const bg = useColorModeValue('white', 'gray.800');
   const borderColor = useColorModeValue('gray.200', 'gray.700');
   const hoverBg = useColorModeValue('gray.50', 'gray.700');
@@ -68,7 +66,7 @@ const ProjectListViewComponent = ({ project, onViewDetails, language }: ProjectL
           borderRadius="lg"
           overflow="hidden"
           flexShrink={0}
-          bg={needsDarkBg ? 'gray.900' : needsWhiteBg ? 'white' : useColorModeValue('white', 'gray.800')}
+          bg={imageBgColor}
           display="flex"
           alignItems="center"
           justifyContent="center"

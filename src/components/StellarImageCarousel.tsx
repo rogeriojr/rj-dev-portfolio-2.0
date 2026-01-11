@@ -15,10 +15,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronLeft, FaChevronRight, FaRocket, FaSearchPlus } from 'react-icons/fa';
 import { css, keyframes } from '@emotion/react';
 import { PlanetSpinner } from './PlanetSpinner';
+import { Project } from '../types';
+import { useProjectImageBackground } from '../utils/projectUtils';
 
 interface StellarImageCarouselProps {
   images: string[];
   onImageClick?: (image: string) => void;
+  project?: Project;
 }
 
 const starFieldAnimation = keyframes`
@@ -35,7 +38,7 @@ const planetGlow = keyframes`
 const MotionBox = motion(Box);
 const MotionImage = motion(Image);
 
-export function StellarImageCarousel({ images, onImageClick }: StellarImageCarouselProps) {
+export function StellarImageCarousel({ images, onImageClick, project }: StellarImageCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
@@ -43,6 +46,7 @@ export function StellarImageCarousel({ images, onImageClick }: StellarImageCarou
   const [imageLoading, setImageLoading] = useState<Set<number>>(new Set());
 
   const borderColor = useColorModeValue('gray.200', 'gray.700');
+  const projectImageBg = project ? useProjectImageBackground(project, 'white', 'gray.800') : useColorModeValue('white', 'gray.800');
 
   useEffect(() => {
     if (!isAutoPlaying || images.length <= 1) return;
@@ -108,12 +112,27 @@ export function StellarImageCarousel({ images, onImageClick }: StellarImageCarou
     currentImage.match(/\.(png|jpg|jpeg)$/i) && !isLogo;
 
   const getBackgroundColor = () => {
+    if (project) {
+      return projectImageBg;
+    }
     if (isLogo) return 'white';
     if (isScreenshot) return 'gray.900';
     return 'gray.800';
   };
 
   const getBackgroundPattern = () => {
+    if (project) {
+      const bgColor = projectImageBg;
+      if (bgColor === 'gray.900' || bgColor === 'gray.800') {
+        return `linear-gradient(
+          135deg,
+          rgba(17, 24, 39, 0.95) 0%,
+          rgba(31, 41, 55, 0.95) 50%,
+          rgba(17, 24, 39, 0.95) 100%
+        )`;
+      }
+      return 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)';
+    }
     if (isLogo) {
       return 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)';
     }
@@ -443,6 +462,7 @@ export function StellarImageCarousel({ images, onImageClick }: StellarImageCarou
             {images.map((img, index) => {
               const isThumbnailLogo = img.includes('logo');
               const isActive = index === currentIndex;
+              const thumbnailBg = project ? projectImageBg : (isThumbnailLogo ? 'white' : 'gray.800');
 
               return (
                 <Box
@@ -468,8 +488,8 @@ export function StellarImageCarousel({ images, onImageClick }: StellarImageCarou
                   minW={{ base: '60px', sm: '70px', md: '90px', lg: '100px' }}
                   w={{ base: '60px', sm: '70px', md: '90px', lg: '100px' }}
                   h={{ base: '60px', sm: '70px', md: '90px', lg: '100px' }}
-                  bg={isThumbnailLogo ? 'white' : 'gray.800'}
-                  p={isThumbnailLogo ? { base: 1, sm: 1.5, md: 2 } : 0}
+                  bg={thumbnailBg}
+                  p={(isThumbnailLogo || project) ? { base: 1, sm: 1.5, md: 2 } : 0}
                   display="flex"
                   alignItems="center"
                   justifyContent="center"

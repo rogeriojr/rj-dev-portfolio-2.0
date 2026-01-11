@@ -17,6 +17,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "../i18n/useTranslation";
 import { LazyImage } from "./LazyImage";
 import { memo } from "react";
+import { useProjectImageBackground } from "../utils/projectUtils";
 
 interface ProjectCardProps {
   project: Project;
@@ -37,15 +38,7 @@ const ProjectCardComponent = ({
     "rgba(226, 232, 240, 0.6)",
     "rgba(45, 55, 72, 0.6)"
   );
-  const projectsWithDarkBg = ['portaltempoderquemage', 'neoidea', 'calculadora', 'bevaswm'];
-  const projectsWithWhiteBg = ['metaway'];
-  const needsDarkBg = projectsWithDarkBg.some(id => project.id.toLowerCase().includes(id.toLowerCase()));
-  const needsWhiteBg = projectsWithWhiteBg.some(id => project.id.toLowerCase().includes(id.toLowerCase()));
-  const imageBgColor = needsDarkBg 
-    ? "gray.900" 
-    : needsWhiteBg
-    ? "white"
-    : useColorModeValue("gray.100", "gray.800");
+  const imageBgColor = useProjectImageBackground(project, "gray.100", "gray.800");
   const glowColor = useColorModeValue(
     "rgba(66, 153, 225, 0.3)",
     "rgba(99, 179, 237, 0.3)"
@@ -111,7 +104,7 @@ const ProjectCardComponent = ({
       >
         <Box
           position="relative"
-          bg={needsDarkBg ? "gray.900" : needsWhiteBg ? "white" : useColorModeValue("white", "gray.100")}
+          bg={imageBgColor}
           overflow="hidden"
           flexShrink={0}
           h={{ base: "140px", md: "160px", lg: "180px" }}

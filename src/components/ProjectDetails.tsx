@@ -31,6 +31,7 @@ import { useTranslation } from '../i18n/useTranslation';
 import { StellarImageCarousel } from './StellarImageCarousel';
 import { useGamificationTracking } from '../hooks/useGamificationTracking';
 import { PlanetSpinner } from './PlanetSpinner';
+import { useProjectImageBackground } from '../utils/projectUtils';
 
 const STATIC_PROJECTS_DATA: Record<string, Project> = {};
 NEW_STATIC_PROJECTS.forEach(p => {
@@ -209,6 +210,7 @@ export function ProjectDetails() {
   }
 
   const coverImage = project.images && project.images.length > 0 ? project.images[0] : '';
+  const imageBgColor = project ? useProjectImageBackground(project, "white", "gray.800") : "white";
 
   return (
     <Box as="section" py={{ base: 6, md: 8 }} minH="100vh" px={{ base: 4, md: 0 }}>
@@ -244,16 +246,26 @@ export function ProjectDetails() {
               top={{ base: 0, lg: "100px" }}
             >
               {coverImage && (
-                <Image
-                  src={coverImage}
-                  alt={`${project.title[language]} Logo`}
-                  maxH={{ base: "100px", md: "120px", lg: "150px" }}
-                  mx="auto"
+                <Box
+                  bg={imageBgColor}
+                  borderRadius="lg"
+                  p={4}
                   mb={{ base: 4, md: 6 }}
-                  objectFit="contain"
-                  cursor="pointer"
-                  onClick={() => handleImageClick(coverImage)}
-                />
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  minH={{ base: "100px", md: "120px", lg: "150px" }}
+                >
+                  <Image
+                    src={coverImage}
+                    alt={`${project.title[language]} Logo`}
+                    maxH={{ base: "100px", md: "120px", lg: "150px" }}
+                    mx="auto"
+                    objectFit="contain"
+                    cursor="pointer"
+                    onClick={() => handleImageClick(coverImage)}
+                  />
+                </Box>
               )}
               <Heading size={{ base: "md", md: "lg" }} mb={2} bgGradient="linear(to-r, blue.400, purple.600)" bgClip="text" wordBreak="break-word">
                 {project.title[language]}
@@ -325,6 +337,7 @@ export function ProjectDetails() {
                 <StellarImageCarousel 
                   images={project.images} 
                   onImageClick={handleImageClick}
+                  project={project}
                 />
               </Box>
             )}
