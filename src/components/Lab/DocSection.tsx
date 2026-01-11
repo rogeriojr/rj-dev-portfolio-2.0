@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from 'react';
+import React, { useState, Suspense, useEffect } from 'react';
 import { Box, Heading, Text, Badge, Flex, Button, Collapse, useColorModeValue, SimpleGrid, Icon, HStack, Tabs, TabList, Tab, Stack } from '@chakra-ui/react';
 import { PlanetSpinner } from '../PlanetSpinner';
 import { FaCode, FaChevronUp, FaLightbulb, FaCheckCircle, FaExclamationCircle, FaUserGraduate } from 'react-icons/fa';
@@ -7,6 +7,7 @@ import { MermaidDiagram } from './MermaidDiagram';
 import { LabItem } from '../../data/lab-content';
 import { motion } from 'framer-motion';
 import { useTranslation } from '../../i18n/useTranslation';
+import { useGamificationTracking } from '../../hooks/useGamificationTracking';
 
 interface DocSectionProps {
   item: LabItem;
@@ -15,7 +16,16 @@ interface DocSectionProps {
 export const DocSection: React.FC<DocSectionProps> = ({ item }) => {
   const [showCode, setShowCode] = useState(false);
   const [showDetails, setShowDetails] = useState(true);
+  const [hasTracked, setHasTracked] = useState(false);
   const { language } = useTranslation();
+  const { trackLabExperiment } = useGamificationTracking();
+
+  useEffect(() => {
+    if (showDetails && !hasTracked) {
+      trackLabExperiment(item.id);
+      setHasTracked(true);
+    }
+  }, [showDetails, hasTracked, item.id, trackLabExperiment]);
 
   const borderColor = useColorModeValue('gray.200', 'gray.800');
   const titleColor = useColorModeValue('brand.600', 'cyan.400');

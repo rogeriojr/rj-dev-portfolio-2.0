@@ -113,16 +113,16 @@ export function useGamification() {
   }, []);
 
   const unlockAchievement = useCallback((achievementId: string, showNotification: boolean = true) => {
-    if (state.unlockedAchievementIds.has(achievementId)) {
-      return false;
-    }
-
-    const achievement = ALL_ACHIEVEMENTS.find(a => a.id === achievementId);
-    if (!achievement) {
-      return false;
-    }
-
     setState(prev => {
+      if (prev.unlockedAchievementIds.has(achievementId)) {
+        return prev;
+      }
+
+      const achievement = ALL_ACHIEVEMENTS.find(a => a.id === achievementId);
+      if (!achievement) {
+        return prev;
+      }
+
       const newUnlocked = new Set(prev.unlockedAchievementIds);
       newUnlocked.add(achievementId);
 
@@ -130,54 +130,191 @@ export function useGamification() {
         a.id === achievementId ? { ...a, unlockedAt: new Date() } : a
       );
 
+      const newXP = prev.stats.totalXP + achievement.points;
+      const newLevel = calculateLevel(newXP);
+
       const newStats = {
         ...prev.stats,
+        totalXP: newXP,
+        level: newLevel,
         achievementsUnlocked: newUnlocked.size,
         easterEggsFound: achievement.category === 'easter-egg' 
           ? prev.stats.easterEggsFound + 1 
           : prev.stats.easterEggsFound,
       };
 
+      const achievementsWithoutCompletionist = ALL_ACHIEVEMENTS.filter(a => a.id !== 'completionist');
+      const unlockedWithoutCompletionist = achievementsWithoutCompletionist.filter(a => newUnlocked.has(a.id));
+      
+      if (unlockedWithoutCompletionist.length === achievementsWithoutCompletionist.length) {
+        const completionist = ALL_ACHIEVEMENTS.find(a => a.id === 'completionist');
+        if (completionist && !newUnlocked.has('completionist')) {
+          newUnlocked.add('completionist');
+          const finalXP = newXP + completionist.points;
+          const finalLevel = calculateLevel(finalXP);
+          newStats.totalXP = finalXP;
+          newStats.level = finalLevel;
+          newStats.achievementsUnlocked = newUnlocked.size;
+          
+          const finalAchievements = prev.achievements.map(a =>
+            a.id === 'completionist' ? { ...a, unlockedAt: new Date() } : a
+          );
+          
+          if (!prev.achievements.find(a => a.id === 'completionist')) {
+            finalAchievements.push({
+              ...completionist,
+              unlockedAt: new Date(),
+            });
+          }
+
+          setTimeout(() => {
+            setNewAchievement(completionist);
+            setTimeout(() => setNewAchievement(null), 5000);
+          }, showNotification ? 6000 : 0);
+
+          return {
+            ...prev,
+            unlockedAchievementIds: newUnlocked,
+            achievements: finalAchievements,
+            stats: newStats,
+            xpHistory: [
+              ...prev.xpHistory.slice(-49),
+              { date: new Date(), xp: achievement.points, reason: `Conquista: ${achievement.name.pt}` },
+              { date: new Date(), xp: completionist.points, reason: `Conquista: ${completionist.name.pt}` },
+            ],
+          };
+        }
+      }
+
+      if (showNotification) {
+        setTimeout(() => {
+          setNewAchievement(achievement);
+          setTimeout(() => setNewAchievement(null), 5000);
+        }, 0);
+      }
+
       return {
         ...prev,
         unlockedAchievementIds: newUnlocked,
         achievements: updatedAchievements,
         stats: newStats,
+        xpHistory: [
+          ...prev.xpHistory.slice(-49),
+          { date: new Date(), xp: achievement.points, reason: `Conquista: ${achievement.name.pt}` },
+        ],
       };
     });
 
-    addXP(achievement.points, `Conquista: ${achievement.name.pt}`);
-
-    if (showNotification) {
-      setNewAchievement(achievement);
-      setTimeout(() => setNewAchievement(null), 5000);
-    }
-
     return true;
-  }, [state.unlockedAchievementIds, addXP]);
+  }, []);
 
   const updateAchievementProgress = useCallback((achievementId: string, progress: number) => {
     setState(prev => {
-      const updatedAchievements = prev.achievements.map(a => {
-        if (a.id === achievementId && a.maxProgress) {
-          const newProgress = Math.min(progress, a.maxProgress);
-          const wasUnlocked = prev.unlockedAchievementIds.has(achievementId);
-          
-          if (newProgress >= a.maxProgress && !wasUnlocked) {
-            setTimeout(() => unlockAchievement(achievementId), 100);
+      const wasUnlocked = prev.unlockedAchievementIds.has(achievementId);
+      if (wasUnlocked) {
+        return prev;
+      }
+
+      const achievement = ALL_ACHIEVEMENTS.find(a => a.id === achievementId);
+      if (!achievement || !achievement.maxProgress) {
+        return prev;
+      }
+
+      const newProgress = Math.min(progress, achievement.maxProgress);
+      const shouldUnlock = newProgress >= achievement.maxProgress;
+
+      if (shouldUnlock) {
+        const newUnlocked = new Set(prev.unlockedAchievementIds);
+        newUnlocked.add(achievementId);
+
+        const updatedAchievements = prev.achievements.map(a =>
+          a.id === achievementId ? { ...a, progress: newProgress, unlockedAt: new Date() } : a
+        );
+
+        const newStats = {
+          ...prev.stats,
+          achievementsUnlocked: newUnlocked.size,
+          easterEggsFound: achievement.category === 'easter-egg' 
+            ? prev.stats.easterEggsFound + 1 
+            : prev.stats.easterEggsFound,
+        };
+
+        const newXP = prev.stats.totalXP + achievement.points;
+        const newLevel = calculateLevel(newXP);
+
+        setTimeout(() => {
+          setNewAchievement(achievement);
+          setTimeout(() => setNewAchievement(null), 5000);
+        }, 0);
+
+        const achievementsWithoutCompletionist = ALL_ACHIEVEMENTS.filter(a => a.id !== 'completionist');
+        const unlockedWithoutCompletionist = achievementsWithoutCompletionist.filter(a => newUnlocked.has(a.id));
+        
+        let finalAchievements = updatedAchievements;
+        let finalStats = {
+          ...newStats,
+          totalXP: newXP,
+          level: newLevel,
+        };
+        let finalUnlocked = newUnlocked;
+        let finalXPHistory = [
+          ...prev.xpHistory.slice(-49),
+          { date: new Date(), xp: achievement.points, reason: `Conquista: ${achievement.name.pt}` },
+        ];
+
+        if (unlockedWithoutCompletionist.length === achievementsWithoutCompletionist.length) {
+          const completionist = ALL_ACHIEVEMENTS.find(a => a.id === 'completionist');
+          if (completionist && !finalUnlocked.has('completionist')) {
+            finalUnlocked.add('completionist');
+            const completionistXP = newXP + completionist.points;
+            const completionistLevel = calculateLevel(completionistXP);
+            finalStats.totalXP = completionistXP;
+            finalStats.level = completionistLevel;
+            finalStats.achievementsUnlocked = finalUnlocked.size;
+            
+            finalAchievements = finalAchievements.map(a =>
+              a.id === 'completionist' ? { ...a, unlockedAt: new Date() } : a
+            );
+            
+            if (!finalAchievements.find(a => a.id === 'completionist')) {
+              finalAchievements.push({
+                ...completionist,
+                unlockedAt: new Date(),
+              });
+            }
+
+            finalXPHistory.push({
+              date: new Date(),
+              xp: completionist.points,
+              reason: `Conquista: ${completionist.name.pt}`,
+            });
+
+            setTimeout(() => {
+              setNewAchievement(completionist);
+              setTimeout(() => setNewAchievement(null), 5000);
+            }, 6000);
           }
-          
-          return { ...a, progress: newProgress };
         }
-        return a;
-      });
+
+        return {
+          ...prev,
+          unlockedAchievementIds: finalUnlocked,
+          achievements: finalAchievements,
+          stats: finalStats,
+          xpHistory: finalXPHistory,
+        };
+      }
+
+      const updatedAchievements = prev.achievements.map(a =>
+        a.id === achievementId ? { ...a, progress: newProgress } : a
+      );
 
       return {
         ...prev,
         achievements: updatedAchievements,
       };
     });
-  }, [unlockAchievement]);
+  }, []);
 
   const incrementStat = useCallback((stat: keyof UserStats, amount: number = 1) => {
     setState(prev => ({
