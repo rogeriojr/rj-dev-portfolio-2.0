@@ -11,14 +11,16 @@ export default defineConfig({
       output: {
         manualChunks: (id) => {
           if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
+            if (
+              id.includes('react') || 
+              id.includes('react-dom') || 
+              id.includes('react-router') ||
+              id.includes('@chakra-ui') || 
+              id.includes('@emotion') ||
+              id.includes('framer-motion') ||
+              id.includes('react-joyride')
+            ) {
               return 'vendor-react';
-            }
-            if (id.includes('@chakra-ui') || id.includes('@emotion')) {
-              return 'vendor-chakra';
-            }
-            if (id.includes('framer-motion')) {
-              return 'vendor-animations';
             }
             if (id.includes('mermaid') || id.includes('react-markdown')) {
               return 'vendor-heavy';
@@ -33,5 +35,21 @@ export default defineConfig({
     },
     chunkSizeWarningLimit: 1000,
     cssCodeSplit: true,
+    commonjsOptions: {
+      include: [/node_modules/],
+      transformMixedEsModules: true,
+    },
+  },
+  optimizeDeps: {
+    include: [
+      'react', 
+      'react-dom', 
+      'react-router-dom',
+      '@chakra-ui/react',
+      '@emotion/react',
+      '@emotion/styled',
+      'framer-motion',
+      'react-joyride'
+    ],
   },
 })
