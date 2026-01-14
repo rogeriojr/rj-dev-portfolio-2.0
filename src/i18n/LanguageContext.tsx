@@ -25,7 +25,19 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     localStorage.setItem('portfolio-language', language);
-    document.documentElement.lang = language;
+    const langCode = language === 'pt' ? 'pt-BR' : 'en-US';
+    document.documentElement.lang = langCode;
+    document.documentElement.setAttribute('lang', langCode);
+    
+    const liveRegion = document.getElementById('language-announcement');
+    if (liveRegion) {
+      liveRegion.textContent = language === 'pt' 
+        ? 'Idioma alterado para Português' 
+        : 'Language changed to English';
+      setTimeout(() => {
+        liveRegion.textContent = '';
+      }, 1000);
+    }
   }, [language]);
 
   const setLanguage = (lang: Language) => {

@@ -1,8 +1,10 @@
 import { Box, Link } from '@chakra-ui/react';
 import { useLocation } from 'react-router-dom';
+import { useTranslation } from '../../i18n/useTranslation';
 
 export function SkipLinks() {
   const location = useLocation();
+  const { t } = useTranslation();
   const isInLab = location.pathname.startsWith('/lab');
 
   return (
@@ -16,11 +18,12 @@ export function SkipLinks() {
         py={2}
         borderRadius="md"
         fontWeight="bold"
+        aria-label={t('accessibility.skipToContent')}
         _hover={{
           bg: 'blue.700',
         }}
       >
-        Pular para conteúdo principal
+        {t('accessibility.skipToContent')}
       </Link>
       {!isInLab && (
         <>
@@ -34,11 +37,12 @@ export function SkipLinks() {
             borderRadius="md"
             fontWeight="bold"
             ml={2}
+            aria-label={t('accessibility.skipToNavigation')}
             _hover={{
               bg: 'blue.700',
             }}
           >
-            Pular para navegação
+            {t('accessibility.skipToNavigation')}
           </Link>
           <Link
             href="#footer"
@@ -50,11 +54,12 @@ export function SkipLinks() {
             borderRadius="md"
             fontWeight="bold"
             ml={2}
+            aria-label={t('accessibility.skipToFooter')}
             _hover={{
               bg: 'blue.700',
             }}
           >
-            Pular para rodapé
+            {t('accessibility.skipToFooter')}
           </Link>
         </>
       )}

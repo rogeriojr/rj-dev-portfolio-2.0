@@ -362,7 +362,7 @@ export function Layout() {
       <Box
         id="main-content"
         role="main"
-        aria-label="Conteúdo principal"
+        aria-label={language === 'pt' ? 'Conteúdo principal' : 'Main content'}
         flex={1}
         position="relative"
         zIndex={1}
@@ -385,7 +385,7 @@ export function Layout() {
           as="footer"
           id="footer"
           role="contentinfo"
-          aria-label="Rodapé"
+          aria-label={language === 'pt' ? 'Rodapé' : 'Footer'}
           bg={navBgColor}
           color={textColor}
           py={6}
@@ -452,6 +452,30 @@ export function Layout() {
       />
       
       <AccessibilityToolbar />
+      <Box
+        id="language-announcement"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        position="absolute"
+        left="-9999px"
+        width="1px"
+        height="1px"
+        overflow="hidden"
+        className="sr-only"
+      />
+      <Box
+        id="accessibility-announcement"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        position="absolute"
+        left="-9999px"
+        width="1px"
+        height="1px"
+        overflow="hidden"
+        className="sr-only"
+      />
     </Box>
     </>
   );

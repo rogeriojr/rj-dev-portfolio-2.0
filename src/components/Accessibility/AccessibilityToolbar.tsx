@@ -20,10 +20,12 @@ import {
   FaUndo,
   FaChevronUp,
   FaChevronDown,
+  FaTextWidth,
 } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
 import { useAccessibility } from '../../contexts/AccessibilityContext';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from '../../i18n/useTranslation';
 
 const MotionBox = motion(Box);
 
@@ -33,8 +35,10 @@ export function AccessibilityToolbar() {
     setFontSize,
     setHighContrast,
     setColorBlindness,
+    setTextDirection,
     reset,
   } = useAccessibility();
+  const { t, language } = useTranslation();
 
   const [isOpen, setIsOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -49,7 +53,8 @@ export function AccessibilityToolbar() {
         isOpen &&
         panelRef.current &&
         !panelRef.current.contains(event.target as Node) &&
-        !(event.target as HTMLElement).closest('[aria-label="Abrir menu de acessibilidade"]')
+        !(event.target as HTMLElement).closest('[aria-label*="acessibilidade"]') &&
+        !(event.target as HTMLElement).closest('[aria-label*="accessibility"]')
       ) {
         setIsOpen(false);
       }
@@ -62,19 +67,55 @@ export function AccessibilityToolbar() {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isOpen]);
+  }, [isOpen, t]);
 
   const fontSizeOptions = [
-    { value: 'normal', label: 'Normal (A)', labelShort: 'A', multiplier: 1 },
-    { value: 'large', label: 'Grande (A+)', labelShort: 'A+', multiplier: 1.25 },
-    { value: 'extra-large', label: 'Extra Grande (A++)', labelShort: 'A++', multiplier: 1.5 },
+    { 
+      value: 'normal', 
+      label: language === 'pt' ? 'Normal (A)' : 'Normal (A)', 
+      labelShort: 'A', 
+      multiplier: 1,
+      ariaLabel: language === 'pt' ? 'Tamanho de fonte Normal' : 'Normal font size'
+    },
+    { 
+      value: 'large', 
+      label: language === 'pt' ? 'Grande (A+)' : 'Large (A+)', 
+      labelShort: 'A+', 
+      multiplier: 1.25,
+      ariaLabel: language === 'pt' ? 'Tamanho de fonte Grande' : 'Large font size'
+    },
+    { 
+      value: 'extra-large', 
+      label: language === 'pt' ? 'Extra Grande (A++)' : 'Extra Large (A++)', 
+      labelShort: 'A++', 
+      multiplier: 1.5,
+      ariaLabel: language === 'pt' ? 'Tamanho de fonte Extra Grande' : 'Extra large font size'
+    },
   ];
 
   const colorBlindnessOptions = [
-    { value: 'none', label: 'Nenhum' },
+    { value: 'none', label: language === 'pt' ? 'Nenhum' : 'None' },
     { value: 'protanopia', label: 'Protanopia' },
     { value: 'deuteranopia', label: 'Deuteranopia' },
     { value: 'tritanopia', label: 'Tritanopia' },
+  ];
+
+  const textDirectionOptions = [
+    { 
+      value: 'auto', 
+      label: language === 'pt' ? 'Automático' : 'Auto',
+      description: language === 'pt' ? 'Baseado no idioma' : 'Based on language'
+    },
+    { 
+      value: 'ltr', 
+      label: language === 'pt' ? 'Esquerda para Direita (LTR)' : 'Left to Right (LTR)',
+      description: language === 'pt' ? 'Ocidental' : 'Western'
+    },
+    { 
+      value: 'rtl', 
+      label: language === 'pt' ? 'Direita para Esquerda (RTL)' : 'Right to Left (RTL)',
+      description: language === 'pt' ? 'Oriental' : 'Eastern'
+    },
   ];
 
   return (
@@ -130,7 +171,7 @@ export function AccessibilityToolbar() {
                       </Text>
                     </HStack>
                     <IconButton
-                      aria-label="Fechar painel de acessibilidade"
+                      aria-label={t('accessibility.closeAccessibilityMenu')}
                       icon={isOpen ? <FaChevronDown /> : <FaChevronUp />}
                       size="sm"
                       variant="ghost"
@@ -149,7 +190,7 @@ export function AccessibilityToolbar() {
                       <HStack mb={2} spacing={2}>
                         <Box as={FaFont} color="purple.500" flexShrink={0} />
                         <Text fontWeight="semibold" fontSize="sm" minW={0} overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap">
-                          Tamanho da Fonte
+                          {t('accessibility.fontSize')}
                         </Text>
                       </HStack>
                       <HStack spacing={2} w="100%" minW={0}>
@@ -160,7 +201,7 @@ export function AccessibilityToolbar() {
                             variant={state.fontSize === option.value ? 'solid' : 'outline'}
                             colorScheme={state.fontSize === option.value ? 'blue' : 'gray'}
                             onClick={() => setFontSize(option.value as any)}
-                            aria-label={`Tamanho de fonte ${option.label}`}
+                            aria-label={option.ariaLabel}
                             aria-pressed={state.fontSize === option.value}
                             flex={1}
                             minW="0"
@@ -206,13 +247,13 @@ export function AccessibilityToolbar() {
                         <HStack spacing={2} minW={0} flex={1}>
                           <Box as={FaEye} color="orange.500" flexShrink={0} />
                           <Text fontWeight="semibold" fontSize="sm" minW={0} overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap">
-                            Alto Contraste
+                            {t('accessibility.highContrast')}
                           </Text>
                         </HStack>
                         <Switch
                           isChecked={state.highContrast}
                           onChange={(e) => setHighContrast(e.target.checked)}
-                          aria-label="Ativar modo de alto contraste"
+                          aria-label={language === 'pt' ? 'Ativar modo de alto contraste' : 'Enable high contrast mode'}
                           aria-checked={state.highContrast}
                           colorScheme="orange"
                           _focus={{
@@ -222,7 +263,7 @@ export function AccessibilityToolbar() {
                         />
                       </HStack>
                       <Text fontSize="xs" color="gray.500" mt={1}>
-                        Aumenta o contraste entre elementos
+                        {t('accessibility.increaseContrast')}
                       </Text>
                     </Box>
 
@@ -232,14 +273,14 @@ export function AccessibilityToolbar() {
                       <HStack mb={2} spacing={2} w="100%" minW={0}>
                         <Box as={FaPalette} color="green.500" flexShrink={0} />
                         <Text fontWeight="semibold" fontSize="sm" minW={0} overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap">
-                          Modo Daltonismo
+                          {t('accessibility.colorBlindness')}
                         </Text>
                       </HStack>
                       <Select
                         size="sm"
                         value={state.colorBlindness}
                         onChange={(e) => setColorBlindness(e.target.value as any)}
-                        aria-label="Selecionar tipo de daltonismo"
+                        aria-label={language === 'pt' ? 'Selecionar tipo de daltonismo' : 'Select color blindness type'}
                         w="100%"
                         minW={0}
                         maxW="100%"
@@ -255,7 +296,40 @@ export function AccessibilityToolbar() {
                         ))}
                       </Select>
                       <Text fontSize="xs" color="gray.500" mt={1}>
-                        Ajusta cores para diferentes tipos de daltonismo
+                        {t('accessibility.adjustColors')}
+                      </Text>
+                    </Box>
+
+                    <Divider />
+
+                    <Box w="100%" minW={0}>
+                      <HStack mb={2} spacing={2} w="100%" minW={0}>
+                        <Box as={FaTextWidth} color="teal.500" flexShrink={0} />
+                        <Text fontWeight="semibold" fontSize="sm" minW={0} overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap">
+                          {t('accessibility.textDirection')}
+                        </Text>
+                      </HStack>
+                      <Select
+                        size="sm"
+                        value={state.textDirection}
+                        onChange={(e) => setTextDirection(e.target.value as any)}
+                        aria-label={language === 'pt' ? 'Selecionar direção de texto' : 'Select text direction'}
+                        w="100%"
+                        minW={0}
+                        maxW="100%"
+                        _focus={{
+                          outline: '3px solid #4A90E2',
+                          outlineOffset: '2px',
+                        }}
+                      >
+                        {textDirectionOptions.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </Select>
+                      <Text fontSize="xs" color="gray.500" mt={1}>
+                        {t('accessibility.textDirectionDescription')}
                       </Text>
                     </Box>
 
@@ -266,15 +340,15 @@ export function AccessibilityToolbar() {
                         <Box as={FaHandPaper} color="red.500" flexShrink={0} />
                         <VStack align="flex-start" spacing={0} minW={0} flex={1}>
                           <Text fontWeight="semibold" fontSize="sm" minW={0} overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap">
-                            Libras (VLibras)
+                            {t('accessibility.libras')}
                           </Text>
                           <Text fontSize="xs" color="green.500" fontWeight="medium">
-                            Sempre ativo
+                            {t('accessibility.alwaysActive')}
                           </Text>
                         </VStack>
                       </HStack>
                       <Text fontSize="xs" color="gray.500" mt={1}>
-                        Tradução automática para Libras sempre disponível
+                        {t('accessibility.librasDescription')}
                       </Text>
                     </Box>
 
@@ -285,7 +359,7 @@ export function AccessibilityToolbar() {
                       size="sm"
                       variant="outline"
                       onClick={reset}
-                      aria-label="Restaurar configurações padrão de acessibilidade"
+                      aria-label={language === 'pt' ? 'Restaurar configurações padrão de acessibilidade' : 'Restore default accessibility settings'}
                       colorScheme="gray"
                       w="100%"
                       minW={0}
@@ -296,7 +370,7 @@ export function AccessibilityToolbar() {
                       }}
                     >
                       <Box as="span" overflow="hidden" textOverflow="ellipsis" whiteSpace="nowrap" w="100%">
-                        Restaurar Padrões
+                        {t('accessibility.restoreDefaults')}
                       </Box>
                     </Button>
                   </VStack>
@@ -307,12 +381,12 @@ export function AccessibilityToolbar() {
         </AnimatePresence>
 
         <Tooltip 
-          label="Acessibilidade" 
+          label={language === 'pt' ? 'Acessibilidade' : 'Accessibility'} 
           placement="right"
           hasArrow
         >
           <IconButton
-            aria-label="Abrir menu de acessibilidade"
+            aria-label={t('accessibility.openAccessibilityMenu')}
             aria-expanded={isOpen}
             aria-controls="accessibility-panel"
             icon={<FaUniversalAccess />}

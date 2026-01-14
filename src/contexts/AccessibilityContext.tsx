@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 
 export type ColorBlindnessType = 'none' | 'protanopia' | 'deuteranopia' | 'tritanopia';
 export type FontSize = 'normal' | 'large' | 'extra-large';
+export type TextDirection = 'ltr' | 'rtl' | 'auto';
 
 interface AccessibilityState {
   fontSize: FontSize;
@@ -10,6 +11,7 @@ interface AccessibilityState {
   reducedMotion: boolean;
   showToolbar: boolean;
   vLibrasEnabled: boolean;
+  textDirection: TextDirection;
 }
 
 interface AccessibilityContextType {
@@ -18,6 +20,7 @@ interface AccessibilityContextType {
   setHighContrast: (enabled: boolean) => void;
   setColorBlindness: (type: ColorBlindnessType) => void;
   setReducedMotion: (enabled: boolean) => void;
+  setTextDirection: (direction: TextDirection) => void;
   toggleToolbar: () => void;
   toggleVLibras: () => void;
   reset: () => void;
@@ -30,6 +33,7 @@ const defaultState: AccessibilityState = {
   reducedMotion: false,
   showToolbar: true,
   vLibrasEnabled: false,
+  textDirection: 'auto',
 };
 
 const AccessibilityContext = createContext<AccessibilityContextType | undefined>(undefined);
@@ -60,6 +64,7 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
         colorBlindness: state.colorBlindness,
         reducedMotion: state.reducedMotion,
         vLibrasEnabled: state.vLibrasEnabled,
+        textDirection: state.textDirection,
       }));
     } catch (error) {
     }
@@ -80,7 +85,55 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
     if (state.colorBlindness !== 'none') {
       root.classList.add(`colorblind-${state.colorBlindness}`);
     }
-  }, [state.fontSize, state.highContrast, state.colorBlindness, state.reducedMotion]);
+
+    if (state.textDirection === 'auto') {
+      const lang = root.lang || 'pt-BR';
+      const isRTL = ['ar', 'he', 'fa', 'ur'].some(rtlLang => lang.startsWith(rtlLang));
+      root.setAttribute('dir', isRTL ? 'rtl' : 'ltr');
+    } else {
+      root.setAttribute('dir', state.textDirection);
+    }
+
+    const announcement = document.getElementById('accessibility-announcement');
+    if (announcement) {
+      const lang = document.documentElement.lang || 'pt-BR';
+      const isPt = lang.startsWith('pt');
+      const messages = [];
+      if (state.fontSize !== 'normal') {
+        messages.push(state.fontSize === 'large' 
+          ? (isPt ? 'Tamanho de fonte aumentado' : 'Font size increased')
+          : (isPt ? 'Tamanho de fonte extra grande' : 'Extra large font size'));
+      }
+      if (state.highContrast) {
+        messages.push(isPt ? 'Alto contraste ativado' : 'High contrast enabled');
+      }
+      if (state.colorBlindness !== 'none') {
+        const colorBlindnessNames = {
+          protanopia: isPt ? 'Protanopia' : 'Protanopia',
+          deuteranopia: isPt ? 'Deuteranopia' : 'Deuteranopia',
+          tritanopia: isPt ? 'Tritanopia' : 'Tritanopia',
+        };
+        messages.push(isPt 
+          ? `Modo daltonismo ${colorBlindnessNames[state.colorBlindness]} ativado`
+          : `${colorBlindnessNames[state.colorBlindness]} color blindness mode enabled`);
+      }
+      if (state.textDirection !== 'auto') {
+        const directionNames = {
+          ltr: isPt ? 'Esquerda para direita' : 'Left to right',
+          rtl: isPt ? 'Direita para esquerda' : 'Right to left',
+        };
+        messages.push(isPt 
+          ? `Direção de texto alterada para ${directionNames[state.textDirection]}`
+          : `Text direction changed to ${directionNames[state.textDirection]}`);
+      }
+      if (messages.length > 0) {
+        announcement.textContent = messages.join('. ');
+        setTimeout(() => {
+          announcement.textContent = '';
+        }, 2000);
+      }
+    }
+  }, [state.fontSize, state.highContrast, state.colorBlindness, state.reducedMotion, state.textDirection]);
 
   const setFontSize = useCallback((size: FontSize) => {
     setState(prev => ({ ...prev, fontSize: size }));
@@ -96,6 +149,10 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
 
   const setReducedMotion = useCallback((enabled: boolean) => {
     setState(prev => ({ ...prev, reducedMotion: enabled }));
+  }, []);
+
+  const setTextDirection = useCallback((direction: TextDirection) => {
+    setState(prev => ({ ...prev, textDirection: direction }));
   }, []);
 
   const toggleToolbar = useCallback(() => {
@@ -118,6 +175,7 @@ export function AccessibilityProvider({ children }: { children: React.ReactNode 
         setHighContrast,
         setColorBlindness,
         setReducedMotion,
+        setTextDirection,
         toggleToolbar,
         toggleVLibras,
         reset,

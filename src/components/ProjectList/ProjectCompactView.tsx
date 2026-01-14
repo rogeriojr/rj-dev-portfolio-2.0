@@ -26,7 +26,9 @@ const ProjectCompactViewComponent = ({ project, onViewDetails, language }: Proje
   return (
     <MotionBox
       role="article"
-      aria-label={`Projeto: ${project.title[language as 'pt' | 'en']}${project.featured ? '. Projeto em destaque' : ''}`}
+      aria-label={language === 'pt' 
+        ? `Projeto: ${project.title[language as 'pt' | 'en']}${project.featured ? '. Projeto em destaque' : ''}`
+        : `Project: ${project.title[language as 'pt' | 'en']}${project.featured ? '. Featured project' : ''}`}
       bg={project.featured ? featuredBg : bg}
       borderWidth={project.featured ? "2px" : "1px"}
       borderColor={project.featured ? featuredBorder : borderColor}

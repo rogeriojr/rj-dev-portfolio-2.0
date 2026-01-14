@@ -26,7 +26,9 @@ const ProjectListViewComponent = ({ project, onViewDetails, language }: ProjectL
   return (
     <MotionBox
       role="article"
-      aria-label={`Projeto: ${project.title[language as 'pt' | 'en']}${project.featured ? '. Projeto em destaque' : ''}`}
+      aria-label={language === 'pt' 
+        ? `Projeto: ${project.title[language as 'pt' | 'en']}${project.featured ? '. Projeto em destaque' : ''}`
+        : `Project: ${project.title[language as 'pt' | 'en']}${project.featured ? '. Featured project' : ''}`}
       bg={project.featured ? featuredBg : bg}
       borderWidth={project.featured ? "2px" : "1px"}
       borderColor={project.featured ? featuredBorder : borderColor}
@@ -203,7 +205,7 @@ const ProjectListViewComponent = ({ project, onViewDetails, language }: ProjectL
           <HStack spacing={{ base: 3, md: 2 }} mt="auto">
             {project.links && project.links.length > 0 && (
               <IconButton
-                aria-label="Ver projeto"
+                aria-label={language === 'pt' ? 'Ver projeto' : 'View project'}
                 icon={<FaExternalLinkAlt />}
                 size={{ base: "md", md: "sm" }}
                 minW={{ base: "44px", md: "auto" }}
@@ -217,7 +219,7 @@ const ProjectListViewComponent = ({ project, onViewDetails, language }: ProjectL
               />
             )}
             <IconButton
-              aria-label="Ver detalhes"
+              aria-label={language === 'pt' ? 'Ver detalhes' : 'View details'}
               icon={<FaInfoCircle />}
               size={{ base: "md", md: "sm" }}
               minW={{ base: "44px", md: "auto" }}

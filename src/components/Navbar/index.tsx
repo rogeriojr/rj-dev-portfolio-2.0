@@ -240,18 +240,33 @@ export default function Navbar() {
         </HStack>
       </Flex>
 
-      <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
+      <Drawer 
+        isOpen={isOpen} 
+        placement="left" 
+        onClose={onClose}
+        returnFocusOnClose={true}
+        trapFocus={true}
+      >
         <DrawerOverlay />
-        <DrawerContent bg="gray.900">
+        <DrawerContent 
+          bg="gray.900"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="drawer-header"
+        >
           <DrawerCloseButton 
             color="orange.400" 
-            aria-label="Fechar menu de navegação"
+            aria-label={language === 'pt' ? 'Fechar menu de navegação' : 'Close navigation menu'}
+            minW="44px"
+            minH="44px"
             _focus={{
               outline: '3px solid #4A90E2',
               outlineOffset: '2px',
             }}
           />
-          <DrawerHeader color="orange.400" id="drawer-header">Menu</DrawerHeader>
+          <DrawerHeader color="orange.400" id="drawer-header">
+            {language === 'pt' ? 'Menu' : 'Menu'}
+          </DrawerHeader>
           <DrawerBody>
             <VStack spacing={3} align="stretch">
               <NavLinks onLinkClick={onClose} />

@@ -151,6 +151,14 @@ html {
   scroll-behavior: smooth;
 }
 
+html[dir="rtl"] {
+  direction: rtl;
+}
+
+html[dir="ltr"] {
+  direction: ltr;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -269,6 +277,46 @@ select:focus,
 textarea:focus {
   outline: 3px solid #4A90E2 !important;
   outline-offset: 2px !important;
+  outline-width: 2px !important;
+}
+
+[role="button"]:focus-visible,
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #4A90E2 !important;
+  outline-offset: 2px !important;
+  outline-width: 2px !important;
+}
+
+button,
+a,
+input,
+select,
+textarea,
+[role="button"],
+[role="link"],
+[tabindex]:not([tabindex="-1"]) {
+  min-width: 24px !important;
+  min-height: 24px !important;
+}
+
+button:not([aria-hidden="true"]):not([class*="icon"]):not([class*="chakra-icon"]),
+a:not([aria-hidden="true"]):not([class*="icon"]):not([class*="chakra-icon"]),
+[role="button"]:not([aria-hidden="true"]):not([class*="icon"]):not([class*="chakra-icon"]) {
+  min-width: 44px !important;
+  min-height: 44px !important;
+}
+
+@media (min-width: 768px) {
+  button:not([aria-hidden="true"]):not([class*="icon"]):not([class*="chakra-icon"]),
+  a:not([aria-hidden="true"]):not([class*="icon"]):not([class*="chakra-icon"]),
+  [role="button"]:not([aria-hidden="true"]):not([class*="icon"]):not([class*="chakra-icon"]) {
+    min-width: 24px !important;
+    min-height: 24px !important;
+  }
 }
 
 [aria-hidden="true"] {

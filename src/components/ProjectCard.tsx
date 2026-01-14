@@ -55,7 +55,9 @@ const ProjectCardComponent = ({
     <AnimatePresence>
       <MotionBox
         role="article"
-        aria-label={`Projeto: ${project.title[language]}${project.featured ? '. Projeto em destaque' : ''}`}
+        aria-label={language === 'pt' 
+          ? `Projeto: ${project.title[language]}${project.featured ? '. Projeto em destaque' : ''}`
+          : `Project: ${project.title[language]}${project.featured ? '. Featured project' : ''}`}
         initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
         animate={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
         exit={reducedMotion ? { opacity: 0 } : { opacity: 0, y: -20 }}
@@ -305,7 +307,9 @@ const ProjectCardComponent = ({
                     display="inline-flex"
                     alignItems="center"
                     fontSize={{ base: "xs", md: "sm" }}
-                    aria-label={`Abrir ${link.texto || 'link'} em nova aba`}
+                    aria-label={language === 'pt' 
+                      ? `Abrir ${link.texto || 'link'} em nova aba` 
+                      : `Open ${link.texto || 'link'} in new tab`}
                     _hover={reducedMotion ? {} : {
                       color: "blue.300",
                       transform: "translateY(-1px)",
@@ -338,7 +342,9 @@ const ProjectCardComponent = ({
                 onClick={() => {
                   onViewDetails?.(project);
                 }}
-                aria-label={`Ver detalhes do projeto ${project.title[language]}`}
+                aria-label={language === 'pt' 
+                  ? `Ver detalhes do projeto ${project.title[language]}` 
+                  : `View details of project ${project.title[language]}`}
                 bgGradient="linear(to-r, blue.400, purple.500)"
                 color="white"
                 fontSize={{ base: "xs", md: "sm" }}

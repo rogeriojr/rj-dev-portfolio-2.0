@@ -86,10 +86,29 @@ export function CommandCenter({ isOpen, onClose }: CommandCenterProps) {
   ];
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size={{ base: "full", md: "xl" }} isCentered>
+    <Modal 
+      isOpen={isOpen} 
+      onClose={onClose} 
+      size={{ base: "full", md: "xl" }} 
+      isCentered
+      returnFocusOnClose={true}
+      trapFocus={true}
+      closeOnOverlayClick={true}
+      closeOnEsc={true}
+    >
       <ModalOverlay bg="blackAlpha.700" backdropFilter="blur(4px)" />
-      <ModalContent bg={bg} borderRadius={{ base: "none", md: "2xl" }} maxH={{ base: "100vh", md: "90vh" }} overflow="hidden" m={0}>
+      <ModalContent 
+        bg={bg} 
+        borderRadius={{ base: "none", md: "2xl" }} 
+        maxH={{ base: "100vh", md: "90vh" }} 
+        overflow="hidden" 
+        m={0}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="command-center-title"
+      >
         <ModalHeader
+          id="command-center-title"
           bgGradient="linear(to-r, cyan.400, purple.500)"
           bgClip="text"
           fontSize={{ base: "xl", md: "2xl" }}
@@ -99,13 +118,16 @@ export function CommandCenter({ isOpen, onClose }: CommandCenterProps) {
           pt={{ base: 6, md: 4 }}
         >
           <HStack spacing={3}>
-            <Icon as={FaRocket} color={accentColor} />
+            <Icon as={FaRocket} color={accentColor} aria-hidden="true" />
             <Text>
               {language === 'pt' ? 'CENTRAL DE COMANDO' : 'COMMAND CENTER'}
             </Text>
           </HStack>
         </ModalHeader>
-        <ModalCloseButton size={{ base: "lg", md: "md" }} />
+        <ModalCloseButton 
+          size={{ base: "lg", md: "md" }}
+          aria-label={language === 'pt' ? 'Fechar Central de Comando' : 'Close Command Center'}
+        />
 
         <ModalBody pb={6} px={{ base: 4, md: 6 }} overflowY="auto">
           <Tabs colorScheme="cyan" variant="enclosed">

@@ -422,9 +422,26 @@ export function ProjectDetails() {
         </Box>
       </Container>
 
-      <Modal isOpen={isOpen} onClose={onClose} size={{ base: "full", sm: "xl", md: "4xl", lg: "6xl" }} isCentered>
+      <Modal 
+        isOpen={isOpen} 
+        onClose={onClose} 
+        size={{ base: "full", sm: "xl", md: "4xl", lg: "6xl" }} 
+        isCentered
+        returnFocusOnClose={true}
+        trapFocus={true}
+        closeOnOverlayClick={true}
+        closeOnEsc={true}
+      >
         <ModalOverlay backdropFilter="blur(10px)" bg="blackAlpha.800" />
-        <ModalContent bg="transparent" boxShadow="none" m={{ base: 1, sm: 2, md: 4 }} maxW="95vw">
+        <ModalContent 
+          bg="transparent" 
+          boxShadow="none" 
+          m={{ base: 1, sm: 2, md: 4 }} 
+          maxW="95vw"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="image-modal-title"
+        >
           <ModalCloseButton
             color="white"
             size={{ base: "sm", sm: "md", md: "lg" }}
@@ -435,12 +452,19 @@ export function ProjectDetails() {
             bg="blackAlpha.600"
             borderRadius="full"
             _hover={{ bg: "blackAlpha.800" }}
+            aria-label={language === 'pt' ? 'Fechar imagem ampliada' : 'Close enlarged image'}
+            minW="44px"
+            minH="44px"
           />
           <ModalBody p={{ base: 1, sm: 2, md: 0 }} display="flex" justifyContent="center" alignItems="center" minH={{ base: "80vh", sm: "85vh", md: "90vh" }}>
             {selectedImage && (
               <Image
                 src={selectedImage}
-                alt={project ? `Imagem ampliada do projeto ${project.title[language]}` : "Imagem ampliada"}
+                alt={project 
+                  ? (language === 'pt' 
+                      ? `Imagem ampliada do projeto ${project.title[language]}` 
+                      : `Enlarged image of project ${project.title[language]}`)
+                  : (language === 'pt' ? "Imagem ampliada" : "Enlarged image")}
                 maxH={{ base: "80vh", sm: "85vh", md: "90vh" }}
                 maxW="100%"
                 w="auto"
@@ -448,7 +472,11 @@ export function ProjectDetails() {
                 borderRadius="lg"
                 objectFit="contain"
                 role="img"
-                aria-label={project ? `Imagem ampliada do projeto ${project.title[language]}` : "Imagem ampliada"}
+                aria-label={project 
+                  ? (language === 'pt' 
+                      ? `Imagem ampliada do projeto ${project.title[language]}` 
+                      : `Enlarged image of project ${project.title[language]}`)
+                  : (language === 'pt' ? "Imagem ampliada" : "Enlarged image")}
               />
             )}
           </ModalBody>
