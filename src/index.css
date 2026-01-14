@@ -67,11 +67,17 @@ a {
   text-decoration: none;
 }
 
-ul, ol {
+ul,
+ol {
   list-style: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: inherit;
   font-size: inherit;
 }
@@ -95,7 +101,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Prevent horizontal overflow - minimal fix */
-html, body {
+html,
+body {
   overflow-x: hidden !important;
   max-width: 100vw !important;
 }
@@ -106,12 +113,14 @@ body {
 }
 
 /* Ensure no element causes horizontal overflow */
-body > * {
+body>* {
   max-width: 100vw;
   box-sizing: border-box;
 }
 
 /* Prevent background bleed on scroll */
-html, body, #root {
+html,
+body,
+#root {
   background-color: #1a1a1a;
 }

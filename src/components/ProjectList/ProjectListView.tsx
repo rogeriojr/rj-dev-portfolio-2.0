@@ -29,7 +29,7 @@ const ProjectListViewComponent = ({ project, onViewDetails, language }: ProjectL
       borderWidth={project.featured ? "2px" : "1px"}
       borderColor={project.featured ? featuredBorder : borderColor}
       borderRadius="xl"
-      p={6}
+      p={{ base: 3, sm: 4, md: 6 }}
       position="relative"
       _hover={{ 
         bg: project.featured ? featuredBg : hoverBg, 
@@ -40,10 +40,10 @@ const ProjectListViewComponent = ({ project, onViewDetails, language }: ProjectL
       transition="all 0.2s"
       cursor="pointer"
       onClick={() => onViewDetails(project)}
-      whileHover={{ scale: project.featured ? 1.03 : 1.02, x: 5 }}
+      whileHover={{ scale: project.featured ? 1.03 : 1.02, x: { base: 0, md: 5 } }}
       whileTap={{ scale: 0.98 }}
       w="100%"
-      minH="200px"
+      minH={{ base: "150px", sm: "180px", md: "200px" }}
       _before={project.featured ? {
         content: '""',
         position: 'absolute',
@@ -57,12 +57,12 @@ const ProjectListViewComponent = ({ project, onViewDetails, language }: ProjectL
         zIndex: 0
       } : {}}
     >
-      <HStack spacing={6} align="start" position="relative" zIndex={1}>
+      <HStack spacing={{ base: 3, sm: 4, md: 6 }} align="start" position="relative" zIndex={1} flexWrap={{ base: "wrap", md: "nowrap" }}>
         <Box
-          w="180px"
-          h="180px"
-          minW="180px"
-          maxW="180px"
+          w={{ base: "100%", md: "180px" }}
+          h={{ base: "120px", sm: "150px", md: "180px" }}
+          minW={{ base: "100%", md: "180px" }}
+          maxW={{ base: "100%", md: "180px" }}
           borderRadius="lg"
           overflow="hidden"
           flexShrink={0}
@@ -136,10 +136,10 @@ const ProjectListViewComponent = ({ project, onViewDetails, language }: ProjectL
           </Box>
         </Box>
         
-        <VStack align="start" flex={1} spacing={3} minW={0}>
+        <VStack align="start" flex={1} spacing={{ base: 2, sm: 3 }} minW={0} w={{ base: "100%", md: "auto" }}>
           <HStack justify="space-between" w="100%" align="start" flexWrap="wrap" gap={2}>
             <Heading 
-              size="md" 
+              size={{ base: "sm", sm: "md" }}
               color={project.featured ? useColorModeValue('yellow.800', 'yellow.200') : useColorModeValue('gray.800', 'white')}
               flex={1}
               minW={0}
@@ -151,10 +151,11 @@ const ProjectListViewComponent = ({ project, onViewDetails, language }: ProjectL
           
           <Text
             color={useColorModeValue('gray.600', 'gray.300')}
-            noOfLines={3}
-            fontSize="sm"
+            noOfLines={{ base: 2, sm: 3 }}
+            fontSize={{ base: "xs", sm: "sm" }}
             lineHeight="tall"
             wordBreak="break-word"
+            w="100%"
           >
             {project.description[language as 'pt' | 'en']}
           </Text>

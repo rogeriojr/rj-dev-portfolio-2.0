@@ -193,8 +193,8 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
       <Box
         position="relative"
         w="full"
-        h={{ base: '300px', sm: '400px', md: '500px', lg: '600px', xl: '700px' }}
-        borderRadius={{ base: 'xl', md: '2xl' }}
+        h={{ base: '250px', sm: '350px', md: '450px', lg: '550px', xl: '650px' }}
+        borderRadius={{ base: 'lg', sm: 'xl', md: '2xl' }}
         overflow="hidden"
         border={{ base: '1px solid', md: '2px solid' }}
         borderColor={borderColor}
@@ -218,7 +218,7 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
           justifyContent="center"
           cursor={onImageClick ? 'pointer' : 'default'}
           onClick={() => onImageClick?.(images[currentIndex])}
-          p={{ base: 2, sm: 3, md: 4, lg: 6, xl: 8 }}
+          p={{ base: 1, sm: 2, md: 3, lg: 4, xl: 6 }}
           overflow="hidden"
         >
           <AnimatePresence mode="wait" custom={direction}>
@@ -344,13 +344,13 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
               aria-label="Previous image"
               icon={<FaChevronLeft />}
               position="absolute"
-              left={{ base: 2, sm: 3, md: 4 }}
+              left={{ base: 1, sm: 2, md: 3, lg: 4 }}
               top="50%"
               transform="translateY(-50%)"
               zIndex={2}
-              size={{ base: 'lg', sm: 'lg', md: 'lg' }}
-              minW={{ base: "48px", md: "auto" }}
-              minH={{ base: "48px", md: "auto" }}
+              size={{ base: 'sm', sm: 'md', md: 'lg' }}
+              minW={{ base: "36px", sm: "40px", md: "48px" }}
+              minH={{ base: "36px", sm: "40px", md: "48px" }}
               borderRadius="full"
               bg="rgba(0, 0, 0, 0.7)"
               color="white"
@@ -373,13 +373,13 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
               aria-label="Next image"
               icon={<FaChevronRight />}
               position="absolute"
-              right={{ base: 2, sm: 3, md: 4 }}
+              right={{ base: 1, sm: 2, md: 3, lg: 4 }}
               top="50%"
               transform="translateY(-50%)"
               zIndex={2}
-              size={{ base: 'lg', sm: 'lg', md: 'lg' }}
-              minW={{ base: "48px", md: "auto" }}
-              minH={{ base: "48px", md: "auto" }}
+              size={{ base: 'sm', sm: 'md', md: 'lg' }}
+              minW={{ base: "36px", sm: "40px", md: "48px" }}
+              minH={{ base: "36px", sm: "40px", md: "48px" }}
               borderRadius="full"
               bg="rgba(0, 0, 0, 0.7)"
               color="white"
@@ -403,20 +403,20 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
         {images.length > 1 && (
           <Box
             position="absolute"
-            top={{ base: 2, sm: 3, md: 4 }}
-            right={{ base: 2, sm: 3, md: 4 }}
+            top={{ base: 1, sm: 2, md: 3, lg: 4 }}
+            right={{ base: 1, sm: 2, md: 3, lg: 4 }}
             zIndex={2}
             bg="rgba(0, 0, 0, 0.75)"
-            px={{ base: 2, sm: 3, md: 4 }}
-            py={{ base: 1, sm: 1.5, md: 2 }}
+            px={{ base: 1.5, sm: 2, md: 3, lg: 4 }}
+            py={{ base: 0.5, sm: 1, md: 1.5, lg: 2 }}
             borderRadius="full"
             backdropFilter="blur(10px)"
             border="1px solid"
             borderColor="rgba(255, 255, 255, 0.1)"
           >
-            <HStack spacing={{ base: 1, md: 2 }} align="center">
-              <Icon as={FaRocket} color="yellow.400" w={{ base: 3, sm: 3.5, md: 4 }} h={{ base: 3, sm: 3.5, md: 4 }} />
-              <Text color="white" fontSize={{ base: 'xs', sm: 'sm', md: 'sm' }} fontWeight="bold">
+            <HStack spacing={{ base: 1, sm: 1.5, md: 2 }} align="center">
+              <Icon as={FaRocket} color="yellow.400" w={{ base: 2.5, sm: 3, md: 3.5, lg: 4 }} h={{ base: 2.5, sm: 3, md: 3.5, lg: 4 }} />
+              <Text color="white" fontSize={{ base: '2xs', sm: 'xs', md: 'sm' }} fontWeight="bold">
                 {currentIndex + 1} / {images.length}
               </Text>
             </HStack>
@@ -426,7 +426,7 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
 
       {images.length > 1 && (
         <Box
-          mt={{ base: 4, sm: 5, md: 6 }}
+          mt={{ base: 3, sm: 4, md: 5, lg: 6 }}
           w="full"
           overflowX="auto"
           pb={2}
@@ -453,7 +453,7 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
           }}
         >
           <HStack
-            spacing={{ base: 2, sm: 3, md: 4 }}
+            spacing={{ base: 1.5, sm: 2, md: 3, lg: 4 }}
             justify={{ base: 'flex-start', md: 'center' }}
             align="center"
             minW="max-content"
@@ -485,14 +485,15 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
                   _active={{
                     transform: 'scale(1.05)',
                   }}
-                  minW={{ base: '60px', sm: '70px', md: '90px', lg: '100px' }}
-                  w={{ base: '60px', sm: '70px', md: '90px', lg: '100px' }}
-                  h={{ base: '60px', sm: '70px', md: '90px', lg: '100px' }}
+                  minW={{ base: '50px', sm: '60px', md: '80px', lg: '100px' }}
+                  w={{ base: '50px', sm: '60px', md: '80px', lg: '100px' }}
+                  h={{ base: '50px', sm: '60px', md: '80px', lg: '100px' }}
                   bg={thumbnailBg}
-                  p={(isThumbnailLogo || project) ? { base: 1, sm: 1.5, md: 2 } : 0}
+                  p={(isThumbnailLogo || project) ? { base: 0.5, sm: 1, md: 1.5, lg: 2 } : 0}
                   display="flex"
                   alignItems="center"
                   justifyContent="center"
+                  flexShrink={0}
                 >
                   <Image
                     src={img}
