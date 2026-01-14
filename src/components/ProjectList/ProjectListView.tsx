@@ -157,6 +157,7 @@ const ProjectListViewComponent = ({ project, onViewDetails, language }: ProjectL
               flex={1}
               minW={0}
               wordBreak="break-word"
+              overflowWrap="break-word"
             >
               {project.title[language as 'pt' | 'en']}
             </Heading>
@@ -164,10 +165,11 @@ const ProjectListViewComponent = ({ project, onViewDetails, language }: ProjectL
           
           <Text
             color={useColorModeValue('gray.600', 'gray.300')}
-            noOfLines={{ base: 2, sm: 3 }}
+            noOfLines={{ base: 2, sm: 3, md: 4 }}
             fontSize={{ base: "xs", sm: "sm" }}
             lineHeight="tall"
             wordBreak="break-word"
+            overflowWrap="break-word"
             w="100%"
           >
             {project.description[language as 'pt' | 'en']}
@@ -185,10 +187,10 @@ const ProjectListViewComponent = ({ project, onViewDetails, language }: ProjectL
                     px={2.5}
                     py={0.5}
                     borderRadius="full"
-                    whiteSpace="nowrap"
+                    whiteSpace="normal"
+                    wordBreak="break-word"
+                    overflowWrap="break-word"
                     maxW="100%"
-                    overflow="hidden"
-                    textOverflow="ellipsis"
                     mb={0.5}
                   >
                     {tag}

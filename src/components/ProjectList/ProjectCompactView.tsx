@@ -153,9 +153,12 @@ const ProjectCompactViewComponent = ({ project, onViewDetails, language }: Proje
         <HStack spacing={1.5} w="100%">
           <Heading 
             size="sm" 
-            noOfLines={1} 
+            noOfLines={{ base: 1, md: 2 }}
             color={project.featured ? useColorModeValue('yellow.800', 'yellow.200') : useColorModeValue('gray.800', 'white')}
             flex={1}
+            minW={0}
+            wordBreak="break-word"
+            overflowWrap="break-word"
           >
             {project.title[language as 'pt' | 'en']}
           </Heading>
@@ -163,7 +166,9 @@ const ProjectCompactViewComponent = ({ project, onViewDetails, language }: Proje
         <Text
           fontSize="xs"
           color={useColorModeValue('gray.600', 'gray.400')}
-          noOfLines={2}
+          noOfLines={{ base: 2, md: 3 }}
+          wordBreak="break-word"
+          overflowWrap="break-word"
         >
           {project.description[language as 'pt' | 'en']}
         </Text>
@@ -179,10 +184,10 @@ const ProjectCompactViewComponent = ({ project, onViewDetails, language }: Proje
                   px={1.5}
                   py={0.5}
                   borderRadius="full"
-                  whiteSpace="nowrap"
+                  whiteSpace="normal"
+                  wordBreak="break-word"
+                  overflowWrap="break-word"
                   maxW="100%"
-                  overflow="hidden"
-                  textOverflow="ellipsis"
                   mb={0.5}
                 >
                   {tag}

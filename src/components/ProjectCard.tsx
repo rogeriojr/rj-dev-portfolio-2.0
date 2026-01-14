@@ -232,7 +232,9 @@ const ProjectCardComponent = ({
             bgClip="text"
             transition="all 0.3s ease"
             wordBreak="break-word"
+            overflowWrap="break-word"
             w="100%"
+            minW={0}
             _hover={{
               bgGradient: "linear(to-r, blue.500, purple.600)",
               transform: "translateX(4px)",
@@ -241,13 +243,14 @@ const ProjectCardComponent = ({
             {project.title[language]}
           </Heading>
           <Text
-            noOfLines={3}
+            noOfLines={{ base: 3, md: 4 }}
             className="project-description"
             color={useColorModeValue("gray.600", "gray.300")}
             fontSize={{ base: "xs", md: "sm" }}
             lineHeight="tall"
             w="100%"
             wordBreak="break-word"
+            overflowWrap="break-word"
           >
             {project.description[language]}
           </Text>
@@ -263,10 +266,10 @@ const ProjectCardComponent = ({
                     borderRadius="full"
                     px={{ base: 2, md: 2.5 }}
                     py={0.5}
-                    whiteSpace="nowrap"
+                    whiteSpace="normal"
+                    wordBreak="break-word"
+                    overflowWrap="break-word"
                     maxW="100%"
-                    overflow="hidden"
-                    textOverflow="ellipsis"
                     mb={0.5}
                   >
                     {tag}
