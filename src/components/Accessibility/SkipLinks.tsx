@@ -16,10 +16,6 @@ export function SkipLinks() {
         py={2}
         borderRadius="md"
         fontWeight="bold"
-        _focus={{
-          top: 0,
-          position: 'absolute',
-        }}
         _hover={{
           bg: 'blue.700',
         }}
@@ -38,10 +34,6 @@ export function SkipLinks() {
             borderRadius="md"
             fontWeight="bold"
             ml={2}
-            _focus={{
-              top: 0,
-              position: 'absolute',
-            }}
             _hover={{
               bg: 'blue.700',
             }}
@@ -58,10 +50,6 @@ export function SkipLinks() {
             borderRadius="md"
             fontWeight="bold"
             ml={2}
-            _focus={{
-              top: 0,
-              position: 'absolute',
-            }}
             _hover={{
               bg: 'blue.700',
             }}

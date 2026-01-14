@@ -2,16 +2,133 @@
   --font-size-multiplier: 1;
 }
 
+html {
+  font-size: 16px;
+}
+
 body {
-  font-size: calc(1rem * var(--font-size-multiplier));
+  font-size: 1rem;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-size: calc(var(--font-size-multiplier) * 1em);
+  font-size: calc(var(--font-size-multiplier) * 1em) !important;
 }
 
-p, span, div, a, button, input, textarea, select, label {
-  font-size: calc(1em * var(--font-size-multiplier));
+p {
+  font-size: calc(var(--font-size-multiplier) * 1em) !important;
+}
+
+span:not([class*="icon"]):not([aria-hidden="true"]):not(svg *):not([role="presentation"]):not([class*="chakra-icon"]) {
+  font-size: calc(var(--font-size-multiplier) * 1em) !important;
+}
+
+a:not([class*="icon"]):not([aria-hidden="true"]) {
+  font-size: calc(var(--font-size-multiplier) * 1em) !important;
+}
+
+button:not([class*="icon"]):not([aria-hidden="true"]) {
+  font-size: calc(var(--font-size-multiplier) * 1em) !important;
+}
+
+input:not([type="hidden"]),
+textarea,
+select,
+label:not([aria-hidden="true"]) {
+  font-size: calc(var(--font-size-multiplier) * 1em) !important;
+}
+
+li, td, th {
+  font-size: calc(var(--font-size-multiplier) * 1em) !important;
+}
+
+[class*="chakra"] h1,
+[class*="chakra"] h2,
+[class*="chakra"] h3,
+[class*="chakra"] h4,
+[class*="chakra"] h5,
+[class*="chakra"] h6,
+[class*="chakra"] p,
+[class*="chakra"] span:not([class*="icon"]):not([aria-hidden="true"]):not(svg *),
+[class*="chakra"] a:not([class*="icon"]):not([aria-hidden="true"]),
+[class*="chakra"] button:not([class*="icon"]):not([aria-hidden="true"]),
+[class*="chakra"] label:not([aria-hidden="true"]),
+[class*="chakra"] input:not([type="hidden"]),
+[class*="chakra"] textarea,
+[class*="chakra"] select,
+[class*="chakra"] li {
+  font-size: calc(var(--font-size-multiplier) * 1em) !important;
+}
+
+[class*="chakra-heading"],
+[class*="chakra-text"],
+[class*="chakra-button"]:not([class*="icon"]),
+[class*="chakra-link"],
+[class*="chakra-input"],
+[class*="chakra-textarea"],
+[class*="chakra-select"] {
+  font-size: calc(var(--font-size-multiplier) * 1em) !important;
+}
+
+strong,
+b,
+em,
+i,
+u,
+small,
+sub,
+sup,
+code,
+pre,
+blockquote,
+cite,
+abbr,
+address,
+time,
+mark,
+del,
+ins {
+  font-size: calc(var(--font-size-multiplier) * 1em) !important;
+}
+
+[class*="chakra"] strong,
+[class*="chakra"] b,
+[class*="chakra"] em,
+[class*="chakra"] i,
+[class*="chakra"] u,
+[class*="chakra"] small,
+[class*="chakra"] code,
+[class*="chakra"] pre,
+[class*="chakra"] blockquote {
+  font-size: calc(var(--font-size-multiplier) * 1em) !important;
+}
+
+div:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(p):not(span):not(a):not(button):not(input):not(textarea):not(select):not(label):not(li):not(td):not(th),
+section,
+article,
+header,
+footer,
+nav,
+aside,
+main,
+img,
+svg,
+[class*="icon"],
+[aria-hidden="true"],
+[vw],
+[vw] *,
+[class*="chakra-box"]:not([class*="chakra-heading"]):not([class*="chakra-text"]),
+[class*="chakra-stack"]:not([class*="chakra-heading"]):not([class*="chakra-text"]),
+[class*="chakra-container"],
+[class*="chakra-flex"]:not([class*="chakra-heading"]):not([class*="chakra-text"]),
+[class*="chakra-grid"]:not([class*="chakra-heading"]):not([class*="chakra-text"]),
+[class*="chakra-wrap"],
+[class*="chakra-vstack"]:not([class*="chakra-heading"]):not([class*="chakra-text"]),
+[class*="chakra-hstack"]:not([class*="chakra-heading"]):not([class*="chakra-text"]) {
+  font-size: inherit !important;
 }
 
 html {
@@ -39,19 +156,32 @@ html {
 }
 
 .skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: #000;
-  color: #fff;
-  padding: 8px;
-  text-decoration: none;
-  z-index: 100;
-  border-radius: 4px;
+  position: absolute !important;
+  top: -9999px !important;
+  left: 0 !important;
+  background: #000 !important;
+  color: #fff !important;
+  padding: 8px 16px !important;
+  text-decoration: none !important;
+  z-index: 10000 !important;
+  border-radius: 4px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  clip: rect(0, 0, 0, 0) !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
 }
 
-.skip-link:focus {
-  top: 0;
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 0 !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  clip: auto !important;
+  width: auto !important;
+  height: auto !important;
+  overflow: visible !important;
 }
 
 *:focus-visible {
