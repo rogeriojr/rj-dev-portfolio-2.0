@@ -28,17 +28,21 @@ export function GamificationBadge({ onOpen }: GamificationBadgeProps) {
                             config.gamification.customX !== undefined || 
                             config.gamification.customY !== undefined;
 
-  const whatsappBottom = 24; // bottom do WhatsApp em desktop
-  const whatsappHeight = 56; // altura do botão lg
-  const spacing = 16; // espaçamento entre botões
-  const gamificationBottom = whatsappBottom + whatsappHeight + spacing;
+  const whatsappBottom = { base: 20, sm: 24, md: 28 };
+  const buttonHeight = 40;
+  const spacing = 12;
+  const gamificationBottom = {
+    base: `${whatsappBottom.base + buttonHeight + spacing}px`,
+    sm: `${whatsappBottom.sm + buttonHeight + spacing}px`,
+    md: `${whatsappBottom.md + buttonHeight + spacing}px`
+  };
 
   return (
     <MotionBox
       style={hasCustomPosition ? getButtonStyle('gamification') : undefined}
       position={hasCustomPosition ? undefined : "fixed"}
-      bottom={hasCustomPosition ? undefined : { base: '92px', md: `${gamificationBottom}px` }}
-      right={hasCustomPosition ? undefined : { base: '20px', md: '24px' }}
+      bottom={hasCustomPosition ? undefined : gamificationBottom}
+      right={hasCustomPosition ? undefined : { base: '20px', sm: '24px', md: '28px' }}
       zIndex={hasCustomPosition ? undefined : 9999}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
@@ -63,6 +67,10 @@ export function GamificationBadge({ onOpen }: GamificationBadgeProps) {
             boxShadow="2xl"
             bg={bg}
             color={color}
+            minW="40px"
+            minH="40px"
+            w="40px"
+            h="40px"
             _hover={{
               boxShadow: '0 0 20px rgba(255, 193, 7, 0.6)',
             }}

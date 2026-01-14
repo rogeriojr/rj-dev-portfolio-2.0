@@ -24,6 +24,7 @@ import { css, keyframes } from "@emotion/react";
 import { FaRocket } from "react-icons/fa";
 import { CommandCenter } from "../CommandCenter/CommandCenter";
 import { useTranslation } from "../../i18n/useTranslation";
+import { useReducedMotion } from "../../hooks/useReducedMotion";
 
 const MotionBox = motion(Box);
 
@@ -75,6 +76,8 @@ const NavLink = ({
         rounded={"md"}
         position="relative"
         color={isActive ? "orange.400" : "white"}
+        aria-current={isActive ? "page" : undefined}
+        aria-label={`Ir para ${children}`}
         css={css`
           &:hover::before {
             content: '';
@@ -93,6 +96,10 @@ const NavLink = ({
         _hover={{
           textDecoration: "none",
           color: "orange.400",
+        }}
+        _focus={{
+          outline: '3px solid #4A90E2',
+          outlineOffset: '2px',
         }}
       >
         {children}
@@ -117,6 +124,7 @@ export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: isCommandCenterOpen, onOpen: onCommandCenterOpen, onClose: onCommandCenterClose } = useDisclosure();
   const { language } = useTranslation();
+  const reducedMotion = useReducedMotion();
 
   const links = [
     { to: "/", label: "Home" },
@@ -140,6 +148,9 @@ export default function Navbar() {
   return (
     <Box
       as="nav"
+      id="navigation"
+      role="navigation"
+      aria-label="Navegação principal"
       position="fixed"
       w="100%"
       maxW="100vw"
@@ -156,7 +167,8 @@ export default function Navbar() {
         <IconButton
           size={{ base: "md", sm: "lg" }}
           icon={<HamburgerIcon />}
-          aria-label={"Open Menu"}
+          aria-label="Abrir menu de navegação"
+          aria-expanded={isOpen}
           display={{ md: "none" }}
           onClick={onOpen}
           variant="outline"
@@ -164,9 +176,13 @@ export default function Navbar() {
           color="orange.400"
           minW={{ base: "44px", sm: "48px" }}
           minH={{ base: "44px", sm: "48px" }}
-          _hover={{
+          _hover={reducedMotion ? {} : {
             bg: "orange.400",
             color: "white",
+          }}
+          _focus={{
+            outline: '3px solid #4A90E2',
+            outlineOffset: '2px',
           }}
           _active={{
             transform: "scale(0.95)",
@@ -180,6 +196,11 @@ export default function Navbar() {
             fontSize="xl"
             fontWeight="bold"
             color="orange.400"
+            aria-label="Ir para página inicial"
+            _focus={{
+              outline: '3px solid #4A90E2',
+              outlineOffset: '2px',
+            }}
           >
             RJ-DEV
           </ChakraLink>
@@ -194,6 +215,7 @@ export default function Navbar() {
           >
             <IconButton
               aria-label={language === 'pt' ? 'Abrir Central de Comando' : 'Open Command Center'}
+              aria-expanded={isCommandCenterOpen}
               icon={<Icon as={FaRocket} />}
               onClick={onCommandCenterOpen}
               variant="solid"
@@ -202,12 +224,16 @@ export default function Navbar() {
               color="white"
               size="md"
               borderRadius="md"
-              _hover={{
+              _hover={reducedMotion ? {} : {
                 bgGradient: "linear(to-r, orange.500, red.600)",
                 transform: "scale(1.1)",
                 boxShadow: "0 0 20px rgba(251, 146, 60, 0.5)",
               }}
-              transition="all 0.2s"
+              _focus={{
+                outline: '3px solid #4A90E2',
+                outlineOffset: '2px',
+              }}
+              transition={reducedMotion ? "none" : "all 0.2s"}
               boxShadow="md"
             />
           </Tooltip>
@@ -217,8 +243,15 @@ export default function Navbar() {
       <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent bg="gray.900">
-          <DrawerCloseButton color="orange.400" />
-          <DrawerHeader color="orange.400">Menu</DrawerHeader>
+          <DrawerCloseButton 
+            color="orange.400" 
+            aria-label="Fechar menu de navegação"
+            _focus={{
+              outline: '3px solid #4A90E2',
+              outlineOffset: '2px',
+            }}
+          />
+          <DrawerHeader color="orange.400" id="drawer-header">Menu</DrawerHeader>
           <DrawerBody>
             <VStack spacing={3} align="stretch">
               <NavLinks onLinkClick={onClose} />
@@ -229,6 +262,7 @@ export default function Navbar() {
                   onClose();
                   onCommandCenterOpen();
                 }}
+                aria-label={language === 'pt' ? 'Abrir Central de Comando' : 'Open Command Center'}
                 px={4}
                 py={{ base: 4, md: 3 }}
                 minH="48px"
@@ -236,15 +270,19 @@ export default function Navbar() {
                 bgGradient="linear(to-r, orange.400, red.500)"
                 color="white"
                 fontWeight="bold"
-                _hover={{
+                _hover={reducedMotion ? {} : {
                   bgGradient: "linear(to-r, orange.500, red.600)",
                   transform: "translateY(-2px)",
                   boxShadow: "0 4px 12px rgba(251, 146, 60, 0.4)",
                 }}
+                _focus={{
+                  outline: '3px solid #4A90E2',
+                  outlineOffset: '2px',
+                }}
                 _active={{
                   transform: "scale(0.98)",
                 }}
-                transition="all 0.2s"
+                transition={reducedMotion ? "none" : "all 0.2s"}
                 boxShadow="md"
               >
                 <HStack spacing={2} justify="center">

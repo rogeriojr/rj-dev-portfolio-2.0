@@ -1,0 +1,157 @@
+:root {
+  --font-size-multiplier: 1;
+}
+
+body {
+  font-size: calc(1rem * var(--font-size-multiplier));
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: calc(var(--font-size-multiplier) * 1em);
+}
+
+p, span, div, a, button, input, textarea, select, label {
+  font-size: calc(1em * var(--font-size-multiplier));
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.reduced-motion *,
+.reduced-motion *::before,
+.reduced-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000;
+  color: #fff;
+  padding: 8px;
+  text-decoration: none;
+  z-index: 100;
+  border-radius: 4px;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+*:focus-visible {
+  outline: 3px solid #4A90E2;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.high-contrast {
+  filter: contrast(1.2) brightness(1.1);
+}
+
+.high-contrast * {
+  border-color: currentColor !important;
+}
+
+.high-contrast button,
+.high-contrast a {
+  border: 2px solid currentColor !important;
+}
+
+.colorblind-protanopia,
+.colorblind-protanopia * {
+  filter: url('#protanopia');
+}
+
+.colorblind-deuteranopia,
+.colorblind-deuteranopia * {
+  filter: url('#deuteranopia');
+}
+
+.colorblind-tritanopia,
+.colorblind-tritanopia * {
+  filter: url('#tritanopia');
+}
+
+.colorblind-protanopia img,
+.colorblind-deuteranopia img,
+.colorblind-tritanopia img {
+  filter: inherit;
+}
+
+@media (prefers-color-scheme: dark) {
+  .high-contrast {
+    filter: contrast(1.3) brightness(1.2);
+  }
+}
+
+.high-contrast a,
+.high-contrast button {
+  text-decoration: underline !important;
+}
+
+.high-contrast img {
+  border: 2px solid currentColor !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+}
+
+[role="button"]:focus,
+button:focus,
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 3px solid #4A90E2 !important;
+  outline-offset: 2px !important;
+}
+
+[aria-hidden="true"] {
+  pointer-events: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+[vw] {
+  z-index: 10002 !important;
+}

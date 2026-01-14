@@ -25,6 +25,8 @@ const ProjectCompactViewComponent = ({ project, onViewDetails, language }: Proje
 
   return (
     <MotionBox
+      role="article"
+      aria-label={`Projeto: ${project.title[language as 'pt' | 'en']}${project.featured ? '. Projeto em destaque' : ''}`}
       bg={project.featured ? featuredBg : bg}
       borderWidth={project.featured ? "2px" : "1px"}
       borderColor={project.featured ? featuredBorder : borderColor}
@@ -32,9 +34,20 @@ const ProjectCompactViewComponent = ({ project, onViewDetails, language }: Proje
       overflow="hidden"
       cursor="pointer"
       onClick={() => onViewDetails(project)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onViewDetails(project);
+        }
+      }}
+      tabIndex={0}
       whileHover={{ scale: project.featured ? 1.08 : 1.05, y: -5 }}
       whileTap={{ scale: 0.95 }}
       transition="all 0.2s"
+      _focus={{
+        outline: '3px solid #4A90E2',
+        outlineOffset: '2px',
+      }}
       _hover={{ 
         borderColor: project.featured ? 'yellow.300' : 'blue.400', 
         bg: project.featured ? featuredBg : hoverBg,
@@ -93,7 +106,7 @@ const ProjectCompactViewComponent = ({ project, onViewDetails, language }: Proje
           >
             <LazyImage
               src={project.images?.[0] || '/assets/projects/placeholder.png'}
-              alt={project.title[language as 'pt' | 'en']}
+              alt={`Imagem do projeto ${project.title[language as 'pt' | 'en']}`}
               width="100%"
               height="100%"
               objectFit="contain"

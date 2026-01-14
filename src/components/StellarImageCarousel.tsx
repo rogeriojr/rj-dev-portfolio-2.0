@@ -17,6 +17,7 @@ import { css, keyframes } from '@emotion/react';
 import { PlanetSpinner } from './PlanetSpinner';
 import { Project } from '../types';
 import { useProjectImageBackground } from '../utils/projectUtils';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 
 interface StellarImageCarouselProps {
   images: string[];
@@ -47,6 +48,7 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
 
   const borderColor = useColorModeValue('gray.200', 'gray.700');
   const projectImageBg = project ? useProjectImageBackground(project, 'white', 'gray.800') : useColorModeValue('white', 'gray.800');
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     if (!isAutoPlaying || images.length <= 1) return;
@@ -84,7 +86,11 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
 
   if (!images || images.length === 0) return null;
 
-  const variants = {
+  const variants = reducedMotion ? {
+    enter: { opacity: 0 },
+    center: { opacity: 1 },
+    exit: { opacity: 0 },
+  } : {
     enter: (direction: number) => ({
       x: direction > 0 ? 1000 : -1000,
       opacity: 0,
@@ -145,7 +151,15 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
   };
 
   return (
-    <Box position="relative" w="full" mb={8}>
+    <Box 
+      position="relative" 
+      w="full" 
+      mb={8}
+      role="region"
+      aria-label="Galeria de imagens do projeto"
+      aria-live="polite"
+      aria-atomic="true"
+    >
       <Box
         position="absolute"
         inset={0}
@@ -218,8 +232,21 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
           justifyContent="center"
           cursor={onImageClick ? 'pointer' : 'default'}
           onClick={() => onImageClick?.(images[currentIndex])}
+          onKeyDown={(e) => {
+            if ((e.key === 'Enter' || e.key === ' ') && onImageClick) {
+              e.preventDefault();
+              onImageClick(images[currentIndex]);
+            }
+          }}
+          tabIndex={onImageClick ? 0 : -1}
+          role={onImageClick ? 'button' : undefined}
+          aria-label={onImageClick ? `Ampliar imagem ${currentIndex + 1} de ${images.length}` : undefined}
           p={{ base: 1, sm: 2, md: 3, lg: 4, xl: 6 }}
           overflow="hidden"
+          _focus={onImageClick ? {
+            outline: '3px solid #4A90E2',
+            outlineOffset: '2px',
+          } : {}}
         >
           <AnimatePresence mode="wait" custom={direction}>
             {imageErrors.has(currentIndex) ? (
@@ -230,7 +257,9 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
                 initial="enter"
                 animate="center"
                 exit="exit"
-                transition={{
+                transition={reducedMotion ? {
+                  opacity: { duration: 0.2 },
+                } : {
                   x: { type: 'spring', stiffness: 300, damping: 30 },
                   opacity: { duration: 0.2 },
                   scale: { duration: 0.3 },
@@ -256,18 +285,26 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
               <MotionImage
                 key={`${currentIndex}-${currentImage}`}
                 src={images[currentIndex]}
-                alt={`Project image ${currentIndex + 1}`}
+                alt={project 
+                  ? `Imagem ${currentIndex + 1} de ${images.length} do projeto ${project.title[project.title.pt ? 'pt' : 'en'] || 'projeto'}`
+                  : `Imagem ${currentIndex + 1} de ${images.length} da galeria`}
                 custom={direction}
                 variants={variants}
                 initial="enter"
                 animate="center"
                 exit="exit"
-                transition={{
+                transition={reducedMotion ? {
+                  opacity: { duration: 0.2 },
+                } : {
                   x: { type: 'spring', stiffness: 300, damping: 30 },
                   opacity: { duration: 0.2 },
                   scale: { duration: 0.3 },
                   rotateY: { duration: 0.3 },
                 }}
+                role="img"
+                aria-label={project 
+                  ? `Imagem ${currentIndex + 1} de ${images.length} do projeto ${project.title[project.title.pt ? 'pt' : 'en'] || 'projeto'}`
+                  : `Imagem ${currentIndex + 1} de ${images.length} da galeria`}
                 style={{
                   maxWidth: '100%',
                   maxHeight: '100%',
@@ -285,7 +322,6 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
                   });
                 }}
                 onError={() => {
-                  console.error(`Failed to load image: ${images[currentIndex]}`);
                   setImageErrors(prev => new Set(prev).add(currentIndex));
                   setImageLoading(prev => {
                     const next = new Set(prev);
@@ -320,7 +356,7 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
             bottom={0}
             bg="rgba(0, 0, 0, 0.5)"
             opacity={0}
-            transition="opacity 0.3s"
+            transition={reducedMotion ? "none" : "opacity 0.3s"}
             _hover={{ opacity: 1 }}
             display={{ base: 'none', md: 'flex' }}
             alignItems="center"
@@ -328,9 +364,10 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
             borderRadius={{ base: 'lg', md: 'xl' }}
             pointerEvents="none"
             zIndex={1}
+            aria-hidden="true"
           >
             <VStack spacing={{ base: 1, md: 2 }}>
-              <Icon as={FaSearchPlus} color="white" w={{ base: 8, md: 10 }} h={{ base: 8, md: 10 }} />
+              <Icon as={FaSearchPlus} color="white" w={{ base: 8, md: 10 }} h={{ base: 8, md: 10 }} aria-hidden="true" />
               <Text color="white" fontSize={{ base: 'xs', md: 'sm' }} fontWeight="medium" textAlign="center">
                 Clique para ampliar
               </Text>
@@ -341,7 +378,7 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
         {images.length > 1 && (
           <>
             <IconButton
-              aria-label="Previous image"
+              aria-label={`Imagem anterior. Atualmente na imagem ${currentIndex + 1} de ${images.length}`}
               icon={<FaChevronLeft />}
               position="absolute"
               left={{ base: 1, sm: 2, md: 3, lg: 4 }}
@@ -362,15 +399,25 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
               _active={{
                 transform: 'translateY(-50%) scale(0.9)',
               }}
+              _focus={{
+                outline: '3px solid #4A90E2',
+                outlineOffset: '2px',
+              }}
               onClick={(e) => {
                 e.stopPropagation();
                 goToPrevious();
               }}
-              transition="all 0.3s"
+              transition={reducedMotion ? "none" : "all 0.3s"}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  goToPrevious();
+                }
+              }}
             />
 
             <IconButton
-              aria-label="Next image"
+              aria-label={`Próxima imagem. Atualmente na imagem ${currentIndex + 1} de ${images.length}`}
               icon={<FaChevronRight />}
               position="absolute"
               right={{ base: 1, sm: 2, md: 3, lg: 4 }}
@@ -391,11 +438,21 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
               _active={{
                 transform: 'translateY(-50%) scale(0.9)',
               }}
+              _focus={{
+                outline: '3px solid #4A90E2',
+                outlineOffset: '2px',
+              }}
               onClick={(e) => {
                 e.stopPropagation();
                 goToNext();
               }}
-              transition="all 0.3s"
+              transition={reducedMotion ? "none" : "all 0.3s"}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  goToNext();
+                }
+              }}
             />
           </>
         )}
@@ -415,9 +472,9 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
             borderColor="rgba(255, 255, 255, 0.1)"
           >
             <HStack spacing={{ base: 1, sm: 1.5, md: 2 }} align="center">
-              <Icon as={FaRocket} color="yellow.400" w={{ base: 2.5, sm: 3, md: 3.5, lg: 4 }} h={{ base: 2.5, sm: 3, md: 3.5, lg: 4 }} />
-              <Text color="white" fontSize={{ base: '2xs', sm: 'xs', md: 'sm' }} fontWeight="bold">
-                {currentIndex + 1} / {images.length}
+              <Icon as={FaRocket} color="yellow.400" w={{ base: 2.5, sm: 3, md: 3.5, lg: 4 }} h={{ base: 2.5, sm: 3, md: 3.5, lg: 4 }} aria-hidden="true" />
+              <Text color="white" fontSize={{ base: '2xs', sm: 'xs', md: 'sm' }} fontWeight="bold" aria-live="polite" aria-atomic="true">
+                <span className="sr-only">Imagem</span> {currentIndex + 1} <span className="sr-only">de</span> / {images.length}
               </Text>
             </HStack>
           </Box>
@@ -470,17 +527,31 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
                   position="relative"
                   cursor="pointer"
                   onClick={() => goToSlideIndex(index)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      goToSlideIndex(index);
+                    }
+                  }}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`Ver imagem ${index + 1} de ${images.length}${isActive ? '. Imagem atual' : ''}`}
+                  aria-current={isActive ? 'true' : 'false'}
                   borderRadius="lg"
                   overflow="hidden"
                   border="2px solid"
                   borderColor={isActive ? 'purple.400' : 'gray.600'}
                   boxShadow={isActive ? '0 0 20px rgba(139, 92, 246, 0.6)' : '0 0 5px rgba(0, 0, 0, 0.3)'}
                   transform={isActive ? 'scale(1.08)' : 'scale(1)'}
-                  transition="all 0.3s ease"
-                  _hover={{
+                  transition={reducedMotion ? "none" : "all 0.3s ease"}
+                  _hover={reducedMotion ? {} : {
                     transform: 'scale(1.12)',
                     borderColor: isActive ? 'purple.300' : 'purple.500',
                     boxShadow: '0 0 25px rgba(139, 92, 246, 0.7)',
+                  }}
+                  _focus={{
+                    outline: '3px solid #4A90E2',
+                    outlineOffset: '2px',
                   }}
                   _active={{
                     transform: 'scale(1.05)',
@@ -497,7 +568,9 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
                 >
                   <Image
                     src={img}
-                    alt={`Thumbnail ${index + 1}`}
+                    alt={project 
+                      ? `Miniatura ${index + 1} de ${images.length} do projeto ${project.title[project.title.pt ? 'pt' : 'en'] || 'projeto'}`
+                      : `Miniatura ${index + 1} de ${images.length}`}
                     maxW="full"
                     maxH="full"
                     w="auto"
@@ -506,6 +579,10 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
                     opacity={isActive ? 1 : 0.7}
                     transition="opacity 0.3s"
                     filter={isActive ? 'none' : 'brightness(0.9)'}
+                    role="img"
+                    aria-label={project 
+                      ? `Miniatura ${index + 1} de ${images.length} do projeto ${project.title[project.title.pt ? 'pt' : 'en'] || 'projeto'}`
+                      : `Miniatura ${index + 1} de ${images.length}`}
                   />
                   {isActive && (
                     <Box
@@ -556,8 +633,9 @@ export function StellarImageCarousel({ images, onImageClick, project }: StellarI
             bg="linear-gradient(90deg, #6366f1, #8b5cf6)"
             initial={{ width: '0%' }}
             animate={{ width: '100%' }}
-            transition={{ duration: 5, ease: 'linear' }}
+            transition={reducedMotion ? { duration: 0.01 } : { duration: 5, ease: 'linear' }}
             key={currentIndex}
+            aria-hidden="true"
           />
         </Box>
       )}

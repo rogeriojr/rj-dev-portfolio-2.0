@@ -3,6 +3,7 @@ import { FaWhatsapp } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { useTranslation } from '../i18n/useTranslation';
 import { useFloatingButtonsConfig } from '../hooks/useFloatingButtonsConfig';
+import { useReducedMotion } from '../hooks/useReducedMotion';
 
 const WHATSAPP_NUMBER = '+5564981294566';
 
@@ -11,6 +12,7 @@ const MotionBox = motion(Box);
 export function WhatsAppButton() {
   const { language } = useTranslation();
   const { config, getButtonStyle } = useFloatingButtonsConfig();
+  const reducedMotion = useReducedMotion();
   const bg = useColorModeValue('#25D366', '#25D366');
   const hoverBg = useColorModeValue('#20BA5A', '#20BA5A');
   const boxShadowColor = useColorModeValue('rgba(37, 211, 102, 0.6)', 'rgba(37, 211, 102, 0.4)');
@@ -35,11 +37,11 @@ export function WhatsAppButton() {
     <MotionBox
       style={hasCustomPosition ? getButtonStyle('whatsapp') : undefined}
       position={hasCustomPosition ? undefined : "fixed"}
-      bottom={hasCustomPosition ? undefined : { base: '20px', md: '24px' }}
-      right={hasCustomPosition ? undefined : { base: '20px', md: '24px' }}
-      zIndex={hasCustomPosition ? undefined : 10000}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      bottom={hasCustomPosition ? undefined : { base: '20px', sm: '24px', md: '28px' }}
+      right={hasCustomPosition ? undefined : { base: '20px', sm: '24px', md: '28px' }}
+      zIndex={hasCustomPosition ? undefined : 9999}
+      whileHover={reducedMotion ? {} : { scale: 1.05 }}
+      whileTap={reducedMotion ? {} : { scale: 0.95 }}
       css={{ 
         pointerEvents: 'auto',
         isolation: 'isolate'
@@ -51,23 +53,31 @@ export function WhatsAppButton() {
         hasArrow
       >
         <IconButton
-          aria-label={language === 'pt' ? 'Abrir WhatsApp' : 'Open WhatsApp'}
+          aria-label={language === 'pt' ? 'Abrir conversa no WhatsApp em nova aba' : 'Open WhatsApp chat in new tab'}
           icon={<FaWhatsapp />}
           onClick={handleWhatsAppClick}
-          size="lg"
+          size="md"
           borderRadius="full"
+          minW="40px"
+          minH="40px"
+          w="40px"
+          h="40px"
           boxShadow={`0 4px 20px ${boxShadowColor}, 0 0 0 2px rgba(255, 255, 255, 0.1)`}
           bg={bg}
           color="white"
-          _hover={{
+          _hover={reducedMotion ? {} : {
             bg: hoverBg,
             boxShadow: `0 0 30px ${hoverBoxShadowColor}, 0 0 0 3px rgba(255, 255, 255, 0.2)`,
             transform: 'scale(1.1)',
           }}
+          _focus={{
+            outline: '3px solid #4A90E2',
+            outlineOffset: '2px',
+          }}
           _active={{
             transform: 'scale(0.95)',
           }}
-          transition="all 0.2s ease-in-out"
+          transition={reducedMotion ? "none" : "all 0.2s ease-in-out"}
           cursor="pointer"
           border="2px solid"
           borderColor={useColorModeValue('rgba(255, 255, 255, 0.3)', 'rgba(255, 255, 255, 0.1)')}

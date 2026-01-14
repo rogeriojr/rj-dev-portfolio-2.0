@@ -1,8 +1,11 @@
 import { Box } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useMemo, memo } from "react";
+import { useReducedMotion } from "../../hooks/useReducedMotion";
 
 export const FloatingStars = memo(({ count = 20 }: { count?: number }) => {
+  const reducedMotion = useReducedMotion();
+
   const stars = useMemo(() => {
     return Array.from({ length: count }, (_, i) => ({
       id: i,
@@ -14,6 +17,10 @@ export const FloatingStars = memo(({ count = 20 }: { count?: number }) => {
     }));
   }, [count]);
 
+  if (reducedMotion) {
+    return null;
+  }
+
   return (
     <Box
       position="fixed"
@@ -24,6 +31,7 @@ export const FloatingStars = memo(({ count = 20 }: { count?: number }) => {
       pointerEvents="none"
       zIndex={0}
       overflow="hidden"
+      aria-hidden="true"
     >
       {stars.map((star) => (
         <motion.div
@@ -38,11 +46,11 @@ export const FloatingStars = memo(({ count = 20 }: { count?: number }) => {
             background: 'rgba(255, 255, 255, 0.8)',
             boxShadow: '0 0 6px rgba(255, 255, 255, 0.8)',
           }}
-          animate={{
+          animate={reducedMotion ? {} : {
             opacity: [0.3, 1, 0.3],
             scale: [1, 1.5, 1],
           }}
-          transition={{
+          transition={reducedMotion ? {} : {
             duration: star.duration,
             repeat: Infinity,
             delay: star.delay,

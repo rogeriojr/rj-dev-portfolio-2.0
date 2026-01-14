@@ -20,11 +20,13 @@ import { LoadingSpinner } from "./LoadingSpinner";
 import { useEffect, useState } from "react";
 import { useTranslation } from "../i18n/useTranslation";
 import { useGamificationTracking } from "../hooks/useGamificationTracking";
+import { useReducedMotion } from "../hooks/useReducedMotion";
 
 export function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const { t } = useTranslation();
   const { trackSocialClick, trackCVDownload } = useGamificationTracking();
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -51,15 +53,16 @@ export function Home() {
           display={{ base: "none", md: "block" }}
         >
           <motion.div
-            animate={{
+            animate={reducedMotion ? {} : {
               rotate: [0, 360],
               scale: [1, 1.2, 1],
             }}
-            transition={{
+            transition={reducedMotion ? {} : {
               duration: 20,
               repeat: Infinity,
               ease: "linear",
             }}
+            aria-hidden="true"
           >
             <Icon as={IoPlanet} w={{ base: 20, md: 32 }} h={{ base: 20, md: 32 }} color="purple.400" />
           </motion.div>
@@ -75,15 +78,16 @@ export function Home() {
           display={{ base: "none", lg: "block" }}
         >
           <motion.div
-            animate={{
+            animate={reducedMotion ? {} : {
               y: [0, -30, 0],
               rotate: [0, 180, 360],
             }}
-            transition={{
+            transition={reducedMotion ? {} : {
               duration: 15,
               repeat: Infinity,
               ease: "easeInOut",
             }}
+            aria-hidden="true"
           >
             <Icon as={IoTelescope} w={{ base: 16, md: 24 }} h={{ base: 16, md: 24 }} color="cyan.400" />
           </motion.div>
@@ -99,12 +103,12 @@ export function Home() {
           flex={1}
         >
         <Stack spacing={{ base: 6, md: 6 }} maxW={{ base: "100%", lg: "600px" }} w="full" textAlign={{ base: "center", lg: "left" }}>
-          <Box
-            as={motion.div}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: "0.5s" }}
+          <motion.div
+            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
+            animate={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={reducedMotion ? { duration: 0.01 } : { duration: 0.5 }}
           >
+            <Box>
             <Heading
               as="h1"
               size={{ base: "xl", md: "2xl" }}
@@ -128,29 +132,32 @@ export function Home() {
             >
               {t('hero.subtitle')}
             </Heading>
-          </Box>
+            </Box>
+          </motion.div>
 
-          <Box
-            as={motion.div}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: "0.5s", delay: "0.2s" }}
+          <motion.div
+            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
+            animate={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={reducedMotion ? { duration: 0.01 } : { duration: 0.5, delay: 0.2 }}
           >
             <Text fontSize={{ base: "md", md: "lg", lg: "lg" }} color="gray.300" lineHeight="tall">
               {t('hero.description')}
             </Text>
-          </Box>
+          </motion.div>
 
-          <Stack
-            as={motion.div}
-            direction={{ base: "column", sm: "row" }}
-            spacing={{ base: 3, md: 4 }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: "0.5s", delay: "0.4s" }}
-            w={{ base: "full", sm: "auto" }}
-            align={{ base: "stretch", sm: "center" }}
+          <motion.div
+            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
+            animate={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={reducedMotion ? { duration: 0.01 } : { duration: 0.5, delay: 0.4 }}
           >
+            <Stack
+              direction={{ base: "column", sm: "row" }}
+              spacing={{ base: 3, md: 4 }}
+              w={{ base: "full", sm: "auto" }}
+              align={{ base: "stretch", sm: "center" }}
+              role="group"
+              aria-label="Ações principais"
+            >
             <Button
               size={{ base: "md", md: "lg" }}
               variant="solid"
@@ -159,10 +166,15 @@ export function Home() {
               bg="brand.yellow.400"
               color="brand.space.500"
               w={{ base: "full", sm: "auto" }}
-              _hover={{
+              aria-label="Ver projetos de desenvolvimento"
+              _hover={reducedMotion ? {} : {
                 bg: "brand.yellow.500",
                 transform: "translateY(-2px)",
                 boxShadow: "lg",
+              }}
+              _focus={{
+                outline: '3px solid #4A90E2',
+                outlineOffset: '2px',
               }}
             >
               {t('hero.viewProjects')}
@@ -174,9 +186,14 @@ export function Home() {
               to="/contact"
               borderColor="brand.yellow.400"
               color="brand.yellow.400"
-              _hover={{
+              aria-label="Ir para página de contato"
+              _hover={reducedMotion ? {} : {
                 bg: "brand.yellow.400",
                 color: "brand.space.500",
+              }}
+              _focus={{
+                outline: '3px solid #4A90E2',
+                outlineOffset: '2px',
               }}
             >
               {t('hero.contact')}
@@ -187,6 +204,7 @@ export function Home() {
               leftIcon={<FaBriefcase />}
               borderColor="brand.yellow.400"
               color="brand.yellow.400"
+              aria-label="Baixar currículo em PDF"
               onClick={(e) => {
                 e.preventDefault();
                 trackCVDownload();
@@ -198,27 +216,35 @@ export function Home() {
                 link.click();
                 document.body.removeChild(link);
               }}
-              _hover={{
+              _hover={reducedMotion ? {} : {
                 bg: "brand.yellow.400",
                 color: "brand.space.500",
+              }}
+              _focus={{
+                outline: '3px solid #4A90E2',
+                outlineOffset: '2px',
               }}
             >
               {t('hero.downloadCV')}
             </Button>
-          </Stack>
+            </Stack>
+          </motion.div>
 
-          <HStack
-            as={motion.div}
-            spacing={{ base: 6, md: 4 }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: "0.5s", delay: "0.6s" }}
-            justify={{ base: "center", md: "flex-start" }}
-            flexWrap="wrap"
-            w={{ base: "100%", md: "auto" }}
+          <motion.div
+            initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
+            animate={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            transition={reducedMotion ? { duration: 0.01 } : { duration: 0.5, delay: 0.6 }}
           >
+            <HStack
+              spacing={{ base: 6, md: 4 }}
+              justify={{ base: "center", md: "flex-start" }}
+              flexWrap="wrap"
+              w={{ base: "100%", md: "auto" }}
+              role="group"
+              aria-label="Links de redes sociais"
+            >
             <IconButton
-              aria-label="GitHub"
+              aria-label="Abrir perfil no GitHub em nova aba"
               icon={<FaGithub />}
               variant="ghost"
               fontSize={{ base: "24px", md: "24px" }}
@@ -231,12 +257,16 @@ export function Home() {
                 trackSocialClick('github');
                 window.open('https://github.com/rogeriojr', '_blank', 'noopener,noreferrer');
               }}
-              _hover={{ color: "brand.yellow.400", transform: "scale(1.1)" }}
+              _hover={reducedMotion ? {} : { color: "brand.yellow.400", transform: "scale(1.1)" }}
+              _focus={{
+                outline: '3px solid #4A90E2',
+                outlineOffset: '2px',
+              }}
               _active={{ transform: "scale(0.95)" }}
-              transition="all 0.2s"
+              transition={reducedMotion ? "none" : "all 0.2s"}
             />
             <IconButton
-              aria-label="LinkedIn"
+              aria-label="Abrir perfil no LinkedIn em nova aba"
               icon={<FaLinkedin />}
               variant="ghost"
               fontSize={{ base: "24px", md: "24px" }}
@@ -249,12 +279,16 @@ export function Home() {
                 trackSocialClick('linkedin');
                 window.open('https://www.linkedin.com/in/rogério-júnior-174719120/', '_blank', 'noopener,noreferrer');
               }}
-              _hover={{ color: "brand.yellow.400", transform: "scale(1.1)" }}
+              _hover={reducedMotion ? {} : { color: "brand.yellow.400", transform: "scale(1.1)" }}
+              _focus={{
+                outline: '3px solid #4A90E2',
+                outlineOffset: '2px',
+              }}
               _active={{ transform: "scale(0.95)" }}
-              transition="all 0.2s"
+              transition={reducedMotion ? "none" : "all 0.2s"}
             />
             <IconButton
-              aria-label="Workana"
+              aria-label="Abrir perfil na Workana em nova aba"
               icon={<FaBriefcase />}
               variant="ghost"
               fontSize={{ base: "24px", md: "24px" }}
@@ -267,28 +301,34 @@ export function Home() {
                 trackSocialClick('workana');
                 window.open('https://www.workana.com/freelancer/5aea67e6fd911e0c207642b63c50fb9d', '_blank', 'noopener,noreferrer');
               }}
-              _hover={{ color: "brand.yellow.400", transform: "scale(1.1)" }}
+              _hover={reducedMotion ? {} : { color: "brand.yellow.400", transform: "scale(1.1)" }}
+              _focus={{
+                outline: '3px solid #4A90E2',
+                outlineOffset: '2px',
+              }}
               _active={{ transform: "scale(0.95)" }}
-              transition="all 0.2s"
+              transition={reducedMotion ? "none" : "all 0.2s"}
             />
-          </HStack>
+            </HStack>
+          </motion.div>
         </Stack>
 
         <Box
           id="interactive-profile-wrapper"
           as={motion.div}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: "0.5s", delay: "0.6s" }}
-          position="relative"
+          initial={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.8 }}
+          animate={reducedMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+          transition={reducedMotion ? { duration: 0.01 } : { duration: 0.5, delay: 0.6 } as any}
           drag={false}
-          whileDrag={{ scale: 1.1 }}
-          whileHover={{ scale: 1.05 }}
+          whileDrag={reducedMotion ? {} : { scale: 1.1 }}
+          whileHover={reducedMotion ? {} : { scale: 1.05 }}
           display="flex"
           justifyContent={{ base: "center", lg: "flex-start" }}
           alignItems="center"
           w={{ base: "100%", lg: "auto" }}
           mb={{ base: 6, lg: 0 }}
+          position="relative"
+          aria-label="Foto de perfil"
         >
           <StyledProfileImage />
           <Tooltip label="💡 Dica: Clique 3 vezes para descobrir um easter egg!" placement="top">

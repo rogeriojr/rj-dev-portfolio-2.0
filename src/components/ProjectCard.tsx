@@ -18,6 +18,7 @@ import { useTranslation } from "../i18n/useTranslation";
 import { LazyImage } from "./LazyImage";
 import { memo } from "react";
 import { useProjectImageBackground } from "../utils/projectUtils";
+import { useReducedMotion } from "../hooks/useReducedMotion";
 
 interface ProjectCardProps {
   project: Project;
@@ -44,6 +45,7 @@ const ProjectCardComponent = ({
     "rgba(99, 179, 237, 0.3)"
   );
   const { t, language } = useTranslation();
+  const reducedMotion = useReducedMotion();
 
   if (!project) {
     return null;
@@ -52,15 +54,17 @@ const ProjectCardComponent = ({
   return (
     <AnimatePresence>
       <MotionBox
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
-        whileHover={{
+        role="article"
+        aria-label={`Projeto: ${project.title[language]}${project.featured ? '. Projeto em destaque' : ''}`}
+        initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
+        animate={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+        exit={reducedMotion ? { opacity: 0 } : { opacity: 0, y: -20 }}
+        whileHover={reducedMotion ? {} : {
           y: -8,
           scale: 1.02,
           boxShadow: `0 0 20px ${glowColor}, 0 0 40px ${glowColor}`,
         }}
-        transition={{
+        transition={reducedMotion ? {} : {
           duration: 0.3,
           ease: "easeOut",
           boxShadow: {
@@ -80,6 +84,17 @@ const ProjectCardComponent = ({
         h="100%"
         minH={{ base: "320px", md: "360px", lg: "380px" }}
         w="100%"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if ((e.key === 'Enter' || e.key === ' ') && onViewDetails) {
+            e.preventDefault();
+            onViewDetails(project);
+          }
+        }}
+        _focus={{
+          outline: '3px solid #4A90E2',
+          outlineOffset: '2px',
+        }}
         _before={{
           content: '""',
           position: "absolute",
@@ -167,14 +182,14 @@ const ProjectCardComponent = ({
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
-                transition="transform 0.3s ease"
-                _hover={{
+                transition={reducedMotion ? "none" : "transform 0.3s ease"}
+                _hover={reducedMotion ? {} : {
                   transform: "scale(1.05)",
                 }}
               >
                 <LazyImage
                   src={project.images[0]}
-                  alt={project.title[language]}
+                  alt={`Imagem do projeto ${project.title[language]}`}
                   width="100%"
                   height="100%"
                   objectFit="contain"
@@ -287,11 +302,16 @@ const ProjectCardComponent = ({
                     display="inline-flex"
                     alignItems="center"
                     fontSize={{ base: "xs", md: "sm" }}
-                    _hover={{
+                    aria-label={`Abrir ${link.texto || 'link'} em nova aba`}
+                    _hover={reducedMotion ? {} : {
                       color: "blue.300",
                       transform: "translateY(-1px)",
                     }}
-                    transition="all 0.2s"
+                    _focus={{
+                      outline: '3px solid #4A90E2',
+                      outlineOffset: '2px',
+                    }}
+                    transition={reducedMotion ? "none" : "all 0.2s"}
                     wordBreak="break-all"
                   >
                     <Icon
@@ -315,13 +335,18 @@ const ProjectCardComponent = ({
                 onClick={() => {
                   onViewDetails?.(project);
                 }}
+                aria-label={`Ver detalhes do projeto ${project.title[language]}`}
                 bgGradient="linear(to-r, blue.400, purple.500)"
                 color="white"
                 fontSize={{ base: "xs", md: "sm" }}
-                _hover={{
+                _hover={reducedMotion ? {} : {
                   bgGradient: "linear(to-r, blue.500, purple.600)",
                   transform: "translateY(-2px)",
                   boxShadow: "0 0 15px rgba(66, 153, 225, 0.4)",
+                }}
+                _focus={{
+                  outline: '3px solid #4A90E2',
+                  outlineOffset: '2px',
                 }}
                 _active={{
                   transform: "scale(0.95)",

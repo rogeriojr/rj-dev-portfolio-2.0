@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import Navbar from "../Navbar";
 import { LoadingSpinner } from "../LoadingSpinner";
+import { useReducedMotion } from "../../hooks/useReducedMotion";
 
 const MotionContainer = motion(Container);
 
@@ -33,9 +34,16 @@ const pageVariants = {
   },
 };
 
+const reducedMotionVariants = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 },
+};
+
 export default function Layout() {
   const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -53,11 +61,14 @@ export default function Layout() {
         <MotionContainer
           key={location.pathname}
           as="main"
+          id="main-content"
+          role="main"
+          aria-label="Conteúdo principal"
           maxW="container.xl"
           pt={{ base: 20, md: 24 }}
           pb={{ base: 8, md: 12, lg: 16 }}
           px={{ base: 3, md: 4, lg: 6 }}
-          variants={pageVariants}
+          variants={reducedMotion ? reducedMotionVariants : pageVariants}
           initial="initial"
           animate="animate"
           exit="exit"

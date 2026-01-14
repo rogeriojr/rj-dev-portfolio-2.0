@@ -136,9 +136,6 @@ export function ProjectDetails() {
             setProject(null);
           }
         } catch (error) {
-          if (process.env.NODE_ENV === 'development') {
-            console.error("Error fetching project:", error);
-          }
         } finally {
           setLoading(false);
         }
@@ -223,7 +220,12 @@ export function ProjectDetails() {
           fontSize={{ base: "xs", sm: "sm", md: "md" }}
           onClick={() => navigate(-1)}
           _hover={{ bg: "transparent", color: "brand.yellow.400" }}
+          _focus={{
+            outline: '3px solid #4A90E2',
+            outlineOffset: '2px',
+          }}
           w={{ base: "100%", sm: "auto" }}
+          aria-label="Voltar para lista de projetos"
         >
           {t('projects.backToList')}
         </Button>
@@ -263,13 +265,15 @@ export function ProjectDetails() {
                 >
                   <Image
                     src={coverImage}
-                    alt={`${project.title[language]} Logo`}
+                    alt={`Logo do projeto ${project.title[language]}`}
                     maxH={{ base: "80px", sm: "100px", md: "120px", lg: "150px" }}
                     maxW="100%"
                     mx="auto"
                     objectFit="contain"
                     cursor="pointer"
                     onClick={() => handleImageClick(coverImage)}
+                    role="img"
+                    aria-label={`Logo do projeto ${project.title[language]}. Clique para ampliar`}
                   />
                 </Box>
               )}
@@ -329,6 +333,7 @@ export function ProjectDetails() {
                       as="a"
                       href={link.url}
                       target="_blank"
+                      rel="noopener noreferrer"
                       variant="outline"
                       colorScheme="blue"
                       width="full"
@@ -336,10 +341,15 @@ export function ProjectDetails() {
                       fontSize={{ base: "2xs", sm: "xs", md: "sm" }}
                       leftIcon={<FaExternalLinkAlt />}
                       _hover={{ bg: "blue.50" }}
+                      _focus={{
+                        outline: '3px solid #4A90E2',
+                        outlineOffset: '2px',
+                      }}
                       wordBreak="break-word"
                       whiteSpace="normal"
                       textAlign="center"
                       px={{ base: 2, sm: 4 }}
+                      aria-label={`Abrir ${link.texto} em nova aba`}
                     >
                       {link.texto}
                     </Button>
@@ -378,22 +388,30 @@ export function ProjectDetails() {
 
             <Divider borderColor="gray.700" w="100%" />
 
-            <Box w="full" className="project-markdown" color="white" overflow="hidden" minW={0}>
+            <Box 
+              w="full" 
+              className="project-markdown" 
+              color="white" 
+              overflow="hidden" 
+              minW={0}
+              role="article"
+              aria-label={`Conteúdo detalhado do projeto ${project.title[language]}`}
+            >
               <Suspense fallback={
-                <Box display="flex" justifyContent="center" alignItems="center" py={8}>
+                <Box display="flex" justifyContent="center" alignItems="center" py={8} aria-label="Carregando conteúdo">
                   <PlanetSpinner size={80} />
                 </Box>
               }>
                 <ReactMarkdown
                   components={{
-                    h1: ({ ...props }) => <Heading size={{ base: "md", sm: "lg", md: "xl" }} mt={{ base: 4, sm: 6, md: 8 }} mb={3} {...props} color="white" wordBreak="break-word" />,
-                    h2: ({ ...props }) => <Heading size={{ base: "sm", sm: "md", md: "lg" }} mt={{ base: 4, sm: 6, md: 8 }} mb={3} color="blue.400" {...props} wordBreak="break-word" />,
-                    h3: ({ ...props }) => <Heading size={{ base: "xs", sm: "sm", md: "md" }} mt={{ base: 3, sm: 4, md: 6 }} mb={2} color="purple.400" {...props} wordBreak="break-word" />,
-                    p: ({ ...props }) => <Text fontSize={{ base: "sm", sm: "md", md: "lg" }} lineHeight="1.8" mb={{ base: 3, sm: 4, md: 6 }} color="gray.200" {...props} wordBreak="break-word" />,
-                    ul: ({ ...props }) => <Box as="ul" pl={{ base: 3, sm: 4, md: 6 }} mb={{ base: 3, sm: 4, md: 6 }} {...props} />,
-                    li: ({ ...props }) => <Box as="li" mb={2} fontSize={{ base: "sm", sm: "md", md: "lg" }} color="gray.200" {...props} wordBreak="break-word" />,
-                    strong: ({ ...props }) => <Text as="span" fontWeight="bold" color="white" {...props} />,
-                    img: ({ ...props }) => <Image {...props} maxW="100%" h="auto" borderRadius="md" my={4} />,
+                    h1: ({ ...props }) => <Heading as="h1" size={{ base: "md", sm: "lg", md: "xl" }} mt={{ base: 4, sm: 6, md: 8 }} mb={3} {...props} color="white" wordBreak="break-word" />,
+                    h2: ({ ...props }) => <Heading as="h2" size={{ base: "sm", sm: "md", md: "lg" }} mt={{ base: 4, sm: 6, md: 8 }} mb={3} color="blue.400" {...props} wordBreak="break-word" />,
+                    h3: ({ ...props }) => <Heading as="h3" size={{ base: "xs", sm: "sm", md: "md" }} mt={{ base: 3, sm: 4, md: 6 }} mb={2} color="purple.400" {...props} wordBreak="break-word" />,
+                    p: ({ ...props }) => <Text as="p" fontSize={{ base: "sm", sm: "md", md: "lg" }} lineHeight="1.8" mb={{ base: 3, sm: 4, md: 6 }} color="gray.200" {...props} wordBreak="break-word" />,
+                    ul: ({ ...props }) => <Box as="ul" pl={{ base: 3, sm: 4, md: 6 }} mb={{ base: 3, sm: 4, md: 6 }} role="list" {...props} />,
+                    li: ({ ...props }) => <Box as="li" mb={2} fontSize={{ base: "sm", sm: "md", md: "lg" }} color="gray.200" role="listitem" {...props} wordBreak="break-word" />,
+                    strong: ({ ...props }) => <Text as="strong" fontWeight="bold" color="white" {...props} />,
+                    img: ({ src, alt, ...props }) => <Image src={src || ''} alt={alt || 'Imagem do projeto'} maxW="100%" h="auto" borderRadius="md" my={4} role="img" {...props} />,
                   }}
                 >
                   {project.content[language]}
@@ -422,13 +440,15 @@ export function ProjectDetails() {
             {selectedImage && (
               <Image
                 src={selectedImage}
-                alt="Enlarged view"
+                alt={project ? `Imagem ampliada do projeto ${project.title[language]}` : "Imagem ampliada"}
                 maxH={{ base: "80vh", sm: "85vh", md: "90vh" }}
                 maxW="100%"
                 w="auto"
                 h="auto"
                 borderRadius="lg"
                 objectFit="contain"
+                role="img"
+                aria-label={project ? `Imagem ampliada do projeto ${project.title[language]}` : "Imagem ampliada"}
               />
             )}
           </ModalBody>

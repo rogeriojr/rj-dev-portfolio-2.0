@@ -25,6 +25,8 @@ const ProjectListViewComponent = ({ project, onViewDetails, language }: ProjectL
 
   return (
     <MotionBox
+      role="article"
+      aria-label={`Projeto: ${project.title[language as 'pt' | 'en']}${project.featured ? '. Projeto em destaque' : ''}`}
       bg={project.featured ? featuredBg : bg}
       borderWidth={project.featured ? "2px" : "1px"}
       borderColor={project.featured ? featuredBorder : borderColor}
@@ -40,10 +42,21 @@ const ProjectListViewComponent = ({ project, onViewDetails, language }: ProjectL
       transition="all 0.2s"
       cursor="pointer"
       onClick={() => onViewDetails(project)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onViewDetails(project);
+        }
+      }}
+      tabIndex={0}
       whileHover={{ scale: project.featured ? 1.03 : 1.02, x: { base: 0, md: 5 } }}
       whileTap={{ scale: 0.98 }}
       w="100%"
       minH={{ base: "150px", sm: "180px", md: "200px" }}
+      _focus={{
+        outline: '3px solid #4A90E2',
+        outlineOffset: '2px',
+      }}
       _before={project.featured ? {
         content: '""',
         position: 'absolute',
@@ -127,7 +140,7 @@ const ProjectListViewComponent = ({ project, onViewDetails, language }: ProjectL
             >
               <LazyImage
                 src={project.images?.[0] || '/assets/projects/placeholder.png'}
-                alt={project.title[language as 'pt' | 'en']}
+                alt={`Imagem do projeto ${project.title[language as 'pt' | 'en']}`}
                 width="100%"
                 height="100%"
                 objectFit="contain"

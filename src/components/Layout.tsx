@@ -19,6 +19,8 @@ import { GamificationBadge } from "./Gamification/GamificationBadge";
 import { useGamificationTracking } from "../hooks/useGamificationTracking";
 import { WhatsAppButton } from "./WhatsAppButton";
 import { CommandCenter } from "./CommandCenter/CommandCenter";
+import { AccessibilityToolbar } from "./Accessibility/AccessibilityToolbar";
+import { SkipLinks } from "./Accessibility/SkipLinks";
 
 export function Layout() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -163,7 +165,9 @@ export function Layout() {
   );
 
   return (
-    <Box
+    <>
+      <SkipLinks />
+      <Box
       minH="100vh"
       display="flex"
       flexDirection="column"
@@ -204,6 +208,9 @@ export function Layout() {
     >
       <Box
         as="nav"
+        id="navigation"
+        role="navigation"
+        aria-label="Navegação principal"
         position={isMenuFixed || (isMobile && isInLab) ? "fixed" : "relative"}
         top={0}
         left={0}
@@ -353,6 +360,9 @@ export function Layout() {
       </Box>
 
       <Box
+        id="main-content"
+        role="main"
+        aria-label="Conteúdo principal"
         flex={1}
         position="relative"
         zIndex={1}
@@ -365,6 +375,7 @@ export function Layout() {
         overflowX="hidden"
         w="100%"
         maxW="100vw"
+        tabIndex={-1}
       >
         <Outlet />
       </Box>
@@ -372,6 +383,9 @@ export function Layout() {
       {!isInLab && (
         <Box
           as="footer"
+          id="footer"
+          role="contentinfo"
+          aria-label="Rodapé"
           bg={navBgColor}
           color={textColor}
           py={6}
@@ -436,6 +450,9 @@ export function Layout() {
           }
         }}
       />
+      
+      <AccessibilityToolbar />
     </Box>
+    </>
   );
 }

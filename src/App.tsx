@@ -1,4 +1,5 @@
 import "./App.css";
+import "./styles/accessibility.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
@@ -10,6 +11,7 @@ import theme from "./theme";
 import { AdminRoute, Layout, LoadingSpinner } from "./components";
 import { AuthProvider } from "./contexts/AuthContext";
 import { LanguageProvider } from "./i18n/LanguageContext";
+import { AccessibilityProvider } from "./contexts/AccessibilityContext";
 
 const Home = lazy(() => import("./components/Home").then(module => ({ default: module.Home })));
 const About = lazy(() => import("./components/About").then(module => ({ default: module.About })));
@@ -146,9 +148,11 @@ export function App() {
   return (
     <AuthProvider>
       <LanguageProvider>
-        <ChakraProvider theme={theme}>
-          <RouterProvider router={router} />
-        </ChakraProvider>
+        <AccessibilityProvider>
+          <ChakraProvider theme={theme}>
+            <RouterProvider router={router} />
+          </ChakraProvider>
+        </AccessibilityProvider>
       </LanguageProvider>
     </AuthProvider>
   );
